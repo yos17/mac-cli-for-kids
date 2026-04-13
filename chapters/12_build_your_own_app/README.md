@@ -692,8 +692,8 @@ You have it now.
 
 ---
 
-*— Dad (Yosia)*
+*— Yosia*
 
-*P.S. I am proud of you. Not because you finished the book, but because you opened Terminal in the first place. That takes courage. Most adults will not do it.*
+*P.S. Be proud of yourself. Not because you finished the book, but because you opened Terminal in the first place. That takes courage. Most adults will not do it.*
 
 *You did.*

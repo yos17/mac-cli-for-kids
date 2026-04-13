@@ -1,12 +1,12 @@
 # Terminal Quest: Detective Academy
 
-### A mission-based Terminal adventure for curious kids — written by Dad, for you
+### A mission-based Terminal adventure for curious kids
 
 ---
 
-*This book is for my daughter — who is already braver than she knows. Every time you open a Terminal window, you're doing something most adults are afraid to try. That makes you a detective.*
+*This book is for anyone who is already braver than they know. Every time you open a Terminal window, you're doing something most adults are afraid to try. That makes you a detective.*
 
-*— Dad (Yosia)*
+*— Yosia*
 
 ---
 

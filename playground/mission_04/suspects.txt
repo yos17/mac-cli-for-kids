@@ -1,0 +1,41 @@
+TERMINAL DETECTIVE AGENCY
+SUSPECTS DATABASE — CASE 2026-TDA-0099
+========================================
+
+SUSPECT #1: DR. EVELYN MARSH
+  Age: 52
+  Last known location: The Central Library
+  Known for: Forgery, document theft
+  Alias: "The Librarian"
+  Notes: Drives a dark blue sedan. Wears reading glasses.
+
+SUSPECT #2: MARCUS VOLKOV
+  Age: 38
+  Last known location: Harbor District
+  Known for: Data smuggling, encrypted communications
+  Alias: "The Architect"
+  Notes: Expert programmer. Never leaves digital traces... or so he thinks.
+
+SUSPECT #3: ZELLA HUANG
+  Age: 29
+  Last known location: Unknown
+  Known for: Social engineering, impersonation
+  Alias: "The Ghost" (unofficial — confusing with Agent GHOST)
+  Notes: Changes appearance frequently. Very good at blending in.
+
+SUSPECT #4: AUGUSTINE REYES
+  Age: 44
+  Last known location: Eastside Tech Hub
+  Known for: Network intrusion, unauthorized access
+  Alias: "AugR" online
+  Notes: Hacker community connections. Frequents late-night diners.
+
+SUSPECT #5: PETRA SOVA
+  Age: 61
+  Last known location: Old Quarter
+  Known for: Fence for stolen data, money laundering
+  Alias: "The Broker"
+  Notes: Legitimate antique shop as cover. Very cautious.
+
+STATUS: All five are persons of interest. None confirmed guilty.
+Investigation ongoing.

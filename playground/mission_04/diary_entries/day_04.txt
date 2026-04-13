@@ -1,0 +1,33 @@
+DETECTIVE DIARY — DAY 4
+=======================
+
+BIG day.
+
+Agent BLADE taught me about hidden files today.
+Files that START WITH A DOT are invisible to regular ls.
+You have to use ls -la to see them.
+
+I checked my own computer and found a folder called .old_passwords
+from approximately three years ago.
+
+Inside was a file with passwords including:
+  password123
+  myfavoritecat
+  qwerty
+
+I changed all of them immediately.
+
+Director Chen says hidden files are used for configuration,
+for secrets, for things that should not be casually visible.
+"Hiding in plain sight," she called it.
+
+The dot at the front is like a cloak.
+Useful for good detectives. Also used by criminals.
+
+That is why knowing about hidden files matters.
+
+New mission tomorrow: the big one.
+A real suspect. Real encrypted files.
+Agent STORM says I am ready.
+
+I am terrified and excited.

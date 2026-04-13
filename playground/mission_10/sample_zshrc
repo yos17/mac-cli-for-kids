@@ -1,0 +1,68 @@
+# ================================================
+# TERMINAL DETECTIVE AGENCY
+# SAMPLE AGENT CONFIGURATION FILE (.zshrc)
+# ================================================
+# Copy useful parts of this into your real ~/.zshrc
+# Then run: source ~/.zshrc  to activate changes
+
+# --- WHO AM I? ---
+MY_NAME="Agent ROOKIE"     # change to your codename!
+
+# --- PROMPT ---
+# This makes your prompt show your codename + current folder
+# Purple name, yellow folder, white percent sign
+export PS1="\[\e[35m\]\u \[\e[33m\]\W \[\e[0m\]% "
+
+# For a detective-themed prompt:
+# export PS1="\[\e[35m\]TDA:\[\e[33m\]\W\[\e[0m\] > "
+
+# --- ALIASES (SHORTCUT COMMANDS) ---
+
+# Better file listing
+alias ll="ls -la"           # detailed list including hidden files
+alias la="ls -la"           # same
+alias l="ls -lG"            # colored detailed list
+
+# Navigation shortcuts
+alias ..="cd .."            # go up one level
+alias ...="cd ../.."        # go up two levels
+alias home="cd ~"           # go home from anywhere
+alias finder="open ."       # open current folder in Finder
+
+# Safety nets (asks before deleting!)
+alias rm="rm -i"            # always ask before rm
+alias cp="cp -i"            # ask before overwriting with cp
+alias mv="mv -i"            # ask before overwriting with mv
+
+# Detective tools
+alias search="grep -r"      # shortcut: search text [term] [folder]
+alias bigfiles="find ~ -size +100M 2>/dev/null"  # find large files
+
+# Fun
+alias today="date +'%A, %B %d, %Y'"  # print today's date nicely
+alias myip="curl -s ifconfig.me"      # show your public IP
+
+# --- FUNCTIONS ---
+
+# Make a folder AND move into it in one step
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+    echo "Created and moved into: $1"
+}
+
+# Quick search for a file by name
+findfile() {
+    find ~ -name "*$1*" 2>/dev/null
+}
+
+# Count files in any folder
+countfiles() {
+    ls "${1:-.}" | grep -c "."
+}
+
+# --- WELCOME MESSAGE ---
+# This runs every time you open a new Terminal window
+echo ""
+echo "Welcome back, $(whoami)! Terminal Detective Agency — always watching."
+echo "Today is $(date +'%A, %B %d, %Y')"
+echo ""

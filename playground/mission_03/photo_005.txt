@@ -1,0 +1,7 @@
+CRIME SCENE PHOTO #05
+========================
+Timestamp: 2026-04-05 02:05:00
+Location: 42 Cipher Lane, Apt 7
+Description: Photo taken during initial sweep.
+Evidence status: Unprocessed.
+Photographer: Agent GHOST

@@ -1,0 +1,31 @@
+DETECTIVE DIARY — DAY 7
+=======================
+
+Last entry before the big operation.
+
+Tomorrow the full team deploys. The target: a suspect known only
+as "The Architect." They've been hiding data across dozens of servers
+using encrypted files and misleading filenames.
+
+Director Chen briefed us at 0700.
+She said: "We find them because we are better at searching
+than they are at hiding."
+
+I have been practicing all week.
+  cat — read any file
+  less — scroll through long ones
+  head/tail — peek at beginning or end
+  grep — find anything, anywhere, in seconds
+  >> and > — write to files without losing data
+
+I am ready.
+
+One more thing: I found an encrypted clue in the case file.
+It was base64 encoded. I used:   echo "[code]" | base64 -d
+And it decoded instantly.
+
+The clue said something about a RED hat.
+I will follow up on this tomorrow.
+
+Wish me luck, Diary.
+This is what all the training was for.

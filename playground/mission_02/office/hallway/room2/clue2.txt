@@ -1,0 +1,21 @@
+EVIDENCE TAG #2
+===============
+
+Location found: Office hallway, Room 2
+Condition: Folded neatly on the floor
+
+The note reads:
+  "The suspect was seen entering the building at 2am.
+   They went directly to the basement.
+   They carried a large envelope marked: CLASSIFIED.
+   They left without it."
+
+   -- Night security log, excerpt
+
+DETECTIVE NOTE:
+Excellent navigation! You found Clue 2.
+The basement is your next destination.
+
+From here:
+  cd ../..       -- back up to the hallway level
+  cd ../basement -- into the basement

@@ -1,12 +1,14 @@
-# Mission 3 — Creating & Destroying
+# Mission 3 — The Messy Crime Scene
 
 ## Mission Briefing
 
-You know how to explore. Now you're going to *build*. 
+*Director Chen's voice crackles over the radio: "Rookie, get to 42 Cipher Lane. The previous investigator left evidence files EVERYWHERE. Before any analysis can begin, you need to bring order to the chaos. Organize the crime scene. Now."*
 
-Every programmer has a set of projects on their computer. Keeping them organized is actually half the skill. Today you learn to create folders, create files, copy things, move things, and delete things — all from the command line.
+You know how to explore. Now you're going to *build*.
 
-The dangerous part: **deleting from Terminal is permanent**. There's no Trash. No Undo. Gone means gone. You'll learn how to be careful.
+Every detective has organized files. Keeping them organized is half the skill. Today you learn to create folders, move files, copy things, and delete things — all from the command line.
+
+**The crime scene is in `playground/mission_03/`. It's a mess. Fix it.**
 
 ### What You'll Learn
 - `mkdir` — make a new folder
@@ -14,7 +16,7 @@ The dangerous part: **deleting from Terminal is permanent**. There's no Trash. N
 - `cp` — copy a file or folder
 - `mv` — move or rename
 - `rm` — delete (carefully!)
-- How to organize a messy Downloads folder
+- How to use wildcards to move many files at once
 
 ---
 
@@ -23,40 +25,18 @@ The dangerous part: **deleting from Terminal is permanent**. There's no Trash. N
 ### `mkdir` — Make Directory
 
 ```bash
-mkdir my_projects
+mkdir evidence
 ```
 
-Check it:
-```bash
-ls
-```
-
-`my_projects` is now there! Make several at once:
+Make the whole path at once using `-p`:
 
 ```bash
-mkdir art code music writing
+mkdir -p evidence/photos
+mkdir -p evidence/notes
+mkdir -p evidence/reports
 ```
 
-Make a folder *inside* another folder:
-
-```bash
-mkdir my_projects/games
-mkdir my_projects/art
-mkdir my_projects/school
-```
-
-Make the whole path at once (parent folders too), using `-p`:
-
-```bash
-mkdir -p secret_stuff/level1/level2/level3
-```
-
-Without `-p`, if `secret_stuff` doesn't exist, `mkdir` would complain. With `-p`, it creates everything in the path.
-
-Check the result:
-```bash
-ls secret_stuff/level1/level2/
-```
+Without `-p`, if `evidence` doesn't exist, `mkdir` complains. With `-p`, it creates everything in the path.
 
 ---
 
@@ -65,16 +45,9 @@ ls secret_stuff/level1/level2/
 ### `touch` — Create an Empty File
 
 ```bash
-touch diary.txt
-ls -l diary.txt
+touch report.txt
+ls -l report.txt
 ```
-
-Output:
-```
--rw-r--r--  1 sophia  staff  0 Apr 13 11:00 diary.txt
-```
-
-The file exists and is 0 bytes (empty). `touch` was originally made to update a file's timestamp, but creating empty files is its most common use today.
 
 Create multiple files at once:
 
@@ -92,28 +65,14 @@ The `*.txt` is a **wildcard** — it matches all files ending in `.txt`.
 ### `cp` — Copy
 
 ```bash
-cp diary.txt diary_backup.txt
-ls *.txt
+cp report.txt report_backup.txt
 ```
 
-Output:
-```
-diary.txt  diary_backup.txt  ideas.txt  notes.txt  todo.txt
-```
-
-Both exist now. Copy to a different folder:
+Copy an entire folder (you need `-r` for recursive):
 
 ```bash
-cp diary.txt my_projects/diary.txt
+cp -r evidence evidence_backup
 ```
-
-Copy an entire folder (you need `-r` for "recursive" — copy everything inside too):
-
-```bash
-cp -r my_projects my_projects_backup
-```
-
-Without `-r`, `cp` refuses to copy folders. With `-r`, it copies the folder AND everything inside it.
 
 ---
 
@@ -124,26 +83,22 @@ Without `-r`, `cp` refuses to copy folders. With `-r`, it copies the folder AND 
 Move a file to a different folder:
 
 ```bash
-mv notes.txt my_projects/
-ls my_projects/
+mv report.txt evidence/
 ```
 
-The file is now in `my_projects/`, gone from its original location.
-
-**Rename** a file (same command, different use):
+**Rename** a file:
 
 ```bash
-mv todo.txt my_todo_list.txt
-ls *.txt
+mv old_name.txt new_name.txt
 ```
 
-`mv` is "move" — but if you move a file to the same folder with a different name, it just renames it.
-
-Move and rename at the same time:
+Move ALL matching files using wildcards:
 
 ```bash
-mv ideas.txt my_projects/brilliant_ideas.txt
+mv photo_*.txt evidence/photos/
 ```
+
+This is where `mv` becomes a superpower!
 
 ---
 
@@ -152,39 +107,22 @@ mv ideas.txt my_projects/brilliant_ideas.txt
 ### `rm` — Remove
 
 ```bash
-rm diary_backup.txt
+rm junk_file.txt
 ```
 
-It's gone. No confirmation, no Trash, no undo. That's it.
+It's gone. No Trash. No undo. That's it.
 
-Check:
-```bash
-ls *.txt
-```
-
-`diary_backup.txt` is no longer there.
-
-**Always double-check before deleting:**
+Delete a folder and everything in it:
 
 ```bash
-ls my_projects_backup/   # look first
-rm -r my_projects_backup # then delete
+rm -r old_folder/
 ```
 
-Delete a folder and everything in it: you need `-r` (recursive).
-
-**The `-i` flag asks before each deletion:**
+**Ask before each deletion:**
 
 ```bash
-rm -i my_todo_list.txt
+rm -i suspicious_file.txt
 ```
-
-Output:
-```
-remove my_todo_list.txt? 
-```
-
-Type `y` and Enter to confirm, `n` to cancel.
 
 ### What NOT to Do
 
@@ -192,23 +130,26 @@ Type `y` and Enter to confirm, `n` to cancel.
 - `rm -rf /` — deletes your entire operating system
 - `rm -rf ~` — deletes your entire home folder
 
-Good news: modern macOS has protections against the first one. But the second one will delete everything in your home folder. So: **be careful with `rm -r`, and always know what you're deleting.**
+**Always double-check before deleting with wildcards:**
+
+```bash
+ls junk*.txt         # see what matches first
+rm junk*.txt         # then delete
+```
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Build a practice folder and then tear it down.
+**Experiment 1:** Create a test folder and tear it down.
 
 ```bash
-mkdir practice_folder
-touch practice_folder/file1.txt practice_folder/file2.txt
-ls practice_folder/
-rm -r practice_folder
+mkdir test_folder
+touch test_folder/file1.txt test_folder/file2.txt
+ls test_folder/
+rm -r test_folder
 ls
 ```
-
-Notice: gone completely.
 
 **Experiment 2:** Rename a folder.
 
@@ -218,17 +159,7 @@ mv old_name new_name
 ls
 ```
 
-**Experiment 3:** Copy and then compare.
-
-```bash
-touch original.txt
-cp original.txt copy_of_original.txt
-ls -l *.txt
-```
-
-Both should have the same size (0 bytes). Both should be there.
-
-**Experiment 4:** The wildcard deleter.
+**Experiment 3:** The wildcard power.
 
 ```bash
 touch junk1.txt junk2.txt junk3.txt
@@ -237,108 +168,68 @@ rm junk*.txt
 ls *.txt
 ```
 
-`junk*.txt` matches any file starting with "junk" and ending with ".txt". Wildcards are very powerful — and dangerous. Make sure you know what they'll match before using `rm` with them.
-
 ---
 
 ## Pro Tip — Check Before You Wreck
 
-Before any dangerous `rm` command, first run `ls` with the same pattern:
+Before any dangerous `rm` command, run `ls` with the same pattern first:
 
 ```bash
-# Before deleting, SEE what you'd be deleting:
-ls junk*
-# Output: junk1.txt  junk2.txt  junk3.txt  junkfood_recipes.txt
-
-# Then delete (if you're sure):
-rm junk*
+ls photo_*         # see what you'd be deleting
+rm photo_*         # then delete (only if you're sure!)
 ```
-
-If `junkfood_recipes.txt` was on that list and you didn't want to delete it — good thing you checked first!
 
 ---
 
-## Your Mission — Organize a Messy Downloads Folder
+## Your Mission — Organize the Crime Scene at 42 Cipher Lane
 
-Downloads folders get messy. Let's pretend yours is a disaster and organize it.
-
-First, create a fake messy Downloads area (we'll work in a test folder, not your real Downloads):
-
+**Step 1:** Navigate to the crime scene:
 ```bash
-mkdir ~/test_downloads
-cd ~/test_downloads
-
-# Create fake messy files
-touch photo_vacation.jpg
-touch photo_birthday.png
-touch photo_dog.jpg
-touch essay_english.docx
-touch essay_history.pdf
-touch essay_science.docx
-touch song_favorite.mp3
-touch song_summer.mp3
-touch video_funny.mp4
-touch installer_game.dmg
-touch installer_app.pkg
-```
-
-Check the mess:
-```bash
+cd playground/mission_03
 ls
 ```
 
-Output:
-```
-essay_english.docx  installer_app.pkg  photo_birthday.png  song_favorite.mp3  video_funny.mp4
-essay_history.pdf   installer_game.dmg  photo_dog.jpg      song_summer.mp3
-essay_science.docx  photo_vacation.jpg
-```
+You'll see 20+ files in total chaos.
 
-Now organize it:
-
+**Step 2:** Read the briefing:
 ```bash
-# Create organized subfolders
-mkdir Photos
-mkdir Documents
-mkdir Music
-mkdir Videos
-mkdir Installers
-
-# Move photos
-mv photo_vacation.jpg Photos/
-mv photo_birthday.png Photos/
-mv photo_dog.jpg Photos/
-
-# Move documents
-mv essay_english.docx Documents/
-mv essay_history.pdf Documents/
-mv essay_science.docx Documents/
-
-# Move music
-mv song_favorite.mp3 Music/
-mv song_summer.mp3 Music/
-
-# Move videos
-mv video_funny.mp4 Videos/
-
-# Move installers
-mv installer_game.dmg Installers/
-mv installer_app.pkg Installers/
+cat case_briefing.txt
 ```
 
-Check the result:
+**Step 3:** Create the evidence folder structure:
 ```bash
-ls
-ls Photos/
-ls Documents/
-ls Music/
+mkdir -p evidence/photos
+mkdir -p evidence/notes
+mkdir -p evidence/reports
 ```
 
-Clean! Now let's clean up our test:
-
+**Step 4:** Move all the photos at once (wildcard power!):
 ```bash
-cd ~
-rm -r test_downloads
+mv photo_*.txt evidence/photos/
+```
+
+**Step 5:** Move the notes:
+```bash
+mv note_?.txt evidence/notes/
+```
+
+**Step 6:** Move the reports:
+```bash
+mv report_draft.txt evidence/reports/
+mv report_final.txt evidence/reports/
+```
+
+**Step 7:** Check the organized crime scene:
+```bash
+ls evidence/photos/
+ls evidence/notes/
+ls evidence/reports/
+```
+
+**Step 8:** Find and read the hidden code:
+```bash
+ls -la
+cat .secret_code.txt
 ```
 
 ---
@@ -350,32 +241,30 @@ rm -r test_downloads
 Create this exact folder structure:
 
 ```
-~/my_project/
-├── src/
-├── docs/
-├── tests/
-└── notes.txt
+my_case/
+├── evidence/
+├── suspects/
+├── notes/
+└── summary.txt
 ```
 
-**Hint:** Use `mkdir -p` for the folders and `touch` for the file.
+**Hint:** Use `mkdir -p` for folders and `touch` for the file.
 
 ### Challenge 2 — The Backup
 
-Copy your `~/my_project` folder to `~/my_project_backup`. Then verify both exist with `ls ~`.
+Make a complete copy of `playground/mission_03/evidence/` to `playground/mission_03/evidence_backup/`. Verify both exist.
 
-**Hint:** You need `-r` to copy a folder.
+**Hint:** `cp -r` to copy a folder.
 
 ### Challenge 3 — Rename Your Files
 
-Inside `~/my_project/src/`, create three files: `program1.txt`, `program2.txt`, `program3.txt`. Then rename them to `script1.sh`, `script2.sh`, `script3.sh` using `mv`.
-
-**Hint:** You'll need one `mv` command per file.
+Inside `my_case/evidence/`, create three files: `clue_a.txt`, `clue_b.txt`, `clue_c.txt`. Rename them to `evidence_001.txt`, `evidence_002.txt`, `evidence_003.txt` using `mv`.
 
 ### Challenge 4 — Cleanup
 
-Delete `~/my_project_backup` completely. Then verify it's gone with `ls ~`.
+Delete your `my_case/` folder completely. Verify it's gone.
 
-**Hint:** `rm -r` to delete a folder and its contents.
+**Hint:** `rm -r my_case/`
 
 ---
 
@@ -408,6 +297,6 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 ---
 
-*You can now build and demolish. With great power comes great responsibility — especially with `rm`.*
+*You brought order to chaos. That's what detectives do.*
 
 *Ready for Mission 4?*

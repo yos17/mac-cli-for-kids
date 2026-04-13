@@ -1,0 +1,41 @@
+TERMINAL DETECTIVE AGENCY
+CASE BRIEFING — MISSION 02
+===========================
+
+OPERATION: LOST FILES
+CLASSIFICATION: Rookie Training
+ASSIGNED TO: Agent Rookie
+
+SITUATION:
+An anonymous tip came in. Someone left evidence scattered through
+the old TDA office building. The building has multiple floors and
+hidden rooms. You must navigate the entire structure to recover all
+the clues.
+
+THE BUILDING LAYOUT:
+  office/
+  ├── hallway/
+  │   ├── room1/        <-- start here
+  │   └── room2/        <-- check this too
+  └── basement/
+      ├── (something is here)
+      └── vault/
+          └── locked/   <-- the treasure map is in here
+
+YOUR MISSION:
+1. Navigate into the office building
+   Command: cd office
+2. Explore each room using ls and cd
+3. Find clue1.txt, clue2.txt, and clue3.txt
+4. Recover the treasure_map.txt from the vault
+
+KEY COMMANDS YOU'LL NEED:
+  cd [folder]    — move into a folder
+  cd ..          — go up one level
+  ls             — list what's here
+  pwd            — where am I right now?
+  cat [file]     — read a file
+
+The evidence is waiting. Move fast, detective.
+
+-- Director Chen

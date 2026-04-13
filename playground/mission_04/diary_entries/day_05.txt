@@ -1,0 +1,26 @@
+DETECTIVE DIARY — DAY 5
+=======================
+
+I used the less command today to scroll through a massive file.
+200 pages of surveillance transcripts.
+
+It took a while. But I found something.
+On page 147, one witness mentioned the name "Veracruz."
+Nobody had flagged it. The previous analyst missed it entirely.
+
+Why? Because they were reading it by hand, line by line.
+I searched with / in less and found it in seconds.
+
+Director Chen promoted me from Rookie to Junior Agent.
+I now have a real codename pending: TBD.
+
+Agent CIPHER said the / search in less is "the detective's shortcut."
+She is right about everything.
+
+Also learned: head shows the first lines of a file.
+tail shows the last lines.
+tail -f watches a file in real time as new lines are added.
+This is incredibly useful for watching log files during an operation.
+
+Tomorrow: the Veracruz lead gets investigated.
+I will need grep. Definitely grep.

@@ -1,0 +1,45 @@
+TERMINAL DETECTIVE AGENCY
+CASE BRIEFING — MISSION 03
+===========================
+
+OPERATION: MESSY CRIME SCENE
+CLASSIFICATION: Rookie Training
+ASSIGNED TO: Agent Rookie
+
+SITUATION:
+You've arrived at the crime scene at 42 Cipher Lane.
+The previous investigator left files EVERYWHERE.
+Before any analysis can begin, you must organize the chaos.
+
+CURRENT MESS (check with: ls)
+  photo_001.txt to photo_010.txt   — crime scene photographs
+  note_a.txt to note_e.txt         — handwritten notes
+  report_draft.txt                 — draft incident report
+  report_final.txt                 — approved incident report
+  random_junk1.txt to junk3.txt    — NOT evidence (discard or ignore)
+  case_briefing.txt                — this file
+  .secret_code.txt                 — hidden (find it last!)
+
+YOUR MISSION:
+Organize ALL evidence files into this structure:
+
+  evidence/
+  ├── photos/      ← photo_001.txt through photo_010.txt go here
+  ├── notes/       ← note_a.txt through note_e.txt go here
+  └── reports/     ← report_draft.txt and report_final.txt go here
+
+COMMANDS YOU'LL NEED:
+  mkdir -p evidence/photos        — create folder structure
+  mv photo_001.txt evidence/photos/  — move a file
+  mv photo_*.txt evidence/photos/    — move ALL photo files at once!
+  ls evidence/photos/             — check your work
+
+WILDCARD HINT:
+The * symbol matches anything. So:
+  mv photo_*.txt evidence/photos/   moves ALL photo files at once
+  mv note_?.txt evidence/notes/     moves note_a through note_z
+
+Good luck. Director Chen is watching.
+
+-- Director Chen
+   "Order from chaos. That is detective work."

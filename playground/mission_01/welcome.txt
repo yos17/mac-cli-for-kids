@@ -1,0 +1,37 @@
+TERMINAL DETECTIVE AGENCY
+OFFICIAL WELCOME LETTER
+========================
+
+EYES ONLY — NEW RECRUIT
+
+Agent,
+
+Congratulations on joining the Terminal Detective Agency (TDA).
+
+You have been selected because of your exceptional potential. Director Chen
+herself reviewed your file and said: "This one is different. This one will
+go far."
+
+Your training begins immediately.
+
+FIRST FIVE COMMANDS — MEMORIZE THEM:
+
+  whoami     — confirms your identity (who are you, agent?)
+  date       — checks the current timestamp (time is critical!)
+  echo       — sends messages to the screen
+  say        — your voice, amplified (Mac only)
+  clear      — cleans your workspace
+
+Start here. Type each one. See what happens. The Terminal does not lie.
+
+One more thing: this agency hides secrets in hidden files.
+Files starting with a dot (.) are invisible to casual observers.
+Use  ls -la  to reveal them.
+
+There is a hidden file in this very folder. Find it.
+
+Good luck, Rookie.
+
+  -- Director Chen
+     Terminal Detective Agency
+     "In Data We Trust"

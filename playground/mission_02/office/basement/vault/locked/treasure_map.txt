@@ -1,0 +1,29 @@
+TERMINAL DETECTIVE AGENCY
+RECOVERED DOCUMENT — TREASURE MAP
+===================================
+
+CONGRATULATIONS, DETECTIVE!
+
+You navigated through:
+  office/
+  office/hallway/room1/
+  office/hallway/room2/
+  office/basement/
+  office/basement/vault/
+  office/basement/vault/locked/    <-- YOU ARE HERE
+
+You found all three clues and the treasure map.
+
+THE MAP REVEALS:
+  The real treasure isn't gold or jewels.
+  The treasure is knowing how to find anything
+  on any computer, no matter how deeply it's buried.
+
+  A detective who can navigate the filesystem
+  can navigate anything.
+
+MISSION STATUS: COMPLETE
+NEXT MISSION: The Messy Crime Scene (Mission 3)
+
+Now go find the .secret_code.txt file in the mission_02 folder!
+(It's two levels up from office/ — use cd to get back there)

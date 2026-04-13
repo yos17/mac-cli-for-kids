@@ -1,0 +1,29 @@
+DETECTIVE DIARY — DAY 6
+=======================
+
+Rain all day. Nobody came in to the office.
+I stayed late reading old case files.
+
+Found a case from 2019 involving a forger named "The Librarian."
+They hid stolen documents inside normal-looking files.
+Renamed the files to look like grocery lists and birthday reminders.
+Nobody thought to look inside.
+
+Then Agent NOVA searched every file for the word "invoice" with grep.
+Found 47 matches in files labeled "cat photos" and "recipes."
+
+Case solved. The Librarian arrested.
+All because of: grep -r "invoice" ~/documents/
+
+I am writing this down because it is important.
+The content of a file is more revealing than its name.
+ALWAYS search inside files, not just at file names.
+
+This is why: cat, less, head, tail, grep.
+Read everything. Search everything. Assume nothing.
+
+Agent PRISM made coffee tonight. We talked until midnight.
+She told me about the time she found a stolen painting
+hidden as a .png file renamed to shopping_list.txt.
+
+I want to be Agent PRISM when I grow up.

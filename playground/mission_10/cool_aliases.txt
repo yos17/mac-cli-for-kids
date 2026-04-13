@@ -1,0 +1,45 @@
+COOL ALIASES FOR YOUR .zshrc
+=============================
+Pick your favorites and add them to ~/.zshrc
+
+NAVIGATION:
+  alias ..="cd .."
+  alias ...="cd ../.."
+  alias home="cd ~"
+  alias desk="cd ~/Desktop"
+  alias docs="cd ~/Documents"
+  alias dl="cd ~/Downloads"
+
+FILE LISTING:
+  alias ll="ls -la"               # detailed list with hidden files
+  alias lh="ls -lah"              # human-readable file sizes
+  alias ls="ls -G"                # colorize ls always
+
+DETECTIVE TOOLS:
+  alias findit="find . -name"     # findit "*.txt" to find text files
+  alias search="grep -r"          # search "word" . to search everywhere
+  alias biggest="du -sh * | sort -rh | head -10"  # biggest files/folders
+
+SAFETY:
+  alias rm="rm -i"                # always ask before deleting
+  alias cp="cp -i"                # ask before overwriting
+
+FUN:
+  alias today="date +'%A, %B %d, %Y'"
+  alias myip="curl -s ifconfig.me"
+  alias weather="curl -s wttr.in/?format=3"   # quick weather!
+  alias joke="curl -s https://official-joke-api.appspot.com/random_joke"
+  alias catfact="curl -s https://catfact.ninja/fact"
+
+TIME SAVERS:
+  alias reload="source ~/.zshrc"  # reload your config after editing
+  alias zshconfig="nano ~/.zshrc" # open your config for editing
+  alias finder="open ."           # open current folder in Finder
+
+HOW TO ADD THEM:
+  1. Open your config: nano ~/.zshrc
+  2. Paste the alias lines you want
+  3. Save with Ctrl+O, then Enter
+  4. Exit with Ctrl+X
+  5. Reload: source ~/.zshrc
+  6. Test: type the alias name and press Enter!

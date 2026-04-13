@@ -1,0 +1,29 @@
+DETECTIVE DIARY — DAY 3
+=======================
+
+I solved the sandwich mystery.
+
+Using grep, I searched through 200 lines of break room access logs
+in approximately 4 seconds. Four. Seconds.
+
+The culprit: Agent NOVA.
+She genuinely believed the communal fridge was for sharing.
+She was not malicious. She was just confused about ownership.
+
+Director Chen made her buy everyone lunch as apology.
+I had a club sandwich. It was excellent.
+
+LESSON LEARNED:
+grep is the most powerful tool I have encountered so far.
+It can search a file for any word or pattern.
+It can search ALL files in a folder at once.
+It is like a superpower for finding things.
+
+I asked Agent CIPHER what her favorite command was.
+She said grep without hesitating.
+
+I understand now.
+
+Also: I almost deleted my entire notes folder with rm.
+I typed rm instead of rm -i and caught myself just in time.
+From now on: ALWAYS look before you rm.

@@ -1,0 +1,24 @@
+DETECTIVE DIARY — DAY 2
+=======================
+
+Stakeout day. Agent SWIFT and I watched the TDA break room
+for six hours because someone keeps stealing Agent GHOST's sandwiches.
+
+I used the date command to log exact timestamps of everyone
+who entered the break room. I logged 47 sandwich-adjacent events.
+
+Agent GHOST was not impressed.
+Agent SWIFT was very patient about it.
+Director Chen said my documentation was "thorough, if excessive."
+
+MYSTERY UPDATE:
+The sandwich thief is still at large.
+Suspects narrowed to: Agent NOVA (she claims the fridge is "communal"),
+Agent BLADE (suspiciously well-fed), and Agent PRISM (no alibi).
+
+I am going to solve this.
+The Terminal never lies. The logs never lie.
+
+Tomorrow: learning to write to files with >> and >
+Apparently >> adds to a file and > replaces it.
+Important distinction. Do not mix them up.

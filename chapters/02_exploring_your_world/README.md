@@ -1,42 +1,41 @@
-# Mission 2 — Exploring Your World
+# Mission 2 — The Lost Files
 
 ## Mission Briefing
 
-Every video game has a map. In Minecraft, you explore a world made of blocks. In Zelda, you explore dungeons and overworld. Your Mac's file system is exactly like that — a world full of folders (dungeons) and files (treasure chests).
+*A new message from Director Chen: "Evidence has been scattered through the old TDA office building. The building has multiple floors and locked rooms. Navigate through it and recover all three clues — and the treasure map hidden in the vault."*
 
-The difference is that in Finder, you can only see what's in front of you. In Terminal, you can see *everything* — where you are, what's around you, and jump to any location instantly with a single command.
+Every detective needs to navigate. In Finder, you can only see what's in front of you. In Terminal, you can see *everything* — where you are, what's around you, and jump anywhere instantly.
 
-Today you learn to navigate your Mac like a pro explorer.
+The old TDA office building is waiting in `playground/mission_02/`. It's a maze of nested folders. Your job: explore every room.
 
 ### What You'll Learn
 - `pwd` — where am I right now?
 - `ls` — what's here?
 - `cd` — move to a different place
-- How Mac's file system is organized
-- How to draw a map of your home folder
+- How Mac's file system is organized like a building
+- How to navigate deep nested folders
 
 ---
 
 ## Understanding the Map
 
-Your Mac's files are organized like a tree. Everything starts from the **root** — written as `/` (a single forward slash). From there, branches go out:
+Your Mac's files are organized like a building. Everything starts from the **root** — written as `/`. From there, floors and rooms branch out:
 
 ```
-/                          ← root (the trunk of the tree)
+/                          ← root (the lobby)
 ├── Users/
 │   └── sophia/            ← YOUR home folder (~)
 │       ├── Desktop/
 │       ├── Documents/
 │       ├── Downloads/
-│       ├── Pictures/
-│       ├── Music/
-│       └── Movies/
+│       └── playground/
+│           └── mission_02/
+│               └── office/    ← the TDA building!
 ├── Applications/
-├── System/
-└── Library/
+└── System/
 ```
 
-Your **home folder** is the most important place. It's where all your personal files live. The terminal shortcut for it is `~` (the tilde character, top-left of your keyboard).
+Your **home folder** is the most important place. The terminal shortcut for it is `~` (tilde, top-left of keyboard).
 
 ---
 
@@ -55,8 +54,6 @@ Output:
 /Users/sophia
 ```
 
-This is your **current directory** (directory = folder). The terminal is always "inside" some folder, just like how Finder always has a window open somewhere.
-
 ---
 
 ### `ls` — List
@@ -67,51 +64,19 @@ This is your **current directory** (directory = folder). The terminal is always 
 ls
 ```
 
-Output:
-```
-Desktop    Documents  Downloads  Library    Movies
-Music      Pictures   Public
-```
-
-Those are all the folders in your home folder! Try with more detail:
+Show more detail:
 
 ```bash
 ls -l
 ```
 
-Output:
-```
-total 0
-drwx------+  3 sophia  staff    96 Apr 13 09:00 Desktop
-drwx------+  3 sophia  staff    96 Apr 10 14:22 Documents
-drwx------+  6 sophia  staff   192 Apr 12 16:45 Downloads
-drwx------@ 78 sophia  staff  2496 Apr  1 11:30 Library
-drwx------+  3 sophia  staff    96 Mar 15 08:11 Movies
-drwx------+  3 sophia  staff    96 Mar 15 08:11 Music
-drwx------+  4 sophia  staff   128 Apr  8 19:22 Pictures
-drwxr-xr-x+  4 sophia  staff   128 Mar 15 08:11 Public
-```
-
-The `-l` flag means "long format" — it shows extra info like file size and the date it was last changed.
-
-See hidden files too:
+Show hidden files too:
 
 ```bash
 ls -la
 ```
 
-The `-a` flag means "all" — it shows hidden files (files starting with `.` are hidden):
-
-```
-drwxr-xr-x+  28 sophia  staff   896 Apr 13 10:22 .
-drwxr-xr-x    6 root    wheel   192 Mar 15 08:11 ..
--rw-r--r--    1 sophia  staff  1872 Apr 10 09:45 .zshrc
--rw-r--r--    1 sophia  staff   180 Mar 15 08:12 .zprofile
-drwx------+   3 sophia  staff    96 Apr 13 09:00 Desktop
-...
-```
-
-The `.` means "this folder itself" and `..` means "the folder above this one."
+The `-a` flag shows files starting with `.` — these are hidden.
 
 ---
 
@@ -121,30 +86,15 @@ The `.` means "this folder itself" and `..` means "the folder above this one."
 
 ```bash
 cd Documents
-```
-
-Now check where you are:
-```bash
 pwd
 ```
-Output:
-```
-/Users/sophia/Documents
-```
 
-You moved! Go back up one level:
+Go back up one level:
 ```bash
 cd ..
 ```
 
-`..` always means "the folder above me." Check again:
-```bash
-pwd
-```
-Output:
-```
-/Users/sophia
-```
+`..` always means "the folder above me."
 
 Go home from anywhere:
 ```bash
@@ -155,8 +105,6 @@ Or just:
 ```bash
 cd
 ```
-
-(Just typing `cd` with nothing after it always takes you home.)
 
 ---
 
@@ -170,27 +118,21 @@ Start typing a folder name and press **Tab**:
 cd Doc[TAB]
 ```
 
-It auto-completes to `Documents`! If there are multiple matches, press Tab twice to see them all.
+It auto-completes to `Documents`! If multiple matches, press Tab twice.
 
-Tab completion works for file names too. Use it constantly — it saves time and prevents typos.
+### Absolute vs Relative Paths
 
-### Paths — Absolute vs Relative
-
-There are two ways to specify a location:
-
-**Absolute path** — starts from the root `/`:
+**Absolute path** — starts from root `/`:
 ```bash
 cd /Users/sophia/Documents
 ```
-This works from anywhere.
+Works from anywhere.
 
-**Relative path** — starts from where you are now:
+**Relative path** — starts from where you are:
 ```bash
 cd Documents
 ```
-This only works if you're already in your home folder.
-
-Think of it like directions: "Go to 123 Main Street" (absolute) vs "Turn left at the corner" (relative — only makes sense if you know where you're standing).
+Only works if you're already in your home folder.
 
 ---
 
@@ -206,105 +148,106 @@ cd ~
 pwd
 ```
 
-You traveled to the Applications folder, looked around, and came back home.
+**Experiment 2:** Look into a folder without entering it.
 
-**Experiment 2:** Go up two levels at once.
+```bash
+ls ~/Desktop
+ls ~/Downloads
+```
+
+**Experiment 3:** Go up two levels at once.
 
 ```bash
 cd ~/Downloads
-pwd
 cd ../..
 pwd
 ```
 
-`../..` means "go up one level, then up again." Where did you end up?
-
-**Experiment 3:** List your Desktop contents.
+**Experiment 4:** Start exploring the TDA building!
 
 ```bash
-ls ~/Desktop
+cd playground/mission_02
+ls
+cat case_briefing.txt
 ```
-
-You can `ls` a folder without being inside it by putting the path after `ls`.
-
-**Experiment 4:** Use `ls` on the whole system.
-
-```bash
-ls /
-```
-
-Output:
-```
-Applications  Library  System  Users  Volumes  bin  etc  home  opt  private  sbin  tmp  usr  var
-```
-
-These are ALL the top-level folders on your Mac. Most of them are system stuff — don't worry about them for now.
 
 ---
 
 ## Pro Tip — `ls` Colors
 
-Your terminal might already show folders in one color and files in another. If not, you can enable colors with:
+Your terminal can show folders in one color and files in another:
 
 ```bash
 ls -G
 ```
 
-The `-G` flag turns on color output. In Mission 10 you'll set this as the permanent default so you never have to type `-G` again.
+In Mission 10 you'll set this as the permanent default.
 
 ---
 
-## Your Mission — Draw a Map of Your Home Folder
+## Your Mission — Navigate the TDA Office Building
 
-You're going to explore your home folder and its contents, then "draw" a map using `echo` commands.
+The agency has hidden evidence through the office building. Recover it all.
 
-First, gather information:
-
+**Step 1:** Read the case briefing:
 ```bash
-cd ~
+cd playground/mission_02
+cat case_briefing.txt
+```
+
+**Step 2:** Enter the building:
+```bash
+cd office
 ls
 ```
 
-Now look inside a few key folders:
-
+**Step 3:** Navigate to Room 1 and read the clue:
 ```bash
-ls Documents
-ls Downloads
-ls Desktop
-ls Pictures
+cd hallway/room1
+cat clue1.txt
 ```
 
-Now create your map! Replace what you see with your actual folder contents:
-
+**Step 4:** Go to Room 2 (it's right next to Room 1):
 ```bash
-echo "============================================"
-echo "        MAP OF SOPHIA'S COMPUTER            "
-echo "============================================"
-echo ""
-echo "~ (Home Folder: /Users/sophia)"
-echo "|"
-echo "+-- Desktop/"
-echo "|"
-echo "+-- Documents/"
-echo "|   +-- (your documents here)"
-echo "|"
-echo "+-- Downloads/"
-echo "|   +-- (your downloads here)"
-echo "|"
-echo "+-- Pictures/"
-echo "|   +-- (your photos here)"
-echo "|"
-echo "+-- Music/"
-echo "|"
-echo "+-- Movies/"
-echo "|"
-echo "+-- Public/"
-echo ""
-echo "Total folders found:"
-ls ~ | wc -l
+cd ../room2
+cat clue2.txt
 ```
 
-The last line uses `wc -l` to count lines (we'll learn more about that in Mission 6). It tells you how many items are in your home folder.
+**Step 5:** Head to the basement:
+```bash
+cd ../../basement
+cat clue3.txt
+ls
+```
+
+**Step 6:** Go all the way to the vault:
+```bash
+cd vault/locked
+cat treasure_map.txt
+```
+
+**Step 7:** Come back home and find the secret code:
+```bash
+cd ~
+cd playground/mission_02
+ls -la
+cat .secret_code.txt
+```
+
+**Bonus — Draw a map of your journey using echo:**
+```bash
+echo "MAP OF THE TDA OFFICE BUILDING"
+echo "================================"
+echo "office/"
+echo "├── hallway/"
+echo "│   ├── room1/    ← clue1.txt found here"
+echo "│   └── room2/    ← clue2.txt found here"
+echo "└── basement/"
+echo "    ├── clue3.txt ← found here"
+echo "    └── vault/"
+echo "        └── locked/"
+echo "            └── treasure_map.txt ← RECOVERED!"
+```
 
 ---
 
@@ -312,41 +255,36 @@ The last line uses `wc -l` to count lines (we'll learn more about that in Missio
 
 ### Challenge 1 — The Deep Dive
 
-Navigate into your Documents folder, then into the deepest subfolder you can find (keep using `cd foldername` to go deeper). Then use `pwd` to show where you ended up. Then come back home in one command.
+Starting from your home folder, navigate to `playground/mission_02/office/basement/vault/locked/` in ONE command using the full relative path. Then use `pwd` to verify where you are.
 
-**Hint:** Remember `cd ~` takes you home from anywhere.
+**Hint:** `cd playground/mission_02/office/basement/vault/locked`
 
 ### Challenge 2 — The Speed Tour
 
-Without leaving the home folder (no `cd`), use `ls` to peek inside each of these folders:
-- Desktop
-- Documents  
-- Downloads
-- Pictures
+Without leaving your home folder (no `cd`), use `ls` to peek inside each of these locations:
+- `playground/mission_02/office/hallway/room1/`
+- `playground/mission_02/office/basement/`
+- `playground/mission_02/office/basement/vault/locked/`
 
-**Hint:** `ls ~/Desktop` works without you having to move there first.
+**Hint:** `ls playground/mission_02/office/hallway/room1/` works without moving.
 
 ### Challenge 3 — Count the Files
 
-How many items are in your Downloads folder?
+How many items are in `playground/mission_02/office/hallway/`?
 
 ```bash
-ls ~/Downloads | wc -l
+ls playground/mission_02/office/hallway/ | grep -c "."
 ```
-
-That `|` (pipe) and `wc -l` is a sneak peek at Mission 6. `wc -l` counts lines. So this counts how many things `ls` printed.
-
-Can you find which folder in your home directory has the MOST items in it?
 
 ### Challenge 4 — The Hidden World
 
-Show all hidden files in your home folder:
+Show all hidden files in `playground/mission_02/`:
 
 ```bash
-ls -la ~ | grep "^\."
+ls -la playground/mission_02/
 ```
 
-Write down (or remember) at least 3 hidden files you find. What do you think `.zshrc` might be for? (We'll open it in Mission 10!)
+How many hidden files can you find? What do they start with?
 
 ---
 
@@ -360,15 +298,15 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 | Command | What It Does |
 |---------|-------------|
-| `pwd` | Shows your current folder (Print Working Directory) |
-| `ls` | Lists files and folders in current directory |
-| `ls -l` | Lists with details (size, date, permissions) |
+| `pwd` | Shows your current folder |
+| `ls` | Lists files and folders |
+| `ls -l` | Lists with details |
 | `ls -la` | Lists everything including hidden files |
 | `ls path/` | Lists contents of a specific folder |
 | `cd foldername` | Move into a folder |
 | `cd ..` | Go up one level |
-| `cd ~` | Go to your home folder |
-| `cd /absolute/path` | Go to an exact location anywhere on your Mac |
+| `cd ~` | Go to your home folder from anywhere |
+| `cd /absolute/path` | Go to an exact location |
 
 ### Vocabulary
 
@@ -378,10 +316,10 @@ Solutions are in the [solutions folder](solutions/README.md).
 - **Root** — the very top of the file system: `/`
 - **Absolute path** — a path starting from `/`
 - **Relative path** — a path starting from where you are now
-- **Tab completion** — pressing Tab to auto-complete file/folder names
+- **Tab completion** — pressing Tab to auto-complete names
 
 ---
 
-*The map is in your head now. You know how to find anything, go anywhere, and always find your way home.*
+*You navigated the building. Found the clues. Recovered the map. That's detective work.*
 
 *Ready for Mission 3?*

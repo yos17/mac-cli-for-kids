@@ -1,0 +1,24 @@
+TERMINAL DETECTIVE AGENCY
+OFFICIAL CASE ASSIGNMENT
+=========================
+
+TO: Agent NAME
+DATE: DATE
+CASE NUMBER: CASE_NUMBER
+
+You have been officially assigned to investigate the above case.
+
+Your objectives:
+  1. Report to HQ within 24 hours of receiving this notice
+  2. Review all available evidence files
+  3. Submit initial findings within 72 hours
+  4. Maintain radio silence unless contact is absolutely necessary
+
+This assignment comes directly from Director Chen.
+Do not discuss this case with anyone outside the agency.
+
+Good luck, Agent NAME. The agency is counting on you.
+
+  -- Director Chen
+     Terminal Detective Agency
+     CASE_NUMBER

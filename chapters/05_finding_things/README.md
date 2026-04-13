@@ -1,10 +1,12 @@
-# Mission 5 — Finding Things
+# Mission 5 — The Missing Witness
 
 ## Mission Briefing
 
-A real detective never panics when something is missing. They have methods. They search systematically and find things that others can't.
+*"A key witness has gone missing," Director Chen says, sliding a folder across the desk. "Her name is somewhere in those 30+ files. I don't have time to read them all. You do. Find her."*
 
-Today you become a file detective. You'll learn to find any file on your entire Mac, search inside files for specific words or patterns, and build a "finder" toolkit you can use anytime.
+A real detective never panics when something is missing. They have methods. They search systematically. With `grep`, you can search through hundreds of files in seconds and find exactly what you're looking for.
+
+**The witness is hidden in `playground/mission_05/`. Find her.**
 
 ### What You'll Learn
 - `find` — locate files anywhere on your Mac
@@ -16,7 +18,7 @@ Today you become a file detective. You'll learn to find any file on your entire 
 
 ## The `find` Command
 
-`find` searches for files by name, type, size, date, and more. Its basic shape is:
+`find` searches for files by name, type, size, date, and more:
 
 ```
 find [where to search] [what to look for]
@@ -24,46 +26,25 @@ find [where to search] [what to look for]
 
 ### Find by Name
 
-Find all `.txt` files in your home folder:
+Find all `.txt` files starting from your home folder:
 
 ```bash
 find ~ -name "*.txt"
 ```
 
-The `~` says "search starting from home folder." The `-name "*.txt"` says "match anything ending in .txt."
-
-Find an exact file:
-
-```bash
-find ~ -name "journal.txt"
-```
-
-Find case-insensitively (matches `Journal.txt`, `JOURNAL.TXT`, etc.):
+Find case-insensitively:
 
 ```bash
 find ~ -iname "journal.txt"
 ```
 
----
-
 ### Find by Type
 
-`-type f` = files only
-`-type d` = directories only
+`-type f` = files only, `-type d` = directories only:
 
 ```bash
-find ~ -type d -name "projects"
+find playground/mission_05 -type f -name "report_*.txt"
 ```
-
-Finds all folders named "projects" in your home folder.
-
-```bash
-find ~/Downloads -type f -name "*.jpg"
-```
-
-Finds all JPEG images in Downloads.
-
----
 
 ### Find by Size
 
@@ -73,16 +54,6 @@ Find files larger than 100 megabytes:
 find ~ -size +100M
 ```
 
-Find files smaller than 10 kilobytes:
-
-```bash
-find ~ -size -10k
-```
-
-Units: `c` = bytes, `k` = kilobytes, `M` = megabytes, `G` = gigabytes.
-
----
-
 ### Find by Date
 
 Find files modified in the last 7 days:
@@ -91,238 +62,182 @@ Find files modified in the last 7 days:
 find ~ -mtime -7
 ```
 
-Find files older than 30 days:
-
-```bash
-find ~ -mtime +30
-```
-
-`-mtime` = modified time, in days. `-7` means "less than 7 days ago."
-
 ---
 
 ## The `grep` Command
 
-`grep` searches *inside* files for text or patterns. Think of it as Cmd+F for your terminal.
-
-Basic use:
+`grep` searches *inside* files for text. Think of it as Cmd+F for Terminal.
 
 ```bash
 grep "word" filename.txt
 ```
 
-### Search in Your Diary
-
-```bash
-grep "learned" ~/diary/journal.txt
-```
-
-Shows every line in your diary that contains the word "learned".
-
 ### Case-Insensitive Search
 
 ```bash
-grep -i "april" ~/diary/journal.txt
+grep -i "MARINA" report_008.txt
 ```
 
-Matches "April", "APRIL", "april", etc.
+Matches "Marina", "MARINA", "marina", etc.
 
 ### Show Line Numbers
 
 ```bash
-grep -n "====" ~/diary/journal.txt
+grep -n "evidence" report_008.txt
 ```
-
-The `-n` flag shows which line number each match is on.
 
 ### Count Matches
 
 ```bash
-grep -c "===" ~/diary/journal.txt
+grep -c "Agent" report_008.txt
 ```
 
-Returns just the count — how many lines match.
-
-### Search Multiple Files
+### Search Multiple Files (the Power Move!)
 
 ```bash
-grep "rainbow" ~/Documents/*.txt
+grep "MARINA" *.txt
 ```
 
-Searches all `.txt` files in Documents.
+Searches ALL .txt files at once!
 
 ### Search Recursively (All Files in a Folder)
 
 ```bash
-grep -r "homework" ~/Documents/
+grep -r "MARINA" playground/mission_05/
 ```
 
-Searches every file inside Documents and all its subfolders. This is powerful.
+Searches every file inside the folder and all subfolders. This is what detectives use.
+
+### Show Only Filenames
+
+```bash
+grep -l "MARINA" playground/mission_05/*.txt
+```
+
+`-l` means "just tell me WHICH FILES matched."
 
 ---
 
 ## Pattern Matching with grep
 
-`grep` understands special patterns called **regular expressions** (regex). Here are the basics:
+`grep` understands special patterns:
 
 ```bash
-grep "^===" ~/diary/journal.txt    # lines that START with ===
-grep "===$" ~/diary/journal.txt    # lines that END with ===
-grep "[0-9]" ~/diary/journal.txt   # lines containing any number
-grep "Apr\|May" ~/diary/journal.txt # lines with "Apr" OR "May"
+grep "^FIELD" report_008.txt    # lines that START with FIELD
+grep "Agent$" report_008.txt    # lines that END with Agent
+grep "[0-9]" report_008.txt     # lines containing any number
 ```
 
 - `^` means "start of line"
 - `$` means "end of line"
 - `[0-9]` matches any digit
-- `\|` means "or"
-
-You don't need to master regex today — just know it exists and `grep` can use it.
 
 ---
 
 ## `mdfind` — Spotlight from Terminal
 
-macOS has a powerful search engine called Spotlight (the Cmd+Space thing). You can access it from Terminal with `mdfind`:
-
 ```bash
-mdfind "birthday"
+mdfind "MARINA"
 ```
 
-This searches your entire Mac — file names AND file contents — for "birthday". It uses the same index as Spotlight, so it's very fast.
-
-Search in a specific folder only:
+Searches your entire Mac using the Spotlight index. Very fast.
 
 ```bash
-mdfind -onlyin ~/Documents "project"
-```
-
-Find files of a specific type:
-
-```bash
-mdfind "kind:pdf"
-mdfind "kind:image"
-mdfind "kind:music"
-```
-
-Find by date:
-
-```bash
-mdfind "date:today"
-mdfind "date:yesterday"
+mdfind -onlyin playground/mission_05 "witness"
 ```
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Find all images in your home folder.
-
+**Experiment 1:** Read the keyword hints:
 ```bash
-find ~ -name "*.jpg" -o -name "*.png" -o -name "*.heic" 2>/dev/null
+cat playground/mission_05/keyword_hints.txt
 ```
 
-The `-o` means "or". The `2>/dev/null` hides permission error messages (we'll explain this later).
-
-**Experiment 2:** Find the 5 biggest files in your Downloads.
-
+**Experiment 2:** Try a broad search — how many files mention "Agent"?
 ```bash
-find ~/Downloads -type f -size +1M 2>/dev/null
+grep -l "Agent" playground/mission_05/*.txt
 ```
 
-**Experiment 3:** Count words in the dictionary.
+**Experiment 3:** Try searching for something that doesn't exist:
+```bash
+grep "banana" playground/mission_05/*.txt
+```
 
+`grep` returns nothing if there's no match. Silence = not found.
+
+**Experiment 4:** Count words in the English dictionary.
 ```bash
 grep -c "." /usr/share/dict/words
 ```
 
-`.` in regex matches "any character" — so this counts every non-empty line, which is the number of words.
-
-**Experiment 4:** Find words that contain "moon" in the dictionary.
-
-```bash
-grep "moon" /usr/share/dict/words
-```
-
-How many moon-words are there?
-```bash
-grep -c "moon" /usr/share/dict/words
-```
+`.` in regex matches "any character" — so this counts every line.
 
 ---
 
 ## Pro Tip — 2>/dev/null
 
-When you run `find ~`, you'll often see permission errors like:
-
-```
-find: /Users/sophia/Library/Application Support: Permission denied
-```
-
-These are harmless but annoying. Hide them with `2>/dev/null`:
+When you run `find ~`, you'll often see permission errors. Hide them:
 
 ```bash
 find ~ -name "*.txt" 2>/dev/null
 ```
 
-`2>` redirects error messages (stderr) to `/dev/null` — a special file that throws away anything written to it. It's the trash can of Terminal. Normal output still shows; only errors disappear.
+`2>` redirects error messages to `/dev/null` — a special "trash can" file. Normal output still shows; only errors disappear.
 
 ---
 
-## Your Mission — Build a File Finder Toolkit
+## Your Mission — Find the Missing Witness
 
-Create a file called `~/finder.sh` that contains your personal search shortcuts:
-
+**Step 1:** Navigate to the case files:
 ```bash
-touch ~/finder.sh
+cd playground/mission_05
+ls
 ```
 
-Now add these lines with `>>`:
+You'll see 30+ files. This is a lot to read manually.
 
+**Step 2:** Read the keyword hints:
 ```bash
-echo '#!/bin/bash' > ~/finder.sh
-echo '# My personal file finder toolkit' >> ~/finder.sh
-echo '' >> ~/finder.sh
-echo '# Usage: bash ~/finder.sh [search-type] [term]' >> ~/finder.sh
-echo '# Examples:' >> ~/finder.sh
-echo '#   bash ~/finder.sh name myfile.txt' >> ~/finder.sh
-echo '#   bash ~/finder.sh text "birthday party"' >> ~/finder.sh
-echo '#   bash ~/finder.sh big' >> ~/finder.sh
+cat keyword_hints.txt
 ```
 
-Read it back:
+**Step 3:** Search for the witness by first name:
 ```bash
-cat ~/finder.sh
+grep "MARINA" *.txt
 ```
 
-Then try each of these detective searches:
-
-**Find a file by name anywhere:**
+**Step 4:** If that shows multiple matches, narrow it down:
 ```bash
-find ~ -name "*.txt" 2>/dev/null
+grep "MARINA SANTOS" *.txt
 ```
 
-**Find a file containing specific text:**
+**Step 5:** Find just the filename:
 ```bash
-grep -r "your search term" ~ 2>/dev/null
+grep -l "MARINA SANTOS" *.txt
 ```
 
-**Find your biggest files:**
+**Step 6:** Read the full report with her information:
 ```bash
-find ~ -type f -size +50M 2>/dev/null
+cat report_008.txt
 ```
 
-**Spotlight search:**
+**Step 7:** Count how many times her name appears in the report:
 ```bash
-mdfind "something you're looking for"
+grep -c "MARINA" report_008.txt
 ```
 
-**Count all files in your home folder:**
+**Step 8:** Find the hidden code:
 ```bash
-find ~ -type f 2>/dev/null | wc -l
+ls -la
+cat .secret_code.txt
 ```
 
-Save each of these as a comment in your `finder.sh` file for future reference!
+**Bonus:** Search through all types of files at once:
+```bash
+grep -r "MARINA" .
+```
 
 ---
 
@@ -330,32 +245,31 @@ Save each of these as a comment in your `finder.sh` file for future reference!
 
 ### Challenge 1 — Find Your Photos
 
-Find all files with `.jpg`, `.png`, or `.heic` extensions in your home folder. How many are there? Use `find` and `wc -l`.
+Find all files with `.jpg`, `.png`, or `.heic` extensions in your home folder. Use `find` and count them.
 
 ### Challenge 2 — Dictionary Detective
 
 Using `grep` on `/usr/share/dict/words`:
-1. Find all words that start with "cat"
+1. Find all words that start with "detect"
 2. Find all words that end with "tion"
-3. Find all words that contain "xyz" (if any exist!)
-4. How many 5-letter words are in the dictionary? (Hint: `grep "^.....$"` — the `.` matches any character)
+3. How many words start with "secret"?
 
-### Challenge 3 — Recent Activity
+### Challenge 3 — Witness Search Variations
 
-Find all files in your home folder that were modified in the last 24 hours:
+Try finding the witness using different grep approaches:
+1. `grep "Marina" playground/mission_05/*.txt` (lowercase m)
+2. `grep -i "marina" playground/mission_05/*.txt` (case-insensitive)
+3. `grep -rn "SANTOS" playground/mission_05/` (with line numbers, recursive)
+
+Which approach found the most matches?
+
+### Challenge 4 — Recent Files
+
+Find all files in `playground/mission_05/` modified in the last 24 hours:
 
 ```bash
-find ~ -mtime -1 2>/dev/null
+find playground/mission_05 -mtime -1
 ```
-
-What was the most recently changed file?
-
-### Challenge 4 — Search Your Diary
-
-If you've written at least 2 diary entries:
-1. `grep` for all your entry headers (lines starting with `===`)
-2. `grep -i` for a word that you know appears in one of your entries
-3. Count how many times you used the word "today" in your diary
 
 ---
 
@@ -371,13 +285,13 @@ Solutions are in the [solutions folder](solutions/README.md).
 |---------|-------------|
 | `find path -name "*.txt"` | Find files by name pattern |
 | `find path -iname "name"` | Find files by name (case-insensitive) |
-| `find path -type d` | Find directories only |
 | `find path -type f` | Find files only |
 | `find path -size +100M` | Find files larger than 100MB |
 | `find path -mtime -7` | Find files modified in last 7 days |
 | `grep "text" file` | Search for text inside a file |
 | `grep -i "text" file` | Search case-insensitively |
-| `grep -r "text" folder/` | Search all files in a folder recursively |
+| `grep -r "text" folder/` | Search all files recursively |
+| `grep -l "text" *.txt` | Show only matching filenames |
 | `grep -n "text" file` | Show line numbers with matches |
 | `grep -c "text" file` | Count matching lines |
 | `mdfind "term"` | Spotlight search from Terminal |
@@ -388,11 +302,10 @@ Solutions are in the [solutions folder](solutions/README.md).
 - **grep** — "Global Regular Expression Print" — searches for patterns in text
 - **Regular expression** — a pattern language for matching text
 - **mdfind** — macOS metadata find (uses Spotlight's index)
-- **stderr** — the error output stream (separate from normal output)
 - `/dev/null` — the "trash can" — discards anything written to it
 
 ---
 
-*You are now a file detective. No file on your Mac can hide from you.*
+*You found the witness. You searched 30 files in seconds. That's grep. That's a detective's superpower.*
 
 *Ready for Mission 6?*

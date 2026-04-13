@@ -1,0 +1,32 @@
+TERMINAL DETECTIVE AGENCY
+THE FINAL DECODER SHEET
+========================
+
+You've completed all 12 missions. Now assemble the message!
+
+COLLECT AND ARRANGE YOUR CODE PIECES:
+
+  Mission 01 (.secret_code.txt):  _______    Hint: playground/mission_01/
+  Mission 02 (.secret_code.txt):  _______    Hint: playground/mission_02/
+  Mission 03 (.secret_code.txt):  _______    Hint: playground/mission_03/
+  Mission 04 (.secret_code.txt):  _______    Hint: playground/mission_04/
+  Mission 05 (.secret_code.txt):  _______    Hint: playground/mission_05/
+  Mission 06 (.secret_code.txt):  _______    Hint: playground/mission_06/
+  Mission 07 (.secret_code.txt):  _______    Hint: playground/mission_07/
+  Mission 08 (.secret_code.txt):  _______    Hint: playground/mission_08/
+  Mission 09 (.secret_code.txt):  _______    Hint: playground/mission_09/
+  Mission 10 (.secret_code.txt):  _______    Hint: playground/mission_10/
+  Mission 11 (.secret_code.txt):  _______    Hint: playground/mission_11/
+  Mission 12 (.secret_code.txt):  _______    Hint: playground/mission_12/
+
+Put them in order (1 through 12) to reveal the final message.
+
+REMEMBER: Hidden files are found with: ls -la
+SHORTCUT: grep "Code word" playground/mission_*/. secret_code.txt
+
+ONCE YOU HAVE ALL 12:
+Decode the final message in congratulations.txt.enc
+Command: cat playground/mission_12/congratulations.txt.enc | base64 -d
+
+-- Director Chen
+   "You earned this."

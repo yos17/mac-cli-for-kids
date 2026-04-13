@@ -1,0 +1,19 @@
+EVIDENCE TAG #3
+===============
+
+Location found: Office basement floor
+Condition: Dusty, clearly undisturbed for weeks
+
+The note reads:
+  "The documents are inside the vault.
+   The vault is in the locked subfolder.
+   To get there: vault/locked/
+   The treasure map is inside.
+   It will tell you everything."
+
+   -- The Anonymous Tipster
+
+DETECTIVE NOTE:
+Almost there! The vault is a subdirectory right here in the basement.
+Navigate to: vault/locked/
+Read the treasure_map.txt when you find it.

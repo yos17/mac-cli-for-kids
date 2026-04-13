@@ -1,0 +1,30 @@
+TERMINAL DETECTIVE AGENCY
+ACTIVE AGENTS ROSTER
+=====================
+
+Agent Codename  | Specialty              | Status
+----------------|------------------------|--------
+GHOST           | Infiltration           | Active
+CIPHER          | Cryptography           | Active
+SWIFT           | Surveillance           | Active
+ECHO            | Communications         | Active
+NOVA            | Technology / Hacking   | Active
+BLADE           | Field Operations       | Active
+SAGE            | Data Analysis          | Active
+STORM           | Extraction             | Active
+WRAITH          | Forensics              | On leave
+PRISM           | Counter-intelligence   | Active
+
+DIRECTOR: Director Chen
+HEADQUARTERS: The Terminal (location classified)
+
+ALL NEW RECRUITS use the codename: ROOKIE
+Codename upgrades are earned through completed missions.
+
+NOTE TO ROOKIES:
+Your first real codename will be assigned after Mission 12.
+Will it be CIPHER? NOVA? GHOST?
+Complete the training to find out.
+
+-- Personnel Department
+   Terminal Detective Agency

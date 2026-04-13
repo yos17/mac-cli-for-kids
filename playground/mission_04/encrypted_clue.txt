@@ -1,0 +1,25 @@
+ENCRYPTED CLUE — CASE 2026-TDA-0099
+=====================================
+
+CLASSIFICATION: EYES ONLY
+ENCODING: base64
+
+This clue was intercepted from a secure message.
+It has been encoded in base64 (not encrypted — anyone can decode it!).
+
+To read the clue, use this command:
+  echo "VGhlIHN1c3BlY3Qgd29yZSBhIFJFRCBoYXQgYXQgdGhlIFBBUksgb24gVFVFU0RBWQo=" | base64 -d
+
+The decoded message will tell you:
+  - What the suspect wore
+  - Where they were seen
+  - When they were spotted
+
+IMPORTANT NOTE:
+base64 is ENCODING, not ENCRYPTION.
+Anyone with a computer can decode it.
+For real secrets, use openssl (Mission 11).
+base64 just converts binary data to text and back.
+
+-- Intelligence Division
+   Terminal Detective Agency

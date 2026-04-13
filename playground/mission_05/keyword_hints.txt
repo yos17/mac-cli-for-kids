@@ -1,0 +1,36 @@
+TERMINAL DETECTIVE AGENCY
+CASE FILE — MISSING WITNESS
+============================
+
+SITUATION:
+A key witness has gone missing. She was interviewed once but
+the report containing her name has been BURIED in a pile of
+30+ files. You must find it using grep.
+
+YOUR ONLY LEAD:
+  The witness's first name:  MARINA
+  The witness's last name:   SANTOS
+  Her full name appears in exactly ONE report file.
+
+SEARCH STRATEGY:
+  Don't read all 30 files manually — that would take forever.
+  Use grep to search for the name inside all files at once!
+
+COMMANDS TO TRY:
+  grep "MARINA" *.txt            — search all .txt files
+  grep "SANTOS" *.txt            — try the last name
+  grep "MARINA SANTOS" *.txt     — try the full name
+  grep -l "MARINA" *.txt         — show only FILENAME (not full line)
+  grep -n "MARINA" report_*.txt  — show line numbers too
+
+THE GOAL:
+  Find WHICH FILE contains the witness name.
+  Then read that file with: cat [filename]
+
+BONUS CHALLENGE:
+  How many times does her name appear in that file?
+  Command: grep -c "MARINA" [filename]
+
+Good luck, Detective. The witness is counting on you.
+
+-- Director Chen

@@ -1,0 +1,26 @@
+TOP SECRET — TERMINAL DETECTIVE AGENCY
+=======================================
+
+If you can read this, you successfully used chmod to unlock the file!
+
+THE INFORMATION YOU UNLOCKED:
+  The final meeting location is: The Old Lighthouse, Dock 7.
+  The password is: CIPHER
+  The time: 2300 hours
+
+You have proven you understand file permissions.
+
+PERMISSIONS REVIEW:
+  chmod 000 file   — nobody can read, write, or execute (total lockdown)
+  chmod 400 file   — owner can read only (locked but readable)
+  chmod 600 file   — owner can read and write (private file)
+  chmod 644 file   — owner can read/write, others can read
+  chmod 755 file   — owner full, others can read and execute
+  chmod 777 file   — everyone can do everything (dangerous!)
+
+The number system:
+  4 = read    2 = write    1 = execute
+  First digit = owner, second = group, third = everyone else
+  7 = 4+2+1 (rwx)   6 = 4+2 (rw-)   4 = 4 (r--)   0 = nothing
+
+-- TDA Cryptography Division

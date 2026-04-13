@@ -1,0 +1,18 @@
+EVIDENCE TAG #1
+===============
+
+Location found: Office hallway, Room 1
+Condition: Slightly crumpled
+
+The note reads:
+  "Meet me at the vault. I've hidden the documents
+   where nobody looks — in the basement, behind the
+   locked door. You'll need to go deeper."
+
+   -- Anonymous
+
+DETECTIVE NOTE:
+Good find! Now keep going. There are two more clues
+and a treasure map somewhere in this building.
+
+Hint: Check room2 next, then head to the basement.

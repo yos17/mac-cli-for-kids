@@ -1,0 +1,32 @@
+TERMINAL DETECTIVE AGENCY
+APPROVED URLS FOR FIELD TESTING
+=================================
+
+These URLs are safe to use for testing network commands.
+All are public, free, and return useful data.
+
+BASIC TEST URLS:
+  http://httpbin.org/get             — returns info about your request as JSON
+  http://httpbin.org/ip              — returns your IP address
+  http://httpbin.org/status/200      — returns HTTP 200 (success)
+  http://httpbin.org/status/404      — returns HTTP 404 (not found)
+
+FUN DATA URLS:
+  https://catfact.ninja/fact         — returns a random cat fact (JSON)
+  https://official-joke-api.appspot.com/random_joke  — random joke (JSON)
+
+HOW TO USE THEM:
+  curl http://httpbin.org/ip
+  curl -s https://catfact.ninja/fact
+  curl -I http://httpbin.org/get     — headers only
+  curl -s -o /dev/null -w "%{http_code}" http://httpbin.org/status/404
+
+PING TARGETS (safe to ping):
+  8.8.8.8           — Google's public DNS server
+  1.1.1.1           — Cloudflare's public DNS server
+  google.com        — Google
+
+NOTE: Always ask a trusted adult before accessing new URLs.
+These have been approved by TDA Operations for training purposes.
+
+-- TDA Operations

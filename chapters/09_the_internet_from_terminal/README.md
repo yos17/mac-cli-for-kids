@@ -1,10 +1,12 @@
-# Mission 9 — The Internet from Terminal
+# Mission 9 — The Digital Spy
 
 ## Mission Briefing
 
-You use the internet every day with a browser — clicking links, watching videos, loading pages. But the internet is actually made of text, and you can talk to it directly from Terminal.
+*"The network log shows something suspicious," Agent NOVA says, pointing at `playground/mission_09/network_log.txt`. "An IP address made 847 requests in 60 seconds. I need you to learn how to check network health, identify IPs, and talk to web services directly — no browser required."*
 
-Today you talk to websites without a browser. You'll check if the internet is working, find your IP address, download files, and build a tool that checks your network health.
+You use the internet every day with a browser. But the internet is actually made of text, and you can talk to it directly from Terminal. Today you learn to ping servers, fetch web data, and build a network health checker.
+
+**The network data files are in `playground/mission_09/`. Study them while you learn.**
 
 ### What You'll Learn
 - `ping` — check if a server is reachable
@@ -17,9 +19,9 @@ Today you talk to websites without a browser. You'll check if the internet is wo
 
 ## How the Internet Works (Quick Version)
 
-Every website is just a computer somewhere in the world. When you type `www.google.com` in a browser, your Mac:
+Every website is just a computer somewhere in the world. When you type `google.com` in a browser, your Mac:
 
-1. Looks up Google's **IP address** (like a phone number — e.g., `142.250.80.46`)
+1. Looks up Google's **IP address** (like a phone number)
 2. Connects to that computer
 3. Asks for the page: `GET /`
 4. Receives HTML text back
@@ -31,56 +33,35 @@ In Terminal, we can do steps 1-4 directly. No rendering needed.
 
 ## `ping` — Are You There?
 
-`ping` sends a tiny message to a server and waits for a reply. Like knocking on a door.
+`ping` sends a tiny message to a server and waits for a reply. Like knocking on a door:
 
 ```bash
-ping google.com
+ping -c 4 google.com
 ```
 
 Output:
 ```
 PING google.com (142.250.80.46): 56 data bytes
 64 bytes from 142.250.80.46: icmp_seq=0 ttl=115 time=12.4 ms
-64 bytes from 142.250.80.46: icmp_seq=1 ttl=115 time=11.8 ms
-64 bytes from 142.250.80.46: icmp_seq=2 ttl=115 time=12.1 ms
-^C
+...
 --- google.com ping statistics ---
-3 packets transmitted, 3 packets received, 0.0% packet loss
+4 packets transmitted, 4 received, 0.0% packet loss
 ```
 
-Press `Ctrl+C` to stop it.
-
-What the numbers mean:
-- `time=12.4 ms` — how long it took (milliseconds). Lower = faster.
-- `0.0% packet loss` — all messages got through. Higher = worse connection.
-
-Send exactly 4 pings:
-
-```bash
-ping -c 4 google.com
-```
-
-Ping a local device (your router is usually at `192.168.1.1`):
-
-```bash
-ping -c 3 192.168.1.1
-```
-
-If `ping` gets no reply, the server might be down, or you might have no internet.
+- `time=12.4 ms` — how long it took. Lower = faster.
+- `0.0% packet loss` — all messages got through.
 
 ---
 
 ## `curl` — Talk to Websites
 
-`curl` (Client URL) sends web requests and shows you the response. This is how web browsers and apps talk to servers behind the scenes.
-
-### Basic `curl`
+`curl` sends web requests and shows the response:
 
 ```bash
 curl http://example.com
 ```
 
-You'll see raw HTML — that's what websites really look like under the hood!
+You'll see raw HTML!
 
 ### Get Just the Headers
 
@@ -88,142 +69,97 @@ You'll see raw HTML — that's what websites really look like under the hood!
 curl -I https://www.apple.com
 ```
 
-Output:
-```
-HTTP/2 200
-server: Apache
-content-type: text/html; charset=utf-8
-date: Sun, 13 Apr 2026 10:30:00 GMT
-```
+The `200` means success. Common codes:
+- `200` — OK
+- `301` or `302` — Redirect
+- `404` — Not Found
+- `403` — Forbidden
+- `500` — Server Error
 
-`-I` sends only a HEAD request — asks for information about the page without downloading it.
-
-The `200` means "OK". Other common codes:
-- `200` — OK (success)
-- `301` or `302` — Redirect (the page moved)
-- `404` — Not Found (the page doesn't exist)
-- `500` — Server Error (the website has a problem)
-
-### Download a File
+### Get a Fun Fact
 
 ```bash
-curl -O https://example.com/somefile.txt
+curl -s https://catfact.ninja/fact
 ```
 
-The `-O` flag saves the file with its original name.
-
-Or save with a custom name:
-
-```bash
-curl -o myfile.txt https://example.com/somefile.txt
-```
-
-### Get Your Public IP Address
-
-There are services that just tell you your IP when you ask:
+### Check Your IP Address
 
 ```bash
 curl ifconfig.me
 ```
 
-Output:
-```
-73.45.123.89
-```
-
-That's your public IP address — the address the internet sees when you go online.
-
----
-
-## `open` — Open Things from Terminal
-
-`open` is like double-clicking in Finder:
-
-```bash
-open ~/Documents          # Open Documents in Finder
-open ~/diary/journal.txt  # Open your diary in TextEdit
-open https://nasa.gov     # Open a website in Safari
-open .                    # Open current folder in Finder
-```
-
-Open a specific app:
-
-```bash
-open -a "Safari" https://nasa.gov
-open -a "Notes"
-open -a "TextEdit" ~/diary/journal.txt
-```
-
-This is useful in scripts — you can open a file or website as the final step.
-
----
-
-## `caffeinate` — Keep Your Mac Awake
-
-Your Mac goes to sleep when idle. `caffeinate` stops that:
-
-```bash
-caffeinate
-```
-
-Your Mac won't sleep until you press `Ctrl+C`. Useful when running long scripts!
-
-Keep awake for a specific time (seconds):
-
-```bash
-caffeinate -t 3600    # Stay awake for 1 hour (3600 seconds)
-```
-
-Keep awake while a command runs:
-
-```bash
-caffeinate -i curl -O https://big-file-download.com/file.zip
-```
-
-Stays awake only while the download runs, then lets Mac sleep normally.
-
----
-
-## Try It! — Quick Experiments
-
-**Experiment 1:** Compare ping times to different places.
-
-```bash
-ping -c 3 google.com
-ping -c 3 apple.com
-ping -c 3 bbc.co.uk    # UK
-ping -c 3 abc.net.au   # Australia
-```
-
-Servers farther away have higher ping times (more milliseconds). Australia is about 200ms from the US.
-
-**Experiment 2:** Get a fun quote from the internet.
-
-```bash
-curl -s https://api.quotable.io/random | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['content'], '-', d['author'])"
-```
-
-(This hits a real quotes API and formats the response. Try it a few times for different quotes!)
-
-**Experiment 3:** See your network info.
-
-```bash
-ifconfig | grep "inet " | grep -v 127.0.0.1
-```
-
-This shows your local network IP address (like `192.168.1.x`).
-
-**Experiment 4:** Check if a website is up.
+### Check a Website's Status
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" https://google.com
 ```
 
-Output: `200` (or some other code). This is how you check a website's status without downloading anything.
+Output: `200` — this checks status without downloading anything.
 
 ---
 
-## Pro Tip — `curl` with a Progress Bar
+## `open` — Open Things from Terminal
+
+```bash
+open ~/Documents          # Open in Finder
+open .                    # Open current folder in Finder
+open https://nasa.gov     # Open in Safari
+```
+
+Open with a specific app:
+
+```bash
+open -a "TextEdit" playground/mission_09/network_log.txt
+```
+
+---
+
+## `caffeinate` — Keep Your Mac Awake
+
+```bash
+caffeinate -t 3600    # Stay awake for 1 hour
+```
+
+Useful when running long scripts or downloads!
+
+---
+
+## Try It! — Quick Experiments
+
+**Experiment 1:** Read the network log and find the suspicious IP:
+```bash
+cat playground/mission_09/network_log.txt
+```
+
+Which IP is flagged as suspicious? What did Agent NOVA recommend?
+
+**Experiment 2:** Check the URLs list:
+```bash
+cat playground/mission_09/urls.txt
+```
+
+Try the cat fact URL:
+```bash
+curl -s https://catfact.ninja/fact
+```
+
+**Experiment 3:** Compare ping times to different places:
+```bash
+ping -c 3 google.com
+ping -c 3 1.1.1.1
+```
+
+Which is faster?
+
+**Experiment 4:** Check website status codes:
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://httpbin.org/status/200
+curl -s -o /dev/null -w "%{http_code}" http://httpbin.org/status/404
+```
+
+---
+
+## Pro Tip — `curl` Progress Bar
 
 When downloading large files, add `-#` to show a progress bar:
 
@@ -238,95 +174,87 @@ Output:
 
 ---
 
-## Your Mission — Internet Health Checker
+## Your Mission — Build an Internet Health Checker
 
-Build a script that checks your internet connection from multiple angles:
-
+**Step 1:** Study the network log:
 ```bash
-nano ~/internet_check.sh
+cat playground/mission_09/network_log.txt
+```
+
+Identify:
+- What network tests were run
+- What was flagged as suspicious
+- What the recommendation was
+
+**Step 2:** Try the approved URLs:
+```bash
+curl -s https://catfact.ninja/fact
+curl -s http://httpbin.org/ip
+```
+
+**Step 3:** Build your own network health checker script:
+```bash
+nano ~/network_check.sh
 ```
 
 ```bash
 #!/bin/bash
-# internet_check.sh — Network health checker
+# network_check.sh — TDA Network Health Checker
 
 echo ""
 echo "╔═══════════════════════════════════╗"
-echo "║     INTERNET HEALTH CHECKER       ║"
+echo "║    TDA NETWORK HEALTH CHECKER     ║"
 echo "╚═══════════════════════════════════╝"
 echo ""
 
-# --- 1. CHECK LOCAL NETWORK ---
-echo "1. Local Network..."
-ROUTER_IP="192.168.1.1"   # Your router's IP (might be 192.168.0.1)
-
-if ping -c 1 -W 2 "$ROUTER_IP" > /dev/null 2>&1; then
-    echo "   ✓ Router is reachable ($ROUTER_IP)"
-else
-    echo "   ✗ Cannot reach router — check your WiFi!"
-fi
-
-# --- 2. CHECK INTERNET ACCESS ---
-echo ""
-echo "2. Internet Connection..."
-
+# Check internet access
+echo "1. Checking internet connection..."
 if ping -c 1 -W 3 8.8.8.8 > /dev/null 2>&1; then
-    echo "   ✓ Internet is working (reached Google's DNS)"
+    echo "   ✓ Internet: CONNECTED"
 else
-    echo "   ✗ Cannot reach the internet"
+    echo "   ✗ Internet: NO CONNECTION"
+    exit 1
 fi
 
-# --- 3. CHECK DNS (name resolution) ---
+# Check DNS
 echo ""
-echo "3. DNS (domain names)..."
-
+echo "2. Checking DNS..."
 if ping -c 1 -W 3 google.com > /dev/null 2>&1; then
-    echo "   ✓ DNS is working (google.com resolves)"
+    echo "   ✓ DNS: Working"
 else
-    echo "   ✗ DNS not working — can reach internet but not websites by name"
+    echo "   ✗ DNS: Not working"
 fi
 
-# --- 4. GET YOUR IP ---
+# Get your IP
 echo ""
-echo "4. Your IP Addresses..."
-
-LOCAL_IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -1)
-echo "   Local IP:  ${LOCAL_IP:-not found}"
-
-PUBLIC_IP=$(curl -s --max-time 5 ifconfig.me 2>/dev/null)
-if [ -n "$PUBLIC_IP" ]; then
-    echo "   Public IP: $PUBLIC_IP"
-else
-    echo "   Public IP: (could not check)"
+echo "3. Your public IP address..."
+MY_IP=$(curl -s --max-time 5 ifconfig.me 2>/dev/null)
+if [ -n "$MY_IP" ]; then
+    echo "   Public IP: $MY_IP"
 fi
 
-# --- 5. PING SPEED ---
+# Ping speed test
 echo ""
-echo "5. Connection Speed..."
-
-PING_TIME=$(ping -c 4 google.com 2>/dev/null | tail -1 | awk -F'/' '{print $5}')
-if [ -n "$PING_TIME" ]; then
-    echo "   Avg ping to Google: ${PING_TIME}ms"
-    
-    if (( $(echo "$PING_TIME < 50" | bc -l) )); then
-        echo "   Speed: Excellent!"
-    elif (( $(echo "$PING_TIME < 100" | bc -l) )); then
-        echo "   Speed: Good"
-    else
-        echo "   Speed: Slow (high latency)"
-    fi
+echo "4. Speed test (ping to Google)..."
+PING=$(ping -c 4 google.com 2>/dev/null | tail -1 | awk -F'/' '{print $5}' | cut -d'.' -f1)
+if [ -n "$PING" ]; then
+    echo "   Average ping: ${PING}ms"
 fi
 
 echo ""
-echo "═══════════════════════════════════"
 echo "Check complete!"
 ```
 
-Save, make executable, and run:
-
+**Step 4:** Make it executable and run it:
 ```bash
-chmod +x ~/internet_check.sh
-~/internet_check.sh
+chmod +x ~/network_check.sh
+bash ~/network_check.sh
+```
+
+**Step 5:** Find the hidden code:
+```bash
+ls -la playground/mission_09/
+cat playground/mission_09/.secret_code.txt
 ```
 
 ---
@@ -335,40 +263,35 @@ chmod +x ~/internet_check.sh
 
 ### Challenge 1 — Ping Race
 
-Ping these 5 servers and time them. List them from fastest to slowest (by average ping time):
+Ping these 4 servers and report which is fastest:
 - `google.com`
-- `amazon.com`
-- `bbc.co.uk`
-- `abc.net.au`
-- `1.1.1.1` (Cloudflare's DNS)
+- `1.1.1.1`
+- `8.8.8.8`
+- `apple.com`
 
 Use `ping -c 5 hostname` for each.
 
 ### Challenge 2 — The HTTP Codes Explorer
 
-Use `curl -s -o /dev/null -w "%{http_code}"` to check the status codes for:
-1. `https://google.com`
-2. `https://google.com/this-page-does-not-exist`
-3. `https://httpstat.us/200`
-4. `https://httpstat.us/404`
+Use `curl -s -o /dev/null -w "%{http_code}"` to check:
+1. `http://httpbin.org/status/200`
+2. `http://httpbin.org/status/404`
+3. `http://httpbin.org/status/403`
+4. `http://httpbin.org/status/500`
 
-What code does each one return?
+What does each code mean?
 
-### Challenge 3 — Open Your Diary in TextEdit
+### Challenge 3 — Download and Count
 
-Write a one-liner that opens your `~/diary/journal.txt` in TextEdit. Then add it as a command to your `~/.zshrc` (we'll learn about that in Mission 10):
+Use `curl` to get a random cat fact and count the characters:
 
 ```bash
-alias diary="open -a TextEdit ~/diary/journal.txt"
+curl -s https://catfact.ninja/fact | grep -o '"fact":"[^"]*"'
 ```
 
-(Just write this down for now — you'll use it in Mission 10!)
+### Challenge 4 — Open Your Network Log
 
-### Challenge 4 — Download and Read
-
-Use `curl` to download any plain text file from the internet (a `.txt` file), save it to your home folder, and use `wc -w` to count how many words it has.
-
-A good one to try: `curl -O https://www.gutenberg.org/files/1342/1342-0.txt` (Pride and Prejudice!)
+Write one command that opens `playground/mission_09/network_log.txt` in TextEdit using `open -a`.
 
 ---
 
@@ -382,31 +305,27 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 | Command | What It Does |
 |---------|-------------|
-| `ping hostname` | Check if a server is reachable |
 | `ping -c 4 host` | Send exactly 4 pings |
 | `curl url` | Fetch a URL and show the response |
 | `curl -I url` | Show HTTP headers only |
-| `curl -O url` | Download a file (keeps original name) |
-| `curl -o name url` | Download a file (custom name) |
 | `curl -s url` | Silent mode (no progress output) |
-| `curl -w "%{http_code}" url` | Show only the HTTP status code |
+| `curl -s -o /dev/null -w "%{http_code}" url` | Show only the HTTP status code |
 | `open path` | Open file or folder in default app |
 | `open url` | Open URL in default browser |
 | `open -a "App" path` | Open with a specific app |
-| `caffeinate` | Prevent Mac from sleeping |
 | `caffeinate -t 60` | Prevent sleep for 60 seconds |
 | `ifconfig.me` | Service that returns your public IP |
 
 ### Vocabulary
 
 - **IP address** — a number that identifies a computer on the network
-- **DNS** — Domain Name System — converts names like `google.com` to IP addresses
-- **HTTP** — HyperText Transfer Protocol — the language browsers and servers use
+- **DNS** — converts names like `google.com` to IP addresses
+- **HTTP** — the language browsers and servers use
 - **Latency** — how long a request takes (milliseconds). Lower = faster.
-- **API** — Application Programming Interface — a website designed to be used by programs, not browsers
+- **API** — a website designed to be used by programs, not browsers
 
 ---
 
-*The internet is just computers talking to each other. And now you know how to join the conversation.*
+*The internet is just computers talking to each other. Now you know how to join the conversation.*
 
 *Ready for Mission 10?*

@@ -1,0 +1,46 @@
+TERMINAL DETECTIVE AGENCY
+PHOTO RENAMING RULES — OPERATION PHOTO SORT
+=============================================
+
+SITUATION:
+The photos/ folder is a mess. Evidence photos are mixed in with
+personal photos, screenshots, and unlabeled files.
+
+YOUR MISSION:
+Use loops to batch rename the official evidence files and
+sort all photos into proper folders.
+
+RULE 1 — OFFICIAL PHOTOS:
+  Files matching: IMG_2024_*.txt
+  These are official TDA evidence photos.
+  Rename them to: evidence_001.txt, evidence_002.txt, etc.
+
+RULE 2 — PERSONAL PHOTOS:
+  Files like: vacation_pic.txt, birthday1.txt, sports_day.txt
+  Move these to a folder called: personal/
+
+RULE 3 — SCREENSHOTS:
+  Files containing "Screenshot" in the name
+  Move to: screenshots/
+
+RULE 4 — UNLABELED:
+  Files that don't fit any category
+  Move to: unlabeled/
+
+LOOP HINT — RENAMING FILES:
+  counter=1
+  for file in photos/IMG_2024_*.txt; do
+      new_name=$(printf "evidence_%03d.txt" $counter)
+      mv "$file" "photos/$new_name"
+      counter=$((counter + 1))
+  done
+
+LOOP HINT — SORTING FILES:
+  mkdir -p photos/personal
+  for file in photos/vacation_*.txt photos/birthday*.txt; do
+      mv "$file" photos/personal/
+  done
+
+Try it! Then check each folder with ls.
+
+-- Operations Division, TDA

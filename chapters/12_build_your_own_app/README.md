@@ -4,625 +4,538 @@
 
 This is it. The final mission.
 
-You've learned 40+ commands, pipes, loops, logic, networking, customization, encryption, and scripting. You know how the file system works, how the internet works, how permissions work. You've built a diary, a file organizer, a talking Mac greeter, an internet checker, and an encrypted message vault.
+Over the past 11 missions, you've learned to navigate the filesystem, create and destroy files, read and write data, find anything, chain commands together, write scripts, use loops and logic, talk to the internet, customize your environment, and even encrypt messages.
 
 Now you put it all together.
 
-In this mission, you build **MyBot** — your personal command-line assistant. It has a menu, remembers your name, tells jokes, manages your diary, checks your internet, gives you a weather report, organizes your files, and says goodnight when you're done.
+You're going to build **MyBot** — a real, menu-driven personal assistant app that runs from your terminal. It will do multiple things: show your briefing, write diary entries, check the internet, organize files, and more. All from a single command.
 
-This isn't an exercise. This is your program. By the time you finish, you'll have something you'll actually use.
+This is the program programmers call a **CLI app** (Command Line Interface application). Real companies build these.
 
-### What You'll Use
-- Everything from Missions 1–11
-- Shell functions and menus
-- `read` for user input
-- `case` for menu options
-- Loops to keep the program running
-- Color output and a nice UI
+### What You'll Build
+- A menu-driven app with numbered choices
+- Functions for each feature (morning briefing, diary, internet check, etc.)
+- A config system for your name and settings
+- A clean main loop that keeps running until you exit
 
 ---
 
-## Planning MyBot
+## Architecture First
 
-Before writing code, real programmers plan what their program will do. MyBot needs:
-
-1. A welcome screen with your name and the date
-2. A menu with numbered options
-3. Each option does something useful
-4. The program loops — after each action, goes back to the menu
-5. A quit option that says goodbye
-
-Here's the plan:
+Before writing code, good programmers **plan**. Here's the structure of MyBot:
 
 ```
-=== MyBot — Personal Assistant ===
-Welcome, Sophia! Today is Sunday, April 13.
-
-What would you like to do?
-  1. 📖 Read my diary
-  2. ✏️  Add a diary entry
-  3. 🌤  Check the weather
-  4. 🌐 Check the internet
-  5. 📂 Organize my Downloads
-  6. 😄 Tell me a joke
-  7. 🔍 Find a file
-  8. ℹ️  System info
-  9. 👋 Goodbye
-
-Enter choice (1-9): _
+mybot/
+├── mybot.sh          ← the main program
+├── config.sh         ← your settings
+└── modules/
+    ├── briefing.sh   ← morning briefing
+    ├── diary.sh      ← diary functions
+    ├── internet.sh   ← internet checker
+    └── files.sh      ← file organizer
 ```
 
-Let's build it piece by piece.
+The main program loads the modules, then shows a menu. You pick an option, it runs the right function. When done, it returns to the menu.
 
 ---
 
-## Building the Pieces
-
-Before writing the full bot, let's test the key pieces.
-
-### The Menu Loop
-
-The heart of any menu-driven program:
+## Setting Up the Project
 
 ```bash
-while true; do
-    echo "1. Option A"
-    echo "2. Option B"
-    echo "3. Quit"
-    echo ""
-    read -p "Enter choice: " choice
-
-    case $choice in
-        1) echo "You chose A" ;;
-        2) echo "You chose B" ;;
-        3) echo "Bye!"; break ;;
-        *) echo "Invalid choice. Try again." ;;
-    esac
-
-    echo ""
-done
-```
-
-`while true` loops forever. `break` exits it. The `case` statement handles each option cleanly.
-
-### Reading User Input
-
-```bash
-read -p "What is your name? " name
-echo "Hello, $name!"
-```
-
-`read -p "prompt" variable` prints the prompt and waits for the user to type something.
-
-### Color Output
-
-You can add color to make the UI look great:
-
-```bash
-# Define colors as variables
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-RESET='\033[0m'   # Reset to default
-
-# Use them:
-echo -e "${CYAN}Hello, ${BOLD}Sophia${RESET}${CYAN}!${RESET}"
-echo -e "${GREEN}✓ Success${RESET}"
-echo -e "${RED}✗ Error${RESET}"
-```
-
-`-e` in `echo` enables escape sequences like `\033[...`.
-
-### A Nice Header
-
-```bash
-clear_header() {
-    clear
-    echo -e "${BOLD}${CYAN}================================${RESET}"
-    echo -e "${BOLD}${CYAN}   MyBot — Personal Assistant   ${RESET}"
-    echo -e "${BOLD}${CYAN}================================${RESET}"
-    echo -e "Welcome, ${YELLOW}$BOT_NAME${RESET}! Today is ${GREEN}$(date +"%A, %B %d")${RESET}."
-    echo ""
-}
+mkdir -p ~/mybot/modules
+cd ~/mybot
 ```
 
 ---
 
-## The Complete MyBot Script
-
-Here it is. This is a real, working program. Save it to `~/mybot.sh`.
+## The Config File
 
 ```bash
-nano ~/mybot.sh
+nano ~/mybot/config.sh
 ```
 
-Paste in this entire script:
+Type this:
 
 ```bash
 #!/bin/bash
-# ============================================================
-# MyBot — Your Personal Terminal Assistant
-# Written by: [Your Name Here]
-# Built during: Mac CLI for Kids, Mission 12
-# ============================================================
+# config.sh — MyBot settings
+# Edit these values to personalize your bot!
 
-# --- Colors ---
+MY_NAME="Sophia"
+MY_VOICE="Samantha"       # your favorite say voice
+DIARY_FILE="$HOME/diary/journal.txt"
+BOT_NAME="MyBot"
+
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
-MAGENTA='\033[0;35m'
 BOLD='\033[1m'
-RESET='\033[0m'
-
-# --- Config ---
-BOT_NAME="Sophia"          # Change this to your name!
-DIARY="$HOME/diary/journal.txt"
-BOT_VERSION="1.0"
-
-# =====================
-# HELPER FUNCTIONS
-# =====================
-
-clear_header() {
-    clear
-    echo -e "${BOLD}${CYAN}╔══════════════════════════════════════╗${RESET}"
-    echo -e "${BOLD}${CYAN}║     MyBot — Personal Assistant       ║${RESET}"
-    echo -e "${BOLD}${CYAN}╚══════════════════════════════════════╝${RESET}"
-    echo -e "  Welcome, ${YELLOW}${BOLD}$BOT_NAME${RESET}! Today is ${GREEN}$(date +"%A, %B %d, %Y")${RESET}."
-    echo ""
-}
-
-press_enter() {
-    echo ""
-    read -p "Press Enter to return to menu..."
-}
-
-# =====================
-# MENU FUNCTIONS
-# =====================
-
-read_diary() {
-    clear_header
-    echo -e "${BOLD}📖 Your Diary${RESET}"
-    echo ""
-    if [ -f "$DIARY" ]; then
-        cat "$DIARY"
-    else
-        echo -e "${YELLOW}No diary found.${RESET}"
-        echo "Run 'Add a diary entry' to start your diary!"
-        echo "(Diary will be created at: $DIARY)"
-    fi
-    press_enter
-}
-
-write_diary() {
-    clear_header
-    echo -e "${BOLD}✏️  Add a Diary Entry${RESET}"
-    echo ""
-
-    # Make sure the diary folder exists
-    mkdir -p "$(dirname $DIARY)"
-
-    echo -e "${CYAN}What happened today? (Press Enter twice when done)${RESET}"
-    echo ""
-
-    # Read multi-line input
-    entry=""
-    while IFS= read -r line; do
-        [ -z "$line" ] && break
-        entry="$entry$line\n"
-    done
-
-    if [ -n "$entry" ]; then
-        echo "" >> "$DIARY"
-        echo "=== $(date +"%A, %B %d, %Y") ===" >> "$DIARY"
-        echo "" >> "$DIARY"
-        printf "%b" "$entry" >> "$DIARY"
-        echo "---" >> "$DIARY"
-
-        echo -e "${GREEN}✓ Entry saved to your diary!${RESET}"
-        say "Diary entry saved."
-    else
-        echo -e "${YELLOW}Nothing written.${RESET}"
-    fi
-    press_enter
-}
-
-check_weather() {
-    clear_header
-    echo -e "${BOLD}🌤  Weather Report${RESET}"
-    echo ""
-    echo -e "Fetching weather... ${CYAN}(requires internet)${RESET}"
-    echo ""
-    curl -s --max-time 10 "wttr.in/?format=3" 2>/dev/null || \
-        echo -e "${RED}Could not get weather. Check your internet connection.${RESET}"
-    echo ""
-    press_enter
-}
-
-check_internet() {
-    clear_header
-    echo -e "${BOLD}🌐 Internet Status${RESET}"
-    echo ""
-
-    echo -n "Checking connection... "
-    if ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
-        echo -e "${GREEN}✓ CONNECTED${RESET}"
-        internet_ok=true
-    else
-        echo -e "${RED}✗ NO CONNECTION${RESET}"
-        internet_ok=false
-    fi
-
-    echo -n "DNS check... "
-    if ping -c 1 -W 2 google.com > /dev/null 2>&1; then
-        echo -e "${GREEN}✓ WORKING${RESET}"
-    else
-        echo -e "${RED}✗ NOT WORKING${RESET}"
-    fi
-
-    # Local IP
-    local_ip=$(ifconfig | grep "inet " | grep -v "127.0.0.1" | head -1 | awk '{print $2}')
-    echo -e "Local IP:  ${CYAN}${local_ip:-not found}${RESET}"
-
-    # Public IP
-    if $internet_ok; then
-        public_ip=$(curl -s --max-time 5 https://api.ipify.org 2>/dev/null)
-        echo -e "Public IP: ${CYAN}${public_ip:-could not retrieve}${RESET}"
-    fi
-
-    press_enter
-}
-
-organize_downloads() {
-    clear_header
-    echo -e "${BOLD}📂 Organize Downloads${RESET}"
-    echo ""
-
-    DOWNLOADS="$HOME/Downloads"
-    count=$(ls "$DOWNLOADS" | wc -l | tr -d ' ')
-    echo -e "Your Downloads folder has ${YELLOW}$count items${RESET}."
-    echo ""
-    read -p "Organize them into subfolders? (y/n): " confirm
-
-    if [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; then
-        echo "Cancelled."
-        press_enter
-        return
-    fi
-
-    mkdir -p "$DOWNLOADS/Photos" "$DOWNLOADS/Videos" \
-             "$DOWNLOADS/Documents" "$DOWNLOADS/Music" "$DOWNLOADS/Other"
-
-    moved=0
-    for file in "$DOWNLOADS"/*; do
-        [ -d "$file" ] && continue
-        filename=$(basename "$file")
-        ext=$(echo "${filename##*.}" | tr '[:upper:]' '[:lower:]')
-
-        case "$ext" in
-            jpg|jpeg|png|gif|heic|webp|bmp)
-                dest="$DOWNLOADS/Photos" ;;
-            mp4|mov|avi|mkv|m4v|wmv)
-                dest="$DOWNLOADS/Videos" ;;
-            mp3|m4a|flac|wav|aac)
-                dest="$DOWNLOADS/Music" ;;
-            txt|doc|docx|pdf|pages|md|rtf|csv)
-                dest="$DOWNLOADS/Documents" ;;
-            *)
-                dest="$DOWNLOADS/Other" ;;
-        esac
-
-        mv "$file" "$dest/" 2>/dev/null
-        moved=$((moved + 1))
-    done
-
-    echo ""
-    echo -e "${GREEN}✓ Moved $moved files.${RESET}"
-    echo ""
-    echo "Photos:    $(ls "$DOWNLOADS/Photos/" 2>/dev/null | wc -l | tr -d ' ') files"
-    echo "Videos:    $(ls "$DOWNLOADS/Videos/" 2>/dev/null | wc -l | tr -d ' ') files"
-    echo "Music:     $(ls "$DOWNLOADS/Music/" 2>/dev/null | wc -l | tr -d ' ') files"
-    echo "Documents: $(ls "$DOWNLOADS/Documents/" 2>/dev/null | wc -l | tr -d ' ') files"
-    echo "Other:     $(ls "$DOWNLOADS/Other/" 2>/dev/null | wc -l | tr -d ' ') files"
-
-    press_enter
-}
-
-tell_joke() {
-    clear_header
-    echo -e "${BOLD}😄 Random Joke${RESET}"
-    echo ""
-
-    # A few built-in jokes (kid-friendly!)
-    jokes=(
-        "Why don't scientists trust atoms?\nBecause they make up everything!"
-        "What do you call a sleeping dinosaur?\nA dino-snore!"
-        "Why did the programmer quit?\nBecause they didn't get arrays!"
-        "What do you call a fish with no eyes?\nA fsh!"
-        "Why did the computer go to the doctor?\nBecause it had a virus!"
-        "What's a computer's favorite snack?\nMicrochips!"
-        "Why did the terminal user cross the road?\nTo get to the other side of the firewall!"
-        "How many programmers does it take to change a light bulb?\nNone — that's a hardware problem!"
-    )
-
-    # Pick a random joke
-    joke_index=$((RANDOM % ${#jokes[@]}))
-    IFS=$'\n' read -rd '' setup reply <<< "$(echo -e "${jokes[$joke_index]}")"
-
-    echo -e "${CYAN}$setup${RESET}"
-    echo ""
-    sleep 1.5
-    echo -e "${YELLOW}$reply${RESET}"
-    echo ""
-    say "${jokes[$joke_index]//\\n/ ... }"
-
-    press_enter
-}
-
-find_file() {
-    clear_header
-    echo -e "${BOLD}🔍 File Finder${RESET}"
-    echo ""
-    read -p "What are you looking for? (filename or word): " search_term
-
-    if [ -z "$search_term" ]; then
-        echo "Nothing entered."
-        press_enter
-        return
-    fi
-
-    echo ""
-    echo -e "Searching for '${CYAN}$search_term${RESET}'..."
-    echo ""
-
-    echo "--- Files with matching names ---"
-    find ~ -iname "*${search_term}*" 2>/dev/null | head -10
-
-    echo ""
-    echo "--- Spotlight search (file contents too) ---"
-    mdfind "$search_term" 2>/dev/null | head -10
-
-    press_enter
-}
-
-system_info() {
-    clear_header
-    echo -e "${BOLD}ℹ️  System Info${RESET}"
-    echo ""
-
-    echo -e "${CYAN}Computer:${RESET}   $(scutil --get ComputerName 2>/dev/null || hostname)"
-    echo -e "${CYAN}User:${RESET}       $(whoami)"
-    echo -e "${CYAN}Date/Time:${RESET}  $(date +"%A, %B %d, %Y — %I:%M %p")"
-    echo ""
-
-    echo -e "${CYAN}Home folder:${RESET} $(du -sh ~ 2>/dev/null | cut -f1) used"
-    echo -e "${CYAN}Downloads:${RESET}  $(ls ~/Downloads | wc -l | tr -d ' ') items"
-
-    if [ -f "$DIARY" ]; then
-        entries=$(grep -c "^===" "$DIARY" 2>/dev/null)
-        echo -e "${CYAN}Diary:${RESET}      $entries entries"
-    else
-        echo -e "${CYAN}Diary:${RESET}      no diary yet"
-    fi
-
-    echo ""
-    echo -e "${CYAN}Uptime:${RESET}"
-    uptime
-
-    press_enter
-}
-
-goodbye() {
-    clear_header
-    echo -e "${BOLD}${YELLOW}Goodbye, $BOT_NAME!${RESET}"
-    echo ""
-    echo -e "Thanks for using MyBot ${BOT_VERSION}."
-    echo -e "Remember: ${CYAN}the Terminal is your superpower.${RESET}"
-    echo ""
-    say "Goodbye $BOT_NAME! See you next time."
-    echo ""
-    exit 0
-}
-
-# =====================
-# FIRST RUN SETUP
-# =====================
-
-# Check if we have a saved name
-if [ -f "$HOME/.mybot_config" ]; then
-    source "$HOME/.mybot_config"
-fi
-
-# If no name saved, ask for it
-if [ -z "$BOT_NAME" ] || [ "$BOT_NAME" = "Sophia" ]; then
-    clear
-    echo -e "${BOLD}${CYAN}Welcome to MyBot!${RESET}"
-    echo ""
-    read -p "What's your name? " input_name
-    if [ -n "$input_name" ]; then
-        BOT_NAME="$input_name"
-        echo "BOT_NAME=\"$BOT_NAME\"" > "$HOME/.mybot_config"
-    fi
-fi
-
-# Welcome message on first launch
-say "Welcome, $BOT_NAME! MyBot is ready."
-
-# =====================
-# MAIN MENU LOOP
-# =====================
-
-while true; do
-    clear_header
-    echo -e "${BOLD}What would you like to do?${RESET}"
-    echo ""
-    echo -e "  ${CYAN}1.${RESET} 📖  Read my diary"
-    echo -e "  ${CYAN}2.${RESET} ✏️   Add a diary entry"
-    echo -e "  ${CYAN}3.${RESET} 🌤   Check the weather"
-    echo -e "  ${CYAN}4.${RESET} 🌐  Check the internet"
-    echo -e "  ${CYAN}5.${RESET} 📂  Organize my Downloads"
-    echo -e "  ${CYAN}6.${RESET} 😄  Tell me a joke"
-    echo -e "  ${CYAN}7.${RESET} 🔍  Find a file"
-    echo -e "  ${CYAN}8.${RESET} ℹ️   System info"
-    echo -e "  ${CYAN}9.${RESET} 👋  Goodbye"
-    echo ""
-    read -p "$(echo -e "${BOLD}Enter choice (1-9):${RESET} ")" choice
-    echo ""
-
-    case $choice in
-        1) read_diary ;;
-        2) write_diary ;;
-        3) check_weather ;;
-        4) check_internet ;;
-        5) organize_downloads ;;
-        6) tell_joke ;;
-        7) find_file ;;
-        8) system_info ;;
-        9) goodbye ;;
-        *) echo -e "${RED}Invalid choice. Please enter 1-9.${RESET}"; sleep 1 ;;
-    esac
-done
-```
-
-Make it executable and run it:
-
-```bash
-chmod +x ~/mybot.sh
-bash ~/mybot.sh
+NC='\033[0m'   # No Color (reset)
 ```
 
 ---
 
-## Extending MyBot
-
-Once your basic bot is working, here are ways to make it even better:
-
-### Add a Quote of the Day
-
-Add this function and a menu option:
+## The Briefing Module
 
 ```bash
-quote_of_day() {
-    quotes=(
-        "The best way to predict the future is to create it."
-        "Code is like humor. When you have to explain it, it's bad."
-        "First, solve the problem. Then, write the code."
-        "Learning to write programs stretches your mind."
-        "The computer was born to solve problems that did not exist before."
+nano ~/mybot/modules/briefing.sh
+```
+
+```bash
+#!/bin/bash
+# modules/briefing.sh — Morning briefing
+
+do_briefing() {
+    local DATE_FULL=$(date +"%A, %B %d, %Y")
+    local HOUR=$(date +"%H")
+
+    if [ "$HOUR" -lt 12 ]; then
+        local GREETING="Good morning"
+    elif [ "$HOUR" -lt 17 ]; then
+        local GREETING="Good afternoon"
+    else
+        local GREETING="Good evening"
+    fi
+
+    local FACTS=(
+        "A group of flamingos is called a flamboyance."
+        "Honey never expires — archaeologists found 3000-year-old honey."
+        "Octopuses have three hearts and blue blood."
+        "The unicorn is the national animal of Scotland."
+        "Bananas are technically berries. Strawberries are not."
+        "Crows can recognize human faces and hold grudges."
+        "A day on Venus is longer than a year on Venus."
+        "Wombats produce cube-shaped poop. They are the only animals that do."
+        "There are more stars in the universe than grains of sand on Earth."
+        "Sharks are older than trees — they have been around for 450 million years."
     )
-    idx=$((RANDOM % ${#quotes[@]}))
-    echo -e "${YELLOW}\"${quotes[$idx]}\"${RESET}"
-    say "${quotes[$idx]}"
+    local RANDOM_FACT="${FACTS[$((RANDOM % ${#FACTS[@]}))]}"
+
+    echo ""
+    echo -e "${CYAN}╔══════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║${NC}${BOLD}        MORNING BRIEFING FOR $MY_NAME         ${NC}${CYAN}║${NC}"
+    echo -e "${CYAN}╚══════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "  ${YELLOW}$GREETING, $MY_NAME!${NC}"
+    echo -e "  ${GREEN}Today is $DATE_FULL${NC}"
+    echo ""
+    echo -e "  ${PURPLE}Fun Fact:${NC}"
+    echo "  $RANDOM_FACT"
+    echo ""
+
+    say -v "$MY_VOICE" "$GREETING $MY_NAME! Today is $(date +'%A'). Fun fact: $RANDOM_FACT" &
+
+    echo -e "${CYAN}──────────────────────────────────────────${NC}"
 }
 ```
 
-### Add a Timer
+---
+
+## The Diary Module
 
 ```bash
-timer_function() {
-    read -p "How many minutes? " mins
-    seconds=$((mins * 60))
-    echo "Timer set for $mins minutes."
-    say "Timer started for $mins minutes."
-    sleep "$seconds"
-    echo -e "${GREEN}⏰ Time's up!${RESET}"
-    say "Time is up!"
-}
+nano ~/mybot/modules/diary.sh
 ```
-
-### Add a Habit Tracker
 
 ```bash
-HABITS_FILE="$HOME/.mybot_habits"
+#!/bin/bash
+# modules/diary.sh — Diary functions
 
-log_habit() {
-    read -p "Which habit did you do today? " habit
-    echo "$(date +"%Y-%m-%d"): $habit" >> "$HABITS_FILE"
-    echo -e "${GREEN}✓ Logged: $habit${RESET}"
-}
+diary_menu() {
+    mkdir -p "$(dirname "$DIARY_FILE")"
 
-show_habits() {
-    echo -e "${BOLD}Your recent habits:${RESET}"
-    tail -10 "$HABITS_FILE" 2>/dev/null || echo "(no habits logged yet)"
+    echo ""
+    echo -e "${PURPLE}=== DIARY ===${NC}"
+    echo "  1. Write a new entry"
+    echo "  2. Read recent entries"
+    echo "  3. Search diary"
+    echo "  4. Count entries"
+    echo "  b. Back to main menu"
+    echo ""
+    echo -n "Choice: "
+    read diary_choice
+
+    case "$diary_choice" in
+        1)
+            echo ""
+            echo "What would you like to write?"
+            echo "(Press Enter twice when done)"
+            entry=""
+            while IFS= read -r line; do
+                [ -z "$line" ] && break
+                entry+="$line"$'\n'
+            done
+
+            if [ -n "$entry" ]; then
+                {
+                    echo "=== $(date +'%A, %B %d, %Y at %I:%M %p') ==="
+                    echo ""
+                    echo "$entry"
+                    echo "---"
+                    echo ""
+                } >> "$DIARY_FILE"
+                echo -e "${GREEN}Entry saved!${NC}"
+                say -v "$MY_VOICE" "Diary entry saved!" &
+            else
+                echo "No entry saved (was empty)."
+            fi
+            ;;
+        2)
+            if [ -f "$DIARY_FILE" ]; then
+                echo ""
+                echo -e "${CYAN}--- Last 30 lines of your diary ---${NC}"
+                tail -30 "$DIARY_FILE"
+            else
+                echo "No diary yet! Write your first entry."
+            fi
+            ;;
+        3)
+            echo "Search for what word?"
+            read search_word
+            if [ -f "$DIARY_FILE" ]; then
+                echo ""
+                grep -n -i "$search_word" "$DIARY_FILE" | head -20
+            fi
+            ;;
+        4)
+            if [ -f "$DIARY_FILE" ]; then
+                COUNT=$(grep -c "^===" "$DIARY_FILE")
+                WORDS=$(wc -w < "$DIARY_FILE")
+                echo ""
+                echo -e "  ${GREEN}Total entries: $COUNT${NC}"
+                echo -e "  ${GREEN}Total words: $WORDS${NC}"
+            else
+                echo "No diary yet!"
+            fi
+            ;;
+        b|B)
+            return
+            ;;
+    esac
 }
 ```
+
+---
+
+## The Internet Module
+
+```bash
+nano ~/mybot/modules/internet.sh
+```
+
+```bash
+#!/bin/bash
+# modules/internet.sh — Internet checker
+
+check_internet() {
+    echo ""
+    echo -e "${CYAN}=== INTERNET CHECK ===${NC}"
+
+    if ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
+        echo -e "  ${GREEN}✓ Internet: Connected${NC}"
+    else
+        echo -e "  ${RED}✗ Internet: No connection${NC}"
+        return
+    fi
+
+    PING_TIME=$(ping -c 3 google.com 2>/dev/null | tail -1 | awk -F'/' '{print $5}' | cut -d'.' -f1)
+    if [ -n "$PING_TIME" ]; then
+        if [ "$PING_TIME" -lt 50 ]; then
+            SPEED_LABEL="Excellent"
+            SPEED_COLOR="$GREEN"
+        elif [ "$PING_TIME" -lt 100 ]; then
+            SPEED_LABEL="Good"
+            SPEED_COLOR="$YELLOW"
+        else
+            SPEED_LABEL="Slow"
+            SPEED_COLOR="$RED"
+        fi
+        echo -e "  ${SPEED_COLOR}Ping: ${PING_TIME}ms ($SPEED_LABEL)${NC}"
+    fi
+
+    PUBLIC_IP=$(curl -s --max-time 3 ifconfig.me 2>/dev/null)
+    if [ -n "$PUBLIC_IP" ]; then
+        echo -e "  ${BLUE}Public IP: $PUBLIC_IP${NC}"
+    fi
+
+    echo ""
+}
+```
+
+---
+
+## The Files Module
+
+```bash
+nano ~/mybot/modules/files.sh
+```
+
+```bash
+#!/bin/bash
+# modules/files.sh — File utilities
+
+files_menu() {
+    echo ""
+    echo -e "${PURPLE}=== FILE TOOLS ===${NC}"
+    echo "  1. Count files in home folder"
+    echo "  2. Find my largest files"
+    echo "  3. Find recently changed files"
+    echo "  4. Search for a file by name"
+    echo "  b. Back to main menu"
+    echo ""
+    echo -n "Choice: "
+    read files_choice
+
+    case "$files_choice" in
+        1)
+            TOTAL=$(find ~ -type f 2>/dev/null | wc -l | tr -d ' ')
+            echo ""
+            echo -e "  ${GREEN}Total files in home folder: $TOTAL${NC}"
+            echo ""
+            echo "  Top 5 file types:"
+            find ~ -type f 2>/dev/null | grep -o "\.[a-zA-Z0-9]*$" | sort | uniq -c | sort -rn | head -5 | while read count ext; do
+                echo "    $ext: $count files"
+            done
+            ;;
+        2)
+            echo ""
+            echo "  Files over 100MB:"
+            find ~ -type f -size +100M 2>/dev/null | head -10
+            ;;
+        3)
+            echo ""
+            echo "  Modified in last 24 hours:"
+            find ~ -type f -mtime -1 2>/dev/null | grep -v ".DS_Store" | head -15
+            ;;
+        4)
+            echo "Search for filename (wildcards ok, e.g. *.pdf):"
+            read search_name
+            echo ""
+            find ~ -name "$search_name" 2>/dev/null | head -20
+            ;;
+        b|B)
+            return
+            ;;
+    esac
+}
+```
+
+---
+
+## The Main Program
+
+Now the most important file — `mybot.sh`:
+
+```bash
+nano ~/mybot/mybot.sh
+```
+
+```bash
+#!/bin/bash
+# mybot.sh — MyBot Personal Assistant
+# Usage: bash ~/mybot/mybot.sh
+# Or: chmod +x ~/mybot/mybot.sh  then  ~/mybot/mybot.sh
+
+# Load config and modules
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/config.sh"
+source "$SCRIPT_DIR/modules/briefing.sh"
+source "$SCRIPT_DIR/modules/diary.sh"
+source "$SCRIPT_DIR/modules/internet.sh"
+source "$SCRIPT_DIR/modules/files.sh"
+
+# === BANNER ===
+show_banner() {
+    clear
+    echo ""
+    echo -e "${BOLD}${CYAN}"
+    echo "  ╔═══════════════════════════════════════╗"
+    echo "  ║                                       ║"
+    echo "  ║           M Y   B O T                 ║"
+    echo "  ║     Personal Terminal Assistant       ║"
+    echo "  ║                                       ║"
+    echo "  ╚═══════════════════════════════════════╝"
+    echo -e "${NC}"
+    echo -e "  Hello, ${YELLOW}$MY_NAME${NC}! I am $BOT_NAME. How can I help?"
+    echo ""
+}
+
+# === MAIN MENU ===
+show_menu() {
+    echo ""
+    echo -e "${BOLD}  What would you like to do?${NC}"
+    echo ""
+    echo -e "  ${YELLOW}1.${NC} Morning Briefing"
+    echo -e "  ${YELLOW}2.${NC} Diary"
+    echo -e "  ${YELLOW}3.${NC} Check Internet"
+    echo -e "  ${YELLOW}4.${NC} File Tools"
+    echo -e "  ${YELLOW}5.${NC} Open Home Folder in Finder"
+    echo -e "  ${YELLOW}6.${NC} What time is it?"
+    echo -e "  ${YELLOW}7.${NC} Surprise me!"
+    echo -e "  ${RED}q.${NC} Quit"
+    echo ""
+    echo -n "  Enter choice: "
+}
+
+# === RANDOM FUN FACT ===
+do_random_fact() {
+    local FACTS=(
+        "The first computer programmer was Ada Lovelace — a woman — in 1843."
+        "The first computer bug was a real bug: a moth stuck in a relay in 1947."
+        "Python was named after Monty Python, not the snake."
+        "There are more lines of code in a modern iPhone than in the Apollo moon program."
+        "The first domain name ever registered was Symbolics.com in 1985."
+        "The @ symbol was chosen for email because it was rarely used and would not appear in names."
+        "Cleopatra lived closer in time to the Moon landing than to the building of the pyramids."
+        "A snail can sleep for three years."
+        "Nintendo was founded in 1889 — originally as a playing card company."
+    )
+    local FACT="${FACTS[$((RANDOM % ${#FACTS[@]}))]}"
+    echo ""
+    echo -e "  ${PURPLE}Did you know?${NC}"
+    echo "  $FACT"
+    echo ""
+    say -v "$MY_VOICE" "$FACT" &
+}
+
+# === MAIN LOOP ===
+show_banner
+
+while true; do
+    show_menu
+    read choice
+
+    case "$choice" in
+        1) do_briefing ;;
+        2) diary_menu ;;
+        3) check_internet ;;
+        4) files_menu ;;
+        5)
+            open ~
+            echo -e "  ${GREEN}Opened your home folder in Finder!${NC}"
+            ;;
+        6)
+            echo ""
+            echo -e "  ${CYAN}$(date +'%I:%M %p on %A, %B %d, %Y')${NC}"
+            echo ""
+            ;;
+        7) do_random_fact ;;
+        q|Q|quit|exit)
+            echo ""
+            echo -e "  ${YELLOW}Goodbye, $MY_NAME! See you next time.${NC}"
+            echo ""
+            say -v "$MY_VOICE" "Goodbye $MY_NAME!" &
+            exit 0
+            ;;
+        *)
+            echo -e "  ${RED}I do not understand '$choice'. Try again!${NC}"
+            ;;
+    esac
+
+    echo ""
+    echo -n "  Press Enter to return to menu..."
+    read
+    show_banner
+done
+```
+
+---
+
+## Running MyBot
+
+Make everything executable:
+
+```bash
+chmod +x ~/mybot/mybot.sh
+chmod +x ~/mybot/modules/*.sh
+```
+
+Run it:
+
+```bash
+bash ~/mybot/mybot.sh
+```
+
+Or add it to your `.zshrc` aliases (from Mission 10):
+
+```bash
+echo 'alias mybot="bash ~/mybot/mybot.sh"' >> ~/.zshrc
+source ~/.zshrc
+mybot
+```
+
+Now you can launch your personal assistant with a single word!
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Run MyBot and test every menu option. Does everything work?
+**Experiment 1:** Try every menu option. Go through each option at least once. Make sure your diary entry saves. Check the internet. Open Finder.
 
-**Experiment 2:** Change the `BOT_NAME` in the script to your real name. Or delete `~/.mybot_config` and let it ask you again:
+**Experiment 2:** Customize the banner. Edit `mybot.sh` and change the banner to say something more personal — your name, a subtitle, an emoji pattern.
 
-```bash
-rm ~/.mybot_config
-bash ~/mybot.sh
-```
-
-**Experiment 3:** Add a 10th menu option. Pick one of the extensions above (Quote of the Day, Timer, or Habit Tracker) and add it to the menu.
-
-**Experiment 4:** Make MyBot accessible as a command. Copy it to `~/bin/`:
-
-```bash
-mkdir -p ~/bin
-cp ~/mybot.sh ~/bin/mybot
-chmod +x ~/bin/mybot
-```
-
-Then make sure `~/bin` is in your PATH (add this to `.zshrc` if it isn't):
-
-```bash
-export PATH="$HOME/bin:$PATH"
-```
-
-Source `.zshrc` and then just type `mybot` from anywhere!
+**Experiment 3:** Change the voice in `config.sh` to your favorite voice from Mission 1. Does the briefing update automatically?
 
 ---
 
 ## Challenges
 
-### Challenge 1 — Personalize It
+### Challenge 1 — Add a Calculator
 
-Add at least two new features to MyBot that aren't already in the script. They can be anything — a calculator, a word counter for your diary, a list of your favorite commands, a random compliment generator, whatever you want.
+Add a new menu option (8) called "Quick Calculator". It should:
+1. Ask the user for a math expression (like `5 * 7` or `100 / 4`)
+2. Calculate it using `echo "$((expression))"`
+3. Print the result
 
-### Challenge 2 — Add Color Themes
+**Hint:** `echo $((5 * 7))` prints `35`. Store the user's input with `read expr` and compute with `echo $(($expr))`.
 
-Add a "Change theme" menu option that lets you pick a color scheme for the bot's UI:
-- Option 1: Cyan/Yellow (default)
-- Option 2: Green hacker
-- Option 3: Purple/Pink
+### Challenge 2 — Weather Widget
 
-**Hint:** Change the color variables and re-draw the header.
+Add a weather option using `curl`. The service `wttr.in` provides weather in the terminal:
 
-### Challenge 3 — The Daily Report
+```bash
+get_weather() {
+    echo "Which city?"
+    read city
+    echo ""
+    curl -s "wttr.in/${city}?format=3"
+    echo ""
+}
+```
 
-Add a menu option called "Daily Report" that automatically:
-1. Shows today's date and time
-2. Counts your diary entries
-3. Shows your IP address
-4. Lists the top 3 file types in Downloads
-5. Gives you a compliment
+Add this to `modules/internet.sh`, then add a menu option that calls it.
 
-All in one screen, no user input needed.
+### Challenge 3 — Quote of the Day
+
+Add a menu option that fetches an inspirational quote:
+
+```bash
+do_quote() {
+    echo ""
+    echo "  Quote of the moment:"
+    curl -s "https://api.quotable.io/random" 2>/dev/null | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+print('  \"' + data['content'] + '\"')
+print('  — ' + data['author'])
+" 2>/dev/null || echo "  Could not fetch quote (check your internet connection)"
+    echo ""
+}
+```
 
 ### Challenge 4 — Make It Your Own
 
-This is the open-ended challenge. Look at your MyBot. What would make it genuinely useful for *your* life? Add it.
+Add one feature that YOU would actually use every day. Some ideas:
+- A countdown timer (reuse Mission 8's countdown script)
+- A simple to-do list (add and view items stored in a file)
+- A music player using `afplay ~/Music/somesong.mp3`
+- A random word from the dictionary: `grep "." /usr/share/dict/words | shuf -n 1`
 
-Think about:
-- Things you check every day
-- Tasks you do over and over
-- Information you want fast
-- Things that would be fun to have
-
-Build it. This is your program. Make it yours.
+The only rule: it has to be something that makes you want to open MyBot.
 
 ---
 
@@ -634,52 +547,66 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 ## Powers Unlocked
 
-| Concept | How To Use It |
-|---------|--------------|
-| Main menu loop | `while true; do ... case $choice in ... esac; done` |
-| Menu option | `N) function_name ;;` in the case statement |
-| User input | `read -p "prompt" variable` |
-| Color text | `echo -e "${COLOR}text${RESET}"` |
-| Bold text | `echo -e "${BOLD}text${RESET}"` |
-| Random item | `arr[RANDOM % ${#arr[@]}]` |
-| Config file | `source ~/.mybot_config` to load saved settings |
-| Clear screen | `clear` |
-| Sleep | `sleep N` pauses for N seconds |
-| Exit program | `exit 0` |
+This mission combined everything from the whole book. Here is the full inventory of what you now know:
 
-### The Complete Command Reference
-
-You've learned over 50 commands across 12 missions. Here's the master list:
-
-| Mission | Commands Learned |
-|---------|-----------------|
-| 1 | `whoami`, `date`, `echo`, `say`, `clear` |
-| 2 | `pwd`, `ls`, `cd` |
-| 3 | `mkdir`, `touch`, `cp`, `mv`, `rm` |
-| 4 | `cat`, `less`, `head`, `tail`, `>`, `>>` |
-| 5 | `find`, `grep`, `mdfind` |
-| 6 | `\|`, `sort`, `uniq`, `wc`, `cut` |
-| 7 | `bash`, variables, `read`, `$()` |
-| 8 | `for`, `while`, `if/else`, `case`, `test` |
-| 9 | `ping`, `curl`, `open`, `caffeinate` |
-| 10 | `alias`, `.zshrc`, `PROMPT`, functions |
-| 11 | `chmod`, `openssl`, `base64`, `tar` |
-| 12 | Putting it all together |
+| Mission | What You Can Do |
+|---------|----------------|
+| 1 | Open Terminal, use basic commands, make your Mac speak |
+| 2 | Navigate the filesystem like a pro |
+| 3 | Create, copy, move, and delete files and folders |
+| 4 | Read and write files, build a diary |
+| 5 | Find any file, search inside files with grep |
+| 6 | Chain commands with pipes, sort/count/analyze data |
+| 7 | Write real scripts with variables and shebangs |
+| 8 | Use loops and logic to automate repetitive work |
+| 9 | Talk to the internet from Terminal |
+| 10 | Customize your terminal to be your own space |
+| 11 | Set permissions, hide files, encrypt messages |
+| 12 | Build a complete CLI application |
 
 ---
 
-## You Did It
+*You built an app.*
 
-Twelve missions. Forty-plus commands. Six real programs. One custom Terminal setup. And now, your own personal assistant.
+*Not a toy. Not a homework exercise. A real, working, menu-driven application that runs on your computer and does things that matter to you.*
 
-When you opened Mission 1, you saw a blinking cursor and a black screen. You didn't know what it was. Now you do — and more than that, you know how to use it, customize it, and build things with it.
-
-Most adults have never done what you just did.
-
-The Terminal is yours now. What will you build next?
+*This is what programmers do. And you did it.*
 
 ---
 
-*"The most powerful tool you'll ever use fits in a window on your screen. You've learned to use it. Now go do something amazing."*
+## What Comes Next?
 
-*— End of Mac CLI for Kids —*
+You have finished Terminal Quest. But this is really the beginning, not the end. Here are some places to go from here:
+
+**Learn a programming language:**
+- **Python** — reads almost like English, can do almost anything
+- **Ruby** — elegant and fun (check out *Ruby: The Kernighan Way* in this series!)
+- **Swift** — Apple's language for building Mac and iPhone apps
+
+**Go deeper into the command line:**
+- **Git** — the version control tool every programmer uses
+- **vim** — the most powerful text editor (steep learning curve, incredible payoff)
+- **awk and sed** — advanced text processing tools
+
+**Build real projects:**
+- A website (HTML + CSS + JavaScript)
+- A game (Python with pygame)
+- A Mac app (Swift + Xcode)
+- Automate something annoying in your daily life with a shell script
+
+**Read:**
+- *The Unix Programming Environment* — Kernighan & Pike (the original masters)
+- *The Linux Command Line* — William Shotts (free at linuxcommand.org)
+- *Learning Python* — Mark Lutz
+
+The command line is not going anywhere. The people who know it well have a superpower that most people do not.
+
+You have it now.
+
+---
+
+*— Dad (Yosia)*
+
+*P.S. I am proud of you. Not because you finished the book, but because you opened Terminal in the first place. That takes courage. Most adults will not do it.*
+
+*You did.*

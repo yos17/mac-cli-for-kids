@@ -1,147 +1,79 @@
 # Mission 12 — Solutions
 
-## Challenge 1 — Personalize It
+## Challenge 1 — Add a Calculator
 
-Here are two example features you could add to MyBot:
-
-### Feature A: Random Compliment Generator
-
-Add this function and a menu option `10`:
+Add to `mybot.sh` inside the main `case` block:
 
 ```bash
-give_compliment() {
-    clear_header
-    echo -e "${BOLD}🌟 Compliment of the Day${RESET}"
+8)
     echo ""
-    compliments=(
-        "You're amazing and I mean it."
-        "You learned Terminal. Most adults can't say that."
-        "Your code is getting better every day."
-        "You are creative, smart, and curious."
-        "The fact that you finished 12 missions says everything."
-        "You turned a blinking cursor into something powerful. That's you."
-    )
-    idx=$((RANDOM % ${#compliments[@]}))
-    echo -e "${YELLOW}${compliments[$idx]}${RESET}"
-    say "${compliments[$idx]}"
-    press_enter
-}
-```
-
-Then add to the menu:
-```
-10. 🌟  Get a compliment
-```
-
-And in the `case` block:
-```bash
-10) give_compliment ;;
-```
-
-### Feature B: Word Counter for Diary
-
-```bash
-diary_stats() {
-    clear_header
-    echo -e "${BOLD}📊 Diary Statistics${RESET}"
-    echo ""
-    if [ -f "$DIARY" ]; then
-        entries=$(grep -c "^===" "$DIARY")
-        words=$(wc -w < "$DIARY")
-        lines=$(wc -l < "$DIARY")
-        echo -e "Total entries: ${CYAN}$entries${RESET}"
-        echo -e "Total words:   ${CYAN}$words${RESET}"
-        echo -e "Total lines:   ${CYAN}$lines${RESET}"
-        echo ""
-        echo -e "${YELLOW}Most recent entry:${RESET}"
-        grep "^===" "$DIARY" | tail -1
+    echo "  Enter a math expression (e.g., 5 * 7 or 100 / 4):"
+    read math_expr
+    result=$(echo "$((math_expr))" 2>/dev/null)
+    if [ $? -eq 0 ]; then
+        echo -e "  ${GREEN}Result: $result${NC}"
     else
-        echo "No diary found yet."
+        echo -e "  ${RED}Could not calculate that. Try something like: 5 + 3${NC}"
     fi
-    press_enter
-}
+    ;;
+```
+
+And add to the menu:
+```bash
+echo -e "  ${YELLOW}8.${NC} Quick Calculator"
 ```
 
 ---
 
-## Challenge 2 — Color Themes
+## Challenge 2 — Weather Widget
 
-Add a theme selector by changing the color variables and adding a menu option:
+In `modules/internet.sh`, add after `check_internet()`:
 
 ```bash
-set_theme() {
-    clear_header
-    echo -e "${BOLD}🎨 Choose a Color Theme${RESET}"
+get_weather() {
+    echo "Which city?"
+    read city
     echo ""
-    echo "1. Cyan/Yellow (default)"
-    echo "2. Green Hacker"
-    echo "3. Purple/Pink"
+    curl -s "wttr.in/${city}?format=3" 2>/dev/null || echo "  Could not get weather. Check your internet."
     echo ""
-    read -p "Choose theme (1-3): " theme_choice
-
-    case $theme_choice in
-        1)
-            HEADER_COLOR='\033[0;36m'   # cyan
-            ACCENT_COLOR='\033[1;33m'   # yellow
-            echo "Theme: Cyan/Yellow applied."
-            ;;
-        2)
-            HEADER_COLOR='\033[0;32m'   # green
-            ACCENT_COLOR='\033[0;32m'   # green
-            echo "Theme: Green Hacker applied."
-            ;;
-        3)
-            HEADER_COLOR='\033[0;35m'   # magenta
-            ACCENT_COLOR='\033[1;35m'   # bright magenta
-            echo "Theme: Purple/Pink applied."
-            ;;
-        *)
-            echo "Invalid choice, keeping current theme."
-            ;;
-    esac
-
-    echo "BOT_THEME=$theme_choice" >> "$HOME/.mybot_config"
-    press_enter
 }
+```
+
+In `mybot.sh`, add to the menu:
+```bash
+echo -e "  ${YELLOW}9.${NC} Weather"
+```
+
+And in the case statement:
+```bash
+9) get_weather ;;
 ```
 
 ---
 
-## Challenge 3 — The Daily Report
+## Challenge 3 — Quote of the Day
+
+Add to `mybot.sh` or a new module:
 
 ```bash
-daily_report() {
-    clear_header
-    echo -e "${BOLD}📋 Daily Report — $(date +"%A, %B %d, %Y")${RESET}"
+do_quote() {
     echo ""
-
-    # Diary count
-    if [ -f "$DIARY" ]; then
-        entries=$(grep -c "^===" "$DIARY")
-        echo -e "📖 Diary entries: ${CYAN}$entries${RESET}"
+    echo -e "  ${PURPLE}Quote of the moment:${NC}"
+    RESULT=$(curl -s --max-time 5 "https://api.quotable.io/random" 2>/dev/null)
+    if [ -n "$RESULT" ]; then
+        echo "$RESULT" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    print('  \"' + data['content'] + '\"')
+    print('  — ' + data['author'])
+except:
+    print('  Could not parse quote.')
+" 2>/dev/null
     else
-        echo -e "📖 Diary: ${YELLOW}not started yet${RESET}"
+        echo "  Could not fetch quote (check your internet connection)"
     fi
-
-    # Internet + IP
-    if ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
-        public_ip=$(curl -s --max-time 5 https://api.ipify.org 2>/dev/null)
-        echo -e "🌐 Internet: ${GREEN}connected${RESET} (IP: ${CYAN}$public_ip${RESET})"
-    else
-        echo -e "🌐 Internet: ${RED}not connected${RESET}"
-    fi
-
-    # Top 3 file types in Downloads
     echo ""
-    echo -e "${BOLD}📂 Top file types in Downloads:${RESET}"
-    ls ~/Downloads | grep -o "\.[a-zA-Z0-9]*$" | sort | uniq -c | sort -rn | head -3
-
-    # Compliment
-    echo ""
-    compliments=("Keep it up!" "You're doing great." "Another great day!")
-    echo -e "✨ ${YELLOW}${compliments[$((RANDOM % 3))]}${RESET}"
-
-    press_enter
 }
 ```
 
@@ -149,49 +81,54 @@ daily_report() {
 
 ## Challenge 4 — Make It Your Own
 
-This challenge has no single "correct" answer — it's entirely yours!
-
-Some ideas other students have added:
-- A random trivia question
-- A reminder list (add/view/clear reminders)
-- A simple calculator using `$(( ))`
-- A countdown to a birthday or special event
-- A daily word-of-the-day from a list
-- A mini game (guess the number)
-
-Here's a starter for a **number guessing game** in case you want inspiration:
+### Example: Random Dictionary Word
 
 ```bash
-guess_game() {
-    clear_header
-    echo -e "${BOLD}🎮 Guess the Number!${RESET}"
+do_random_word() {
+    WORD=$(grep "." /usr/share/dict/words | sort -R | head -1)
     echo ""
-    secret=$((RANDOM % 10 + 1))
-    echo "I'm thinking of a number between 1 and 10."
+    echo -e "  ${CYAN}Random word of the moment: ${BOLD}$WORD${NC}"
+    say -v "$MY_VOICE" "Your random word is $WORD" &
     echo ""
-    attempts=0
-
-    while true; do
-        read -p "Your guess: " guess
-        attempts=$((attempts + 1))
-
-        if [ "$guess" -eq "$secret" ] 2>/dev/null; then
-            echo -e "${GREEN}🎉 Correct! You got it in $attempts guess(es)!${RESET}"
-            say "Correct! Well done!"
-            break
-        elif [ "$guess" -lt "$secret" ] 2>/dev/null; then
-            echo -e "${YELLOW}Too low! Try higher.${RESET}"
-        else
-            echo -e "${YELLOW}Too high! Try lower.${RESET}"
-        fi
-    done
-
-    press_enter
 }
 ```
 
-The best MyBot is the one you built yourself. Add things that make *your* life better and *your* Terminal more fun.
+### Example: Simple To-Do List
 
----
+```bash
+TODO_FILE="$HOME/.mybot_todo.txt"
 
-*You've completed all 12 missions. The Terminal is yours.*
+todo_menu() {
+    echo ""
+    echo -e "${PURPLE}=== TO-DO LIST ===${NC}"
+    echo "  1. Add item"
+    echo "  2. View all items"
+    echo "  3. Clear completed (delete file)"
+    echo "  b. Back"
+    echo ""
+    read todo_choice
+
+    case "$todo_choice" in
+        1)
+            echo "What do you need to do?"
+            read item
+            echo "[ ] $item" >> "$TODO_FILE"
+            echo -e "  ${GREEN}Added!${NC}"
+            ;;
+        2)
+            if [ -f "$TODO_FILE" ]; then
+                cat -n "$TODO_FILE"
+            else
+                echo "  No items yet!"
+            fi
+            ;;
+        3)
+            rm -f "$TODO_FILE"
+            echo -e "  ${GREEN}To-do list cleared!${NC}"
+            ;;
+        b|B) return ;;
+    esac
+}
+```
+
+The best solution is whatever makes you open MyBot every day. Make it yours!

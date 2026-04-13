@@ -20,6 +20,12 @@ Today you learn to chain commands into combos more powerful than any single comm
 - `cut` — extract columns from data
 - How to analyze real case file data with command chains
 
+> **Typing the pipe character `|`:**
+> - **US keyboard:** Shift + `\` (the key above Enter or to the left of Enter)
+> - **German keyboard:** Option + 7
+>
+> You'll type `|` constantly in this mission. Find the key now before you start.
+
 ---
 
 ## Your Case Files

@@ -18,6 +18,43 @@ This book teaches you how to use it. Not the boring way. The *mission* way.
 
 You are a recruit at the **Terminal Detective Academy**. Each chapter is a **Mission** — briefed by Commander Chen, equipped with new tools, and sent into a real folder full of case files, clues, and puzzles. At the end of all 12 missions, you'll unlock the final secret message.
 
+---
+
+## How Setup Works
+
+There are three parts to this project. Here's what each one does — and what it touches on your computer.
+
+**`CLAUDE.md` — project-only, no side effects**
+This file tells Claude how to help Joanna when she asks questions. It only applies when Claude is working inside this folder. Other projects are completely unaffected.
+
+**`scripts/setup_terminal.sh` — modifies your global Terminal config**
+Running this script adds a block to `~/.zshrc`, which is the configuration file loaded every time you open a Terminal window. This means the prompt, aliases, and shortcut commands (`missions`, `hint`, `secret`, etc.) will appear in **all** Terminal windows — not just inside this project. This is intentional: Joanna should be able to type `missions` from anywhere and jump straight to the playground.
+
+To undo everything: `bash scripts/reset_terminal.sh` restores your original `.zshrc` from a backup taken before setup ran.
+
+**`playground/` — fully self-contained**
+The mission folders, case files, and puzzle files all live inside this project directory. Nothing is installed system-wide. Deleting the repo removes them completely.
+
+---
+
+## Special Keys on Mac
+
+The Terminal uses characters that can be hard to find, especially on a German keyboard. Here's where to find the important ones:
+
+| Character | What it does | US Keyboard | German Keyboard |
+|-----------|-------------|-------------|-----------------|
+| `\|` (pipe) | Sends output to another command | Shift + `\` | Option + 7 |
+| `~` (tilde) | Means "your home folder" | Shift + `` ` `` | Option + N, then Space |
+| `\` (backslash) | Escape character | `\` key | Shift + Option + 7 |
+| `[` and `]` | Used in scripts | `[` and `]` keys | Option + 5 / Option + 6 |
+| `{` and `}` | Used in scripts | Shift + `[` / `]` | Option + 8 / Option + 9 |
+| `@` | Used in email/variables | Shift + 2 | Option + L |
+| `#` | Starts a comment in scripts | Shift + 3 | Option + 3 |
+
+> **German keyboard tip:** The pipe character `|` (Option + 7) is used constantly in Mission 6. Practise finding it before you get there.
+
+---
+
 ## The Treasure Hunt
 
 Hidden inside every mission folder in `playground/` is a `.secret_code.txt` file with one secret word. Find all 12, put them in order, and you've cracked the final code.

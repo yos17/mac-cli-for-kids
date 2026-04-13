@@ -18,6 +18,8 @@ Your Mac has been hiding this from you. Today you find it.
 - Your first 5 commands: `whoami`, `date`, `echo`, `say`, `clear`
 - How to make your Mac talk out loud
 
+> **German keyboard?** The Terminal uses characters that are in different places on German keyboards — especially `|`, `~`, and `\`. Check the **Special Keys on Mac** table in the main README before you start, so you know where to find them when you need them.
+
 ---
 
 ## Your Case Files

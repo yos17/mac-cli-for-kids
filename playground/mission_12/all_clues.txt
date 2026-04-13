@@ -1,0 +1,18 @@
+╔═══════════════════════════════════════════════════╗
+║  TERMINAL DETECTIVE AGENCY — CASE FILE SUMMARY    ║
+╠═══════════════════════════════════════════════════╣
+║  Mission 1:  The Talking Computer — Code: YOU     ║
+║  Mission 2:  The Lost Files — Code: ARE           ║
+║  Mission 3:  The Messy Crime Scene — Code: NOW    ║
+║  Mission 4:  The Secret Diary — Code: AN          ║
+║  Mission 5:  The Missing Witness — Code: ELITE    ║
+║  Mission 6:  The Code Breaker — Code: CODE        ║
+║  Mission 7:  The Automation Agent — Code: CRACKING║
+║  Mission 8:  The Pattern Hunter — Code: TERMINAL  ║
+║  Mission 9:  The Digital Spy — Code: DETECTIVE    ║
+║  Mission 10: Your Secret Lair — Code: KEEP        ║
+║  Mission 11: Top Secret — Code: HACKING           ║
+║  Mission 12: The Grand Finale — Code: ???         ║
+╠═══════════════════════════════════════════════════╣
+║  Assemble all 12 pieces to unlock the treasure!   ║
+╚═══════════════════════════════════════════════════╝

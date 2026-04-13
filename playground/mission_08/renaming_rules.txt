@@ -1,0 +1,41 @@
+FILE RENAMING RULES — Evidence Department
+==========================================
+All evidence photo files must be renamed to:
+  evidence_001.txt
+  evidence_002.txt
+  evidence_003.txt
+  (and so on...)
+
+Current naming chaos:
+- IMG_XXXX.txt files: from the security camera
+- DSC_XXXX.txt files: from the field camera
+- random names: misc photos from the scene
+
+Script hint:
+  counter=1
+  for file in photos/*; do
+    new_name=$(printf "evidence_%03d.txt" $counter)
+    mv "$file" "photos/$new_name"
+    counter=$((counter + 1))
+  done
+
+HOW IT WORKS:
+  counter=1               → start counting at 1
+  for file in photos/*    → loop through every file in photos/
+  printf "evidence_%03d"  → %03d means "3-digit number with leading zeros"
+                            so 1 becomes 001, 2 becomes 002, etc.
+  mv "$file" "photos/..."  → rename (move) the old file to the new name
+  counter=$((counter + 1)) → add 1 to the counter each time
+
+TO RUN THE SCRIPT:
+  1. Create a file called rename.sh and paste the code above
+  2. Run: chmod +x rename.sh
+  3. Run: ./rename.sh
+
+TO CHECK YOUR WORK:
+  ls photos/ | sort
+  (You should see evidence_001.txt through evidence_030.txt)
+
+WARNING: Once you rename the files, the old names are gone!
+         If you want to practice again, you'll need to re-download
+         or restore the original files.

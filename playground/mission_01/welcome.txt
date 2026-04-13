@@ -1,0 +1,45 @@
+╔════════════════════════════════════════════════════════════╗
+║          TERMINAL DETECTIVE AGENCY — CLASSIFIED            ║
+║                  WELCOME LETTER                            ║
+╚════════════════════════════════════════════════════════════╝
+
+To: New Recruit
+From: Director P. Chen, Terminal Detective Agency
+Subject: You've Been Selected!
+
+Agent,
+
+Congratulations! After reviewing hundreds of applications, our
+selection committee has chosen YOU to join the Terminal Detective
+Agency — the most elite team of digital investigators in the world.
+
+We solve cases that no one else can crack. Stolen files, hidden
+messages, encrypted secrets — if it lives on a computer, we find it.
+
+Your training begins immediately. Over the next 12 missions, you
+will master the most powerful tool any detective has: the Terminal.
+With it, you can navigate hidden directories, find buried evidence,
+and uncover secrets that ordinary agents never see.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THE SECRET CODE MISSION:
+
+Hidden across all 12 missions is a secret message — one word at a
+time. Each mission contains a file called secret_code_piece.txt.
+Collect all 12 words and assemble the final message to prove you've
+truly earned the title of Elite Agent.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your first task: use the 'ls' command to see what files are waiting
+for you in this folder. Then read them with 'cat'. Simple? Good.
+Every great detective starts with the basics.
+
+We're counting on you.
+
+Stay sharp,
+
+Director P. Chen
+Terminal Detective Agency
+"No file goes unread. No secret stays hidden."

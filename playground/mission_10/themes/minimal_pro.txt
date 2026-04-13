@@ -1,0 +1,5 @@
+# MINIMAL PRO THEME
+# Clean and professional
+# Add these to your .zshrc
+
+PROMPT='%F{blue}▶%f %1~ $ '

@@ -1,0 +1,5 @@
+# SUNRISE AGENT THEME
+# Bright and bold — for daytime missions
+# Add these to your .zshrc
+
+PROMPT='%F{yellow}☀%f %F{magenta}Agent%f %F{cyan}%1~%f %F{yellow}→%f '

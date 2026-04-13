@@ -1,0 +1,1 @@
+CASE 10: Your Secret Lair. Skills learned: .zshrc, aliases, PS1, PATH. Status: SOLVED.

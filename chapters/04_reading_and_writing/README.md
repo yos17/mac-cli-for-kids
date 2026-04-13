@@ -1,388 +1,491 @@
-# Mission 4 — Reading & Writing
+# CASE FILE #4 — The Secret Diary
 
-## Mission Briefing
-
-Everything in Terminal is either reading or writing. You read files to see what's in them. You write to files to save things. Today you master both.
-
-You'll also create something special: a **secret diary** that lives entirely in Terminal. No app. No cloud. Just files and commands. It's yours.
-
-### What You'll Learn
-- `cat` — display a file's contents
-- `less` — scroll through big files
-- `head` and `tail` — see the beginning or end of a file
-- `echo` with `>` and `>>` — write to files
-- How to build a diary from the command line
+**Terminal Detective Agency | Clearance Level: Junior Detective**
 
 ---
 
-## Reading Files
+## 🔍 MISSION BRIEFING
 
-### `cat` — Display a File
+Agent, we've caught a major break in the case.
 
-First, create a sample file to work with:
+Our surveillance team has intercepted what appears to be the primary suspect's personal diary — 10 entries spanning nearly three months. Intelligence suggests the suspect has been documenting their entire operation in these entries, including meeting locations, codenames, and most importantly: an escape plan.
 
+The diary is encrypted in places, but our cryptography division has confirmed one section uses a simple base64 encoding that you can crack right from your terminal. There's also a list of six suspects who may be connected to the operation. Your job is to read through the evidence carefully, identify the key clues, and document your findings in your own detective notes file.
+
+One more thing: one of the diary entries contains a piece of a secret code that could unlock something big later in your career at the Agency. Keep your eyes open for it.
+
+**Access your case files:**
 ```bash
-echo "This is line one." > sample.txt
-echo "This is line two." >> sample.txt
-echo "This is line three." >> sample.txt
-```
-
-(We'll explain `>` and `>>` in a moment — just run these for now.)
-
-Now read it:
-
-```bash
-cat sample.txt
-```
-
-Output:
-```
-This is line one.
-This is line two.
-This is line three.
-```
-
-`cat` stands for "concatenate" — its original job was to join files together. But reading a single file is its most common use.
-
-Display with line numbers:
-
-```bash
-cat -n sample.txt
-```
-
-Output:
-```
-     1	This is line one.
-     2	This is line two.
-     3	This is line three.
-```
-
-Join two files together (the original purpose!):
-
-```bash
-echo "File A content." > filea.txt
-echo "File B content." > fileb.txt
-cat filea.txt fileb.txt
-```
-
-Output:
-```
-File A content.
-File B content.
+cd playground/mission_04
 ```
 
 ---
 
-### `less` — Scroll Through Big Files
+## 📚 DETECTIVE TRAINING: Reading & Writing Files
 
-`cat` dumps everything at once. For big files, you want `less`:
+Every detective needs two core skills: reading evidence and writing reports. In the Terminal, those skills are `cat`, `less`, `head`, `tail`, `>`, and `>>`. Master these and no file will be able to keep its secrets from you.
+
+---
+
+### `cat` — Read a File Instantly
+
+`cat` displays an entire file's contents right in your terminal. Think of it as opening a document and reading it cover to cover.
+
+First, read your case briefing to understand what we're dealing with:
 
 ```bash
-less /usr/share/dict/words
+cat playground/mission_04/case_briefing.txt
 ```
 
-This opens a huge dictionary file! Now:
-- Press `Space` or `f` to go forward a page
-- Press `b` to go back a page
-- Press `/` and type a word to search for it
-- Press `n` to find the next match
-- Press `q` to quit
+The word "cat" stands for **concatenate** — its original job was to join multiple files together. But reading a single file is what it's used for most. Let's look at both uses.
 
-`less` is essential for reading log files, long documents, or any file that doesn't fit on screen.
+Read a single file:
+```bash
+cat playground/mission_04/suspects.txt
+```
+
+Display with line numbers (useful for referencing specific lines in your report):
+```bash
+cat -n playground/mission_04/suspects.txt
+```
+
+Output example:
+```
+     1  Name: Marcus K.
+     2  Last Known Location: Harbor District
+     3  Status: WANTED
+     ...
+```
+
+Join and display two files together (cat's original superpower):
+```bash
+cat playground/mission_04/diary_entries/entry_2024_01_15.txt playground/mission_04/diary_entries/entry_2024_01_28.txt
+```
+
+This shows both diary entries back to back — perfect for comparing what the suspect wrote on different dates.
+
+---
+
+### `less` — Scroll Through Long Files
+
+`cat` dumps everything at once. For longer files, you want `less` — it opens a scrollable viewer so you can read at your own pace. This is perfect for reading the full diary without everything flying past you.
+
+```bash
+less playground/mission_04/suspects.txt
+```
+
+Once you're inside `less`, use these controls:
+
+| Key | Action |
+|-----|--------|
+| `Space` or `f` | Move forward one page |
+| `b` | Move back one page |
+| `/` then a word | Search for a word |
+| `n` | Jump to the next search match |
+| `N` | Jump to the previous search match |
+| `g` | Jump to the beginning |
+| `G` | Jump to the end |
+| `q` | Quit |
+
+Try searching for a suspect name while inside `less`:
+1. Press `/`
+2. Type `Marcus`
+3. Press Enter
+4. Press `n` to find the next mention
+
+`less` is essential for reading log files, long documents, or any file that doesn't fit on screen. Real detectives use it constantly.
 
 ---
 
 ### `head` — See the Beginning
 
+`head` shows the first lines of a file — great for getting a quick preview before you commit to reading the whole thing.
+
+Show the first 10 lines (default):
 ```bash
-head sample.txt
+head playground/mission_04/diary_entries/entry_2024_02_12.txt
 ```
 
-Shows the first 10 lines (default). Show a specific number:
-
+Show only the first 3 lines:
 ```bash
-head -3 sample.txt
+head -3 playground/mission_04/diary_entries/entry_2024_02_12.txt
 ```
 
-Output:
-```
-This is line one.
-This is line two.
-This is line three.
-```
-
-`head` is great for peeking at a file without reading all of it. Very useful when you have a file with thousands of lines and just want to see what kind of data is in it.
+`head` is great for peeking at a file without reading all of it. Very useful when you have dozens of files and need to identify which ones are worth reading fully.
 
 ---
 
 ### `tail` — See the End
 
+`tail` shows the last lines of a file. Sometimes the most important information — like a final plan or a signature — is at the very end.
+
+Show the last 10 lines (default):
 ```bash
-tail sample.txt
+tail playground/mission_04/diary_entries/entry_2024_03_05.txt
 ```
 
-Shows the last 10 lines. Show a specific number:
-
+Show the last 3 lines:
 ```bash
-tail -2 sample.txt
-```
-
-Output:
-```
-This is line two.
-This is line three.
+tail -3 playground/mission_04/diary_entries/entry_2024_03_05.txt
 ```
 
 **Bonus — Watch a file update in real time:**
 
+Investigators monitoring live systems use this trick constantly:
 ```bash
 tail -f /var/log/system.log
 ```
 
-The `-f` flag means "follow" — it stays open and shows new lines as they're added. This is how programmers watch their programs run. Press `Ctrl+C` to stop.
+The `-f` flag means **"follow"** — the terminal stays open and shows new lines as they're added to the file. This is how programmers watch their programs run. Press `Ctrl+C` to stop following.
 
 ---
 
-## Writing to Files
+### Writing to Files: `>` and `>>`
 
-### `>` — Write (overwrite)
+As a detective, reading evidence is only half your job. You also need to **write up your notes** and **document your findings**. That's where `>` and `>>` come in.
+
+#### `>` — Write (overwrite)
+
+The `>` symbol takes whatever a command prints out and saves it to a file instead:
 
 ```bash
-echo "Hello!" > greeting.txt
-cat greeting.txt
+echo "Suspect M.K. was spotted on February 26th" > my_notes.txt
+cat my_notes.txt
 ```
 
 Output:
 ```
-Hello!
+Suspect M.K. was spotted on February 26th
 ```
 
-The `>` takes the output of the command on the left and saves it to the file on the right.
-
-**Warning:** `>` completely replaces what was already in the file. Try this:
+**Critical warning for detectives:** `>` completely replaces whatever was already in the file. Try this and watch what happens:
 
 ```bash
-echo "First content" > my_file.txt
-cat my_file.txt
-echo "Second content" > my_file.txt
-cat my_file.txt
+echo "First clue discovered" > notes_test.txt
+cat notes_test.txt
+echo "Second clue discovered" > notes_test.txt
+cat notes_test.txt
+```
+
+Your first clue is gone! The second `echo` overwrote it. A careless detective can lose evidence this way. Always pay attention to which operator you're using.
+
+#### `>>` — Append (add to the end)
+
+`>>` **adds** to a file instead of replacing it. This is the safe way to build up your notes over time:
+
+```bash
+echo "Suspect M.K. was spotted on February 26th" > my_notes.txt
+echo "They meet someone named 'Z'" >> my_notes.txt
+echo "Meeting location: Harbor District" >> my_notes.txt
+cat my_notes.txt
 ```
 
 Output:
 ```
-First content
----
-Second content
+Suspect M.K. was spotted on February 26th
+They meet someone named 'Z'
+Meeting location: Harbor District
 ```
 
-"First content" is gone! The second `echo` overwrote it.
-
----
-
-### `>>` — Append (add to the end)
-
-```bash
-echo "Line 1" > my_file.txt
-echo "Line 2" >> my_file.txt
-echo "Line 3" >> my_file.txt
-cat my_file.txt
-```
-
-Output:
-```
-Line 1
-Line 2
-Line 3
-```
-
-`>>` *adds* to the file instead of replacing it. This is how your diary works — every entry gets appended to the file without erasing what came before.
+Every `>>` added to the file without erasing what came before. This is how your detective notes grow safely over time.
 
 ---
 
-## Try It! — Quick Experiments
+### Multi-line Files with `cat` and Heredoc
 
-**Experiment 1:** The accidental overwrite. Try it safely first.
-
-```bash
-echo "Important thing" > important.txt
-echo "Oops, overwrote it" > important.txt
-cat important.txt
-```
-
-See? The first line is gone. Lesson: always use `>>` when you want to keep what's already in a file.
-
-**Experiment 2:** Read a real file on your Mac.
+Sometimes you want to write several lines at once without running echo over and over. There's a neat trick for this called a **heredoc**:
 
 ```bash
-cat /etc/hosts
-```
-
-This is a system file that maps website names to IP addresses. Reading it is fine — don't edit it!
-
-**Experiment 3:** How long is a line?
-
-```bash
-echo "A very long line that I want to measure for fun and learning." > measure.txt
-wc -c measure.txt
-```
-
-`wc -c` counts characters. We'll learn `wc` fully in Mission 6.
-
-**Experiment 4:** Head and tail of the dictionary.
-
-```bash
-head -5 /usr/share/dict/words
-tail -5 /usr/share/dict/words
-```
-
-What are the first 5 and last 5 words in the English dictionary?
-
----
-
-## Pro Tip — Multiline Files with `cat`
-
-You can write several lines to a file at once using this trick:
-
-```bash
-cat > poem.txt << 'EOF'
-Roses are red,
-Violets are blue,
-Terminal is cool,
-And so are you.
+cat > interview_notes.txt << 'EOF'
+Witness interview - 2024-03-15
+Subject: Unknown informant, goes by "Z"
+Confirmed the suspect is planning to leave the country.
+Meeting spot: the old lighthouse on Maple Street.
 EOF
 ```
 
-This is called a **heredoc**. The `<< 'EOF'` means "start reading input until you see EOF on its own line." Everything between the two `EOF` markers gets saved to `poem.txt`.
+The `<< 'EOF'` means "start reading input until you see EOF on its own line." Everything between the two `EOF` markers gets saved to the file. Check it:
 
 ```bash
-cat poem.txt
+cat interview_notes.txt
 ```
 
 Output:
 ```
-Roses are red,
-Violets are blue,
-Terminal is cool,
-And so are you.
+Witness interview - 2024-03-15
+Subject: Unknown informant, goes by "Z"
+Confirmed the suspect is planning to leave the country.
+Meeting spot: the old lighthouse on Maple Street.
+```
+
+Heredocs are incredibly useful when you need to write a structured report with multiple lines. No quotes to escape, no multiple echo commands — just write naturally between the markers.
+
+---
+
+### `wc` — Count the Evidence
+
+`wc` stands for **word count**, but it counts more than just words. It's useful for getting a quick size estimate on evidence files.
+
+```bash
+wc playground/mission_04/suspects.txt
+```
+
+Output example:
+```
+      42     187    1204 suspects.txt
+```
+
+Three numbers: **lines**, **words**, **characters**.
+
+Count just lines:
+```bash
+wc -l playground/mission_04/diary_entries/entry_2024_01_15.txt
+```
+
+Count just words:
+```bash
+wc -w playground/mission_04/diary_entries/entry_2024_01_15.txt
+```
+
+Count just characters:
+```bash
+wc -c playground/mission_04/encrypted_clue.txt
 ```
 
 ---
 
-## Your Mission — A Secret Terminal Diary
+## 🧪 FIELD WORK
 
-Build a diary that:
-1. Shows today's date as the entry header
-2. Asks you what happened today
-3. Saves the entry to a file
-4. Shows you the whole diary at the end
+Time to dig into the actual evidence. Work through these experiments in order — they build on each other.
 
-Here's the diary system, command by command:
+**Step 1: Read the case briefing first**
 
-**Step 1:** Create the diary folder:
+Before touching any evidence, a good detective always reads their briefing:
+
 ```bash
-mkdir -p ~/diary
+cat playground/mission_04/case_briefing.txt
 ```
 
-**Step 2:** Write your first entry manually:
+**Step 2: Survey the diary folder**
+
+See what evidence files we have:
+
+```bash
+ls playground/mission_04/diary_entries/
+```
+
+How many diary entries are there?
+```bash
+ls playground/mission_04/diary_entries/ | wc -l
+```
+
+**Step 3: Read the earliest diary entry**
+
+```bash
+cat playground/mission_04/diary_entries/entry_2024_01_15.txt
+```
+
+**Step 4: Get a quick preview of an entry**
+
+Read only the first 3 lines of the February 12th entry:
+
+```bash
+head -3 playground/mission_04/diary_entries/entry_2024_02_12.txt
+```
+
+**Step 5: Read ALL diary entries in date order**
+
+The `*` wildcard matches multiple files. Reading them in order reveals the timeline:
+
+```bash
+cat playground/mission_04/diary_entries/entry_*.txt
+```
+
+Watch for any mentions of travel plans, meeting locations, or unusual codenames.
+
+**Step 6: Check the suspects list**
+
+```bash
+cat playground/mission_04/suspects.txt
+```
+
+Read it with line numbers so you can reference specific suspects by line:
+```bash
+cat -n playground/mission_04/suspects.txt
+```
+
+**Step 7: Crack the encrypted clue**
+
+The suspect tried to hide this message using base64 encoding — a simple way to scramble text. Our cryptography team says you can decode it instantly:
+
+```bash
+base64 -d playground/mission_04/encrypted_clue.txt
+```
+
+Write down what it says — this could be the key to the whole case!
+
+**Step 8: Start your detective notes**
+
+Now document your findings:
+
+```bash
+echo "Suspect M.K. was spotted on February 26th" > my_notes.txt
+echo "They meet someone named 'Z'" >> my_notes.txt
+echo "Decoded message:" >> my_notes.txt
+```
+
+Add your own observations with `>>` as you read through the diary. Never use `>` after that first line, or you'll lose your previous notes!
+
+**Step 9: Review your notes**
+
+```bash
+cat my_notes.txt
+```
+
+---
+
+## 🎯 MISSION: Build Your Detective Notes System
+
+Build a structured notes system using `>` and `>>` operators that documents all your findings from the diary.
+
+**Step 1:** Create a properly structured case notes file:
+
+```bash
+echo "====================================" > case_notes.txt
+echo "CASE FILE #4 — THE SECRET DIARY" >> case_notes.txt
+echo "Detective Notes" >> case_notes.txt
+echo "====================================" >> case_notes.txt
+echo "" >> case_notes.txt
+echo "DATE: $(date +"%A, %B %d, %Y")" >> case_notes.txt
+echo "" >> case_notes.txt
+```
+
+**Step 2:** Add a suspects section:
+
+```bash
+echo "--- SUSPECTS ---" >> case_notes.txt
+echo "Primary: Marcus K. (see suspects.txt, line 3)" >> case_notes.txt
+echo "Contact: Person known as 'Z'" >> case_notes.txt
+echo "" >> case_notes.txt
+```
+
+**Step 3:** Add a timeline section using a heredoc:
+
+```bash
+cat >> case_notes.txt << 'EOF'
+--- TIMELINE FROM DIARY ---
+January 15: First entry — suspect notes unusual activity
+February 12: Mentions meeting with 'Z' at undisclosed location
+February 26: Spotted in Harbor District
+March 5: References an escape plan
+March 18: Final entry — departure imminent?
+
+EOF
+```
+
+**Step 4:** Add the decoded clue:
+
+```bash
+echo "--- DECODED CLUE ---" >> case_notes.txt
+base64 -d playground/mission_04/encrypted_clue.txt >> case_notes.txt
+echo "" >> case_notes.txt
+echo "--- END OF NOTES ---" >> case_notes.txt
+```
+
+**Step 5:** Read your complete case notes:
+
+```bash
+cat case_notes.txt
+```
+
+**Step 6:** Check how much evidence you've documented:
+
+```bash
+wc -l case_notes.txt
+wc -w case_notes.txt
+```
+
+**Step 7:** See just the section headers from your notes:
+
+```bash
+grep "^---" case_notes.txt
+```
+
+This searches for lines starting with `---` and shows just those. (We'll learn `grep` fully in Mission 5 — but you already got a sneak peek!)
+
+**Bonus Step:** Add today's date entry to a running journal:
+
 ```bash
 echo "=== $(date +"%A, %B %d, %Y") ===" >> ~/diary/journal.txt
 echo "" >> ~/diary/journal.txt
-echo "Today I learned how to use the Terminal." >> ~/diary/journal.txt
-echo "I created files, read them, and built a diary!" >> ~/diary/journal.txt
+echo "Today I cracked Case #4 and decoded an encrypted message." >> ~/diary/journal.txt
+echo "Key suspect: Marcus K., contact: 'Z', location: Harbor District." >> ~/diary/journal.txt
 echo "" >> ~/diary/journal.txt
 echo "---" >> ~/diary/journal.txt
 ```
 
-**Step 3:** Read your diary:
-```bash
-cat ~/diary/journal.txt
-```
-
-Output:
-```
-=== Sunday, April 13, 2026 ===
-
-Today I learned how to use the Terminal.
-I created files, read them, and built a diary!
-
----
-```
-
-**Step 4:** Add another entry tomorrow (run again):
-```bash
-echo "=== $(date +"%A, %B %d, %Y") ===" >> ~/diary/journal.txt
-echo "" >> ~/diary/journal.txt
-echo "Continued learning. Tried experiments." >> ~/diary/journal.txt
-echo "" >> ~/diary/journal.txt
-echo "---" >> ~/diary/journal.txt
-```
-
-**Step 5:** See how many entries you have:
-```bash
-grep -c "^===" ~/diary/journal.txt
-```
-
-This searches for lines starting with `===` and counts them. Each one is a diary entry. (We'll learn `grep` fully in Mission 5.)
-
-**Step 6 (bonus):** See just the dates from your diary:
-```bash
-grep "^===" ~/diary/journal.txt
-```
-
-Output:
-```
-=== Sunday, April 13, 2026 ===
-=== Monday, April 14, 2026 ===
-```
-
-In Mission 7, you'll turn this into a real script you can run with one command!
+Read your journal with `cat ~/diary/journal.txt` and check how many entries you've made with `grep -c "^===" ~/diary/journal.txt`.
 
 ---
 
-## Challenges
+## 🏆 BONUS MISSIONS
 
-### Challenge 1 — The Three Poems
+### Bonus Mission 1 — The Three Witness Statements
 
-Write three short poems (they can be silly, 2-4 lines each) to a file called `poems.txt`. Use `>>` to append them one after another. Add a blank line and a `---` separator between them. Then read the whole file with `cat`.
+Write three short witness statements (they can be made up, 2-4 lines each) to a file called `witness_statements.txt`. Use `>>` to append them one after another. Add a blank line and a `---` separator between each statement. Then read the whole file with `cat`.
 
-### Challenge 2 — Head vs Tail
+### Bonus Mission 2 — Head vs Tail Investigation
 
-Create a numbered list file:
+Read the diary entries carefully using `head` and `tail`:
+
 ```bash
-for i in 1 2 3 4 5 6 7 8 9 10; do
-  echo "Item number $i" >> numbers.txt
-done
+# Read first 3 lines of each entry
+head -3 playground/mission_04/diary_entries/entry_2024_01_15.txt
+head -3 playground/mission_04/diary_entries/entry_2024_02_26.txt
+
+# Read last 3 lines of each entry
+tail -3 playground/mission_04/diary_entries/entry_2024_01_15.txt
+tail -3 playground/mission_04/diary_entries/entry_2024_02_26.txt
 ```
-(This is a sneak peek at Mission 8's loops!)
 
-Then:
-- Show only the first 3 items
-- Show only the last 3 items
-- Show items 4 through 7 (hint: pipe `tail` into `head`)
+Now the tricky challenge: show lines 3 through 5 of an entry (hint: pipe `head` into `tail`):
 
-### Challenge 3 — The Secret Code
+```bash
+head -5 playground/mission_04/diary_entries/entry_2024_02_12.txt | tail -3
+```
 
-Write a sentence to a file using `>`. Then add a second sentence using `>>`. But here's the twist: write the second sentence so that it makes the whole file a joke.
+### Bonus Mission 3 — The Joke Evidence File
 
-For example:
-- Line 1: "Why don't scientists trust atoms?"
-- Line 2: "Because they make up everything!"
+Write a two-line "joke" to a file using `>` and `>>` where the second line is the punchline. For example:
+- Line 1: "Why did the suspect always carry a pen?"
+- Line 2: "Because they were always writing their own alibi!"
 
-Use `cat` to verify the joke.
+Use `cat` to verify the joke reads correctly.
 
-### Challenge 4 — The Diary Entry Script Preview
+### Bonus Mission 4 — Diary Entry Count
 
-Write exactly 5 commands that, when run in order, add today's date as a header and one sentence to your diary. The sentence should say something real about your day. Then read the last 5 lines of your diary with `tail -5`.
-
----
-
-## Solutions
-
-Solutions are in the [solutions folder](solutions/README.md).
+Add at least three entries to your journal at `~/diary/journal.txt` (use the diary commands from the mission). Then:
+- See all your entry dates: `grep "^===" ~/diary/journal.txt`
+- Count total entries: `grep -c "^===" ~/diary/journal.txt`
+- See only the last entry: `tail -8 ~/diary/journal.txt`
 
 ---
 
-## Powers Unlocked
+## 🔐 CODE PIECE UNLOCKED!
+
+Nice work, Agent. You decoded the encrypted message and documented your findings. One of the diary entries contains a piece of the secret code hidden in the case files folder.
+
+**Code Piece #4: AN**
+
+```bash
+cat playground/mission_04/diary_entries/secret_code_piece.txt
+```
+
+Write it down — you'll need all the code pieces to unlock something at the end of your training.
+
+---
+
+## ⚡ POWERS UNLOCKED
 
 | Command | What It Does |
 |---------|-------------|
@@ -393,19 +496,26 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `head file` | Shows the first 10 lines |
 | `head -n file` | Shows the first n lines |
 | `tail file` | Shows the last 10 lines |
-| `tail -f file` | Follows a file (shows new lines as added) |
-| `echo "text" > file` | Writes text to a file (overwrites!) |
-| `echo "text" >> file` | Appends text to a file (adds to end) |
+| `tail -n file` | Shows the last n lines |
+| `tail -f file` | Follows a file live (shows new lines as added) |
+| `echo "text" > file` | Writes text to a file (overwrites — be careful!) |
+| `echo "text" >> file` | Appends text to a file (adds to end safely) |
+| `cat >> file << 'EOF'` | Heredoc — write multiple lines at once |
+| `wc -l file` | Counts lines in a file |
+| `wc -w file` | Counts words in a file |
+| `wc -c file` | Counts characters in a file |
+| `base64 -d file` | Decodes a base64 encoded file |
 
-### Vocabulary
+### Detective Vocabulary
 
 - **Overwrite** — replace a file's contents completely (`>`)
 - **Append** — add to the end without deleting what's there (`>>`)
 - **Heredoc** — `<< 'EOF'` ... `EOF` — a way to write multiple lines at once
-- **Redirect** — `>` and `>>` redirect output into files
+- **Redirect** — `>` and `>>` redirect output into files instead of the screen
+- **base64** — a simple encoding method that scrambles text into letters and numbers (easily decoded!)
 
 ---
 
-*Reading and writing: the two most fundamental things a computer does. You can now do both from the command line.*
+*Reading and writing: the two most fundamental things a computer does. You've mastered both from the command line — and you've cracked an encoded message while you were at it.*
 
-*Ready for Mission 5?*
+*Case #4 closed. Ready for Case #5?*

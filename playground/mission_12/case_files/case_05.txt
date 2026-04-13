@@ -1,0 +1,1 @@
+CASE 05: The Missing Witness. Skills learned: find, grep, mdfind. Status: SOLVED.

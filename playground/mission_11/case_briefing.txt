@@ -1,0 +1,56 @@
+╔══════════════════════════════════════════════════════════════╗
+║  TERMINAL DETECTIVE AGENCY                                   ║
+║  MISSION 11: Top Secret                                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+CASE BRIEFING
+=============
+
+Agent, we've intercepted encrypted files from the suspect!
+
+Our cyber division has recovered several encoded transmissions,
+but they need YOU to crack them open. This is our most sensitive
+mission yet — handle with care.
+
+Here's what we found:
+
+THE CLASSIFIED FOLDER
+---------------------
+Five messages encoded in base64. The suspect thought this would
+keep us out. Think again. Use this command to decode them:
+
+  base64 -d classified/message_01.txt
+
+Work through all five. One of them contains something very
+important to YOU personally...
+
+THE SECRET MESSAGES FOLDER
+--------------------------
+Intercepted plain-text communications between agents in the
+field. Read them carefully — they paint a picture of what's
+really going on.
+
+  cat secret_messages/from_agent_z.txt
+
+THE PERMISSIONS PUZZLE
+----------------------
+The suspect locked three files with broken permissions.
+You'll need chmod to break through!
+
+  Read permissions_puzzle/README.txt to get started.
+
+MISSION OBJECTIVES:
+-------------------
+1. Decode all 5 classified messages with base64 -d
+2. Read all 5 secret agent messages
+3. Complete the permissions puzzle (all 3 levels!)
+4. Collect your secret code piece
+
+FILES IN THIS FOLDER:
+---------------------
+  classified/           — 5 base64-encoded secret messages
+  secret_messages/      — 5 intercepted agent transmissions
+  permissions_puzzle/   — 3 locked files to unlock with chmod
+  secret_code_piece.txt — Your mission reward (find it yourself!)
+
+Top secret clearance required. You've got this, Agent.

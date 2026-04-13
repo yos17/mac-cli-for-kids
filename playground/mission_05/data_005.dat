@@ -1,0 +1,11 @@
+TDA DATA CAPTURE — FILE 005
+Timestamp: 2024-02-14 18:30:00
+Source: Satellite Relay
+
+LAT: 51.5111, LON: -0.1350
+SIGNAL: 22.4 dBm
+DURATION: 00:12:18
+PACKETS: 5744
+ANOMALY: encrypted_payload_detected
+HASH: e8a2d5c61f0b3947
+PRIORITY: HIGH

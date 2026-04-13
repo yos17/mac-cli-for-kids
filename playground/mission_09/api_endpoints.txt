@@ -1,0 +1,23 @@
+# FUN FREE APIS — No key required!
+# Use: curl "<url>" to fetch data
+
+# Random jokes:
+https://official-joke-api.appspot.com/random_joke
+
+# Cat facts:
+https://catfact.ninja/fact
+
+# Random activity suggestions:
+https://www.boredapi.com/api/activity
+
+# Current time (UTC):
+https://worldtimeapi.org/api/timezone/UTC
+
+# Random dog image:
+https://dog.ceo/api/breeds/image/random
+
+# Random number fact:
+https://numbersapi.com/42/math
+
+# TIP: Try: curl "https://catfact.ninja/fact" | python3 -m json.tool
+#      (the python3 part makes JSON pretty!)

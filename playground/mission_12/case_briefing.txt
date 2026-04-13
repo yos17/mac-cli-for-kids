@@ -1,0 +1,60 @@
+╔══════════════════════════════════════════════════════════════╗
+║  TERMINAL DETECTIVE AGENCY                                   ║
+║  MISSION 12: The Grand Finale                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+CASE BRIEFING
+=============
+
+Agent, this is it.
+
+The final mission.
+
+You've been on 11 missions. You've navigated directories, hunted
+missing files, decoded secret messages, written scripts, cracked
+patterns, spied on networks, and customized your very own lair.
+
+You are not a beginner anymore.
+
+Now, for your last mission, you build something of your OWN.
+
+MISSION: BUILD YOUR DETECTIVE BOT (MyBot)
+------------------------------------------
+The mystery_solution_template.sh file is a starter script for
+your personal detective assistant. It already has a menu, a
+morning briefing, and a framework — but it needs YOU to finish it.
+
+Open the file, read the TODO comments, and make it yours:
+  nano mystery_solution_template.sh
+
+When you're done customizing it, make it runnable:
+  chmod +x mystery_solution_template.sh
+
+Then launch your bot:
+  ./mystery_solution_template.sh
+
+COLLECT THE FINAL PIECE
+------------------------
+Check all_clues.txt to review all 11 code pieces you've collected.
+Then find the final secret_code_piece.txt to get the 12th word.
+
+UNLOCK THE ULTIMATE TREASURE
+-----------------------------
+Once you have all 12 pieces, open FINAL_TREASURE.txt:
+  cat FINAL_TREASURE.txt
+
+FILES IN THIS FOLDER:
+---------------------
+  case_briefing.txt           — This file!
+  all_clues.txt               — All 12 mission code words summary
+  mystery_solution_template.sh — Your MyBot starter script
+  case_files/                 — Summary of all 12 solved cases
+  FINAL_TREASURE.txt          — The ultimate reward
+  secret_code_piece.txt       — Code Piece #12 of 12
+
+You've earned this, Agent. The command line is yours.
+
+Good luck. We're proud of you.
+
+  — Director P. Chen
+    Terminal Detective Agency

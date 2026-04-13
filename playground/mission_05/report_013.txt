@@ -1,0 +1,36 @@
+TERMINAL DETECTIVE AGENCY — CASE REPORT
+========================================
+Report #: TDA-2024-R013
+Filed by: Agent Kowalski
+Date: February 24, 2024
+Subject: The Case of the Backwards Street Signs
+
+SUMMARY:
+Public Works reports that three street signs in the
+downtown area were reversed overnight — so they now
+read backwards. No signs were removed or damaged.
+They were simply turned 180 degrees.
+
+Affected signs:
+- "FIFTH STREET" now reads "TEERTS HTFIF"
+- "CLOCK TOWER LANE" now reads "ENAL REWOT KCOLC"
+- "CENTRAL LIBRARY RD" now reads "DR YRARBIIL LARTNEC"
+
+FINDINGS:
+- No tools required to rotate the signs (standard bolt)
+- Done between midnight and 5am
+- Witness (a night-shift nurse) reports seeing "someone
+  in an enormous coat and no hat" near Clock Tower Lane
+- This is the first time the subject has been seen
+  WITHOUT the hat — description: "tallish, cheerful gait"
+
+CURRENT STATUS:
+Signs restored by Public Works within 2 hours.
+Nurse providing updated sketch to our artist.
+
+NOTES:
+"Clock Tower Lane" reversed — this fits Clock Tower
+connection in Case TDA-2024-004. Flag for that file.
+
+Filed: February 24, 2024
+Status: OPEN — linked to TDA-2024-004

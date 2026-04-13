@@ -1,0 +1,30 @@
+# ╔═══════════════════════════════════════╗
+# ║  AGENT'S TERMINAL CONFIGURATION       ║
+# ║  Terminal Detective Agency             ║
+# ╚═══════════════════════════════════════╝
+
+# --- DETECTIVE ALIASES ---
+alias mission="ls -la"           # See all files (even hidden ones!)
+alias clues="grep -r"            # Search for clues
+alias disguise="cd ~"            # Go to home base
+alias hq="cd ~/Desktop"          # Go to headquarters
+alias evidence="cat"             # Read a file
+alias shred="rm -i"              # Delete (safely, with confirmation)
+alias copy="cp -v"               # Copy with progress report
+alias move="mv -v"               # Move with progress report
+
+# --- DETECTIVE PROMPT ---
+# Shows: [Agent] current/location $
+PROMPT='[Agent] %F{cyan}%1~%f $ '
+
+# --- MISSION BRIEFING FUNCTION ---
+briefing() {
+    echo "╔═══════════════════════════════════╗"
+    echo "║  GOOD MORNING, AGENT               ║"
+    echo "║  Today: $(date '+%A, %B %d %Y')   "
+    echo "║  Status: ON DUTY                   ║"
+    echo "╚═══════════════════════════════════╝"
+}
+
+# Run briefing on terminal start
+briefing

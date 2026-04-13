@@ -1,0 +1,1 @@
+CASE 02: The Lost Files. Skills learned: ls, cd, pwd, tree. Status: SOLVED.

@@ -1,0 +1,75 @@
+SUSPECT DATABASE — TERMINAL DETECTIVE AGENCY
+=============================================
+Case: TDA-2024-004 / The Secret Diary
+Last Updated: March 2024
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:                 Marcus K.
+Age:                  34
+Last seen:            Downtown warehouse district
+Occupation:           "Import/export consultant" (unverified)
+Distinguishing features: Size 11 boots, always wears a blue jacket
+Known associates:     Unknown subject "Z"
+Status:               PERSON OF INTEREST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:                 Zelda R.
+Age:                  28
+Last seen:            Old library, reference section
+Occupation:           Antique dealer (part-time)
+Distinguishing features: Carries a vintage briefcase, speaks in riddles
+Known associates:     Unidentified contact at clock tower
+Status:               ACTIVE SURVEILLANCE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:                 Professor Humphrey T.
+Age:                  61
+Last seen:            University campus, computer science building
+Occupation:           Retired professor (suspiciously early retirement)
+Distinguishing features: Enormous mustache (possibly fake?), tweed jacket
+Known associates:     "Dr. B." — identity unconfirmed
+Status:               WATCH LIST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:                 Penelope "Penny" Voss
+Age:                  19
+Last seen:            Central train station, studying departure boards
+Occupation:           Student (claimed)
+Distinguishing features: Always has three bags, loves penguins (many pins)
+Known associates:     Unknown boat captain "Dave"
+Status:               PERSON OF INTEREST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:                 Gerald P.
+Age:                  52
+Last seen:            City library, front desk
+Occupation:           Head librarian
+Distinguishing features: Cardigan collection, ongoing feud with the library computer
+Known associates:     Multiple library patrons (being investigated)
+Status:               CLEARED (probably)
+Notes:                Genuinely seems like a very nice person.
+                      May have been used unknowingly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:                 Cordelia "Coco" Whitmore
+Age:                  45
+Last seen:            Fifth Street clock tower area, multiple dates
+Occupation:           Tour guide (unverified — no tour group observed)
+Distinguishing features: Red umbrella (rain or shine), map of the city
+Known associates:     Z (suspected), Zelda R. (possible connection)
+Status:               HIGH PRIORITY — LOCATE IMMEDIATELY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INVESTIGATOR'S NOTE:
+Cross-reference all suspects with library visitor logs,
+clock tower tourist records, and train station departures.
+The connection between "Z" and the clock tower is KEY.
+
+                              — Director Chen, TDA

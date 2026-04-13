@@ -1,0 +1,73 @@
+╔═══════════════════════════════════════════════════════════════╗
+║          TERMINAL DETECTIVE AGENCY — CASE BRIEFING            ║
+║                   MISSION 08: THE PATTERN HUNTER              ║
+╚═══════════════════════════════════════════════════════════════╝
+
+CLASSIFICATION: ACTIVE MISSION
+DIFFICULTY: ★★★☆☆
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SITUATION REPORT:
+
+Agent, the evidence department has completely lost control of the
+filing system. We have 30 photo files from the crime scene and
+NONE of them are named consistently!
+
+Some are called IMG_0001.txt (from the security camera). Some are
+DSC_0011.txt (from the field agent's camera). And others have
+totally random names like "blurry_image.txt" or "getaway_car.txt".
+
+The detective convention requires ALL evidence photos to be named
+like this: evidence_001.txt, evidence_002.txt, evidence_003.txt
+
+You need to fix this — with a for loop — in seconds.
+
+ALSO: The evidence_files/ folder holds logged evidence from the
+past few months. Your job is to find the date pattern in those
+filenames and figure out what day the NEXT log entry is due!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 1 — RENAME THE PHOTOS:
+
+The photos/ folder has all 30 messy files.
+Write a script (or run commands) to rename them all to:
+  evidence_001.txt, evidence_002.txt, ... evidence_030.txt
+
+See renaming_rules.txt for the full hint and script skeleton!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 2 — CRACK THE DATE PATTERN:
+
+Look at the filenames in evidence_files/.
+They all follow a pattern like: file_YYYYMMDD.txt
+
+Run these commands to investigate:
+  ls evidence_files/
+  ls evidence_files/ | sort
+
+Questions to answer:
+  1. What date is the FIRST evidence log?
+  2. How many days are between each log entry?
+  3. What date would the NEXT log entry be?
+
+HINT: Use 'grep' to search file contents too!
+  grep "February" evidence_files/*.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BONUS CHALLENGE:
+
+Can you write a one-liner that lists ALL the dates from the
+evidence files in order and shows their contents?
+
+  for f in $(ls evidence_files/ | sort); do echo "--- $f ---"; cat "evidence_files/$f"; done
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Patterns are a detective's superpower. Find them everywhere!
+
+                                         — Director P. Chen
+                                           Terminal Detective Agency

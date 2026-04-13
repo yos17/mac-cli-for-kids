@@ -1,0 +1,20 @@
+INCIDENT REPORT — VERSION 2
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Date: March 15, 2024 (revised March 16, 2024)
+Case Number: #003
+Note: Revised after new evidence found — fingerprint match confirmed.
+
+CHANGES FROM VERSION 1:
+- Added fingerprint match result (94% — K. Mercer)
+- Upgraded suspect status from "unknown" to "identified"
+- Updated timeline with supply closet keycard entry (11:51 PM)
+- Added fiber analysis results from Photo 019
+
+STATUS AT TIME OF THIS DRAFT:
+Warrants not yet issued (pending Director sign-off).
+See report_FINAL.txt — that one has the Director's signature.
+This version 2 is superseded. Kept for audit trail only.
+
+ARCHIVIST'S NOTE:
+When multiple report versions exist, always use the FINAL one.
+That's true in real detective work too. Label your files clearly!

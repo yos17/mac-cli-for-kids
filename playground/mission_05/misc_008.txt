@@ -1,0 +1,29 @@
+MISCELLANEOUS NOTES — FILE 008
+Agency FAQ — For New Recruits
+
+Q: What does the Terminal Detective Agency actually do?
+A: We investigate mysteries, find missing things, and figure
+   out what's going on when something suspicious is happening.
+   Mostly we use computers, logic, and very good coffee.
+
+Q: Do I need to know how to use a computer?
+A: Yes. Especially the command line. It's more powerful than
+   it looks. Ask any agent — they'll tell you.
+
+Q: Is it dangerous?
+A: Occasionally. Mostly it involves a lot of reading reports,
+   drinking cold coffee at stakeouts, and trying to figure out
+   who moved your cheese (sometimes literally).
+
+Q: Who is Director Chen?
+A: Director Chen runs the agency. She is very organized, drinks
+   green tea instead of coffee (controversial), and once solved
+   a case by noticing a protractor was 2 degrees off.
+
+Q: Can I have a cape?
+A: No. Absolutely not. We have a policy about this now.
+   (See: General Order 7, "No Capes in Public or in the Office.")
+
+Q: What should I do on my first day?
+A: Read the case files. Learn the commands. Ask questions.
+   Make good notes. Welcome to the agency.

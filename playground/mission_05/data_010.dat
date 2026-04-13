@@ -1,0 +1,11 @@
+TDA DATA CAPTURE — FILE 010
+Timestamp: 2024-03-04 19:58:16
+Source: Mobile Unit 7
+
+LAT: 51.5033, LON: -0.1205
+SIGNAL: 12.1 dBm
+DURATION: 00:00:44
+PACKETS: 318
+ANOMALY: connection_dropped_unexpectedly
+HASH: 3af7c5e92d0b8416
+PRIORITY: REVIEW

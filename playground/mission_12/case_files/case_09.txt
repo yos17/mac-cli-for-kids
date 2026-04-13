@@ -1,0 +1,1 @@
+CASE 09: The Digital Spy. Skills learned: ping, curl, open, HTTP. Status: SOLVED.

@@ -1,0 +1,1 @@
+CASE 07: The Automation Agent. Skills learned: variables, scripts, chmod +x. Status: SOLVED.

@@ -1,0 +1,11 @@
+TDA DATA CAPTURE — FILE 003
+Timestamp: 2024-02-07 22:47:33
+Source: Mobile Unit 7
+
+LAT: 51.5034, LON: -0.1199
+SIGNAL: 19.1 dBm
+DURATION: 00:08:04
+PACKETS: 3301
+ANOMALY: repeated_ping_pattern
+HASH: c7e5b2a39d4f8160
+NOTE: Coordinates match Clock Tower area. Flagged.

@@ -1,0 +1,10 @@
+# Safe URLs for testing with curl
+# Use: curl -I <url>  (to see just headers)
+# Use: curl <url>     (to see full response)
+
+https://httpbin.org/get
+https://httpbin.org/status/200
+https://httpbin.org/status/404
+https://httpbin.org/user-agent
+https://example.com
+https://api.github.com

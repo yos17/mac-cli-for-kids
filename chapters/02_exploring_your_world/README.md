@@ -1,25 +1,28 @@
-# Mission 2 — Exploring Your World
-
-## Mission Briefing
-
-Every video game has a map. In Minecraft, you explore a world made of blocks. In Zelda, you explore dungeons and overworld. Your Mac's file system is exactly like that — a world full of folders (dungeons) and files (treasure chests).
-
-The difference is that in Finder, you can only see what's in front of you. In Terminal, you can see *everything* — where you are, what's around you, and jump to any location instantly with a single command.
-
-Today you learn to navigate your Mac like a pro explorer.
-
-### What You'll Learn
-- `pwd` — where am I right now?
-- `ls` — what's here?
-- `cd` — move to a different place
-- How Mac's file system is organized
-- How to draw a map of your home folder
+# CASE FILE #2 — The Lost Files
+**Terminal Detective Agency | Clearance Level: Cadet**
 
 ---
 
-## Understanding the Map
+## 🔍 MISSION BRIEFING
 
-Your Mac's files are organized like a tree. Everything starts from the **root** — written as `/` (a single forward slash). From there, branches go out:
+Agent, we have a problem.
+
+Last night, someone broke into Terminal Detective Agency headquarters. They didn't steal anything obvious — but they scattered our case files throughout the office. Clues are hidden on desks, inside drawers, buried in the archive room. Somewhere deep in the filing system, a treasure map is waiting to be found. We need it recovered before the trail goes cold.
+
+Here's the tricky part: our surveillance footage shows the intruder hid files **four levels deep** in the office maze. That means you can't just look around the entrance — you have to navigate folder by folder, level by level, until you reach the innermost room. Only then will you find what we're looking for.
+
+Your mission: use the Agency's navigation tools to explore the office, recover all three hidden clues, and retrieve the treasure map from its secret location deep inside the filing system.
+
+**Your tools:** `pwd`, `ls`, `cd`, absolute paths, relative paths, tab completion
+**Access your case files:** `cd playground/mission_02`
+
+---
+
+## 📚 DETECTIVE TRAINING: Understanding the Map
+
+Before you go in, you need to understand how the office is laid out — and how *all* file systems work.
+
+Your Mac's files are organized like a tree. Everything starts from the **root** — written as `/` (a single forward slash). From there, branches spread out:
 
 ```
 /                          ← root (the trunk of the tree)
@@ -36,15 +39,34 @@ Your Mac's files are organized like a tree. Everything starts from the **root** 
 └── Library/
 ```
 
-Your **home folder** is the most important place. It's where all your personal files live. The terminal shortcut for it is `~` (the tilde character, top-left of your keyboard).
+Your **home folder** is your base of operations. It's where all your personal files live. The Terminal shortcut for it is `~` (the tilde character — top-left of your keyboard). Think of it as Agency HQ.
+
+The mission's office maze is inside `playground/mission_02/office/`. It looks like this:
+
+```
+playground/mission_02/
+├── README.txt
+├── office/
+│   ├── clue1.txt
+│   ├── desk/
+│   │   ├── clue2.txt
+│   │   └── drawer/
+│   │       └── secret/
+│   │           ├── treasure_map.txt
+│   │           └── secret_code_piece.txt
+└── archive/
+    └── clue3.txt
+```
+
+Your job is to navigate to every one of those rooms and find what's inside.
 
 ---
 
-## The Three Navigation Commands
+## 📚 DETECTIVE TRAINING: The Three Navigation Commands
 
-### `pwd` — Print Working Directory
+### `pwd` — Print Working Directory (Where Am I?)
 
-"Where am I right now?"
+When you're deep in a file system maze, it's easy to lose track of where you are. `pwd` tells you your exact location:
 
 ```bash
 pwd
@@ -55,13 +77,11 @@ Output:
 /Users/sophia
 ```
 
-This is your **current directory** (directory = folder). The terminal is always "inside" some folder, just like how Finder always has a window open somewhere.
+This is your **current directory** (directory = folder). The Terminal is always "inside" some folder, like a detective standing in a specific room. `pwd` tells you which room.
 
 ---
 
-### `ls` — List
-
-"What's in this folder?"
+### `ls` — List (What's in This Room?)
 
 ```bash
 ls
@@ -92,7 +112,7 @@ drwx------+  4 sophia  staff   128 Apr  8 19:22 Pictures
 drwxr-xr-x+  4 sophia  staff   128 Mar 15 08:11 Public
 ```
 
-The `-l` flag means "long format" — it shows extra info like file size and the date it was last changed.
+The `-l` flag means "long format" — it shows extra info like file size and the date it was last modified. Perfect for checking when evidence was last touched.
 
 See hidden files too:
 
@@ -100,7 +120,7 @@ See hidden files too:
 ls -la
 ```
 
-The `-a` flag means "all" — it shows hidden files (files starting with `.` are hidden):
+The `-a` flag means "all" — it reveals hidden files (files starting with `.` are hidden by default):
 
 ```
 drwxr-xr-x+  28 sophia  staff   896 Apr 13 10:22 .
@@ -111,13 +131,11 @@ drwx------+   3 sophia  staff    96 Apr 13 09:00 Desktop
 ...
 ```
 
-The `.` means "this folder itself" and `..` means "the folder above this one."
+The `.` means "this folder itself" and `..` means "the folder one level above this one." Hidden files are where the Agency stores its most sensitive configurations.
 
 ---
 
-### `cd` — Change Directory
-
-"Move to a different folder."
+### `cd` — Change Directory (Move to a Different Room)
 
 ```bash
 cd Documents
@@ -137,7 +155,7 @@ You moved! Go back up one level:
 cd ..
 ```
 
-`..` always means "the folder above me." Check again:
+`..` always means "go up to the folder above me." Check again:
 ```bash
 pwd
 ```
@@ -146,7 +164,7 @@ Output:
 /Users/sophia
 ```
 
-Go home from anywhere:
+Return to Agency HQ from anywhere on the system:
 ```bash
 cd ~
 ```
@@ -156,62 +174,103 @@ Or just:
 cd
 ```
 
-(Just typing `cd` with nothing after it always takes you home.)
+(Just typing `cd` with nothing after it always takes you home — every detective's escape hatch.)
 
 ---
 
-## Shortcuts and Tricks
+## 📚 DETECTIVE TRAINING: Shortcuts and Tactics
 
 ### Tab Completion — Your Typing Superpower
 
-Start typing a folder name and press **Tab**:
+Field agents don't have time to type long folder names in full. Start typing a name and press **Tab**:
 
 ```bash
 cd Doc[TAB]
 ```
 
-It auto-completes to `Documents`! If there are multiple matches, press Tab twice to see them all.
+It auto-completes to `Documents`! If there are multiple matches, press Tab twice to see all options.
 
-Tab completion works for file names too. Use it constantly — it saves time and prevents typos.
+Tab completion works for file names too. Use it constantly — it saves time and prevents typos. A single typo in a folder path can send you to the wrong room entirely.
 
 ### Paths — Absolute vs Relative
 
-There are two ways to specify a location:
+There are two ways to tell the Terminal where to go:
 
-**Absolute path** — starts from the root `/`:
+**Absolute path** — starts from the root `/`, works from anywhere:
 ```bash
 cd /Users/sophia/Documents
 ```
-This works from anywhere.
 
-**Relative path** — starts from where you are now:
+**Relative path** — starts from where you are right now:
 ```bash
 cd Documents
 ```
+
 This only works if you're already in your home folder.
 
-Think of it like directions: "Go to 123 Main Street" (absolute) vs "Turn left at the corner" (relative — only makes sense if you know where you're standing).
+Think of it like giving directions: "Go to 123 Main Street, Springfield" (absolute — works from anywhere) versus "Turn left at the corner" (relative — only makes sense if you know where you're currently standing).
 
 ---
 
-## Try It! — Quick Experiments
+## 🧪 FIELD WORK
 
-**Experiment 1:** Get lost and find your way home.
+Time to investigate the actual crime scene. Navigate to your case files:
 
 ```bash
-cd /Applications
-pwd
+cd playground/mission_02
+```
+
+**Experiment 1:** Survey the scene. What's at the top level of the office?
+
+```bash
 ls
-cd ~
+```
+
+You should see the `office/` folder and the `archive/` folder. Read the briefing file:
+
+```bash
+cat README.txt
+```
+
+**Experiment 2:** Enter the office and look for the first clue.
+
+```bash
+cd office
+ls
+```
+
+What do you find? Read any clue files you discover:
+
+```bash
+cat clue1.txt
+```
+
+**Experiment 3:** Go deeper — check the desk.
+
+```bash
+cd desk
+ls
+```
+
+Read what you find. Then confirm where you are in the building:
+
+```bash
 pwd
 ```
 
-You traveled to the Applications folder, looked around, and came back home.
-
-**Experiment 2:** Go up two levels at once.
+**Experiment 4:** Go back to the top of the mission folder, then explore the archive through a different route — without using `cd` to move there first.
 
 ```bash
-cd ~/Downloads
+cd ~/playground/mission_02
+ls archive/
+```
+
+You can `ls` any folder without physically moving into it by putting the path after `ls`. Useful for scouting ahead.
+
+**Experiment 5:** Travel up two levels at once.
+
+```bash
+cd ~/playground/mission_02/office/desk
 pwd
 cd ../..
 pwd
@@ -219,15 +278,7 @@ pwd
 
 `../..` means "go up one level, then up again." Where did you end up?
 
-**Experiment 3:** List your Desktop contents.
-
-```bash
-ls ~/Desktop
-```
-
-You can `ls` a folder without being inside it by putting the path after `ls`.
-
-**Experiment 4:** Use `ls` on the whole system.
+**Experiment 6:** Use `ls` to survey the entire top of your Mac's file system.
 
 ```bash
 ls /
@@ -238,95 +289,110 @@ Output:
 Applications  Library  System  Users  Volumes  bin  etc  home  opt  private  sbin  tmp  usr  var
 ```
 
-These are ALL the top-level folders on your Mac. Most of them are system stuff — don't worry about them for now.
+These are ALL the top-level folders on your Mac. Most are system files — the Agency keeps them off-limits for now.
 
 ---
 
-## Pro Tip — `ls` Colors
+## 💡 PRO TIP — `ls` Colors
 
-Your terminal might already show folders in one color and files in another. If not, you can enable colors with:
+Your Terminal might already show folders in one color and files in another. If not, you can enable colors:
 
 ```bash
 ls -G
 ```
 
-The `-G` flag turns on color output. In Mission 10 you'll set this as the permanent default so you never have to type `-G` again.
+The `-G` flag turns on color output. In Mission 10, you'll set this as your permanent default so you never have to type `-G` again. Color-coded maps make navigation much faster.
 
 ---
 
-## Your Mission — Draw a Map of Your Home Folder
+## 🎯 MISSION: Navigate the Office and Recover All Clues
 
-You're going to explore your home folder and its contents, then "draw" a map using `echo` commands.
+You have the skills. Now execute the mission.
 
-First, gather information:
+**Step 1:** Go to the mission playground.
 
 ```bash
-cd ~
+cd playground/mission_02
 ls
 ```
 
-Now look inside a few key folders:
+**Step 2:** Find Clue #1 — it's in the office entrance.
 
 ```bash
-ls Documents
-ls Downloads
-ls Desktop
-ls Pictures
+cd office
+cat clue1.txt
 ```
 
-Now create your map! Replace what you see with your actual folder contents:
+**Step 3:** Find Clue #2 — it's on the desk.
+
+```bash
+cd desk
+cat clue2.txt
+```
+
+**Step 4:** Find Clue #3 — it's in the archive. Navigate back and then into the archive:
+
+```bash
+cd ~/playground/mission_02/archive
+cat clue3.txt
+```
+
+**Step 5:** The treasure map is buried four levels deep. Use your navigation skills to reach it:
+
+```bash
+cd ~/playground/mission_02/office/desk/drawer/secret
+ls
+cat treasure_map.txt
+```
+
+**Step 6:** Draw your own map of the evidence you recovered! Replace what you find with actual clue contents:
 
 ```bash
 echo "============================================"
-echo "        MAP OF SOPHIA'S COMPUTER            "
+echo "    OFFICE INVESTIGATION MAP                "
+echo "    Terminal Detective Agency               "
 echo "============================================"
 echo ""
-echo "~ (Home Folder: /Users/sophia)"
+echo "playground/mission_02/          ← Entry point"
 echo "|"
-echo "+-- Desktop/"
+echo "+-- office/"
+echo "|   +-- clue1.txt               ← RECOVERED"
+echo "|   +-- desk/"
+echo "|       +-- clue2.txt           ← RECOVERED"
+echo "|       +-- drawer/"
+echo "|           +-- secret/"
+echo "|               +-- treasure_map.txt  ← FOUND"
 echo "|"
-echo "+-- Documents/"
-echo "|   +-- (your documents here)"
-echo "|"
-echo "+-- Downloads/"
-echo "|   +-- (your downloads here)"
-echo "|"
-echo "+-- Pictures/"
-echo "|   +-- (your photos here)"
-echo "|"
-echo "+-- Music/"
-echo "|"
-echo "+-- Movies/"
-echo "|"
-echo "+-- Public/"
+echo "+-- archive/"
+echo "    +-- clue3.txt               ← RECOVERED"
 echo ""
-echo "Total folders found:"
-ls ~ | wc -l
+echo "Total items recovered:"
+ls ~/playground/mission_02/office ~/playground/mission_02/archive | wc -l
 ```
 
-The last line uses `wc -l` to count lines (we'll learn more about that in Mission 6). It tells you how many items are in your home folder.
+The last line uses `wc -l` to count lines (we'll learn more about that in Mission 6). It tells you how many items you found.
 
 ---
 
-## Challenges
+## 🏆 BONUS MISSIONS
 
-### Challenge 1 — The Deep Dive
+### Bonus Mission 1 — The Deep Dive
 
-Navigate into your Documents folder, then into the deepest subfolder you can find (keep using `cd foldername` to go deeper). Then use `pwd` to show where you ended up. Then come back home in one command.
+Navigate into the deepest folder you can find anywhere on your Mac (keep using `cd foldername` to go deeper). Then use `pwd` to show exactly where you ended up. Then come back to Agency HQ in one single command.
 
-**Hint:** Remember `cd ~` takes you home from anywhere.
+**Hint:** Remember `cd ~` takes you home from anywhere, no matter how lost you are.
 
-### Challenge 2 — The Speed Tour
+### Bonus Mission 2 — The Speed Reconnaissance
 
-Without leaving the home folder (no `cd`), use `ls` to peek inside each of these folders:
+Without leaving your home folder (no `cd`), use `ls` to peek inside each of these locations:
 - Desktop
-- Documents  
+- Documents
 - Downloads
 - Pictures
 
-**Hint:** `ls ~/Desktop` works without you having to move there first.
+**Hint:** `ls ~/Desktop` works without you having to physically move there first.
 
-### Challenge 3 — Count the Files
+### Bonus Mission 3 — Count the Evidence
 
 How many items are in your Downloads folder?
 
@@ -334,11 +400,9 @@ How many items are in your Downloads folder?
 ls ~/Downloads | wc -l
 ```
 
-That `|` (pipe) and `wc -l` is a sneak peek at Mission 6. `wc -l` counts lines. So this counts how many things `ls` printed.
+That `|` (pipe) and `wc -l` is a preview of Mission 6. `wc -l` counts lines — so this counts how many things `ls` printed. Can you find which folder in your home directory has the MOST items?
 
-Can you find which folder in your home directory has the MOST items in it?
-
-### Challenge 4 — The Hidden World
+### Bonus Mission 4 — The Hidden Files Investigation
 
 Show all hidden files in your home folder:
 
@@ -346,7 +410,7 @@ Show all hidden files in your home folder:
 ls -la ~ | grep "^\."
 ```
 
-Write down (or remember) at least 3 hidden files you find. What do you think `.zshrc` might be for? (We'll open it in Mission 10!)
+Write down at least 3 hidden files you find. What do you think `.zshrc` might be for? (You'll open it in Mission 10 and customize it yourself!)
 
 ---
 
@@ -356,19 +420,36 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 ---
 
-## Powers Unlocked
+## 🔐 CODE PIECE UNLOCKED!
+
+You navigated a four-level maze and recovered the Agency's treasure map. Outstanding fieldwork.
+
+**Code Piece #2: ARE**
+
+Your code piece is waiting in the deepest room of the office. Navigate there to claim it:
+
+```bash
+cat playground/mission_02/office/desk/drawer/secret/secret_code_piece.txt
+```
+
+Write it down alongside Code Piece #1. The full message will reveal itself at the end of your training.
+
+---
+
+## ⚡ POWERS UNLOCKED
 
 | Command | What It Does |
 |---------|-------------|
-| `pwd` | Shows your current folder (Print Working Directory) |
-| `ls` | Lists files and folders in current directory |
-| `ls -l` | Lists with details (size, date, permissions) |
+| `pwd` | Shows your current folder location (Print Working Directory) |
+| `ls` | Lists files and folders in the current directory |
+| `ls -l` | Lists with full details (size, date, permissions) |
 | `ls -la` | Lists everything including hidden files |
-| `ls path/` | Lists contents of a specific folder |
+| `ls path/` | Lists contents of a specific folder without moving there |
 | `cd foldername` | Move into a folder |
 | `cd ..` | Go up one level |
-| `cd ~` | Go to your home folder |
+| `cd ~` | Go to your home folder (Agency HQ) from anywhere |
 | `cd /absolute/path` | Go to an exact location anywhere on your Mac |
+| `cd ../..` | Go up two levels at once |
 
 ### Vocabulary
 
@@ -376,12 +457,12 @@ Solutions are in the [solutions folder](solutions/README.md).
 - **Current directory** — the folder you're "inside" right now
 - **Home folder** — your personal folder, shortcut: `~`
 - **Root** — the very top of the file system: `/`
-- **Absolute path** — a path starting from `/`
-- **Relative path** — a path starting from where you are now
-- **Tab completion** — pressing Tab to auto-complete file/folder names
+- **Absolute path** — a path starting from `/`, works from anywhere
+- **Relative path** — a path starting from where you currently are
+- **Tab completion** — pressing Tab to auto-complete file and folder names
 
 ---
 
-*The map is in your head now. You know how to find anything, go anywhere, and always find your way home.*
+*All clues recovered. Map secured. The maze didn't stop you, Agent.*
 
-*Ready for Mission 3?*
+*Report to Case File #3 when you're ready.*

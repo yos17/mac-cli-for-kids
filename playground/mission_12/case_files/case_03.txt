@@ -1,0 +1,1 @@
+CASE 03: The Messy Crime Scene. Skills learned: mkdir, mv, cp, rm. Status: SOLVED.

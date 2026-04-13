@@ -1,0 +1,63 @@
+╔═══════════════════════════════════════════════════════════════╗
+║          TERMINAL DETECTIVE AGENCY — CASE BRIEFING            ║
+║                   MISSION 07: THE AUTOMATION AGENT            ║
+╚═══════════════════════════════════════════════════════════════╝
+
+CLASSIFICATION: ACTIVE MISSION
+DIFFICULTY: ★★★☆☆
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SITUATION REPORT:
+
+Agent, we have a problem. Our field team has 10 undercover agents
+scattered across the city, and every single one of them needs an
+urgent personal warning letter — TODAY.
+
+Doing it by hand would take FOREVER. That's 10 letters, each one
+personalized with the agent's name, a case number, and today's
+date. By the time you finish typing, the mission will be over!
+
+THIS is exactly why smart detectives use automation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR MISSION:
+
+Write a shell script that:
+
+  1. Reads agent names from names.txt (one per line)
+  2. Uses the letter template in template.txt
+  3. Replaces the placeholder text with real values:
+       AGENT_NAME   → the agent's actual name
+       CASE_NUMBER  → a case number you make up (e.g. TDA-2024-07)
+       PRIORITY_LEVEL → HIGH, MEDIUM, or LOW
+       TODAY_DATE   → today's actual date
+  4. Saves each letter as a separate file in a letters/ folder
+  5. Names each file after the agent (e.g. agent_rivera.txt)
+
+The starter_script.sh file has the skeleton ready for you.
+Fill in the TODOs to make it work!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+HINTS:
+
+  • Use 'sed' to find and replace text in a file
+    Example: sed 's/AGENT_NAME/Agent Rivera/' template.txt
+
+  • Use '$()' to capture the output of a command into a variable
+    Example: TODAY=$(date +"%B %d, %Y")
+
+  • Use '>' to save output to a file
+    Example: sed 's/AGENT_NAME/Agent Rivera/' template.txt > output.txt
+
+  • To make your script runnable: chmod +x starter_script.sh
+  • To run your script: ./starter_script.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CHALLENGE ACCEPTED? Let's automate this thing!
+
+                                         — Director P. Chen
+                                           Terminal Detective Agency

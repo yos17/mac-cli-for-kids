@@ -1,0 +1,48 @@
+SEARCH HINTS FOR FINDING THE MISSING WITNESS
+=============================================
+Case: TDA-2024-005
+Prepared by: Agent Kowalski, Research Division
+
+Try searching for these keywords:
+- "witness"
+- "safe house"
+- "Agent Rivera"
+- "hiding"
+- "Maple Street"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+USEFUL grep COMMANDS:
+
+Search ALL files for a keyword:
+  grep -r "keyword" .
+
+List only FILE NAMES that contain a match:
+  grep -l "keyword" *.txt
+
+Show the LINE NUMBER of the match:
+  grep -n "keyword" filename.txt
+
+Case-insensitive search (finds "Witness" AND "witness"):
+  grep -i "witness" *.txt
+
+Search with context (3 lines around the match):
+  grep -C 3 "safe house" *.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+USEFUL find COMMANDS:
+
+Find all .log files:
+  find . -name "*.log"
+
+Find files containing a specific word in the name:
+  find . -name "*secret*"
+
+Find hidden files and folders:
+  find . -name ".*"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REMEMBER: The witness location is hidden in ONE of the files.
+Keep searching — you'll find it!

@@ -1,0 +1,1 @@
+LEVEL 1 UNLOCKED! Great work with chmod. Now unlock level2.txt using: chmod 644 level2.txt

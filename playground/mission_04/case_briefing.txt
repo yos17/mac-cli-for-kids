@@ -1,0 +1,66 @@
+╔══════════════════════════════════════════════════════════════╗
+║         TERMINAL DETECTIVE AGENCY — MISSION 04               ║
+║                  THE SECRET DIARY                            ║
+╚══════════════════════════════════════════════════════════════╝
+
+CLASSIFICATION: TOP SECRET
+ASSIGNED TO: Agent (That's YOU!)
+CASE NUMBER: TDA-2024-004
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SITUATION REPORT:
+
+Agent, we've done it — we've intercepted what appears to be the
+suspect's personal diary! Our undercover operative recovered it
+from a drop point near the old warehouse district.
+
+The diary contains 10 entries spread across several months.
+Hidden somewhere inside those entries is a vital clue that
+could blow this case WIDE open.
+
+But here's the twist: one entry contains a message encoded in
+base64. You'll need to decode it to reveal the secret location
+of the suspect's next meeting.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR MISSION OBJECTIVES:
+
+  1. READ the diary entries using cat, less, head, and tail
+       - Try:  cat diary_entries/entry_2024_01_15.txt
+       - Try:  head -5 diary_entries/entry_2024_02_12.txt
+       - Try:  tail -3 diary_entries/entry_2024_03_18.txt
+
+  2. DECODE the encrypted clue using base64
+       - Try:  base64 -d encrypted_clue.txt
+
+  3. INVESTIGATE the suspects list
+       - Try:  cat suspects.txt
+       - Try:  less suspects.txt   (press Q to quit)
+
+  4. WRITE your own detective notes using > and >>
+       - Try:  echo "Suspect seems nervous about the library" > my_notes.txt
+       - Try:  echo "Check the clock tower!" >> my_notes.txt
+       - Try:  cat my_notes.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FILES IN THIS MISSION:
+
+  diary_entries/     — 10 diary entries from our suspect
+  suspects.txt       — Database of 6 known suspects
+  encrypted_clue.txt — A base64-encoded secret message
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BONUS CHALLENGE:
+
+Read ALL 10 diary entries and write a summary of the suspect's
+plan in your own notes file. What are they hiding? Where?
+Who is "Z"?
+
+Good luck, Agent. The agency is counting on you!
+
+                              — Director Chen
+                                Terminal Detective Agency HQ

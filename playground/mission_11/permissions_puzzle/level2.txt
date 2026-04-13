@@ -1,0 +1,1 @@
+LEVEL 2 UNLOCKED! Permissions are your superpower. Now for the final level: chmod 644 level3.txt

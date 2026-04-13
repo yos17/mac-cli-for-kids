@@ -1,0 +1,3 @@
+# Encoded with base64. Decode with: base64 -d encrypted_clue.txt
+
+Q0xBU1NJRklFRCBNRVNTQUdFOiBUaGUgc2VjcmV0IG1lZXRpbmcgcG9pbnQgaXMgdGhlIG9sZCBjbG9jayB0b3dlciBvbiBGaWZ0aCBTdHJlZXQuIEFzayBmb3IgJ0FnZW50IFonLiBDb2RlIFBpZWNlICM0IG9mIDEyOiBBTg==

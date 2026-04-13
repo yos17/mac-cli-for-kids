@@ -1,0 +1,58 @@
+╔════════════════════════════════════════════════════════════╗
+║        TERMINAL DETECTIVE AGENCY — CASE BRIEFING          ║
+║          CASE #003: "THE MESSY CRIME SCENE"                ║
+╚════════════════════════════════════════════════════════════╝
+
+PRIORITY: URGENT
+AGENT: You
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Agent, brace yourself. It's bad.
+
+Before we caught up with suspect M.K., they broke into our evidence
+room and RANSACKED it. Photos mixed in with interview notes.
+Duplicate files everywhere. Multiple draft reports with no clear
+version control. It looks like a hurricane swept through.
+
+Here's the thing about evidence: if it's not organized, it's useless
+in court. We need everything sorted — NOW — before the case review
+at the end of the week.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR MISSION:
+
+   1. Run 'ls' to see the chaos for yourself.
+
+   2. Create organized subfolders using mkdir:
+         mkdir evidence/photos
+         mkdir evidence/reports
+         mkdir evidence/interviews
+         mkdir evidence/notes
+
+   3. Move files into the right folders using mv:
+         mv photos_001.txt evidence/photos/
+         (repeat for all photo files)
+
+   4. Copy important files using cp:
+         cp report_FINAL.txt evidence/reports/
+         (use cp when you want to keep the original AND have a copy)
+
+   5. Check your work! Use 'ls evidence/' to see your organized folder.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BONUS CHALLENGE:
+There's a duplicate file in here. Can you spot it?
+Once you find it, you can remove it with: rm [filename]
+(Be careful with rm — there's no undo!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+There's also a secret code piece hidden somewhere in this mess.
+Keep your eyes open while you're sorting through everything!
+
+Good luck, Agent. We believe in you.
+
+— Director P. Chen

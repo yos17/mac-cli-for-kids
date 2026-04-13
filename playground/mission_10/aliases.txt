@@ -1,0 +1,27 @@
+# SUGGESTED DETECTIVE ALIASES
+# Add these to your .zshrc file!
+# Usage: alias shortcut="full command"
+
+# Navigation shortcuts
+alias ..="cd .."
+alias ...="cd ../.."
+alias home="cd ~"
+
+# File viewing
+alias ll="ls -la"
+alias lh="ls -lah"  # human-readable sizes
+
+# Safety aliases (prevent accidents!)
+alias rm="rm -i"    # always ask before deleting
+alias cp="cp -i"    # always ask before overwriting
+alias mv="mv -i"    # always ask before overwriting
+
+# Fun additions
+alias please="sudo"
+alias cls="clear"
+alias myip="curl -s ifconfig.me"
+
+# Detective specials
+alias findclue='grep -rn'
+alias topagents='ps aux | head -20'
+alias surveillance='top'

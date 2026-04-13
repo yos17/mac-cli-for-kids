@@ -1,0 +1,38 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║          *** YOU UNLOCKED THE FINAL TREASURE! ***            ║
+║                                                              ║
+║  THE COMPLETE SECRET CODE IS:                                ║
+║                                                              ║
+║  YOU ARE NOW AN ELITE CODE CRACKING                          ║
+║  TERMINAL DETECTIVE KEEP HACKING ON                          ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║  CONGRATULATIONS, AGENT!                                     ║
+║                                                              ║
+║  You have completed all 12 missions of the                   ║
+║  Terminal Detective Academy.                                 ║
+║                                                              ║
+║  You've learned:                                             ║
+║  - Basic terminal navigation                                 ║
+║  - File operations and organization                          ║
+║  - Reading and writing files                                 ║
+║  - Searching and finding things                              ║
+║  - Pipes and data processing                                 ║
+║  - Shell scripting                                           ║
+║  - Loops and logic                                           ║
+║  - Internet from the terminal                                ║
+║  - Terminal customization                                    ║
+║  - Permissions and encryption                                ║
+║  - Building a full CLI application                           ║
+║                                                              ║
+║  You are officially a TERMINAL DETECTIVE.                    ║
+║  The command line is yours.                                  ║
+║                                                              ║
+║  Keep hacking, keep learning, keep exploring.                ║
+║                                                              ║
+║                    — Director P. Chen                        ║
+║                      Terminal Detective Agency               ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝

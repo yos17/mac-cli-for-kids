@@ -1,0 +1,15 @@
+Dear AGENT_NAME,
+
+This is an urgent message from Terminal Detective Agency.
+
+Case #CASE_NUMBER has been escalated to PRIORITY_LEVEL.
+
+Your mission briefing has been updated as of TODAY_DATE.
+
+Please report to headquarters immediately.
+
+Stay safe out there.
+
+Regards,
+Director P. Chen
+Terminal Detective Agency

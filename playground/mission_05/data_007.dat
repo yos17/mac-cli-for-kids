@@ -1,0 +1,11 @@
+TDA DATA CAPTURE — FILE 007
+Timestamp: 2024-02-21 03:15:27
+Source: Mobile Unit 3
+
+LAT: 51.5087, LON: -0.1312
+SIGNAL: 17.8 dBm
+DURATION: 00:02:09
+PACKETS: 883
+ANOMALY: unusual_timing_3am
+HASH: 07c4f9e26b8d1a35
+NOTE: Late night activity. Cross-ref with stakeout logs.

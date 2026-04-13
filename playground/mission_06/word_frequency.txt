@@ -1,0 +1,3 @@
+# Analyze this text with: cat word_frequency.txt | tr ' ' '\n' | sort | uniq -c | sort -rn
+
+The shadow moved through silence and the code remained hidden deep within the shadow of the old archive the detective followed every terminal lead with care knowing the code would reveal itself the shadow does not lie a good detective notices what others miss the shadow fell across the code like a curtain and the terminal blinked twice the code is the key the shadow waits and the terminal runs and the clues endure every good detective leaves a trail and every trail leads somewhere the archive holds its secrets close and the patient investigator finds them all in time

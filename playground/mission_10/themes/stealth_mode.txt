@@ -1,0 +1,8 @@
+# STEALTH MODE THEME
+# Dark and mysterious — perfect for night operations
+# Add these to your .zshrc
+
+PROMPT='%F{green}[STEALTH]%f %F{white}%1~%f %F{red}›%f '
+
+# Green on black = classic hacker look
+# Colors: black=0, red=1, green=2, yellow=3, blue=4, magenta=5, cyan=6, white=7

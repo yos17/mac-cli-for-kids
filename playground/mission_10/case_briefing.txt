@@ -1,0 +1,48 @@
+╔══════════════════════════════════════════════════════════════╗
+║  TERMINAL DETECTIVE AGENCY                                   ║
+║  MISSION 10: Your Secret Lair                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+CASE BRIEFING
+=============
+
+Agent, every great detective needs a custom headquarters.
+
+Think about it — James Bond had his gadget lab. Sherlock Holmes had
+221B Baker Street. Batman had the Batcave.
+
+You have your TERMINAL.
+
+Your mission: set up your terminal as your personal detective
+command center! Customize your .zshrc with detective aliases,
+add a cool prompt, and make your terminal look like a real spy
+station.
+
+The best part? Once you customize it, your terminal will greet
+you like a secret base EVERY TIME you open it.
+
+YOUR LAIR, YOUR RULES.
+
+MISSION OBJECTIVES:
+-------------------
+1. Explore the sample_zshrc file to see detective customizations
+2. Pick aliases from aliases.txt that you like
+3. Choose a theme from the themes/ folder
+4. Add your favorites to your real ~/.zshrc file
+5. Reload with: source ~/.zshrc
+6. Watch your terminal transform!
+
+FILES IN THIS FOLDER:
+---------------------
+  sample_zshrc          — A ready-made detective .zshrc to study
+  aliases.txt           — Cool alias ideas to add to your config
+  themes/               — Three terminal themes to choose from
+  secret_code_piece.txt — Your mission reward!
+
+HINT: To edit your real .zshrc, type:
+  open -a TextEdit ~/.zshrc
+
+Or if you're feeling brave, use nano:
+  nano ~/.zshrc
+
+Good luck, Agent. Make your lair legendary.

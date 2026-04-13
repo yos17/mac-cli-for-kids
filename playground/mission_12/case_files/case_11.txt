@@ -1,0 +1,1 @@
+CASE 11: Top Secret. Skills learned: chmod, permissions, base64, openssl. Status: SOLVED.

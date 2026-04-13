@@ -1,0 +1,2 @@
+# Decode with: base64 -d classified/message_02.txt
+Q0xBU1NJRklFRDogVGhlIHN0b2xlbiBmaWxlcyBjb250YWluIGJsdWVwcmludHMgZm9yIHRoZSBBZ2VuY3kncyBjb21tdW5pY2F0aW9uIG5ldHdvcmsu

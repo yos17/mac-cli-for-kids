@@ -1,20 +1,34 @@
-# Mission 6 — Pipes & Superpowers
+# CASE FILE #6 — The Code Breaker
 
-## Mission Briefing
+**Terminal Detective Agency | Clearance Level: Senior Detective**
 
-In action movies, the hero is never alone. They have a team — each person does one thing perfectly. The hacker cracks the code. The driver handles the car. The lookout watches the door. Together, they do something none of them could do alone.
+---
 
-The Unix philosophy is the same idea: each command does **one thing well**. The power comes from *combining* them. The `|` (pipe) connects commands together so the output of one becomes the input of the next.
+## 🔍 MISSION BRIEFING
+
+Agent, congratulations on reaching Senior Detective clearance. This case is going to test everything you've learned.
+
+Our network security team has intercepted three data files from the suspect's private server: an access log with 120 entries of web traffic, a text document with hidden patterns, and a database of 25 suspects. Individually, these files look like noise. But analyzed together using the right tools, they tell a complete story.
+
+Here's what we know: somewhere in the access log is a suspicious IP address that probed our systems over 20 times. In the suspects database, five individuals share a connection to a city called "Shadowport" — and one of them is listed as WANTED. The word frequency document has a pattern in it that our analysts believe is a coded message.
+
+Your job is to use **pipes** — the most powerful technique in Terminal — to chain commands together and cut through the noise. A single well-built pipeline can analyze 120 log entries in one second and hand you the answer directly. No scrolling. No manual counting. Just results.
+
+**Access your case files:**
+```bash
+cd playground/mission_06
+cat case_briefing.txt
+```
+
+---
+
+## 📚 DETECTIVE TRAINING: Pipes & Superpowers
+
+In action movies, the hero is never alone. They have a team — each person does one thing perfectly. The hacker cracks the code. The driver handles the car. The lookout watches the door. Together, they accomplish what none of them could do alone.
+
+The Unix philosophy works the same way: each command does **one thing well**. The power comes from *combining* them. The `|` (pipe) connects commands together so the output of one becomes the input of the next.
 
 Today you learn to chain commands into combos more powerful than any single command.
-
-### What You'll Learn
-- `|` — the pipe (connect commands)
-- `sort` — sort lines alphabetically or numerically
-- `uniq` — remove duplicate lines
-- `wc` — count words, lines, characters
-- `cut` — extract columns from data
-- How to analyze files with command chains
 
 ---
 
@@ -32,15 +46,23 @@ Shows all files. Now pipe it:
 ls ~ | wc -l
 ```
 
-Output: `14`
+Output: `14` (or however many items you have)
 
-Translation: "List my home folder, then count the lines." The result is the number of items in your home folder.
+Translation: "List my home folder, then count the lines." The result is the number of items in your home folder. Two simple commands, one combined result.
+
+You can chain as many as you need:
+
+```bash
+ls ~ | sort | head -10
+```
+
+Translation: "List home folder → sort alphabetically → show first 10." Three commands, one clean pipeline.
 
 ---
 
 ## `sort` — Put Things in Order
 
-Create a sample file:
+`sort` arranges lines alphabetically or numerically. Create a sample file to practice with:
 
 ```bash
 cat > fruits.txt << 'EOF'
@@ -55,7 +77,6 @@ EOF
 ```
 
 Sort alphabetically:
-
 ```bash
 sort fruits.txt
 ```
@@ -72,13 +93,11 @@ mango
 ```
 
 Sort in reverse:
-
 ```bash
 sort -r fruits.txt
 ```
 
 Sort numbers correctly:
-
 ```bash
 echo "10" > nums.txt
 echo "2" >> nums.txt
@@ -86,15 +105,24 @@ echo "25" >> nums.txt
 echo "1" >> nums.txt
 echo "100" >> nums.txt
 
-sort nums.txt        # wrong: 1, 10, 100, 2, 25 (alphabetical)
-sort -n nums.txt     # right: 1, 2, 10, 25, 100 (numeric)
+sort nums.txt      # alphabetical (wrong for numbers): 1, 10, 100, 2, 25
+sort -n nums.txt   # numeric (correct): 1, 2, 10, 25, 100
+```
+
+**Important:** Always use `sort -n` when sorting numbers. Without it, "10" sorts before "2" because "1" comes before "2" alphabetically — just like how "10" would come before "2" in a phone book.
+
+Sort by a specific column:
+
+```bash
+# Sort by the 2nd column, numerically, in reverse (highest first)
+sort -k2 -rn scores.txt
 ```
 
 ---
 
 ## `uniq` — Remove Duplicates
 
-`uniq` removes consecutive duplicate lines. It works best *after* `sort`:
+`uniq` removes consecutive duplicate lines. It works best **after** `sort` (because `sort` puts duplicates next to each other):
 
 ```bash
 sort fruits.txt | uniq
@@ -109,7 +137,7 @@ grape
 mango
 ```
 
-The two "apple" and two "banana" are now just one each!
+The two "apple" and two "banana" are now just one each.
 
 Count how many times each item appears:
 
@@ -136,7 +164,7 @@ This chain: sort alphabetically → count duplicates → sort by count (reverse 
 
 ---
 
-## `wc` — Word Count
+## `wc` — Count the Evidence
 
 `wc` stands for "word count" but it counts more than words:
 
@@ -173,170 +201,268 @@ wc -l /usr/share/dict/words
 
 ---
 
-## `cut` — Extract Columns
+## `cut` — Extract Columns from Data
 
-`cut` extracts specific parts of each line. It's great for structured data.
+`cut` extracts specific columns from structured data. It's perfect for analyzing log files and databases.
 
 Create sample data:
 
 ```bash
-cat > students.txt << 'EOF'
-Alice,12,A
-Bob,13,B
-Charlie,12,A+
-Diana,14,A
-Ella,11,B+
+cat > agents.txt << 'EOF'
+Rivera,active,Shadowport
+Torres,inactive,Metro City
+Kim,active,Harbor District
+Walsh,WANTED,Shadowport
+Chen,active,Northern Zone
 EOF
 ```
 
 Get just the names (first column):
-
 ```bash
-cut -d',' -f1 students.txt
+cut -d',' -f1 agents.txt
 ```
 
 Output:
 ```
-Alice
-Bob
-Charlie
-Diana
-Ella
+Rivera
+Torres
+Kim
+Walsh
+Chen
 ```
 
-`-d','` = delimiter is comma. `-f1` = field 1 (first column).
+`-d','` = the delimiter (separator) is a comma. `-f1` = field 1 (the first column).
 
-Get names and grades (columns 1 and 3):
-
+Get names and status (columns 1 and 2):
 ```bash
-cut -d',' -f1,3 students.txt
+cut -d',' -f1,2 agents.txt
 ```
 
 Output:
 ```
-Alice,A
-Bob,B
-Charlie,A+
-Diana,A
-Ella,B+
+Rivera,active
+Torres,inactive
+Kim,active
+Walsh,WANTED
+Chen,active
 ```
 
----
-
-## Try It! — Quick Experiments
-
-**Experiment 1:** Most common words in the dictionary.
-
+Get just the cities (column 3):
 ```bash
-grep "^a" /usr/share/dict/words | wc -l
+cut -d',' -f3 agents.txt
 ```
-
-How many dictionary words start with 'a'? Now try different letters.
-
-**Experiment 2:** Sort your diary entries.
-
-```bash
-grep "^===" ~/diary/journal.txt | sort
-```
-
-See your diary dates in sorted order.
-
-**Experiment 3:** Count unique word lengths.
-
-```bash
-awk '{print length}' /usr/share/dict/words | sort -n | uniq -c
-```
-
-This shows how many words are each length. (We snuck in `awk` — a powerful text tool you can explore later.)
-
-**Experiment 4:** Build a word frequency counter.
-
-First create a sample paragraph:
-```bash
-cat > paragraph.txt << 'EOF'
-the quick brown fox jumps over the lazy dog the fox ran away
-EOF
-```
-
-Now count each word:
-```bash
-tr ' ' '\n' < paragraph.txt | sort | uniq -c | sort -rn
-```
-
-Translation: replace spaces with newlines → sort → count → sort by frequency.
 
 ---
 
 ## Pro Tip — `tee` Splits the Pipe
 
-Sometimes you want to see the output AND save it to a file. That's what `tee` does — it's like a T-junction in a pipe:
+Sometimes you want to see output on screen AND save it to a file at the same time. That's what `tee` does — it's like a T-junction in a pipe: the data flows both directions.
 
 ```bash
 ls ~ | tee home_list.txt | wc -l
 ```
 
-This: lists home folder → saves to `home_list.txt` AND shows the count. Both happen at once.
+This: lists home folder → saves to `home_list.txt` AND shows the count on screen. Both happen at once.
+
+Use `tee` when you're running a long analysis and want to save intermediate results:
+
+```bash
+grep "suspicious" playground/mission_06/access_log.csv | tee suspicious_entries.txt | wc -l
+```
+
+Now you know the count AND you have the full list saved to `suspicious_entries.txt`.
 
 ---
 
-## Your Mission — Analyze Your Music Library or Photo Collection
+## 🧪 FIELD WORK
 
-Let's analyze what's on your Mac! Choose one:
+Time to analyze the intercepted data. These experiments build toward finding the suspect.
 
-### Option A — Photo Stats
-
-```bash
-# Find all images
-find ~/Pictures -type f 2>/dev/null > /tmp/photos.txt
-cat /tmp/photos.txt | wc -l
-```
-
-Now analyze by type:
-```bash
-find ~/Pictures -type f 2>/dev/null | grep -o "\.[a-zA-Z]*$" | sort | uniq -c | sort -rn
-```
-
-Translation: find photos → grab just the extension (`.jpg`, `.png`, etc.) → sort → count → sort by most common.
-
-Example output:
-```
-  1423 .jpg
-   287 .heic
-    52 .png
-    14 .gif
-```
-
-### Option B — Downloads Analysis
+**Step 1: Read the case briefing**
 
 ```bash
-ls ~/Downloads | sort | head -20
+cat playground/mission_06/case_briefing.txt
 ```
 
-Count by file extension:
-```bash
-ls ~/Downloads | grep -o "\.[a-zA-Z]*$" | sort | uniq -c | sort -rn
-```
+**Step 2: Preview the access log**
 
-### Option C — Diary Word Frequency
+Always preview a file before doing heavy analysis — this helps you understand its structure:
 
 ```bash
-# Count the most common words in your diary
-cat ~/diary/journal.txt | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | grep -v "^$" | sort | uniq -c | sort -rn | head -20
+cat playground/mission_06/access_log.csv | head -5
 ```
 
-Translation: print diary → one word per line → make lowercase → remove empty lines → sort → count → sort by frequency → show top 20.
+What columns do you see? What's the format?
 
-The result tells you what words you use most often. Interesting!
+**Step 3: Count total entries in the log**
+
+```bash
+wc -l playground/mission_06/access_log.csv
+```
+
+120 entries is a lot to read manually. That's why we have pipes.
+
+**Step 4: Find the most active IP addresses**
+
+This is the key pipeline for log analysis. Read it left to right:
+
+```bash
+cut -d',' -f2 playground/mission_06/access_log.csv | sort | uniq -c | sort -rn | head -10
+```
+
+Step by step:
+1. `cut -d',' -f2` — extract column 2 (the IP address column)
+2. `sort` — sort all IP addresses alphabetically (puts identical ones next to each other)
+3. `uniq -c` — count how many times each IP appears
+4. `sort -rn` — sort those counts from highest to lowest
+5. `head -10` — show only the top 10
+
+The IP at the very top is the most active. Does one look suspicious?
+
+**Step 5: Investigate the suspicious IP directly**
+
+```bash
+grep "192.168.1.99" playground/mission_06/access_log.csv | wc -l
+```
+
+How many times did this IP hit our systems?
+
+**Step 6: See what the suspicious IP was actually doing**
+
+```bash
+grep "192.168.1.99" playground/mission_06/access_log.csv | head -20
+```
+
+**Step 7: Analyze word frequency in the coded document**
+
+The `tr` command translates characters — here we use it to put each word on its own line:
+
+```bash
+cat playground/mission_06/word_frequency.txt | tr ' ' '\n' | sort | uniq -c | sort -rn | head -10
+```
+
+Step by step:
+1. `cat` — read the file
+2. `tr ' ' '\n'` — replace every space with a newline (one word per line)
+3. `sort` — alphabetical sort (groups identical words together)
+4. `uniq -c` — count occurrences of each word
+5. `sort -rn` — sort by count, highest first
+6. `head -10` — show the top 10 most frequent words
+
+Which words appear most often? Does the pattern tell you anything?
+
+**Step 8: Analyze the suspects database**
+
+Get a count of suspects from each city:
+
+```bash
+cut -d',' -f2 playground/mission_06/suspects_database.csv | sort | uniq -c | sort -rn
+```
+
+How many suspects are connected to "Shadowport"?
+
+**Step 9: Find the WANTED suspect**
+
+```bash
+grep "WANTED" playground/mission_06/suspects_database.csv
+```
+
+There's your primary target. Cross-reference with the access log — do you see their name connected to that suspicious IP?
 
 ---
 
-## Challenges
+## 🎯 MISSION: Analyze the Data to Identify the Suspect
 
-### Challenge 1 — The Leaderboard
+Use pipes to build a complete analysis report of all three intercepted files.
+
+**Step 1: Set up your report file**
+
+```bash
+echo "======================================" > analysis_report.txt
+echo "CASE #6 — CODE BREAKER ANALYSIS REPORT" >> analysis_report.txt
+echo "$(date +"%A, %B %d, %Y")" >> analysis_report.txt
+echo "======================================" >> analysis_report.txt
+echo "" >> analysis_report.txt
+```
+
+**Step 2: Analyze the access log**
+
+```bash
+echo "--- ACCESS LOG ANALYSIS ---" >> analysis_report.txt
+echo "Total entries:" >> analysis_report.txt
+wc -l playground/mission_06/access_log.csv >> analysis_report.txt
+echo "" >> analysis_report.txt
+echo "Top 10 most active IPs:" >> analysis_report.txt
+cut -d',' -f2 playground/mission_06/access_log.csv | sort | uniq -c | sort -rn | head -10 >> analysis_report.txt
+echo "" >> analysis_report.txt
+echo "Hits from suspicious IP (192.168.1.99):" >> analysis_report.txt
+grep "192.168.1.99" playground/mission_06/access_log.csv | wc -l >> analysis_report.txt
+echo "" >> analysis_report.txt
+```
+
+**Step 3: Analyze the word frequency document**
+
+```bash
+echo "--- WORD FREQUENCY ANALYSIS ---" >> analysis_report.txt
+echo "Top 10 most frequent words:" >> analysis_report.txt
+cat playground/mission_06/word_frequency.txt | tr ' ' '\n' | sort | uniq -c | sort -rn | head -10 >> analysis_report.txt
+echo "" >> analysis_report.txt
+echo "Occurrences of 'shadow':" >> analysis_report.txt
+grep -o "shadow" playground/mission_06/word_frequency.txt | wc -l >> analysis_report.txt
+echo "" >> analysis_report.txt
+```
+
+**Step 4: Analyze the suspects database**
+
+```bash
+echo "--- SUSPECTS DATABASE ANALYSIS ---" >> analysis_report.txt
+echo "Total suspects:" >> analysis_report.txt
+wc -l playground/mission_06/suspects_database.csv >> analysis_report.txt
+echo "" >> analysis_report.txt
+echo "Suspects by city:" >> analysis_report.txt
+cut -d',' -f2 playground/mission_06/suspects_database.csv | sort | uniq -c | sort -rn >> analysis_report.txt
+echo "" >> analysis_report.txt
+echo "WANTED suspects:" >> analysis_report.txt
+grep "WANTED" playground/mission_06/suspects_database.csv >> analysis_report.txt
+echo "" >> analysis_report.txt
+echo "======================================" >> analysis_report.txt
+echo "END OF REPORT" >> analysis_report.txt
+```
+
+**Step 5: Read your complete report**
+
+```bash
+cat analysis_report.txt
+```
+
+**Step 6: Use `less` for comfortable reading**
+
+```bash
+less analysis_report.txt
+```
+
+**Step 7: Check report stats**
+
+```bash
+wc analysis_report.txt
+```
+
+**Step 8: Save a copy with tee while also viewing it**
+
+```bash
+cat analysis_report.txt | tee ~/case_6_report_backup.txt | wc -l
+```
+
+---
+
+## 🏆 BONUS MISSIONS
+
+### Bonus Mission 1 — The Leaderboard
 
 Create a file called `scores.txt` with 8 names and scores:
 
-```
+```bash
+cat > scores.txt << 'EOF'
 Alice 95
 Bob 72
 Charlie 88
@@ -345,67 +471,128 @@ Ella 63
 Frank 88
 Grace 100
 Hannah 72
+EOF
 ```
 
-Sort by score (highest first). Then show only unique scores.
+Sort by score (highest first):
+```bash
+sort -k2 -rn scores.txt
+```
 
-**Hint:** `sort -k2 -rn` sorts by the 2nd column, numerically, reversed.
+Show only unique scores (no repeats):
+```bash
+sort -k2 -rn scores.txt | cut -d' ' -f2 | uniq
+```
 
-### Challenge 2 — Word Count Race
+Who's in first place? Are there any ties?
 
-Count the number of words in these three different sources:
-1. Your `~/diary/journal.txt`
-2. Any file in your Documents folder
-3. `/usr/share/dict/words`
+### Bonus Mission 2 — Word Count Race
+
+Count the number of words in three different sources:
+```bash
+wc -w playground/mission_06/word_frequency.txt
+wc -w playground/mission_06/suspects_database.csv
+wc -l /usr/share/dict/words
+```
 
 Which has the most words?
 
-### Challenge 3 — The Pipeline Challenge
+### Bonus Mission 3 — The One-Line Pipeline Challenge
 
 Using a single pipeline (commands connected with `|`), solve this:
-"Find all `.txt` files in my home folder, sort them by name, and count how many there are."
+"Find all `.txt` files in the mission_06 folder, sort them by name, and count how many there are."
 
-No intermediate files — one line, all pipes.
+No intermediate files — one line, all pipes. Hint: you'll need `find`, `sort`, and `wc`.
 
-### Challenge 4 — Top 10 Extensions
+### Bonus Mission 4 — Top Extensions
 
-What are the top 10 most common file types (extensions) in your entire home folder? Build the pipeline. 
+What are the top 5 most common file types (extensions) in your home folder? Build the pipeline:
 
-**Hint:** `find`, `grep -o`, `sort`, `uniq -c`, `sort -rn`, `head` — chain them all!
+```bash
+find ~ -type f 2>/dev/null | grep -o "\.[a-zA-Z]*$" | sort | uniq -c | sort -rn | head -5
+```
+
+Step by step:
+1. `find ~ -type f 2>/dev/null` — find all files (suppress errors)
+2. `grep -o "\.[a-zA-Z]*$"` — extract just the extension from each filename
+3. `sort` — group identical extensions
+4. `uniq -c` — count each extension
+5. `sort -rn` — sort by count, highest first
+6. `head -5` — show top 5
+
+What file types do you have most of?
+
+### Bonus Mission 5 — Diary Word Frequency
+
+Analyze your own detective journal:
+
+```bash
+cat ~/diary/journal.txt | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | grep -v "^$" | sort | uniq -c | sort -rn | head -20
+```
+
+Step by step:
+1. `cat ~/diary/journal.txt` — read your journal
+2. `tr ' ' '\n'` — one word per line
+3. `tr '[:upper:]' '[:lower:]'` — make everything lowercase (so "The" and "the" count together)
+4. `grep -v "^$"` — remove empty lines (`-v` means "exclude")
+5. `sort` — group identical words
+6. `uniq -c` — count each word
+7. `sort -rn` — sort by frequency
+8. `head -20` — show top 20
+
+What words do you write most often? Interesting, right?
 
 ---
 
-## Solutions
+## 🔐 CODE PIECE UNLOCKED!
 
-Solutions are in the [solutions folder](solutions/README.md).
+Incredible analysis work, Agent. You identified the suspicious IP, found the WANTED suspect, and decoded the word frequency pattern — all with pipes.
+
+**Code Piece #6: CODE**
+
+```bash
+cat playground/mission_06/secret_code_piece.txt
+```
+
+You now have four code pieces. Keep collecting them.
 
 ---
 
-## Powers Unlocked
+## ⚡ POWERS UNLOCKED
 
 | Command | What It Does |
 |---------|-------------|
 | `cmd1 \| cmd2` | Pipes output of cmd1 into cmd2 |
 | `sort file` | Sort lines alphabetically |
-| `sort -r file` | Sort in reverse |
-| `sort -n file` | Sort numerically |
+| `sort -r file` | Sort in reverse order |
+| `sort -n file` | Sort numerically (correct for numbers) |
 | `sort -k2 file` | Sort by the 2nd column |
+| `sort -rn file` | Sort numerically, reversed (highest first) |
 | `uniq file` | Remove consecutive duplicate lines |
-| `uniq -c file` | Count occurrences |
+| `uniq -c file` | Count occurrences of each unique line |
 | `wc -l file` | Count lines |
 | `wc -w file` | Count words |
 | `wc -c file` | Count characters |
-| `cut -d',' -f1` | Extract column 1, comma-delimited |
+| `cut -d',' -f1` | Extract column 1 from comma-separated data |
+| `cut -d',' -f1,3` | Extract columns 1 and 3 |
 | `tee file` | Send output to both file and screen |
+| `tr ' ' '\n'` | Replace spaces with newlines (one word per line) |
+| `tr '[:upper:]' '[:lower:]'` | Convert text to lowercase |
+| `grep -v "pattern"` | Show lines that do NOT match the pattern |
+| `grep -o "pattern"` | Show only the matched text, not the whole line |
 
-### Vocabulary
+### Detective Vocabulary
 
-- **Pipe** — `|` connects commands; output of one = input of the next
+- **Pipe** — `|` connects commands; output of one becomes input of the next
 - **Delimiter** — the character that separates columns in data (comma, tab, space)
 - **Field** — one column in structured data
+- **tee** — splits a pipeline so data goes to both a file and the next command
+- **tr** — translate: replace one character with another throughout a stream
+- **Pipeline** — a chain of commands connected by pipes, working as a team
+- **Word frequency** — counting how many times each word appears in a text
 
 ---
 
-*You've unlocked combo attacks. One command is good. A chain of commands is unstoppable.*
+*You've unlocked combo attacks. One command is good. A chain of commands is unstoppable. And now you're building the kind of analysis pipelines that real security investigators use every day.*
 
-*Ready for Mission 7?*
+*Code pieces collected: #4 (AN), #5 (ELITE), #6 (CODE). Ready for Case #7?*

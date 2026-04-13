@@ -1,0 +1,10 @@
+TDA DATA CAPTURE — FILE 002
+Timestamp: 2024-02-03 14:05:09
+Source: Sensor Array Beta
+
+LAT: 51.5098, LON: -0.1324
+SIGNAL: 11.2 dBm
+DURATION: 00:01:15
+PACKETS: 492
+ANOMALY: signal_spike_at_00:01:03
+HASH: b9c3d1f84e2a6071

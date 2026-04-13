@@ -1,0 +1,69 @@
+╔══════════════════════════════════════════════════════════════╗
+║         TERMINAL DETECTIVE AGENCY — MISSION 05               ║
+║               THE MISSING WITNESS                            ║
+╚══════════════════════════════════════════════════════════════╝
+
+CLASSIFICATION: TOP SECRET
+ASSIGNED TO: Agent (That's YOU!)
+CASE NUMBER: TDA-2024-005
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SITUATION REPORT:
+
+Agent — our star witness has gone into hiding.
+
+The witness saw something they shouldn't have, and now they're
+off the grid. We desperately need to find them before the
+suspects do. We have reason to believe our agents left behind
+clues about the witness's location — but those clues are buried
+in over 50 files in this folder.
+
+The information is in here SOMEWHERE. We just need someone
+who knows how to search.
+
+That's where you come in.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR MISSION OBJECTIVES:
+
+  1. USE grep to search through files for keywords
+       - Try:  grep -r "witness" .
+       - Try:  grep -l "safe house" *.txt
+       - Try:  grep -n "Rivera" report_015.txt
+
+  2. USE find to locate files by name or type
+       - Try:  find . -name "*.log"
+       - Try:  find . -name "misc_*.txt"
+       - Try:  find . -type f -name "*.dat"
+
+  3. SEARCH the hidden folder (hint: try ls -a)
+       - Try:  ls -a
+       - Try:  find . -name "secret*"
+
+  4. READ keyword_hints.txt for search terms to try
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FILES IN THIS MISSION:
+
+  report_001.txt - report_020.txt   — Case reports (20 files)
+  data_001.dat - data_010.dat       — Data files (10 files)
+  access_2024_03_01.log - _10.log   — Server logs (10 files)
+  misc_001.txt - misc_010.txt       — Miscellaneous (10 files)
+  keyword_hints.txt                 — Your search guide
+  .hidden/                          — ??? (you'll need ls -a)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BONUS CHALLENGE:
+
+  Can you find ALL the files that mention the witness?
+  How many files reference "Rivera"?
+  Try: grep -rl "Rivera" . | wc -l
+
+Good luck, Agent! The witness is counting on you.
+
+                              — Director Chen
+                                Terminal Detective Agency HQ

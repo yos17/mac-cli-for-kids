@@ -1,0 +1,73 @@
+╔══════════════════════════════════════════════════════════════╗
+║         TERMINAL DETECTIVE AGENCY — MISSION 06               ║
+║                  THE CODE BREAKER                            ║
+╚══════════════════════════════════════════════════════════════╝
+
+CLASSIFICATION: TOP SECRET
+ASSIGNED TO: Agent (That's YOU!)
+CASE NUMBER: TDA-2024-006
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SITUATION REPORT:
+
+Agent, we've intercepted three data files from the suspect's
+network. The raw data looks like noise — but patterns are
+hiding in plain sight, waiting for someone clever enough
+to analyze them.
+
+Your mission: use pipes, sort, uniq, cut, and wc to dig
+through the data and uncover the suspect's identity and plans.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR MISSION OBJECTIVES:
+
+  1. ANALYZE access_log.csv — find the suspicious IP address
+       - Try:  cut -d',' -f2 access_log.csv | sort | uniq -c | sort -rn
+       - Try:  grep "192.168.1.99" access_log.csv | wc -l
+
+  2. DECODE word_frequency.txt — find the most used words
+       - Try:  cat word_frequency.txt | tr ' ' '\n' | sort | uniq -c | sort -rn
+       - (The hint is in the file itself!)
+
+  3. SEARCH suspects_database.csv — find the pattern in cities
+       - Try:  cut -d',' -f2 suspects_database.csv | sort | uniq -c | sort -rn
+       - Try:  grep "WANTED" suspects_database.csv
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KEY COMMANDS FOR THIS MISSION:
+
+  sort              — sorts lines alphabetically or numerically
+  sort -rn          — sorts numbers in reverse (biggest first)
+  uniq -c           — counts duplicate lines
+  cut -d',' -f2     — grabs the 2nd column from a CSV file
+  wc -l             — counts lines (how many results?)
+  |                 — the pipe! chains commands together
+
+  Example pipeline:
+    cat file.txt | sort | uniq -c | sort -rn | head -5
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FILES IN THIS MISSION:
+
+  access_log.csv        — Web server access log (120+ entries)
+  word_frequency.txt    — Mystery text to analyze
+  suspects_database.csv — Database of 25 suspects
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUESTIONS TO ANSWER:
+
+  1. Which IP address accessed the server the most times?
+  2. What is the most used word in word_frequency.txt?
+  3. Which city has the most suspects?
+  4. Who is listed as WANTED in the database?
+
+Good luck, Agent. The data doesn't lie — if you know
+how to read it!
+
+                              — Director Chen
+                                Terminal Detective Agency HQ

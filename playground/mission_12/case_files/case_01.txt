@@ -1,0 +1,1 @@
+CASE 01: The Talking Computer. Skills learned: echo, date, say, whoami. Status: SOLVED.

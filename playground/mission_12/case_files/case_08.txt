@@ -1,0 +1,1 @@
+CASE 08: The Pattern Hunter. Skills learned: for loops, while loops, if/else. Status: SOLVED.

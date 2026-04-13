@@ -1,0 +1,88 @@
+╔═══════════════════════════════════════════════════════════════╗
+║          TERMINAL DETECTIVE AGENCY — CASE BRIEFING            ║
+║                   MISSION 09: THE DIGITAL SPY                 ║
+╚═══════════════════════════════════════════════════════════════╝
+
+CLASSIFICATION: ACTIVE MISSION
+DIFFICULTY: ★★★★☆
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SITUATION REPORT:
+
+Agent, the suspect isn't passing paper notes or meeting in dark
+alleys anymore. They've gone digital!
+
+Our intelligence team has found evidence that the suspect is using
+the internet to communicate with their accomplices. We've captured
+a network log showing all internet traffic from the building over
+a two-week period.
+
+Something in that log doesn't look right.
+
+YOUR MISSION: Use curl to understand how the internet works, then
+analyze network_log.txt to find the suspicious IP address that's
+hiding in the data.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 1 — LEARN CURL:
+
+curl is a tool that lets you talk to websites from the terminal.
+Like a detective calling a source on the phone!
+
+Open urls.txt and try each URL:
+
+  curl https://example.com
+  curl -I https://example.com        ← headers only (quick!)
+  curl https://httpbin.org/get       ← see what the server sees
+
+QUESTIONS TO EXPLORE:
+  1. What does "HTTP/2 200" mean in the headers?
+  2. What is a "Content-Type"?
+  3. What happens when you curl a 404 URL?
+     Try: curl -I https://httpbin.org/status/404
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 2 — EXPLORE FUN APIs:
+
+Open api_endpoints.txt for a list of fun free APIs.
+APIs are like vending machines — you ask, they give you data!
+
+Try this one right now:
+  curl "https://catfact.ninja/fact"
+
+Make the output pretty:
+  curl "https://catfact.ninja/fact" | python3 -m json.tool
+
+CHALLENGE: Can you fetch a random joke AND print just the "setup"
+line? HINT: look up the 'grep' command!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 3 — CRACK THE NETWORK LOG:
+
+Open network_log.txt. It shows 50 lines of network traffic.
+Most of it is normal. But something is very suspicious!
+
+Use grep to investigate:
+  grep "10.0.0.99" network_log.txt        ← look for a specific IP
+  grep "10.0.0.99" network_log.txt | wc -l ← count how many times
+  grep "4444" network_log.txt             ← look for a suspicious port
+
+QUESTIONS TO ANSWER:
+  1. Which IP address appears suspiciously often?
+  2. What unusual port numbers is it connecting to?
+  3. What times of day are the suspicious connections happening?
+  4. How many total suspicious connections did you find?
+
+HINT: Normal websites use ports 80 (http) and 443 (https).
+      Anything else is worth investigating!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The digital world holds clues — you just have to know where to look!
+
+                                         — Director P. Chen
+                                           Terminal Detective Agency

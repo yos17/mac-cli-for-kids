@@ -1,0 +1,34 @@
+TERMINAL DETECTIVE AGENCY — CASE REPORT
+========================================
+Report #: TDA-2024-R007
+Filed by: Agent Kowalski
+Date: February 12, 2024
+Subject: Library Book Overdue (High Value Item)
+
+SUMMARY:
+The city library reports a significant overdue item:
+"Penguins: A Complete Encyclopedia" — 847 pages, hardcover.
+Last checked out January 29, 2024. Now 14 days overdue.
+Overdue fines: $2.80 and counting.
+
+The borrower used a library card registered to one
+"Cornelius B." — address matches the balloon shop.
+
+FINDINGS:
+- This is the same address as TDA-2024-004 subject
+- Librarian Gerald P. confirmed the borrower was "very
+  enthusiastic about the penguin chapter on migration"
+- A second item was also checked out on the same day:
+  "Escape Routes of Historic Villains (Volume 3)"
+  This was returned on time and in good condition.
+
+CURRENT STATUS:
+The penguin encyclopedia has NOT been returned.
+Fine now at $4.20.
+
+NOTES:
+Gerald says he hopes the borrower is enjoying the book.
+He seems genuinely nice about it. We feel a bit bad.
+
+Filed: February 12, 2024
+Status: OPEN (overdue fines case)

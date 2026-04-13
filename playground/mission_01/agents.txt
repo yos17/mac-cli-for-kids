@@ -1,0 +1,50 @@
+╔════════════════════════════════════════════════════════════╗
+║      TERMINAL DETECTIVE AGENCY — AGENT ROSTER             ║
+║                   TOP SECRET                               ║
+╚════════════════════════════════════════════════════════════╝
+
+Active Field Agents — Current Assignments:
+
+1. Agent Rivera — Master of Disguise
+   Specialty: Infiltrating criminal organizations undetected.
+   Known for changing her appearance in under 4 minutes flat.
+
+2. Agent Yamamoto — Code Decryption Expert
+   Specialty: Breaking ciphers and decoding secret messages.
+   Has cracked over 200 encrypted files this year alone.
+
+3. Agent O'Sullivan — Digital Forensics Wizard
+   Specialty: Recovering deleted files from crashed hard drives.
+   If it was ever saved, she can find it.
+
+4. Agent Diallo — Network Surveillance Specialist
+   Specialty: Tracking suspects across the internet.
+   Can trace a signal across 14 countries in minutes.
+
+5. Agent Petrov — Lock and Access Expert
+   Specialty: Bypassing security systems (legally, of course).
+   Has never met a door she couldn't open.
+
+6. Agent Nakamura — Evidence Analysis Pro
+   Specialty: Finding clues invisible to the naked eye.
+   Her magnifying glass is actually a supercomputer.
+
+7. Agent Torres — Undercover Operations Lead
+   Specialty: Long-term undercover missions in the field.
+   Current status: classified.
+
+8. Agent Mbeki — Communications Intercept Officer
+   Specialty: Monitoring suspicious radio and digital signals.
+   Speaks 7 languages, 3 of which are made-up codes.
+
+9. Agent Lindqvist — Archive and Records Specialist
+   Specialty: Finding the one file that matters in millions.
+   Could navigate a server room blindfolded.
+
+10. Agent Zhao — Field Tactics Commander
+    Specialty: Leading high-stakes operations under pressure.
+    Has never failed to bring a suspect in.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are the newest recruit. One day, your name will be on
+this list. What will YOUR specialty be?

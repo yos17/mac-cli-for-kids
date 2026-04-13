@@ -1,0 +1,4 @@
+PHOTO 013: Agency server room, timestamp 22:25.
+The terminal was accessed while the suspect was inside. Login log shows
+a guest account was used — one that was supposed to be deactivated.
+Someone kept that account alive on purpose. The mole theory grows stronger.

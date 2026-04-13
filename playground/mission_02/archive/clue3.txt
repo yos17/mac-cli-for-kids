@@ -1,0 +1,31 @@
+╔════════════════════════════════════════════════════════════╗
+║               EVIDENCE TAG — CLUE #3 of 3                  ║
+╚════════════════════════════════════════════════════════════╝
+
+LOCATION FOUND: Agency archive room — NOT in the main office.
+(Did you notice this folder is separate from office/? Good eye!)
+
+OBSERVATION:
+Security camera footage recovered from the backup archive server.
+Timestamp: 11:47 PM. Duration of intrusion: 23 minutes.
+
+FOOTAGE SUMMARY:
+- 11:47 PM — Subject enters through the side corridor.
+             No hesitation. They knew the layout.
+- 11:49 PM — Subject goes directly to the filing system.
+             Doesn't search around. Knew exactly what they wanted.
+- 11:52 PM — Subject bypasses the alarm panel.
+             Entered the correct override code on the FIRST try.
+- 12:10 AM — Subject exits with a folder tucked under one arm.
+             Wearing dark clothing, baseball cap pulled low.
+
+CRITICAL FINDING:
+The alarm override code is only known to Agency personnel.
+Conclusion: This was an inside job.
+
+Someone who works here — or used to — helped plan this break-in.
+We have a mole, Agent.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CLUE STATUS: Recovered ✓
+All 3 clues collected. Report to Director Chen immediately.

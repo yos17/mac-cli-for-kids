@@ -1,0 +1,29 @@
+INCIDENT REPORT — DRAFT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Date: [TBD]
+Case Number: #003
+Reporting Agent: [NAME]
+Supervisor: Director P. Chen
+
+Suspect: Unknown
+Status: Investigation ongoing...
+
+SUMMARY OF INCIDENT:
+[DRAFT — fill in later]
+Sometime overnight, an unknown party gained unauthorized access to the
+evidence room. Multiple case files were disturbed. The full extent of
+what was taken is [TBD — cross-reference inventory].
+
+INITIAL FINDINGS:
+- Forced entry via [confirm method]
+- Duration of intrusion: approx. [xx] minutes
+- Items confirmed missing: [list pending]
+
+NEXT STEPS:
+- [ ] Review security footage
+- [ ] Interview witnesses
+- [ ] Process physical evidence
+- [ ] Cross-check keycard logs
+
+NOTE: This is a draft. Do not submit. See report_FINAL.txt for the
+completed and verified incident report.

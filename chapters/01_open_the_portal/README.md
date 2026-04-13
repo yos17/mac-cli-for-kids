@@ -161,6 +161,8 @@ Alice               it_IT    # Salve, mi chiamo Alice.
 ...
 ```
 
+Don't worry about the `2>&1 | head -20` part yet — you'll learn exactly what it means in Mission 6. For now just know: `2>&1` makes sure the voice list comes out where we can control it, and `| head -20` means "show me only the first 20 lines." Without those two pieces, the entire list of 60+ voices would flood your screen all at once.
+
 ---
 
 ### `clear` — Clean the Screen
@@ -213,6 +215,28 @@ The `+"%..."` part is a *format string* — you're telling `date` exactly how yo
 You don't have to retype commands. Press the **Up arrow** key to go back through your command history. Press it again to go further back. Press **Down** to come forward. Press **Enter** to run that command again.
 
 Try it: press Up a few times and you'll see your earlier commands come back. Professional detectives use every shortcut available — so should you.
+
+---
+
+## Pro Tip — Listing Voices Without the Flood
+
+You already used this command:
+
+```bash
+say -v '?' 2>&1 | head -20
+```
+
+That `2>&1 | head -20` is doing two things at once:
+
+- **`2>&1`** — Mac's voice list is printed on a special channel called *stderr* (the "error" stream). The `2>&1` redirects it onto the normal stream so the next part of the command can see it.
+- **`| head -20`** — shows only the first 20 lines instead of all 60+.
+
+You'll learn exactly how both of these work in Mission 6 (Pipes & Superpowers). For now, just use the full command as a recipe — and if you want to see voices starting at a different point in the alphabet, try `| grep "^S"` to filter by first letter:
+
+```bash
+say -v '?' 2>&1 | grep "^S"    # voices whose names start with S
+say -v '?' 2>&1 | grep "en_US" # English voices only
+```
 
 ---
 

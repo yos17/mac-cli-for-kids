@@ -328,6 +328,95 @@ This: extracts IP addresses → saves to `ip_list.txt` AND shows the count. Both
 
 ---
 
+## Secret Streams: Where Output Really Goes
+
+Every command your Mac runs actually has **two voices**:
+
+- **stdout** (standard output) — the normal voice. This is the regular results that appear on your screen and flow through pipes.
+- **stderr** (standard error) — the error voice. This is where warnings and error messages go. It also shows on your screen, but it is a *separate stream* — pipes ignore it by default.
+
+Think of it like a radio station with two frequencies. Your pipe is tuned to frequency 1 (stdout). Frequency 2 (stderr) plays in the background whether you want it or not.
+
+In the shell, these streams have numbers:
+- Stream **1** = stdout (normal output)
+- Stream **2** = stderr (errors and warnings)
+
+### What `2>&1` Does
+
+`2>&1` means: **"send stream 2 into stream 1."** It merges the error voice into the normal voice so both flow together — through pipes, into files, wherever you send them.
+
+```bash
+some_command 2>&1
+```
+
+Read it aloud: "two greater-than ampersand one" — stderr into stdout.
+
+### Why It Matters for Pipes
+
+Here's the problem without it. Run this:
+
+```bash
+say -v '?'
+```
+
+Your Mac prints all available voices — but to *stderr*, not stdout. That means if you try to pipe it:
+
+```bash
+say -v '?' | head -20    # BROKEN — head gets nothing, voices go straight to screen
+```
+
+The list still flies past uncontrolled. `head -20` never sees it because the data went on stream 2 and the pipe only carries stream 1.
+
+**The fix — merge both streams first, then pipe:**
+
+```bash
+say -v '?' 2>&1 | head -20
+```
+
+Now the voice list flows through stream 1, `head` can catch it, and you see exactly the first 20 voices — clean and controlled.
+
+Output:
+```
+Agnes               en_US    # Hello, my name is Agnes.
+Albert              en_US    # Hello, my name is Albert.
+Alex                en_US    # Hello, my name is Alex.
+Alice               it_IT    # Salve, mi chiamo Alice.
+Allison             en_US    # Hello, my name is Allison.
+...
+```
+
+### Other places you'll see `2>&1`
+
+```bash
+find ~ -name "*.txt" 2>&1 | wc -l        # count files, including "permission denied" messages
+grep -r "secret" / 2>&1 | head -5        # search everywhere, see first 5 results
+bash my_script.sh 2>&1 | tee output.log  # run a script, save ALL output (including errors)
+```
+
+### Sending stderr to the trash
+
+Sometimes you want the *opposite* — you want to **hide** error messages and only keep normal output. Send stream 2 to `/dev/null` (the trash can of Terminal):
+
+```bash
+find ~ -name "*.txt" 2>/dev/null | wc -l
+```
+
+`2>/dev/null` redirects stderr to nowhere. Error messages disappear silently. Normal results still come through.
+
+| What you write | What it does |
+|---------------|-------------|
+| `2>&1` | Merge stderr into stdout (errors flow through pipes) |
+| `2>/dev/null` | Discard all errors silently |
+| `> file.txt` | Redirect stdout to a file |
+| `2> errors.txt` | Redirect only stderr to a file |
+| `> out.txt 2>&1` | Redirect everything (stdout + stderr) to a file |
+
+### The Rule to Remember
+
+> If you pipe a command and the output seems to ignore your pipe — try adding `2>&1` before the `|`. The data might be on the wrong stream.
+
+---
+
 ## Your Mission — Analyze the Case Files
 
 Use your new pipe superpowers to crack both case files.
@@ -482,10 +571,17 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `cut -d',' -f1` | Extract column 1, comma-delimited |
 | `tee file` | Send output to both file and screen |
 | `tail -n +2 file` | Skip the first line (e.g. CSV headers) |
+| `cmd 2>&1` | Merge stderr into stdout so pipes can catch everything |
+| `cmd 2>/dev/null` | Discard error messages silently |
+| `cmd \| head -N` | Show only the first N lines of output |
 
 ### Vocabulary
 
 - **Pipe** — `|` connects commands; output of one = input of the next
+- **stdout** — standard output (stream 1); where normal results go
+- **stderr** — standard error (stream 2); where error messages and warnings go
+- **`2>&1`** — merge stream 2 into stream 1 so both flow together
+- **`/dev/null`** — the trash can of Terminal; anything sent here disappears
 - **Delimiter** — the character that separates columns in data (comma, tab, space)
 - **Field** — one column in structured data
 - **CSV** — Comma-Separated Values — a simple spreadsheet format readable in Terminal

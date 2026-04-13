@@ -1,0 +1,82 @@
+================================================================
+         MISSION 06 — TERMINAL COMMAND WORD SCRAMBLE
+         "Unscramble the Tools of the Trade"
+================================================================
+
+Each line below contains a SCRAMBLED Terminal command.
+Unscramble each one to reveal the command!
+
+HINT: These are all commands used in the Terminal.
+      If you're stuck, think about what you've learned in missions 1-6.
+
+----------------------------------------------------------------
+
+1.  TRSO          = _ _ _ _
+
+2.  QINUU         = _ _ _ _ _
+
+3.  EGRP          = _ _ _ _
+
+4.  WKA           = _ _ _
+
+5.  TAC           = _ _ _
+
+6.  LSS           = _ _ _  (two-letter command, +1 extra)
+    Hint: Lists files. You know this one!
+
+7.  DCL           = _ _  (only 2 letters — drop one!)
+    Hint: Change Directory
+
+8.  PEPID         = _ _ _ _  (one extra letter — remove one P)
+    Hint: Shows the process ID of the current shell
+
+9.  DUPH          = _ _ _  (anagram with one extra letter)
+    Hint: Print Working Directory (remove one letter)
+
+10. MRCHEO        = _ _ _ _ _
+    Hint: Changes file permissions
+
+--- BONUS CHALLENGE ---
+
+11. PGRE TRSO QINUU  = Three commands in order
+    Hint: A classic pipeline to find and count unique values.
+    What would you use these three for together?
+
+--- ANSWERS (don't peek!) ---
+
+Scroll way, way down...
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+ANSWERS:
+1. SORT    — sorts lines of text alphabetically or numerically
+2. UNIQ    — removes duplicate lines (use after sort!)
+3. GREP    — searches for text patterns in files
+4. AWK     — a powerful text processing tool
+5. CAT     — reads and displays file contents
+6. LS      — lists files in a directory
+7. CD      — changes your current directory
+8. PIPE    — the | symbol, connects commands together
+9. PWD     — prints your current working directory
+10. CHMOD  — changes file permissions
+
+BONUS: grep | sort | uniq — find all unique values that match a pattern
+
+================================================================

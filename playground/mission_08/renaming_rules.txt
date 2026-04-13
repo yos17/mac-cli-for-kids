@@ -1,0 +1,92 @@
+================================================================
+         MISSION 08 — PHOTO RENAMING OPERATION
+         "Bringing Order to Chaos with For Loops"
+================================================================
+
+MISSION BRIEFING:
+-----------------
+The evidence photos in the `photos/` folder are a DISASTER.
+Look at those names: "vacation pic.txt", "AERIAL.txt", "IMG_0042.txt",
+"photo  001.txt" (with a double space!), "myPhoto.txt"...
+
+This is unacceptable for an official evidence archive. Every file
+must be renamed to a consistent format so they can be catalogued,
+sorted, and searched properly.
+
+YOUR MISSION:
+-------------
+Rename ALL 20 photos in the photos/ folder to this format:
+  photo_001.txt
+  photo_002.txt
+  photo_003.txt
+  ... and so on up to ...
+  photo_020.txt
+
+RULES:
+  1) All lowercase letters
+  2) Format: photo_NNN.txt (three-digit number, zero-padded)
+  3) Sequential numbering starting from 001
+  4) The order doesn't matter — just get them all renamed
+
+THE TOOL: FOR LOOPS
+--------------------
+A `for loop` does the same action to many files automatically.
+Without a loop, you'd have to type 20 rename commands by hand.
+With a loop, you write it ONCE and it runs 20 times.
+
+--- STEP 1: Navigate into the photos folder ---
+
+  cd photos/
+
+--- STEP 2: See all the messy files ---
+
+  ls
+
+--- STEP 3: Use a for loop to rename them all ---
+
+Here's the magic command (run this from inside the photos/ folder):
+
+  counter=1
+  for file in *; do
+    new_name=$(printf "photo_%03d.txt" $counter)
+    mv "$file" "$new_name"
+    counter=$((counter + 1))
+  done
+
+--- BREAKING DOWN THE LOOP ---
+
+  counter=1              — Start counting from 1
+  for file in *          — For each file in the current folder...
+  do                     — ...do this:
+    printf "photo_%03d.txt" $counter
+                         — Create the new name (003 = zero-padded 3-digit)
+    mv "$file" "$new_name"  — Rename the file
+    counter=$((counter + 1)) — Increase the counter by 1
+  done                   — End of the loop
+
+--- AFTER THE LOOP ---
+
+Run `ls` to see the result. All files should be named:
+  photo_001.txt, photo_002.txt, ... photo_020.txt
+
+--- BONUS CHALLENGE ---
+
+What if you only wanted to rename the files that have uppercase
+letters in their names? Can you write a loop that checks each
+filename before renaming it?
+
+Or: after renaming, use `ls | sort` to confirm they're in order.
+
+--- IMPORTANT NOTES ---
+
+- The `"$file"` has quotes around it! This handles filenames with
+  SPACES in them (like "vacation pic.txt"). Without quotes, the
+  space would break the command.
+
+- The `%03d` in printf means: print the number as 3 digits,
+  with leading zeros. So 1 becomes 001, 7 becomes 007, 20 is 020.
+
+- If you make a mistake, that's OK! The photos folder has backup
+  content. The important thing is learning the loop pattern.
+
+================================================================

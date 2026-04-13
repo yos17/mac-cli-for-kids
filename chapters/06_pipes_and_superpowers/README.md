@@ -1,8 +1,12 @@
 # Mission 6 — Pipes & Superpowers
 
-## Mission Briefing
+## Mission Briefing — Commander Chen Speaks
 
-In action movies, the hero is never alone. They have a team — each person does one thing perfectly. The hacker cracks the code. The driver handles the car. The lookout watches the door. Together, they do something none of them could do alone.
+*Incoming transmission...*
+
+> "Agent, you've made it to the final foundational mission. This is where everything comes together. We have two real case files waiting for you: `access_log.csv` — a 100-line server access log from a hacked building system — and `suspects_database.csv` — 20 suspected individuals. A single command won't crack either of these. You need to chain commands together. The pipe symbol `|` is how you build those chains. Today you learn the Unix way: each command does one thing perfectly, and you combine them into something unstoppable. Let's go."
+
+In action movies, the hero is never alone. They have a team — each person does one thing perfectly. The analyst cracks the code. The driver handles the escape. The lookout watches the door. Together, they do something none of them could do alone.
 
 The Unix philosophy is the same idea: each command does **one thing well**. The power comes from *combining* them. The `|` (pipe) connects commands together so the output of one becomes the input of the next.
 
@@ -14,7 +18,52 @@ Today you learn to chain commands into combos more powerful than any single comm
 - `uniq` — remove duplicate lines
 - `wc` — count words, lines, characters
 - `cut` — extract columns from data
-- How to analyze files with command chains
+- How to analyze real case file data with command chains
+
+---
+
+## Your Case Files
+
+Navigate to your mission playground:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_06
+ls
+```
+
+You should see:
+
+```
+access_log.csv   suspects_database.csv   word_scramble.txt
+```
+
+These are real structured data files. Let's peek at them:
+
+```bash
+head -3 access_log.csv
+```
+
+Output (something like):
+```
+timestamp,ip_address,method,url,status_code,bytes
+2026-04-13 00:01:44,192.168.1.47,GET,/dashboard,200,4521
+2026-04-13 00:03:12,10.0.0.8,POST,/login,401,312
+```
+
+The access log has 100 rows. It records who accessed what and when. And:
+
+```bash
+head -3 suspects_database.csv
+```
+
+Output (something like):
+```
+suspect_id,name,known_alias,last_seen_location,status
+S001,Victor Kane,The Ghost,Dockside Warehouse,active
+S002,Priya Nair,Cipher,Central Library,inactive
+```
+
+The suspects database has 20 rows. Your mission will use pipes to analyze both files and find connections. First, learn the tools.
 
 ---
 
@@ -43,51 +92,49 @@ Translation: "List my home folder, then count the lines." The result is the numb
 Create a sample file:
 
 ```bash
-cat > fruits.txt << 'EOF'
-banana
-apple
-mango
-cherry
-grape
-apple
-banana
+cat > suspects_list.txt << 'EOF'
+Victor Kane
+Priya Nair
+Marco Delgado
+Priya Nair
+Victor Kane
+Sara Chen
 EOF
 ```
 
 Sort alphabetically:
 
 ```bash
-sort fruits.txt
+sort suspects_list.txt
 ```
 
 Output:
 ```
-apple
-apple
-banana
-banana
-cherry
-grape
-mango
+Marco Delgado
+Priya Nair
+Priya Nair
+Sara Chen
+Victor Kane
+Victor Kane
 ```
 
 Sort in reverse:
 
 ```bash
-sort -r fruits.txt
+sort -r suspects_list.txt
 ```
 
 Sort numbers correctly:
 
 ```bash
-echo "10" > nums.txt
-echo "2" >> nums.txt
-echo "25" >> nums.txt
-echo "1" >> nums.txt
-echo "100" >> nums.txt
+echo "10" > case_numbers.txt
+echo "2" >> case_numbers.txt
+echo "25" >> case_numbers.txt
+echo "1" >> case_numbers.txt
+echo "100" >> case_numbers.txt
 
-sort nums.txt        # wrong: 1, 10, 100, 2, 25 (alphabetical)
-sort -n nums.txt     # right: 1, 2, 10, 25, 100 (numeric)
+sort case_numbers.txt        # wrong: 1, 10, 100, 2, 25 (alphabetical)
+sort -n case_numbers.txt     # right: 1, 2, 10, 25, 100 (numeric)
 ```
 
 ---
@@ -97,42 +144,40 @@ sort -n nums.txt     # right: 1, 2, 10, 25, 100 (numeric)
 `uniq` removes consecutive duplicate lines. It works best *after* `sort`:
 
 ```bash
-sort fruits.txt | uniq
+sort suspects_list.txt | uniq
 ```
 
 Output:
 ```
-apple
-banana
-cherry
-grape
-mango
+Marco Delgado
+Priya Nair
+Sara Chen
+Victor Kane
 ```
 
-The two "apple" and two "banana" are now just one each!
+The duplicate names are now just one each! A clean list of unique suspects.
 
-Count how many times each item appears:
+Count how many times each name appears:
 
 ```bash
-sort fruits.txt | uniq -c
+sort suspects_list.txt | uniq -c
 ```
 
 Output:
 ```
-   2 apple
-   2 banana
-   1 cherry
-   1 grape
-   1 mango
+   1 Marco Delgado
+   2 Priya Nair
+   1 Sara Chen
+   2 Victor Kane
 ```
 
-The number on the left is the count. Sort by count (most common first):
+The number on the left is the count. Sort by count (most frequent first):
 
 ```bash
-sort fruits.txt | uniq -c | sort -rn
+sort suspects_list.txt | uniq -c | sort -rn
 ```
 
-This chain: sort alphabetically → count duplicates → sort by count (reverse numerical). Three commands, one powerful result.
+This chain: sort alphabetically → count duplicates → sort by count (reverse numerical). Three commands, one powerful result. Who shows up most often?
 
 ---
 
@@ -141,29 +186,34 @@ This chain: sort alphabetically → count duplicates → sort by count (reverse 
 `wc` stands for "word count" but it counts more than words:
 
 ```bash
-wc fruits.txt
+wc suspects_list.txt
 ```
 
 Output:
 ```
-       7      7     53 fruits.txt
+       6     12     65 suspects_list.txt
 ```
 
 Three numbers: **lines**, **words**, **characters**.
 
 Count just lines:
 ```bash
-wc -l fruits.txt
+wc -l suspects_list.txt
 ```
 
 Count just words:
 ```bash
-wc -w fruits.txt
+wc -w suspects_list.txt
 ```
 
 Count just characters:
 ```bash
-wc -c fruits.txt
+wc -c suspects_list.txt
+```
+
+Count the total lines in your access log (including header):
+```bash
+wc -l ~/mac-cli-for-kids/playground/mission_06/access_log.csv
 ```
 
 How many words are in the English dictionary?
@@ -175,57 +225,80 @@ wc -l /usr/share/dict/words
 
 ## `cut` — Extract Columns
 
-`cut` extracts specific parts of each line. It's great for structured data.
+`cut` extracts specific parts of each line. It's great for structured data like CSV files.
 
 Create sample data:
 
 ```bash
-cat > students.txt << 'EOF'
-Alice,12,A
-Bob,13,B
-Charlie,12,A+
-Diana,14,A
-Ella,11,B+
+cat > witness_list.txt << 'EOF'
+Alice Chen,42,Dockside
+Bob Marsh,33,City Hall
+Carol Diaz,28,Airport
+Diana Wu,51,Warehouse
 EOF
 ```
 
 Get just the names (first column):
 
 ```bash
-cut -d',' -f1 students.txt
+cut -d',' -f1 witness_list.txt
 ```
 
 Output:
 ```
-Alice
-Bob
-Charlie
-Diana
-Ella
+Alice Chen
+Bob Marsh
+Carol Diaz
+Diana Wu
 ```
 
 `-d','` = delimiter is comma. `-f1` = field 1 (first column).
 
-Get names and grades (columns 1 and 3):
+Get names and locations (columns 1 and 3):
 
 ```bash
-cut -d',' -f1,3 students.txt
+cut -d',' -f1,3 witness_list.txt
 ```
 
 Output:
 ```
-Alice,A
-Bob,B
-Charlie,A+
-Diana,A
-Ella,B+
+Alice Chen,Dockside
+Bob Marsh,City Hall
+Carol Diaz,Airport
+Diana Wu,Warehouse
+```
+
+Now apply this to your real case file:
+
+```bash
+# Get just the IP addresses from the access log (column 2)
+cut -d',' -f2 ~/mac-cli-for-kids/playground/mission_06/access_log.csv | head -10
+```
+
+```bash
+# Get just the names from the suspects database (column 2)
+cut -d',' -f2 ~/mac-cli-for-kids/playground/mission_06/suspects_database.csv
 ```
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Most common words in the dictionary.
+**Experiment 1:** Count how many access log entries use each HTTP method (GET, POST, etc.).
+
+```bash
+cut -d',' -f3 ~/mac-cli-for-kids/playground/mission_06/access_log.csv | sort | uniq -c | sort -rn
+```
+
+Translation: extract column 3 (method) → sort → count each unique value → sort by count.
+
+**Experiment 2:** Find all unique IP addresses that appear in the access log.
+
+```bash
+cut -d',' -f2 ~/mac-cli-for-kids/playground/mission_06/access_log.csv | sort | uniq
+```
+
+**Experiment 3:** Count dictionary words starting with each letter.
 
 ```bash
 grep "^a" /usr/share/dict/words | wc -l
@@ -233,37 +306,13 @@ grep "^a" /usr/share/dict/words | wc -l
 
 How many dictionary words start with 'a'? Now try different letters.
 
-**Experiment 2:** Sort your diary entries.
+**Experiment 4:** Build a word frequency counter using the word_scramble.txt file.
 
 ```bash
-grep "^===" ~/diary/journal.txt | sort
+cat ~/mac-cli-for-kids/playground/mission_06/word_scramble.txt | tr ' ' '\n' | sort | uniq -c | sort -rn | head -10
 ```
 
-See your diary dates in sorted order.
-
-**Experiment 3:** Count unique word lengths.
-
-```bash
-awk '{print length}' /usr/share/dict/words | sort -n | uniq -c
-```
-
-This shows how many words are each length. (We snuck in `awk` — a powerful text tool you can explore later.)
-
-**Experiment 4:** Build a word frequency counter.
-
-First create a sample paragraph:
-```bash
-cat > paragraph.txt << 'EOF'
-the quick brown fox jumps over the lazy dog the fox ran away
-EOF
-```
-
-Now count each word:
-```bash
-tr ' ' '\n' < paragraph.txt | sort | uniq -c | sort -rn
-```
-
-Translation: replace spaces with newlines → sort → count → sort by frequency.
+Translation: print file → one word per line → sort → count each word → sort by frequency → show top 10.
 
 ---
 
@@ -272,106 +321,141 @@ Translation: replace spaces with newlines → sort → count → sort by frequen
 Sometimes you want to see the output AND save it to a file. That's what `tee` does — it's like a T-junction in a pipe:
 
 ```bash
-ls ~ | tee home_list.txt | wc -l
+cut -d',' -f2 ~/mac-cli-for-kids/playground/mission_06/access_log.csv | tee ip_list.txt | wc -l
 ```
 
-This: lists home folder → saves to `home_list.txt` AND shows the count. Both happen at once.
+This: extracts IP addresses → saves to `ip_list.txt` AND shows the count. Both happen at once.
 
 ---
 
-## Your Mission — Analyze Your Music Library or Photo Collection
+## Your Mission — Analyze the Case Files
 
-Let's analyze what's on your Mac! Choose one:
+Use your new pipe superpowers to crack both case files.
 
-### Option A — Photo Stats
-
-```bash
-# Find all images
-find ~/Pictures -type f 2>/dev/null > /tmp/photos.txt
-cat /tmp/photos.txt | wc -l
-```
-
-Now analyze by type:
-```bash
-find ~/Pictures -type f 2>/dev/null | grep -o "\.[a-zA-Z]*$" | sort | uniq -c | sort -rn
-```
-
-Translation: find photos → grab just the extension (`.jpg`, `.png`, etc.) → sort → count → sort by most common.
-
-Example output:
-```
-  1423 .jpg
-   287 .heic
-    52 .png
-    14 .gif
-```
-
-### Option B — Downloads Analysis
+### Part 1: Access Log Analysis
 
 ```bash
-ls ~/Downloads | sort | head -20
+cd ~/mac-cli-for-kids/playground/mission_06
+
+# How many total access events are there? (subtract 1 for the header)
+wc -l access_log.csv
+
+# What are the most common status codes? (column 5)
+cut -d',' -f5 access_log.csv | tail -n +2 | sort | uniq -c | sort -rn
+
+# Which IP addresses appear most often?
+cut -d',' -f2 access_log.csv | tail -n +2 | sort | uniq -c | sort -rn | head -5
+
+# Find all failed logins (status code 401 or 403)
+grep ",401,\|,403," access_log.csv
+
+# Find all POST requests (potentially more suspicious)
+grep ",POST," access_log.csv
 ```
 
-Count by file extension:
+`tail -n +2` skips the first line (the header row). It's a useful trick for CSV files.
+
+### Part 2: Suspects Database Analysis
+
 ```bash
-ls ~/Downloads | grep -o "\.[a-zA-Z]*$" | sort | uniq -c | sort -rn
+# List all active suspects
+grep ",active$" suspects_database.csv | cut -d',' -f2
+
+# List all suspects sorted by name
+cut -d',' -f2 suspects_database.csv | tail -n +2 | sort
+
+# Find suspects last seen at a specific location
+grep "Warehouse" suspects_database.csv
+
+# How many suspects are active vs inactive?
+cut -d',' -f5 suspects_database.csv | tail -n +2 | sort | uniq -c
 ```
 
-### Option C — Diary Word Frequency
+### Part 3: Cross-Reference
+
+Can you find any IP addresses in the access log that might connect to suspects in the database? Look for any names that appear in both files:
 
 ```bash
-# Count the most common words in your diary
-cat ~/diary/journal.txt | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | grep -v "^$" | sort | uniq -c | sort -rn | head -20
+grep -f <(cut -d',' -f2 suspects_database.csv | tail -n +2) access_log.csv
 ```
 
-Translation: print diary → one word per line → make lowercase → remove empty lines → sort → count → sort by frequency → show top 20.
+This is an advanced command — it uses one command's output as the search terms for another. Don't worry if it's complex; just run it and see what it finds.
 
-The result tells you what words you use most often. Interesting!
+---
+
+## 🔍 Secret Code Hunt
+
+This is the final secret code word in your playground collection! Find it:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_06
+ls -la
+```
+
+Spot `.secret_code.txt` and read it:
+
+```bash
+cat .secret_code.txt
+```
+
+Write down word #6. Once you've collected all 12 words from all 12 missions, line them up in order. They spell a secret message from Commander Chen himself. The full phrase reveals something amazing about what you've accomplished.
 
 ---
 
 ## Challenges
 
-### Challenge 1 — The Leaderboard
+### Case #0601 — The Leaderboard
 
-Create a file called `scores.txt` with 8 names and scores:
+Create a file called `agent_scores.txt` with 8 agents and their mission scores:
 
 ```
-Alice 95
-Bob 72
-Charlie 88
-Diana 95
-Ella 63
-Frank 88
-Grace 100
-Hannah 72
+Agent Phoenix 95
+Agent Shadow 72
+Agent Cipher 88
+Agent Storm 95
+Agent Echo 63
+Agent Frost 88
+Agent Nova 100
+Agent Blaze 72
 ```
 
-Sort by score (highest first). Then show only unique scores.
+Use pipes to sort by score (highest first), then show only unique scores.
 
-**Hint:** `sort -k2 -rn` sorts by the 2nd column, numerically, reversed.
+**Hint:** `sort -k3 -rn` sorts by the 3rd column, numerically, reversed.
 
-### Challenge 2 — Word Count Race
+### Case #0602 — Access Log Deep Dive
 
-Count the number of words in these three different sources:
-1. Your `~/diary/journal.txt`
-2. Any file in your Documents folder
-3. `/usr/share/dict/words`
+Using the `access_log.csv` in your playground, answer these three questions using pipes:
 
-Which has the most words?
+1. How many unique IP addresses appear in the log?
+   - `cut -d',' -f2 access_log.csv | tail -n +2 | sort | uniq | wc -l`
 
-### Challenge 3 — The Pipeline Challenge
+2. What is the most common URL being accessed (column 4)?
+   - Build a pipeline using `cut`, `sort`, `uniq -c`, and `sort -rn`
+
+3. Which single IP address made the most requests?
+   - Build a pipeline to find the top IP address by count
+
+### Case #0603 — The Pipeline Challenge
 
 Using a single pipeline (commands connected with `|`), solve this:
-"Find all `.txt` files in my home folder, sort them by name, and count how many there are."
+"From the `suspects_database.csv`, extract only the names of active suspects, sort them alphabetically, and count how many there are."
 
 No intermediate files — one line, all pipes.
 
-### Challenge 4 — Top 10 Extensions
+**Hint:** You'll use `grep`, `cut`, `sort`, and `wc -l`.
 
-What are the top 10 most common file types (extensions) in your entire home folder? Build the pipeline. 
+### Case #0604 — Crack the Word Scramble
 
-**Hint:** `find`, `grep -o`, `sort`, `uniq -c`, `sort -rn`, `head` — chain them all!
+Your playground has a `word_scramble.txt` file. Using pipes, find the top 5 most frequently occurring words in it:
+
+```bash
+cat word_scramble.txt | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | grep -v "^$" | sort | uniq -c | sort -rn | head -5
+```
+
+Translation: print file → one word per line → make lowercase → remove empty lines → sort → count → sort by frequency → show top 5.
+
+What are the five most common words? Do they spell anything?
 
 ---
 
@@ -397,15 +481,19 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `wc -c file` | Count characters |
 | `cut -d',' -f1` | Extract column 1, comma-delimited |
 | `tee file` | Send output to both file and screen |
+| `tail -n +2 file` | Skip the first line (e.g. CSV headers) |
 
 ### Vocabulary
 
 - **Pipe** — `|` connects commands; output of one = input of the next
 - **Delimiter** — the character that separates columns in data (comma, tab, space)
 - **Field** — one column in structured data
+- **CSV** — Comma-Separated Values — a simple spreadsheet format readable in Terminal
 
 ---
 
-*You've unlocked combo attacks. One command is good. A chain of commands is unstoppable.*
+*You've unlocked combo attacks. One command is good. A chain of commands is unstoppable. You've gone from typing `whoami` to analyzing 100-line server logs and cross-referencing suspect databases. That's not beginner work — that's detective work.*
+
+*Collect all 12 secret code words. Line them up. See what Commander Chen has to say to you.*
 
 *Ready for Mission 7?*

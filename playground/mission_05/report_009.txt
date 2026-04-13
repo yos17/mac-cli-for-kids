@@ -1,0 +1,4 @@
+INVESTIGATIVE REPORT #009
+Date: 2026-04-09 | Filed by: Agent Cipher
+Subject: Decoded message recovered from suspect's deleted files.
+Summary: Partially recovered message reads: "The transfer is set for [DATE CORRUPTED]. Location: [CORRUPTED]. Package: confirmed. Do not contact after this." Decryption ongoing. Original encoding was ROT-13 applied twice.

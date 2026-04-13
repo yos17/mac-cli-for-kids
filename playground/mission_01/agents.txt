@@ -1,0 +1,84 @@
+================================================================
+         DETECTIVE ACADEMY — ACTIVE AGENT ROSTER
+         CLASSIFICATION: RECRUIT ACCESS (LEVEL 1)
+================================================================
+
+Below are your fellow agents. These operatives have all graduated
+from the Academy and are currently on active assignment. Study
+their specialties — you may need to call on them for help.
+
+----------------------------------------------------------------
+
+AGENT PIXEL
+Specialty: Digital Forensics
+Background: Can extract hidden data from any image file. Once
+recovered deleted files from a coffee-soaked laptop. Loves cats.
+Status: ACTIVE — Currently investigating the Neon City data breach
+
+AGENT CIPHER
+Specialty: Code-Breaking and Cryptography
+Background: Has broken 47 different encryption schemes. Claims
+to have decoded a message that was hidden inside a pizza menu.
+Status: ACTIVE — Deep cover operation (location classified)
+
+AGENT SHADOW
+Specialty: Surveillance and Counter-Surveillance
+Background: Has been in the same room as you and you didn't notice.
+Expert in avoiding detection. Favorite color is "dark grey."
+Status: ACTIVE — Watching. Always watching.
+
+AGENT NOVA
+Specialty: Network Security and Packet Analysis
+Background: Can read network traffic the way you read a book.
+Once stopped a cyberattack by spotting a suspicious ping.
+Status: ACTIVE — Monitoring the Academy's firewall
+
+AGENT SPARKS
+Specialty: Hardware Hacking and Physical Security
+Background: Can pick a lock AND reprogram its circuit board.
+Built their first robot at age 9 from broken toy parts.
+Status: ACTIVE — Investigating the Museum of Tech break-in
+
+AGENT MARBLE
+Specialty: Data Analysis and Pattern Recognition
+Background: Can spot anomalies in a spreadsheet of 10,000 rows
+in under 30 seconds. Also unbeatable at sudoku.
+Status: ACTIVE — Analyzing the Harbor Street financial records
+
+AGENT VORTEX
+Specialty: Social Engineering and Undercover Operations
+Background: Has successfully impersonated a pizza delivery person,
+a building inspector, and a visiting professor. All in one week.
+Status: ACTIVE — Location unknown (as intended)
+
+AGENT PRISM
+Specialty: Signal Intelligence and Radio Communications
+Background: Can intercept and decode radio transmissions. Once
+picked up a broadcast from a satellite that wasn't supposed to exist.
+Status: ACTIVE — Monitoring unusual frequencies near the docks
+
+AGENT COMPASS
+Specialty: Geolocation and Field Operations
+Background: Can navigate anywhere on Earth using only a watch
+and the stars. Holds the record for fastest mission completion.
+Status: ACTIVE — Field mission, coordinates classified
+
+AGENT QUILL
+Specialty: Documentation and Intelligence Writing
+Background: Every great mission needs a great report. Agent Quill
+turns messy field notes into precise, actionable intelligence.
+Known for the most beautifully formatted mission briefs in history.
+Status: ACTIVE — Writing up last week's Harbor incident report
+
+----------------------------------------------------------------
+
+YOUR ASSIGNMENT:
+Read this roster. Know your team. Then find the hidden file in
+this folder using: ls -a
+
+----------------------------------------------------------------
+
+DETECTIVE ACADEMY — CONFIDENTIAL
+Unauthorized access is a violation of Academy Code Section 7.
+(Just kidding — you're totally authorized. You're a recruit!)
+================================================================

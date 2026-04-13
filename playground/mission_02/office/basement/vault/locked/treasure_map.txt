@@ -1,0 +1,69 @@
+================================================================
+         YOU FOUND IT! THE TREASURE MAP
+================================================================
+
+                    ~ TREASURE MAP ~
+
+    N
+    |
+W --+-- E
+    |
+    S
+
+    [START]
+       |
+       | (go past the coffee machine)
+       v
+   [HALLWAY]
+       |
+       | (take the stairs DOWN)
+       v
+   [BASEMENT]
+       |
+       | (follow the pipes to the back)
+       v
+    [VAULT]
+       |
+       | (enter combination: 7-4-2... just kidding, it was open)
+       v
+   [LOCKED ROOM]
+       |
+       v
+  *** X MARKS THE SPOT ***
+
+================================================================
+         THE TREASURE IS NOT GOLD
+================================================================
+
+You expected gold? Jewels? A briefcase full of cash?
+
+The real treasure is knowledge.
+
+You just navigated through FOUR levels of nested directories
+using only Terminal commands. You used `cd`, `ls`, `pwd`,
+and `cat` to move through a building like a digital ghost.
+
+Most people click around with a mouse. You? You typed your way
+through a maze. That's a superpower.
+
+TREASURE INVENTORY — what you found today:
+  [X] cd  — the ability to walk through any door
+  [X] ls  — the ability to see what's in any room
+  [X] pwd — the ability to always know where you stand
+  [X] cat — the ability to read any document
+
+These four commands alone can take you anywhere in a computer.
+
+But wait — there's more. This map is one of 12 clues.
+Combined with the other 11 codes hidden across the missions,
+something amazing awaits. A final message. A title.
+
+The title of Master Terminal Detective.
+
+Keep going, Recruit. You've only just begun.
+
+================================================================
+EVIDENCE TAG: M02-VAULT-001
+LOCATION: office/basement/vault/locked/
+STATUS: RECOVERED
+================================================================

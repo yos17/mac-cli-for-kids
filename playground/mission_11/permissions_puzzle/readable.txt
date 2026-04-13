@@ -1,0 +1,20 @@
+This file is readable by everyone (644 permissions).
+
+The permissions on this file are set to 644, which means:
+  - The OWNER can read and write (rw-)
+  - The GROUP can read only (r--)
+  - EVERYONE ELSE can read only (r--)
+
+To check the permissions of a file, use:
+  ls -l readable.txt
+
+You'll see something like:
+  -rw-r--r--  1 yourname  staff  0 Apr 13 2026 readable.txt
+
+That "-rw-r--r--" is the permissions string!
+  - First character "-" means it's a file (d = directory)
+  - Next 3 characters "rw-" = owner can read and write
+  - Next 3 characters "r--" = group can read only
+  - Last 3 characters "r--" = others can read only
+
+This is the most common permission setting for regular text files.

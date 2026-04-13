@@ -1,0 +1,68 @@
+================================================================
+         DETECTIVE ACADEMY — FINAL MISSION DOSSIER
+         OPERATION: CRACK THE CODE
+         Status: FINAL MISSION
+================================================================
+
+Agent,
+
+You have done something remarkable.
+
+You navigated nested directories, organized chaotic evidence files,
+searched through 30+ files with a single command, analyzed a
+hundred lines of log data, decoded encrypted messages, and bent
+the Terminal to your will.
+
+Now it's time to put it all together.
+
+Below are the 12 mission slots. Fill in each one with the secret
+code word you found in that mission's `.secret_code.txt` file.
+
+When you've collected all 12 words and arranged them in order,
+read the complete message. That is your final code.
+
+----------------------------------------------------------------
+
+THE 12 SECRET CODE WORDS:
+
+   [1] ___________    (Mission 01 — Orientation)
+   [2] ___________    (Mission 02 — The Maze)
+   [3] ___________    (Mission 03 — Evidence Room)
+   [4] ___________    (Mission 04 — The Diary)
+   [5] ___________    (Mission 05 — Grep Hunt)
+   [6] ___________    (Mission 06 — Data Analysis)
+   [7] ___________    (Mission 07 — Template Mission)
+   [8] ___________    (Mission 08 — Renaming Operation)
+   [9] ___________    (Mission 09 — Network Intel)
+  [10] ___________    (Mission 10 — Terminal Setup)
+  [11] ___________    (Mission 11 — Encryption & Permissions)
+  [12] ___________    (Mission 12 — Final Mission)
+
+----------------------------------------------------------------
+
+THE COMPLETE MESSAGE (fill in the blanks):
+
+  [1]___ [2]___ [3]___ [4]___ [5]___ [6]___
+  [7]___ [8]___ [9]___ [10]___ [11]___ [12]___
+
+----------------------------------------------------------------
+
+When your message is complete, say it aloud.
+
+Then say it again.
+
+Let it sink in.
+
+You have earned the title of:
+
+  ╔══════════════════════════════════════════════════════════╗
+  ║                                                          ║
+  ║           M A S T E R   T E R M I N A L                 ║
+  ║                 D E T E C T I V E                        ║
+  ║                                                          ║
+  ║              Detective Academy, Class of 2026            ║
+  ║                    Certified by Commander Chen           ║
+  ║                                                          ║
+  ╚══════════════════════════════════════════════════════════╝
+
+================================================================

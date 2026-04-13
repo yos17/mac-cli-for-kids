@@ -1,81 +1,113 @@
-# Terminal Quest: A Kid's Guide to the Mac Command Line
+# Terminal Quest: Detective Academy
 
-### A mission-based adventure for curious kids — written by Dad, for you 🎯
+### A mission-based Terminal adventure for curious kids — written by Dad, for you
 
 ---
 
-*This book is for my daughter — who is already braver than she knows. Every time you open a Terminal window, you're doing something most adults are afraid to try. That makes you a programmer.*
+*This book is for my daughter — who is already braver than she knows. Every time you open a Terminal window, you're doing something most adults are afraid to try. That makes you a detective.*
 
 *— Dad (Yosia)*
 
 ---
 
-## What Is This Book?
+## Welcome to Detective Academy
 
 Your Mac has a secret. Hidden inside it is a completely different way to control your computer — no clicking, no dragging, just you and a blinking cursor. It's called the **Terminal**, and it's where programmers, hackers, scientists, and engineers do their real work.
 
 This book teaches you how to use it. Not the boring way. The *mission* way.
 
-Each chapter is a **Mission**. You have an objective, you learn new tools, you write real programs, and you level up. By the end, you'll have built a personal assistant that runs from a single command.
+You are a recruit at the **Terminal Detective Academy**. Each chapter is a **Mission** — briefed by Commander Chen, equipped with new tools, and sent into a real folder full of case files, clues, and puzzles. At the end of all 12 missions, you'll unlock the final secret message.
+
+## The Treasure Hunt
+
+Hidden inside every mission folder in `playground/` is a `.secret_code.txt` file with one secret word. Find all 12, put them in order, and you've cracked the final code.
+
+```
+Mission  1: ____          Mission  7: ____
+Mission  2: ____          Mission  8: ____
+Mission  3: ____          Mission  9: ____
+Mission  4: ____          Mission 10: ____
+Mission  5: ____          Mission 11: ____
+Mission  6: ____          Mission 12: ____
+```
+
+The 12 words together form your graduation message. You'll know you've got them all when it makes sense.
 
 ## What You'll Build
 
-| Mission | You Build |
-|---------|-----------|
-| 1 | A talking Mac greeter |
-| 2 | A map of your home folder |
-| 3 | A project organizer |
-| 4 | A secret Terminal diary |
-| 5 | A file detective toolkit |
-| 6 | A stats analyzer for your music/photos |
-| 7 | A morning briefing script |
-| 8 | A batch file organizer |
-| 9 | An internet health checker |
-| 10 | Your own custom Terminal |
-| 11 | An encrypted message sender |
-| 12 | MyBot — your personal CLI assistant |
+| Mission | Topic | You Build |
+|---------|-------|-----------|
+| 1 | Open the Portal | A talking Mac greeter |
+| 2 | Exploring Your World | A map of the case file maze |
+| 3 | Creating & Destroying | An evidence room organizer |
+| 4 | Reading & Writing | A detective's secret diary |
+| 5 | Finding Things | A file detective toolkit |
+| 6 | Pipes & Superpowers | A suspect database analyzer |
+| 7 | Your First Script | An auto-report generator |
+| 8 | Loops & Logic | A batch evidence photo renamer |
+| 9 | The Internet from Terminal | A network investigation tool |
+| 10 | Customize Your Terminal | Your personal command center |
+| 11 | Secret Agent Tools | An encrypted message vault |
+| 12 | Build Your Own App | MyBot — your personal CLI assistant |
 
 ## How Each Mission Works
 
-Every mission has:
-
-- **Mission Briefing** — why this is cool and what you're about to learn
-- **New Commands** — the tools you'll get in this mission
-- **Step by Step** — every command shown with its output
-- **Try It!** — quick experiments to do right now
+- **Mission Briefing** — Commander Chen gives you your assignment
+- **Your Case Files** — the real playground files you'll investigate
+- **New Commands** — the tools issued for this mission
+- **Step by Step** — every command shown with its exact output
+- **Try It!** — quick experiments to run right now
 - **Your Mission** — the main program to build
-- **Challenges** — 3-4 things to try on your own
+- **Challenges** — 3–4 real cases to crack using playground files
+- **🔍 Secret Code Hunt** — find the hidden `.secret_code.txt`
 - **Solutions** — answers in the `solutions/` folder
-- **Powers Unlocked** — your summary of everything you learned
-- **Pro Tip** — an extra cool trick for when you're ready
+- **Powers Unlocked** — your command cheat sheet
 
-## Before You Start
+## Getting Started
 
-You need a Mac (any Mac made after 2015 will work perfectly).
+### Step 1 — You need a Mac
 
-Open **Terminal**:
-- Press `Cmd + Space` to open Spotlight
-- Type `Terminal`
-- Press Enter
+Any Mac made after 2015 works perfectly.
 
-You'll see a window with a blinking cursor. That's your portal. Let's go.
+### Step 2 — Clone this repo
+
+```bash
+git clone https://github.com/yos17/mac-cli-for-kids.git
+cd mac-cli-for-kids
+```
+
+### Step 3 — Open Terminal
+
+Press **⌘ + Space**, type `Terminal`, press Enter. You'll see a blinking cursor. That's your portal.
+
+### Step 4 — Go to Mission 1
+
+```bash
+cd playground/mission_01
+ls
+cat welcome.txt
+```
+
+You're in. Your first case file is open. Let's go.
 
 ---
 
 ## Missions
 
-- [Mission 1 — Open the Portal](chapters/01_open_the_portal/README.md)
-- [Mission 2 — Exploring Your World](chapters/02_exploring_your_world/README.md)
-- [Mission 3 — Creating & Destroying](chapters/03_creating_and_destroying/README.md)
-- [Mission 4 — Reading & Writing](chapters/04_reading_and_writing/README.md)
-- [Mission 5 — Finding Things](chapters/05_finding_things/README.md)
-- [Mission 6 — Pipes & Superpowers](chapters/06_pipes_and_superpowers/README.md)
-- [Mission 7 — Your First Script](chapters/07_your_first_script/README.md)
-- [Mission 8 — Loops & Logic](chapters/08_loops_and_logic/README.md)
-- [Mission 9 — The Internet from Terminal](chapters/09_the_internet_from_terminal/README.md)
-- [Mission 10 — Customize Your Terminal](chapters/10_customize_your_terminal/README.md)
-- [Mission 11 — Secret Agent Tools](chapters/11_secret_agent_tools/README.md)
-- [Mission 12 — Build Your Own App](chapters/12_build_your_own_app/README.md)
+| # | Mission | Chapter |
+|---|---------|---------|
+| 1 | Open the Portal | [chapters/01_open_the_portal](chapters/01_open_the_portal/README.md) |
+| 2 | Exploring Your World | [chapters/02_exploring_your_world](chapters/02_exploring_your_world/README.md) |
+| 3 | Creating & Destroying | [chapters/03_creating_and_destroying](chapters/03_creating_and_destroying/README.md) |
+| 4 | Reading & Writing | [chapters/04_reading_and_writing](chapters/04_reading_and_writing/README.md) |
+| 5 | Finding Things | [chapters/05_finding_things](chapters/05_finding_things/README.md) |
+| 6 | Pipes & Superpowers | [chapters/06_pipes_and_superpowers](chapters/06_pipes_and_superpowers/README.md) |
+| 7 | Your First Script | [chapters/07_your_first_script](chapters/07_your_first_script/README.md) |
+| 8 | Loops & Logic | [chapters/08_loops_and_logic](chapters/08_loops_and_logic/README.md) |
+| 9 | The Internet from Terminal | [chapters/09_the_internet_from_terminal](chapters/09_the_internet_from_terminal/README.md) |
+| 10 | Customize Your Terminal | [chapters/10_customize_your_terminal](chapters/10_customize_your_terminal/README.md) |
+| 11 | Secret Agent Tools | [chapters/11_secret_agent_tools](chapters/11_secret_agent_tools/README.md) |
+| 12 | Build Your Own App | [chapters/12_build_your_own_app](chapters/12_build_your_own_app/README.md) |
 
 ---
 

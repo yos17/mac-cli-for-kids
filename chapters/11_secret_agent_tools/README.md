@@ -2,16 +2,63 @@
 
 ## Mission Briefing
 
-Every file on your Mac has a set of rules controlling who can read it, who can change it, and who can run it. These are called **permissions**. If you set them right, files can be locked down so only you can see them.
+*Incoming transmission from Commander Chen...*
 
-You'll also learn about hidden files, encrypted messages, and a few tricks that make you feel like a real secret agent.
+> "Detective, this mission is classified.
+>
+> Every file on your computer has a set of rules that controls who can read it, who can change it, and who can run it. Set them correctly and your files are locked down tight. Set them wrong and anyone on the same computer can read your case notes, your diary, everything.
+>
+> In this mission you will learn those rules — file permissions. You will also learn how to create files that are invisible to casual observation, and how to encrypt messages that are completely unreadable without the correct password.
+>
+> We have intercepted three encoded messages from an unknown source. They are in your case files. Your job is to decode them.
+>
+> This is real security. Pay attention."
+
+You have already used `chmod +x` to make scripts executable. That was just the beginning. Permissions control every file on your system, and understanding them is the difference between a secure machine and a vulnerable one.
 
 ### What You'll Learn
-- Permissions — who can do what with a file
-- `chmod` — change permissions
-- Hidden files (starting with `.`)
-- `openssl` — encrypt and decrypt files
-- How to build an encrypted message sender
+- File permissions — who can read, write, and execute every file
+- `chmod` — change permissions with precision
+- Hidden files (starting with `.`) — invisible in normal views
+- `base64` — encoding and decoding (not encryption)
+- `openssl` — real, strong encryption
+- How to decode the three intercepted messages
+
+---
+
+## Your Case Files
+
+Report to the secure evidence vault:
+
+```bash
+cd ~/mac-cli-for-kids/mission_11
+ls -la
+```
+
+You should see:
+
+```
+classified/         ← folder with 3 intercepted encoded messages + instructions
+permissions_puzzle/ ← folder with files at various permission levels
+.secret_code.txt    ← hidden! (find it at the end of the mission)
+```
+
+Look inside the classified folder:
+
+```bash
+ls -la classified/
+cat classified/README.txt
+```
+
+That `README.txt` will tell you how the messages were encoded and what you need to decode them. Then look at the permissions puzzle:
+
+```bash
+ls -la permissions_puzzle/
+```
+
+You will see files with different permission settings. One of them — `locked_file.txt` — has permission `000`, which means nobody can read it. Not even you. You will fix that.
+
+Let's learn the tools.
 
 ---
 
@@ -21,30 +68,30 @@ When you run `ls -l`, you see something like this:
 
 ```
 -rw-r--r--   1 sophia  staff  1024 Apr 13 10:00 diary.txt
-drwxr-xr-x   4 sophia  staff   128 Apr 12 15:30 my_project/
+drwxr-xr-x   4 sophia  staff   128 Apr 12 15:30 case_files/
 ```
 
 That first column (`-rw-r--r--`) is the **permission string**. Let's decode it:
 
 ```
 - rw- r-- r--
-│ │   │   └── other (everyone else) permissions
-│ │   └── group permissions
-│ └── owner (you) permissions
+│ │   │   └── other (everyone else): what they can do
+│ │   └── group (other users in your group): what they can do
+│ └── owner (you): what you can do
 └── type: - = file, d = directory
 ```
 
-Each set of 3 characters is: **r** (read) **w** (write) **x** (execute). A `-` means that permission is off.
+Each set of 3 characters represents three permissions: **r** (read), **w** (write), **x** (execute). A `-` means that permission is off.
 
 So `-rw-r--r--` means:
-- **File** (not directory)
+- **File** (not a directory)
 - **Owner** (you): can read and write, cannot execute
 - **Group**: can only read
 - **Others**: can only read
 
 And `drwxr-xr-x` means:
 - **Directory**
-- **Owner**: can read, write, and execute (for directories, "execute" means "enter the directory")
+- **Owner**: can read, write, and enter (for directories, `x` means "enter")
 - **Group**: can read and enter, but not write
 - **Others**: same as group
 
@@ -52,38 +99,39 @@ And `drwxr-xr-x` means:
 
 ## `chmod` — Change Mode
 
-`chmod` changes a file's permissions.
+`chmod` modifies a file's permissions. You have already used `chmod +x` to add execute permission. Now let's learn the full system.
 
 ### Using Numbers (Octal Mode)
 
-Each permission has a value:
+Each permission has a numeric value:
 - **r** (read) = 4
 - **w** (write) = 2
 - **x** (execute) = 1
 - **none** = 0
 
-Add them together for each group:
-- `7` = 4+2+1 = rwx (full permissions)
-- `6` = 4+2+0 = rw- (read and write)
-- `5` = 4+0+1 = r-x (read and execute)
-- `4` = 4+0+0 = r-- (read only)
-- `0` = 0+0+0 = --- (no permissions at all)
+Add them together for each group (owner, group, others):
+- `7` = 4+2+1 = `rwx` — full permissions
+- `6` = 4+2+0 = `rw-` — read and write
+- `5` = 4+0+1 = `r-x` — read and execute
+- `4` = 4+0+0 = `r--` — read only
+- `0` = 0+0+0 = `---` — no permissions at all
 
 Three digits: owner, group, others.
 
 Examples:
 
 ```bash
-chmod 755 script.sh      # owner: all; group and others: read+execute
-chmod 644 document.txt   # owner: read+write; group and others: read only
-chmod 600 secret.txt     # owner: read+write; nobody else can do anything
-chmod 700 private_dir/   # owner: all; nobody else can enter
+chmod 755 script.sh      # owner: all;     group + others: read + execute
+chmod 644 document.txt   # owner: rw;      group + others: read only
+chmod 600 secret.txt     # owner: rw;      group + others: nothing
+chmod 700 private_dir/   # owner: all;     group + others: nothing
+chmod 000 locked.txt     # everyone: nothing (not even you!)
 chmod +x script.sh       # add execute for everyone
 chmod -x script.sh       # remove execute for everyone
-chmod o-r secret.txt     # remove read from "others"
+chmod o-r secret.txt     # remove read from "others" only
 ```
 
-### Lock Down Your Diary!
+### Lock Down Your Diary
 
 ```bash
 chmod 600 ~/diary/journal.txt
@@ -95,43 +143,76 @@ Output:
 -rw-------  1 sophia  staff  2048 Apr 13 10:22 journal.txt
 ```
 
-Now only you can read or write it. No one else (not even other users on the same Mac) can access it.
+Now only you can read or write it. Nobody else on the same Mac can even look at it.
 
 ---
 
 ## Hidden Files
 
-Files and folders starting with `.` are **hidden** — they don't show up in normal `ls` or Finder. That's why your config files like `.zshrc` are hidden.
+Files and folders starting with `.` are **hidden** — they do not appear in normal `ls` or Finder. That is why your config files like `.zshrc` are hidden by default.
 
 Create a hidden file:
 
 ```bash
-touch ~/.my_secret_file
-ls ~              # won't show it
-ls -a ~           # shows it!
+touch ~/.my_secret_note
+ls ~              # it does not appear
+ls -a ~           # -a shows all files including hidden ones
 ```
 
 Create a hidden folder:
 
 ```bash
 mkdir ~/.secret_vault
-touch ~/.secret_vault/private_notes.txt
-ls ~              # vault is invisible
-ls ~/.secret_vault/  # but you can still access it if you know it's there
+echo "classified information" > ~/.secret_vault/notes.txt
+ls ~                          # vault is invisible
+ls ~/.secret_vault/           # but you can access it if you know it is there
 ```
 
-Hidden files aren't encrypted — anyone who knows to look with `ls -a` can find them. But they're great for keeping things out of sight in casual use.
+Important: hidden files are **not** encrypted. Anyone who runs `ls -a` can find them. They are good for keeping things out of sight in everyday use, but not for actually protecting sensitive data. For real protection, you need encryption.
 
 ---
 
-## `openssl` — Encryption
+## `base64` — Encoding (Not Encryption!)
 
-`openssl` is a powerful tool for real encryption. When you encrypt a file, it becomes unreadable without the correct password.
+`base64` is often confused with encryption. It is NOT encryption. It is **encoding** — it converts data into a different representation. Anyone can decode it instantly — no password needed.
+
+```bash
+echo "The suspect was seen at the dock." | base64
+```
+
+Output: `VGhlIHN1c3BlY3Qgd2FzIHNlZW4gYXQgdGhlIGRvY2suCg==`
+
+Decode it:
+```bash
+echo "VGhlIHN1c3BlY3Qgd2FzIHNlZW4gYXQgdGhlIGRvY2suCg==" | base64 -d
+```
+
+Output: `The suspect was seen at the dock.`
+
+The messages in `classified/` use base64 encoding. That means you have the tool right here to decode them. Go ahead and look at one:
+
+```bash
+cat ~/mac-cli-for-kids/mission_11/classified/message_alpha.enc
+```
+
+See the scrambled-looking text ending in `==`? That is base64. Pipe it through `base64 -d` to decode it:
+
+```bash
+cat ~/mac-cli-for-kids/mission_11/classified/message_alpha.enc | base64 -d
+```
+
+What does the decoded message say? Write it down. Now do the same for `message_beta.enc` and `message_gamma.enc`.
+
+---
+
+## `openssl` — Real Encryption
+
+`openssl` performs actual encryption. When you encrypt a file, it becomes completely unreadable without the correct password — even with a powerful computer trying every possible key.
 
 ### Encrypt a File
 
 ```bash
-echo "This is my secret message." > secret.txt
+echo "The rendezvous is at midnight." > secret.txt
 openssl enc -aes-256-cbc -pbkdf2 -in secret.txt -out secret.enc
 ```
 
@@ -143,104 +224,94 @@ Look at the encrypted file:
 cat secret.enc
 ```
 
-It's complete gibberish — unreadable. That's the point!
+It is complete nonsense — unreadable. That is the point. No one can extract the original message without the password.
 
 ### Decrypt a File
 
 ```bash
-openssl enc -aes-256-cbc -pbkdf2 -d -in secret.enc -out decrypted.txt
-cat decrypted.txt
+openssl enc -aes-256-cbc -pbkdf2 -d -in secret.enc -out decoded.txt
+cat decoded.txt
 ```
 
-Enter the same password and your message comes back.
+Enter the same password and your message comes back perfectly.
 
 ### What Is AES-256?
 
-AES-256 is one of the strongest encryption algorithms in the world. Governments and banks use it. If you choose a strong password, your file is essentially impossible to crack.
+AES-256 is one of the strongest encryption algorithms ever created. Governments, banks, and militaries use it. With a strong password, your file is effectively impossible to crack.
 
 A strong password is:
 - At least 12 characters
-- Mix of letters, numbers, and symbols
-- Not a dictionary word
+- Mix of uppercase, lowercase, numbers, and symbols
+- Not a dictionary word or phrase
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Test permissions.
+**Experiment 1:** Test the permissions puzzle in your case files.
 
 ```bash
-touch perm_test.txt
-ls -l perm_test.txt
-chmod 000 perm_test.txt
-cat perm_test.txt         # should fail!
-chmod 644 perm_test.txt
-cat perm_test.txt         # should work again
-rm perm_test.txt
+cd ~/mac-cli-for-kids/mission_11/permissions_puzzle
+
+# Check current permissions on all files
+ls -l
+
+# Try to read the locked file
+cat locked_file.txt    # this should fail with "Permission denied"
+
+# Fix the permissions
+chmod 644 locked_file.txt
+
+# Now it should work
+cat locked_file.txt
+
+# Read the others too
+cat readable.txt
+cat owner_only.txt
 ```
 
-**Experiment 2:** Create a hidden config folder.
+**Experiment 2:** Create and explore a hidden folder.
 
 ```bash
-mkdir ~/.myconfig
-echo "secret config data" > ~/.myconfig/settings.txt
-ls ~                        # not visible
-ls -a ~                     # visible!
-cat ~/.myconfig/settings.txt  # works if you know it's there
+mkdir ~/.detective_notes
+echo "Note 1: Suspect left footprints heading north." > ~/.detective_notes/clue1.txt
+ls ~                          # the folder is invisible
+ls -a ~                       # now you see it
+cat ~/.detective_notes/clue1.txt    # still accessible when you know the path
+rm -r ~/.detective_notes      # clean up
 ```
 
 **Experiment 3:** Encrypt and decrypt a message.
 
 ```bash
-echo "Dad, the treasure is buried under the old oak tree." > message.txt
-openssl enc -aes-256-cbc -pbkdf2 -in message.txt -out message.enc
-rm message.txt              # delete the original
-cat message.enc             # unreadable!
-openssl enc -aes-256-cbc -pbkdf2 -d -in message.enc -out message_decoded.txt
-cat message_decoded.txt     # readable again!
-rm message.enc message_decoded.txt
+echo "The treasure is hidden in the clock tower." > clue.txt
+openssl enc -aes-256-cbc -pbkdf2 -in clue.txt -out clue.enc
+rm clue.txt                   # destroy the original
+cat clue.enc                  # unreadable!
+openssl enc -aes-256-cbc -pbkdf2 -d -in clue.enc -out clue_decoded.txt
+cat clue_decoded.txt          # readable again
+rm clue.enc clue_decoded.txt  # clean up
 ```
 
-**Experiment 4:** Make a script unrunnable (then runnable again).
+**Experiment 4:** Make a script temporarily unrunnable, then runnable again.
 
 ```bash
-echo '#!/bin/bash' > testscript.sh
-echo 'echo "Hello!"' >> testscript.sh
-chmod +x testscript.sh
-bash testscript.sh          # works
-chmod -x testscript.sh
-bash testscript.sh          # still works with bash, but:
-./testscript.sh             # permission denied!
-chmod +x testscript.sh
-./testscript.sh             # works again
+echo '#!/bin/bash' > test_agent.sh
+echo 'echo "Agent active."' >> test_agent.sh
+chmod +x test_agent.sh
+bash test_agent.sh          # works
+chmod -x test_agent.sh
+./test_agent.sh             # permission denied! (but bash still works)
+chmod +x test_agent.sh
+./test_agent.sh             # works again
+rm test_agent.sh
 ```
 
 ---
 
-## Pro Tip — `base64` Encoding (Not Encryption!)
+## Pro Tip — The Secret Message System
 
-`base64` is often confused with encryption. It's NOT. It just converts binary data to text and back. Anyone can decode it — there's no password.
-
-```bash
-echo "Hello, Sophia!" | base64
-```
-
-Output: `SGVsbG8sIFNvcGhpYSEK`
-
-Decode it:
-```bash
-echo "SGVsbG8sIFNvcGhpYSEK" | base64 -d
-```
-
-Output: `Hello, Sophia!`
-
-Use `base64` when you need to store binary data as text. Use `openssl` when you need actual security.
-
----
-
-## Your Mission — Encrypted Secret Message Sender
-
-Build a system to send yourself (or a friend) encrypted messages.
+Here is a full workflow for sending encrypted messages that only the intended recipient can read. Create the send-and-receive script:
 
 ```bash
 nano ~/secret_send.sh
@@ -254,7 +325,7 @@ nano ~/secret_send.sh
 VAULT_DIR="$HOME/.secret_vault"
 INBOX="$VAULT_DIR/inbox"
 
-# Create vault if it doesn't exist
+# Create vault if it does not exist
 mkdir -p "$INBOX"
 chmod 700 "$VAULT_DIR"
 
@@ -263,69 +334,68 @@ MODE="${1:-help}"
 case "$MODE" in
     send)
         echo ""
-        echo "=== SEND A SECRET MESSAGE ==="
-        echo "What's your message?"
+        echo "=== SEND A CLASSIFIED MESSAGE ==="
+        echo "Your message (press Enter when done):"
         read message
-        
+
         echo "Create a password to lock this message:"
-        read -s password   # -s = silent (won't show what you type)
-        
+        read -s password    # -s = silent (typing is hidden)
+
         TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
         FILENAME="$INBOX/msg_${TIMESTAMP}.enc"
-        
+
         echo "$message" | openssl enc -aes-256-cbc -pbkdf2 -pass "pass:$password" -out "$FILENAME"
-        
+
         echo ""
         echo "Message encrypted and saved!"
         echo "File: msg_${TIMESTAMP}.enc"
-        echo "Don't forget your password!"
+        echo "Do NOT forget your password — there is no recovery!"
         ;;
-    
+
     read)
         echo ""
-        echo "=== YOUR SECRET INBOX ==="
-        
-        # List messages
+        echo "=== CLASSIFIED INBOX ==="
+
         msgs=("$INBOX"/*.enc)
-        
+
         if [ ! -f "${msgs[0]}" ]; then
             echo "No messages in your inbox."
             exit 0
         fi
-        
+
         echo "Messages:"
         i=1
         for msg in "${msgs[@]}"; do
-            echo "  $i. $(basename $msg)"
+            echo "  $i. $(basename "$msg")"
             i=$((i + 1))
         done
-        
+
         echo ""
-        echo "Which message? (enter number)"
+        echo "Which message number?"
         read choice
-        
+
         selected="${msgs[$((choice - 1))]}"
-        
+
         echo "Enter the password:"
         read -s password
-        
+
         echo ""
         echo "=== MESSAGE ==="
         openssl enc -aes-256-cbc -pbkdf2 -d -pass "pass:$password" -in "$selected" 2>/dev/null
-        
+
         if [ $? -ne 0 ]; then
-            echo "Wrong password!"
+            echo "Wrong password or corrupted message."
         fi
         echo "==============="
         ;;
-    
+
     delete)
-        echo "Delete which message?"
+        echo "Delete which file? (list below)"
         ls "$INBOX/"
         read filename
         rm -i "$INBOX/$filename"
         ;;
-    
+
     *)
         echo "Usage:"
         echo "  bash ~/secret_send.sh send    — encrypt and save a message"
@@ -344,52 +414,82 @@ chmod +x ~/secret_send.sh
 Test it:
 
 ```bash
-# Send a message:
 bash ~/secret_send.sh send
-
-# Read it:
 bash ~/secret_send.sh read
 ```
 
-Your messages are stored encrypted in `~/.secret_vault/inbox/`. Even if someone looks at those files, they can't read them without the password!
+Your messages are stored encrypted in `~/.secret_vault/inbox/`. Anyone who looks at those files sees only scrambled data. Only the correct password unlocks them.
 
 ---
 
 ## Challenges
 
-### Challenge 1 — Lock Your Diary
+### Case #1101 — Decode All Three Messages
 
-Change the permissions on `~/diary/journal.txt` so that:
-- You (the owner) can read and write
-- Nobody else can do anything
+Decode all three intercepted messages from `~/mac-cli-for-kids/mission_11/classified/`:
 
-Then verify with `ls -l ~/diary/journal.txt`.
+```bash
+cat ~/mac-cli-for-kids/mission_11/classified/message_alpha.enc | base64 -d
+cat ~/mac-cli-for-kids/mission_11/classified/message_beta.enc | base64 -d
+cat ~/mac-cli-for-kids/mission_11/classified/message_gamma.enc | base64 -d
+```
 
-**Hint:** Which octal number gives you read+write but nothing for group and others?
+What do the three messages say? Do they form a larger message when read together? Check the `classified/README.txt` file for hints.
 
-### Challenge 2 — The Permission Puzzle
+### Case #1102 — Fix the Permissions Puzzle
 
-Create 4 files and set these permissions:
-1. A file only you can read (not even write)
-2. A file everyone can read but only you can write
-3. A file only you can do anything with
-4. A file nobody can do anything with (not even you!)
+In `~/mac-cli-for-kids/mission_11/permissions_puzzle/` there are three files with different permission levels:
+- `locked_file.txt` — permission `000` (nobody can read it)
+- `readable.txt` — probably `644` (you can read it)
+- `owner_only.txt` — probably `600` (only owner can read/write)
 
-After setting each, try to `cat` it to see what happens. Then restore permissions to something sensible before deleting them.
+Check the permissions with `ls -l`. Then:
+1. Fix `locked_file.txt` so you can read it
+2. Try to make `readable.txt` unreadable (`chmod 000`), confirm it fails with `cat`, then restore it
+3. Verify the permissions on `owner_only.txt` — what does `600` mean exactly?
 
-### Challenge 3 — Encrypt Your Diary Backup
+Restore everything to sensible permissions when you are done.
 
-Create an encrypted backup of your diary:
+### Case #1103 — Lock Down Your Diary
+
+If you have a diary file from earlier missions, apply proper security to it:
+
+```bash
+chmod 600 ~/diary/journal.txt
+ls -l ~/diary/journal.txt
+```
+
+Confirm the permissions show `-rw-------`. Then create an encrypted backup:
 
 ```bash
 openssl enc -aes-256-cbc -pbkdf2 -in ~/diary/journal.txt -out ~/diary/journal.enc
 ```
 
-Then verify you can decrypt it. Then delete the encrypted version to keep things clean.
+Verify you can decrypt the backup. Then delete the encrypted version to keep things clean.
 
-### Challenge 4 — Hidden Folder Security
+### Case #1104 — Hidden Folder Security
 
-Create `~/.private_stuff/` and store a text file in it. Set permissions so that `~/.private_stuff/` is `700` (only you can enter it). Verify that the folder doesn't show up in normal `ls ~` but does appear in `ls -a ~`.
+Create a hidden private folder and demonstrate good security practice:
+
+1. Create `~/.private_case_files/`
+2. Add a text file with some "sensitive" content inside it
+3. Set the folder permissions to `700` (only you can enter it)
+4. Verify the folder is invisible in `ls ~` but visible in `ls -a ~`
+5. Verify you can still access the file inside using the full path
+6. Clean up with `rm -r ~/.private_case_files/`
+
+---
+
+## Secret Code Hunt
+
+You know how to list hidden files with `ls -a` and how to read file contents. The `mission_11` playground has its own hidden file — a little harder to spot since there is already a lot of interesting content in this folder.
+
+```bash
+cd ~/mac-cli-for-kids/mission_11
+ls -a
+```
+
+Find the `.secret_code.txt` file and read it. That is your fifth secret code word. Add it to your collection.
 
 ---
 
@@ -404,14 +504,15 @@ Solutions are in the [solutions folder](solutions/README.md).
 | Command | What It Does |
 |---------|-------------|
 | `ls -l file` | Show file permissions |
+| `ls -la` | Show all files (including hidden) with permissions |
 | `chmod 600 file` | Set permissions with octal code |
-| `chmod +x file` | Add execute permission |
-| `chmod -x file` | Remove execute permission |
-| `chmod o-r file` | Remove read permission for "others" |
+| `chmod +x file` | Add execute permission (all) |
+| `chmod -x file` | Remove execute permission (all) |
+| `chmod o-r file` | Remove read permission for "others" only |
+| `echo text \| base64` | Encode text to base64 |
+| `echo encoded \| base64 -d` | Decode from base64 |
 | `openssl enc -aes-256-cbc -pbkdf2 -in f -out f.enc` | Encrypt a file |
 | `openssl enc -aes-256-cbc -pbkdf2 -d -in f.enc -out f` | Decrypt a file |
-| `echo text \| base64` | Encode to base64 (not encryption!) |
-| `echo encoded \| base64 -d` | Decode from base64 |
 
 ### Permission Number Quick Reference
 
@@ -421,26 +522,27 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `6` | `rw-` | Read and write |
 | `5` | `r-x` | Read and execute |
 | `4` | `r--` | Read only |
-| `0` | `---` | No permissions |
+| `0` | `---` | No permissions at all |
 
 Common combinations:
-- `755` — scripts and programs
-- `644` — normal files
-- `600` — private files (only you)
-- `700` — private directories (only you)
+- `755` — scripts and programs (everyone can run, only you can edit)
+- `644` — normal documents (everyone can read, only you can write)
+- `600` — private files (only you can do anything)
+- `700` — private directories (only you can enter)
 
 ### Vocabulary
 
-- **Permissions** — rules for who can read, write, or execute a file
-- **chmod** — "change mode" — modifies file permissions
-- **Encryption** — transforming data so it's unreadable without a key
-- **AES-256** — a strong encryption standard (military-grade)
-- **Password** — the key needed to decrypt an encrypted file
-- **Base64** — encoding (not encryption) — just converts binary to text
+- **Permissions** — rules controlling who can read, write, or execute a file
+- **chmod** — "change mode" — the command that modifies permissions
+- **Octal** — base-8 numbers (`0–7`) used to represent permission combinations
+- **Encryption** — transforming data so it is unreadable without the correct key
+- **AES-256** — Advanced Encryption Standard with 256-bit keys — military-grade security
+- **Base64** — encoding (not encryption) that converts binary data to printable text
+- **Hidden file** — any file whose name starts with `.` — invisible to normal `ls`
 
 ---
 
-*Files can be locked. Files can be hidden. You can encrypt messages that only the intended reader can decode. Secret agent stuff.*
+*Files can be locked. Files can be hidden. Messages can be encrypted so only the intended reader can decode them. You now have the tools of a real secret agent.*
 
 *One mission left. The big one.*
 

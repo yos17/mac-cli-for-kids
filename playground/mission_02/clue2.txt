@@ -1,0 +1,24 @@
+CLUE #2 — EVIDENCE TAG: M02-C02
+================================
+
+Deeper still.
+
+The building has more than just a lobby and offices. Every good building
+has a basement — and that's where people hide things they don't want
+found easily.
+
+Have you checked the office yet? Inside the office, there's a hallway.
+And somewhere in this building, there's a way down.
+
+HINT: Navigate into the office, then look for the basement.
+
+  cd office/
+  ls
+  cd basement/
+
+Detective Tip: Use `pwd` at any time to see WHERE you currently are.
+`pwd` stands for "Print Working Directory" — it tells you your location.
+
+  pwd
+
+It's like your GPS in the Terminal!

@@ -1,0 +1,37 @@
+================================================================
+DETECTIVE'S PERSONAL DIARY — STRICTLY CONFIDENTIAL
+Day 4 of the Missing USB Drive Case
+================================================================
+
+Day 4: A breakthrough! And then, immediately, a setback.
+
+The dark thread from the desk: I sent it to Agent Sparks in the
+forensics lab. Results came back fast: wool blend, dark navy,
+consistent with Academy-issue winter coats. Which means it could
+literally be anyone who works here. Half the Academy wears the
+same coat in winter.
+
+The setback.
+
+BUT — while waiting for those results, I found something new.
+Someone accessed the USB drive database at 13:22 on the day it
+went missing. The access log shows the drive was plugged into a
+computer in Room 4B.
+
+Room 4B is a common-use computer lab. No login required. No cameras.
+But I found something on the floor underneath station 7 in Room 4B:
+a small blue rubber cap. The same kind that fits on the end of a
+USB drive.
+
+Someone took the drive there, used it, and dropped the cap.
+
+Who uses Room 4B? Everyone. But the access log narrows the timing.
+I need to cross-reference who was logged into the Academy network
+between 13:15 and 13:30 on that day.
+
+"Don't forget the coat." I keep thinking about that note.
+Maybe it's not a clue about where the USB IS.
+Maybe it's a reminder to someone — the OWNER — about where
+they last put it.
+
+— Detective J.

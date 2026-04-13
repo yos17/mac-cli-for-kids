@@ -1,0 +1,83 @@
+================================================================
+         MISSION COMPLETE
+         Detective Academy — Final Certification
+================================================================
+
+MISSION COMPLETE.
+
+You did it.
+
+Let's look back at everything you accomplished:
+
+  MISSION 01 — You cloned a repo and explored the filesystem.
+               Your first commands: ls, cat, cd, ls -a
+
+  MISSION 02 — You navigated a four-level deep maze of folders.
+               You used pwd to always know where you stood.
+
+  MISSION 03 — You organized a ransacked evidence room.
+               mkdir and mv turned chaos into order.
+
+  MISSION 04 — You read a 7-chapter detective story one file at a time.
+               head, tail, and cat became your reading tools.
+
+  MISSION 05 — You searched 30+ files and found the one witness.
+               grep found a needle in a haystack instantly.
+
+  MISSION 06 — You analyzed 100 lines of server logs and a suspect DB.
+               sort, uniq, and awk processed data like a pro.
+
+  MISSION 07 — You filled in a report template using find-and-replace.
+               sed let you rewrite files without opening them.
+
+  MISSION 08 — You renamed 20 files with wildly inconsistent names.
+               A single for loop did what 20 commands would have.
+
+  MISSION 09 — You fetched live data from the internet.
+               curl connected your Terminal to the whole world.
+
+  MISSION 10 — You configured your terminal environment.
+               Aliases and .zshrc made your Terminal feel like home.
+
+  MISSION 11 — You decoded encrypted messages and unlocked locked files.
+               base64 and chmod revealed hidden secrets.
+
+  MISSION 12 — You built your own interactive app from scratch.
+               MyBot is yours. Add to it forever.
+
+----------------------------------------------------------------
+
+You are a Terminal Detective.
+
+The code you cracked:
+
+  YOU ARE NOW A MASTER TERMINAL DETECTIVE CONGRATULATIONS YOU CRACKED THE CODE
+
+----------------------------------------------------------------
+
+What comes next? Everything.
+
+Every skill you learned here is real. These are the tools that
+cybersecurity analysts use to investigate breaches. That network
+admins use to manage thousands of servers. That developers use to
+build apps. That data scientists use to analyze millions of records.
+
+You started with `ls`. Now you know grep, sed, awk, curl, chmod,
+base64, for loops, functions, and shell scripting.
+
+The Academy is proud of you. Commander Chen is proud of you.
+Your fellow agents — Pixel, Cipher, Shadow, Nova, Sparks, Marble,
+Vortex, Prism, Compass, Quill — they're all proud of you.
+
+Most importantly: you should be proud of yourself.
+
+Now go build something amazing.
+
+— Commander Chen
+  Director of Training Operations
+  Detective Academy, Class of 2026
+
+================================================================
+"The Terminal is not a tool. It is a way of thinking."
+And now you think like a Terminal Detective.
+================================================================

@@ -2,22 +2,64 @@
 
 ## Mission Briefing
 
-You've been working in a plain, default Terminal. But Terminal is YOUR space — and you get to decorate it.
+*Incoming transmission from Commander Chen...*
 
-Professional programmers spend real time customizing their terminals. The right setup means faster work, better readability, and a terminal that feels like *home*. After this mission, yours will look and feel completely different — in the best way.
+> "Detective, every great investigator has a customized setup. Sherlock Holmes had his violin and his pipe. Modern detectives have their terminals.
+>
+> Right now your Terminal looks generic. The prompt is plain, the colors are default, and you retype the same long commands over and over. That ends today.
+>
+> A great terminal setup means faster work, fewer mistakes, and a workspace that feels like YOUR headquarters. After this mission, opening Terminal will feel like walking into your personal command center.
+>
+> The configuration file awaits."
+
+Professional developers spend real time customizing their terminals. A well-tuned setup can save you hours every week. More importantly, it turns your terminal from "that scary black window" into a space you actually enjoy being in.
 
 ### What You'll Learn
-- The `PS1` prompt — customize what your prompt looks like
+- The `.zshrc` file — your shell's permanent settings file
 - Aliases — create your own shortcut commands
-- `.zshrc` — your shell's permanent settings file
+- The `PS1` prompt — customize what your prompt looks like
 - Colors and styles in Terminal
-- How to add your morning script as a custom command
+- Shell functions — shortcuts that do complex things
+- How to connect your Mission 7 briefing script as a single command
+
+---
+
+## Your Case Files
+
+Before you start customizing, let's look at some examples. Navigate to the playground:
+
+```bash
+cd ~/mac-cli-for-kids/mission_10
+ls
+```
+
+You should see:
+
+```
+sample_zshrc       ← an example .zshrc with 10 aliases, 3 functions, custom prompt
+cool_aliases.txt   ← 20 useful aliases with explanations
+.secret_code.txt   ← hidden! (find it at the end of the mission)
+```
+
+Read through the example config to see what a polished `.zshrc` looks like:
+
+```bash
+cat sample_zshrc
+```
+
+This is your reference document for the whole mission. Keep it open in a second Terminal window while you work. Now read the aliases file:
+
+```bash
+cat cool_aliases.txt
+```
+
+That file contains 20 useful aliases with explanations of what each one does. You will pick your favorites and add them to your own `.zshrc` during this mission.
 
 ---
 
 ## The `.zshrc` File
 
-Every time you open a new Terminal window, your shell reads a file called `.zshrc` (in your home folder). It's the configuration file that sets up your whole environment.
+Every time you open a new Terminal window, your shell (zsh) reads a file called `.zshrc` in your home folder. It is the configuration file that sets up your entire environment — aliases, custom commands, colors, and everything else.
 
 Open it:
 
@@ -25,15 +67,15 @@ Open it:
 nano ~/.zshrc
 ```
 
-It might have some content already, or it might be empty. Everything you add here runs automatically when Terminal starts.
+It might have some content already, or it might be nearly empty. Everything you add here runs automatically every time Terminal starts.
 
-Close it for now (`Ctrl+X`). We'll edit it as we go.
+Close it for now (`Ctrl+X`). You will add things to it throughout this mission.
 
 ---
 
 ## Aliases — Your Own Commands
 
-An **alias** is a custom shortcut for any command. Tired of typing `ls -la`? Make it `ll`:
+An **alias** is a shortcut name for any command you type often. Tired of typing `ls -la`? Make it `ll`:
 
 ```bash
 alias ll="ls -la"
@@ -46,71 +88,79 @@ alias ll="ls -la"
 ll
 ```
 
-It works! But it disappears when you close Terminal. To make it permanent, add it to `.zshrc`:
+It works! But it vanishes when you close Terminal. To make it permanent, add it to `.zshrc`:
 
 ```bash
 echo 'alias ll="ls -la"' >> ~/.zshrc
 ```
 
-Now let's add a bunch of useful aliases all at once:
+Now let's add a whole detective toolkit of useful aliases at once:
 
 ```bash
 nano ~/.zshrc
 ```
 
-Add these lines at the bottom:
+Add these lines at the bottom (after anything already there):
 
 ```bash
-# ===== MY ALIASES =====
+# ===== DETECTIVE ACADEMY — MY ALIASES =====
 
 # Better file listing
 alias ll="ls -la"
 alias la="ls -la"
 alias l="ls -l"
-alias lc="ls -G"          # colored list
+alias lc="ls -G"            # colorized list
 
 # Navigation shortcuts
 alias home="cd ~"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias hq="cd ~/mac-cli-for-kids"    # jump to the Detective Academy!
 
-# Safety nets
-alias rm="rm -i"          # always ask before deleting
-alias cp="cp -i"          # always ask before overwriting
-alias mv="mv -i"          # always ask before overwriting
+# Safety nets (always ask before destroying something)
+alias rm="rm -i"            # ask before deleting
+alias cp="cp -i"            # ask before overwriting
+alias mv="mv -i"            # ask before overwriting
 
-# My stuff
-alias morning="~/morning.sh"
-alias diary="open -a TextEdit ~/diary/journal.txt"
-alias finder="open ."     # open current folder in Finder
+# My detective tools
+alias briefing="~/morning.sh"                  # from Mission 7
+alias netcheck="~/investigate_network.sh"      # from Mission 9
 
-# Make things colorful
+# Colorful output
 alias grep="grep --color=auto"
-alias ls="ls -G"          # colored ls by default
+alias ls="ls -G"            # colored ls by default
 ```
 
 Save (`Ctrl+O`, Enter) and exit (`Ctrl+X`).
 
-Now reload `.zshrc` to apply changes immediately:
+Now reload `.zshrc` to apply your changes immediately without restarting Terminal:
 
 ```bash
 source ~/.zshrc
 ```
 
-`source` runs a file in the current shell. After this, all your aliases are active!
+`source` runs a file in the current shell session. After this, all your aliases are active!
+
+Test them:
+
+```bash
+ll
+hq
+..
+```
 
 ---
 
 ## Customizing the Prompt (`PS1`)
 
-The prompt is the text that appears before your cursor. By default it's something like `sophia@MacBook-Pro ~ %`. You can make it anything you want.
+The **prompt** is the text that appears before your cursor: `sophia@MacBook-Pro ~ %`. You can change it to anything.
 
-The variable that controls it is `PS1` (Prompt String 1).
+The variable controlling it is called `PS1` (Prompt String 1). In modern zsh on Macs, you can use `PROMPT` or `PS1` — either works.
 
 ### Colors in Terminal
 
-Terminal supports ANSI color codes. They look ugly in the file but they display beautifully:
+Terminal supports ANSI color codes. They look cluttered in the file but display beautifully:
 
 | Color | Code |
 |-------|------|
@@ -124,6 +174,8 @@ Terminal supports ANSI color codes. They look ugly in the file but they display 
 | White | `\[\e[37m\]` |
 | Reset (back to normal) | `\[\e[0m\]` |
 
+Always end with `\[\e[0m\]` to reset the color, otherwise your whole Terminal turns purple.
+
 ### Prompt Variables
 
 | Code | Meaning |
@@ -131,94 +183,96 @@ Terminal supports ANSI color codes. They look ugly in the file but they display 
 | `\u` | Your username |
 | `\h` | Your computer's hostname |
 | `\w` | Current directory (full path) |
-| `\W` | Current directory (just the name) |
-| `\t` | Current time |
+| `\W` | Current directory (just the folder name) |
+| `\t` | Current time (24-hour) |
 | `\n` | Newline |
 
 ### Setting a Custom Prompt
 
-For zsh (which modern Macs use), the variable is actually `PROMPT` or `PS1`.
-
-Try this in Terminal first (temporary, just to preview):
+Try this in Terminal first (temporary — just to preview how it looks):
 
 ```bash
-export PS1="\[\e[35m\]✨ Sophia \[\e[33m\]\W \[\e[0m\]% "
+export PS1="\[\e[35m\]Detective \u \[\e[33m\]\W \[\e[0m\]% "
 ```
 
-Your prompt now looks like: `✨ Sophia Desktop %`
+Your prompt now looks like: `Detective sophia Documents %`
 
-Try different colors! When you find one you love, add it to `.zshrc`:
+Experiment with different colors and text. When you find something you love, add it to `.zshrc`:
 
 ```bash
 nano ~/.zshrc
 ```
 
-Add at the bottom (replace with your preferred colors):
+Add at the bottom:
 
 ```bash
-# ===== MY PROMPT =====
-# Purple name, yellow folder, white percent sign
-export PS1="\[\e[35m\]\u \[\e[33m\]\W \[\e[0m\]% "
+# ===== MY DETECTIVE PROMPT =====
+# Purple "Detective" + name, yellow folder, white percent
+export PS1="\[\e[35m\]Detective \u \[\e[33m\]\W \[\e[0m\]% "
 ```
 
-Or for a more detailed prompt:
+Or try a more detailed two-line prompt:
 
 ```bash
-# Two-line prompt with time
-export PS1="\[\e[36m\][\t] \[\e[35m\]\u\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\n% "
+# Two-line prompt: time + username + path, then blank second line
+export PS1="\[\e[36m\][\t] \[\e[35m\]\u\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\n% "
 ```
 
-This shows: `[10:30:15] sophia:Documents` then a new line with `%`.
+This shows: `[10:30:15] sophia:/Users/sophia/Documents` then a new line with `%`.
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Test a few prompts.
+**Experiment 1:** Test several prompt styles.
 
 ```bash
 # Minimal and clean:
 export PS1="\W % "
 
-# With an emoji:
-export PS1="🌟 \W % "
+# With detective badge number:
+export PS1="[BADGE-07] \W % "
+
+# With emoji (if your terminal supports it):
+export PS1="🔍 \W % "
 
 # With full path in blue:
 export PS1="\[\e[34m\]\w\[\e[0m\] % "
 ```
 
-Don't worry about "getting it wrong" — you can always reset to default with:
+You can always reset to your saved setting with:
 ```bash
 source ~/.zshrc
 ```
 
-**Experiment 2:** Make an alias for your most-typed command.
+**Experiment 2:** Make an alias for your most-used command.
 
-What command do you type most often? Make a short alias for it.
+What command do you type most often in the Detective Academy? Make a short alias:
 
 ```bash
 alias today="date +\"%A, %B %d, %Y\""
 today
 ```
 
-**Experiment 3:** Create a "greet" command.
+**Experiment 3:** Create a `hqstatus` command that shows what is in the Detective Academy folder.
 
 ```bash
-alias greet="echo \"Hello, \$(whoami)! Today is \$(date +\"%A\").\" && say \"Hello \$(whoami)\""
-greet
+alias hqstatus="ls -la ~/mac-cli-for-kids"
+hqstatus
 ```
 
-**Experiment 4:** Create a "projects" command.
+**Experiment 4:** Create a quick alias to open your alias file from the case files.
 
 ```bash
-alias projects="ls ~/my_project"
+alias aliases="cat ~/mac-cli-for-kids/mission_10/cool_aliases.txt"
+aliases
 ```
 
 ---
 
 ## Pro Tip — PATH and Functions
 
-Your `PATH` is a list of folders where Terminal looks for commands. When you type `ls`, it searches PATH to find the `ls` program.
+Your `PATH` is a list of folders where Terminal searches when you type a command. When you type `ls`, Terminal checks each PATH folder until it finds an `ls` program.
 
 See your PATH:
 ```bash
@@ -230,46 +284,47 @@ Output:
 /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 ```
 
-If you ever install a program and Terminal says "command not found" even though you installed it, the program is probably in a folder that's not in your PATH.
+If you install a program and Terminal says "command not found," the program is probably in a folder that is not in your PATH. You can add folders to PATH in `.zshrc`.
 
-You can also create **functions** in `.zshrc` for more complex shortcuts:
+You can also create **functions** in `.zshrc` for shortcuts that need more than one step:
 
 ```bash
-# Make a folder AND go into it:
+# Make a folder AND immediately cd into it:
 mkcd() {
     mkdir -p "$1" && cd "$1"
+    echo "Created and entered: $1"
 }
 ```
 
 After adding this to `.zshrc` and running `source ~/.zshrc`:
 
 ```bash
-mkcd my_new_folder
-pwd
+mkcd ~/new_case_folder
+pwd   # proves you are inside it
 ```
 
-You created the folder AND moved into it with one command!
+Two commands in one. Once you get used to functions like this, you will add them constantly.
 
 ---
 
-## Your Mission — Create Your Personal Terminal Setup
+## Your Mission — Build Your Personal Command Center
 
-Build a complete, personalized `.zshrc` file. Here's a template to start from:
+Build a complete, polished `.zshrc`. Here is a template that combines everything — customize every line to make it yours:
 
 ```bash
 nano ~/.zshrc
 ```
 
-Add this whole block (it won't break anything already there):
+Add this whole block (add it at the bottom so it does not conflict with anything already there):
 
 ```bash
-# ================================================
-# SOPHIA'S TERMINAL CONFIGURATION
-# ================================================
+# =====================================================
+# DETECTIVE ACADEMY — PERSONAL TERMINAL CONFIGURATION
+# =====================================================
 
-# --- PROMPT ---
-# Purple username, yellow folder, white prompt
-export PS1="\[\e[35m\]\u \[\e[33m\]\W \[\e[0m\]% "
+# --- DETECTIVE PROMPT ---
+# Purple "Detective" label, yellow folder, reset
+export PS1="\[\e[35m\]Detective \u \[\e[33m\]\W \[\e[0m\]% "
 
 # --- ALIASES ---
 # File listing
@@ -283,44 +338,50 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias home="cd ~"
 alias finder="open ."
+alias hq="cd ~/mac-cli-for-kids"
 
-# Safety
+# Safety nets
 alias rm="rm -i"
 alias cp="cp -i"
 
-# My scripts
-alias morning="~/morning.sh"
+# My detective tools
+alias briefing="~/morning.sh"
+alias netcheck="~/investigate_network.sh"
 alias diary="open -a TextEdit ~/diary/journal.txt"
 
-# Fun
+# Useful shortcuts
 alias today="date +'%A, %B %d, %Y'"
-alias internet="~/internet_check.sh"
+alias reload="source ~/.zshrc"    # reload settings instantly
+alias myip="curl -s icanhazip.com"
 
 # --- FUNCTIONS ---
+
 # Make a folder and cd into it
 mkcd() {
     mkdir -p "$1" && cd "$1"
-    echo "Created and moved into: $1"
+    echo "Created and entered: $1"
 }
 
-# Quick diary entry from terminal
+# Quick diary entry from the command line
 log() {
+    mkdir -p ~/diary
     echo "=== $(date +'%A, %B %d, %Y') ===" >> ~/diary/journal.txt
     echo "" >> ~/diary/journal.txt
     echo "$*" >> ~/diary/journal.txt
     echo "" >> ~/diary/journal.txt
     echo "---" >> ~/diary/journal.txt
-    echo "Diary entry saved!"
+    echo "Entry saved to diary."
 }
 
-# Count files in a folder
+# Count files in any folder
 countfiles() {
     ls "${1:-.}" | wc -l
 }
 
 # --- WELCOME MESSAGE ---
 echo ""
-echo "Welcome back, $(whoami)! Today is $(date +'%A, %B %d')."
+echo "Welcome back, Detective $(whoami)! Today is $(date +'%A, %B %d')."
+echo "Type 'briefing' for your morning report."
 echo ""
 ```
 
@@ -330,17 +391,15 @@ Save and reload:
 source ~/.zshrc
 ```
 
-Open a new Terminal window and see your personalized setup!
-
-Test your new functions:
+Open a new Terminal window and admire your command center. Test your new functions:
 
 ```bash
-mkcd ~/test_new_folder
-pwd
+mkcd ~/case_001_workspace
+pwd          # proves you are inside the new folder
 cd ~
-rm -r ~/test_new_folder
+rm -r ~/case_001_workspace
 
-log "Today I customized my terminal and it looks amazing!"
+log "Completed Mission 10 today. Terminal is now officially my headquarters."
 tail -8 ~/diary/journal.txt
 
 countfiles ~
@@ -351,36 +410,44 @@ countfiles ~/Documents
 
 ## Challenges
 
-### Challenge 1 — Design Your Perfect Prompt
+### Case #1001 — Browse the Cool Aliases File
 
-Create a prompt that includes:
-- Your first name (not your username) — hardcode it in the PS1 string
+Read through `~/mac-cli-for-kids/mission_10/cool_aliases.txt` and pick at least **5 aliases** you do not already have that you would actually use. Add them to your `.zshrc`. Run `source ~/.zshrc` and test each one.
+
+### Case #1002 — Design Your Perfect Detective Prompt
+
+Look at the `sample_zshrc` in the playground (`cat ~/mac-cli-for-kids/mission_10/sample_zshrc`) and find its `PS1` line. Use it as inspiration to design a prompt that includes all of these:
+- Your first name hardcoded (not `\u` — type your actual name)
 - The current time
 - The current folder name
-- Your favorite emoji
+- Your favorite color for each element
 
-Test it, then add it to `.zshrc`.
+Test it in Terminal before adding it to `.zshrc`.
 
-### Challenge 2 — Five Useful Aliases
+### Case #1003 — Improve the `log` Function
 
-Add 5 more aliases that YOU would actually use. Here are some ideas — pick 5 or make your own:
-- `alias week="cal"` — show a calendar
-- `alias myip="curl -s ifconfig.me"`
-- `alias reload="source ~/.zshrc"` — quickly reload your settings
-- `alias scripts="ls ~/"`
-- `alias trash="rm -ri"`
+The `log` function above just saves whatever you type on the command line. Improve it:
+- If called with no arguments (`log` by itself), ask "What happened today?" using `read`
+- Then save the answer as a diary entry
 
-### Challenge 3 — Improve the `log` Function
+**Hint:** Check if `$1` is empty with `if [ -z "$1" ]`. If empty, use `read` to get input. If not empty, use `$*` as before.
 
-The `log` function we built adds diary entries. Improve it to:
-- If called with no arguments, ask "What happened today?" using `read`
-- Then save the answer to the diary
+### Case #1004 — Add a Welcome Voice
 
-**Hint:** Check if `$1` is empty with `if [ -z "$1" ]`.
+Add a `say` command to the welcome message section in `.zshrc` so your Mac greets you out loud when a new Terminal opens. Use your favorite voice from Mission 1. Keep it short — just your name and the day of the week.
 
-### Challenge 4 — Add Your Favorite Greeting Voice
+---
 
-Add a line to `.zshrc` that runs a `say` command using your favorite voice to greet you when a new Terminal opens. (It's in the welcome message section.)
+## Secret Code Hunt
+
+You now know exactly how to find hidden files. The `mission_10` playground has one.
+
+```bash
+cd ~/mac-cli-for-kids/mission_10
+ls -a
+```
+
+Spot the hidden file and read it. That is your fourth secret code word. Write it down.
 
 ---
 
@@ -395,24 +462,27 @@ Solutions are in the [solutions folder](solutions/README.md).
 | Concept | How It Works |
 |---------|-------------|
 | `alias name="command"` | Create a shortcut command |
-| `source ~/.zshrc` | Reload the config file |
+| `source ~/.zshrc` | Reload the config file without restarting |
 | `export PS1="..."` | Set the prompt appearance |
-| `\u`, `\w`, `\t` | Username, path, time in PS1 |
+| `\u`, `\w`, `\W`, `\t` | Username, full path, folder name, time in PS1 |
 | `\[\e[35m\]...\[\e[0m\]` | Color codes in PS1 |
 | `function_name() { ... }` | Define a shell function |
-| `$PATH` | Where the shell looks for programs |
+| `$PATH` | The list of folders Terminal searches for programs |
+| `$*` | All arguments passed to a function, as one string |
+| `"${1:-.}"` | Use first argument, or `.` (current dir) if none given |
 
 ### Vocabulary
 
-- **`.zshrc`** — the config file that runs when zsh starts
-- **alias** — a shortcut that replaces one command with another
-- **prompt** — the text before your cursor that shows you're ready to type
-- **`PS1`** — the variable controlling the prompt appearance
-- **`source`** — run a file's contents in the current shell
-- **PATH** — the list of directories the shell searches for commands
+- **`.zshrc`** — the config file that runs automatically when zsh starts
+- **alias** — a short name that expands to a longer command
+- **prompt** — the text before your cursor showing you are ready to type
+- **`PS1`** — the variable that controls the prompt's appearance
+- **`source`** — run a file's contents in the current shell session
+- **PATH** — the ordered list of directories the shell searches for programs
+- **function** — a named block of code you can call like a command
 
 ---
 
-*Your terminal is yours now. The colors, the shortcuts, the welcome message — all of it.*
+*Your terminal is yours now. The colors, the shortcuts, the welcome message, the detective prompt — all of it. Commander Chen has officially designated this your personal headquarters.*
 
 *Ready for Mission 11?*

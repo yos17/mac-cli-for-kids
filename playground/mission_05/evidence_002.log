@@ -1,0 +1,5 @@
+[2026-04-02 02:17:08] ALERT: Unauthorized access attempt at main server room.
+[2026-04-02 02:17:09] ALERT: Keycard ID #4471 rejected. Card reported stolen.
+[2026-04-02 02:17:22] ALERT: Second access attempt — different keycard ID #8823.
+[2026-04-02 02:17:22] INFO: Access DENIED. Door remained locked.
+[2026-04-02 02:18:01] INFO: Security team notified. Response time: 4 minutes.

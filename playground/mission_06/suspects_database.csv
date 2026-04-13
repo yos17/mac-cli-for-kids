@@ -1,0 +1,21 @@
+suspect_id,name,known_alias,last_seen_location,status
+S-001,Victor "The Ghost" Malenko,Ghostface,Harbor District Pier 7,at_large
+S-002,Diana Crane,The Librarian,Downtown Public Library (suspicious),under_surveillance
+S-003,Marco Fontaine,Slick,Hotel Majestic Room 412,in_custody
+S-004,Yuki Tanaka,Spectre,Neon City Train Station,at_large
+S-005,Frank "Two Phones" Riley,Two Phones,Riley's Diner on 5th Ave,cleared
+S-006,Celeste Moreau,The Frenchwoman,Last seen boarding a ferry,at_large
+S-007,Bernard Kowalski,Big Bernie,Academy neighborhood (concern!),under_surveillance
+S-008,Nina Petrov,Snowbird,Cold Storage Warehouse District,unknown
+S-009,Ramon "The Professor" Estrada,The Professor,University District cafe,cleared
+S-010,Ingrid Solberg,The Viking,Harbor Hotel Bar,under_surveillance
+S-011,Oliver "Ollie" Chang,The Broker,Financial District office tower,under_surveillance
+S-012,Fatima Al-Rashid,The Diplomat,Embassy Row,cleared
+S-013,Tommy Pearce,Knuckles,Eastside Boxing Gym,in_custody
+S-014,Vera Blackstone,Obsidian,Rooftop of the Meridian Hotel,at_large
+S-015,Desmond Obi,The Conductor,City Central Train Depot,unknown
+S-016,Lara Quinn,Q,Tech District startup building,cleared
+S-017,Heinrich Braun,The Clockmaker,Old Town watch repair shop,under_surveillance
+S-018,Sofia Esposito,La Rosa,Portside Italian Restaurant,cleared
+S-019,Dmitri Volkov,The Bear,Unknown — last GPS ping: harbor area,at_large
+S-020,Alicia "Ace" Fontaine,Ace,Same last name as #3 — coincidence?,unknown

@@ -1,6 +1,10 @@
 # Mission 5 — Finding Things
 
-## Mission Briefing
+## Mission Briefing — Commander Chen Speaks
+
+*Incoming transmission...*
+
+> "Agent, this one's a real case. We have a folder with 35 files in it — reports, evidence logs, photos, data sheets — and we need to find a single name buried somewhere inside them: MARINA SANTOS. Without the right tools, you'd have to open every file by hand. That could take an hour. With `grep`, it takes three seconds. Today you become a file detective. You'll find any file on your entire Mac, search inside files for specific words, and combine searches for detective-level precision. One of those 35 files contains the name. Your job is to find it."
 
 A real detective never panics when something is missing. They have methods. They search systematically and find things that others can't.
 
@@ -14,6 +18,35 @@ Today you become a file detective. You'll learn to find any file on your entire 
 
 ---
 
+## Your Case Files
+
+Commander Chen has prepared a training exercise for you. Navigate there now:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_05
+ls
+```
+
+You should see a folder full of files organized in groups:
+
+```
+data_001.csv    data_002.csv    data_003.csv    data_004.csv    data_005.csv
+evidence_001.log  evidence_002.log  ...  evidence_010.log
+keyword_hints.txt
+photos_001.txt  photos_002.txt  ...  photos_005.txt
+report_001.txt  report_002.txt  ...  report_010.txt
+```
+
+That's 30+ files. Somewhere in the `report_*.txt` files, the name **MARINA SANTOS** appears. You need to find it without opening every file. And there's also a `keyword_hints.txt` — read that first:
+
+```bash
+cat keyword_hints.txt
+```
+
+This file contains hints about what other keywords are hiding in the evidence. Your challenges will use both `find` and `grep` to track everything down.
+
+---
+
 ## The `find` Command
 
 `find` searches for files by name, type, size, date, and more. Its basic shape is:
@@ -24,24 +57,24 @@ find [where to search] [what to look for]
 
 ### Find by Name
 
-Find all `.txt` files in your home folder:
+Find all `.txt` files in your mission folder:
 
 ```bash
-find ~ -name "*.txt"
+find ~/mac-cli-for-kids/playground/mission_05 -name "*.txt"
 ```
 
-The `~` says "search starting from home folder." The `-name "*.txt"` says "match anything ending in .txt."
+The first argument says "search starting from this folder." The `-name "*.txt"` says "match anything ending in .txt."
 
-Find an exact file:
+Find files whose names start with "report":
 
 ```bash
-find ~ -name "journal.txt"
+find ~/mac-cli-for-kids/playground/mission_05 -name "report_*.txt"
 ```
 
-Find case-insensitively (matches `Journal.txt`, `JOURNAL.TXT`, etc.):
+Find case-insensitively (matches `Report.txt`, `REPORT.TXT`, etc.):
 
 ```bash
-find ~ -iname "journal.txt"
+find ~/mac-cli-for-kids/playground/mission_05 -iname "report_*.txt"
 ```
 
 ---
@@ -52,16 +85,16 @@ find ~ -iname "journal.txt"
 `-type d` = directories only
 
 ```bash
-find ~ -type d -name "projects"
+find ~/mac-cli-for-kids/playground/mission_05 -type f -name "*.log"
 ```
 
-Finds all folders named "projects" in your home folder.
+Finds all log files in the mission folder.
 
 ```bash
-find ~/Downloads -type f -name "*.jpg"
+find ~ -type d -name "mission_05"
 ```
 
-Finds all JPEG images in Downloads.
+Finds the folder itself by name.
 
 ---
 
@@ -111,53 +144,55 @@ Basic use:
 grep "word" filename.txt
 ```
 
-### Search in Your Diary
+### Find MARINA SANTOS
+
+Here's the command that solves the main mission challenge. Don't run it yet — read the whole section first, then try it:
 
 ```bash
-grep "learned" ~/diary/journal.txt
+grep "MARINA SANTOS" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
 ```
 
-Shows every line in your diary that contains the word "learned".
+This searches all 10 report files at once. `grep` will print the filename and the line that matches. Which report file contains the name?
 
 ### Case-Insensitive Search
 
 ```bash
-grep -i "april" ~/diary/journal.txt
+grep -i "marina santos" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
 ```
 
-Matches "April", "APRIL", "april", etc.
+Matches "MARINA SANTOS", "Marina Santos", "marina santos", etc. Useful when you're not sure about capitalization.
 
 ### Show Line Numbers
 
 ```bash
-grep -n "====" ~/diary/journal.txt
+grep -n "MARINA SANTOS" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
 ```
 
-The `-n` flag shows which line number each match is on.
+The `-n` flag shows which line number the match is on.
 
 ### Count Matches
 
 ```bash
-grep -c "===" ~/diary/journal.txt
+grep -c "MARINA" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
 ```
 
-Returns just the count — how many lines match.
+Returns the count of matching lines per file. Files with 0 have no match.
 
-### Search Multiple Files
+### Search Multiple Files with a Wildcard
 
 ```bash
-grep "rainbow" ~/Documents/*.txt
+grep "suspect" ~/mac-cli-for-kids/playground/mission_05/*.txt
 ```
 
-Searches all `.txt` files in Documents.
+Searches all `.txt` files in the mission folder.
 
 ### Search Recursively (All Files in a Folder)
 
 ```bash
-grep -r "homework" ~/Documents/
+grep -r "MARINA" ~/mac-cli-for-kids/playground/mission_05/
 ```
 
-Searches every file inside Documents and all its subfolders. This is powerful.
+Searches every file in the folder and all its subfolders. This is the most powerful form.
 
 ---
 
@@ -166,10 +201,10 @@ Searches every file inside Documents and all its subfolders. This is powerful.
 `grep` understands special patterns called **regular expressions** (regex). Here are the basics:
 
 ```bash
-grep "^===" ~/diary/journal.txt    # lines that START with ===
-grep "===$" ~/diary/journal.txt    # lines that END with ===
-grep "[0-9]" ~/diary/journal.txt   # lines containing any number
-grep "Apr\|May" ~/diary/journal.txt # lines with "Apr" OR "May"
+grep "^REPORT" report_001.txt    # lines that START with REPORT
+grep "SANTOS$" report_001.txt    # lines that END with SANTOS
+grep "[0-9]" evidence_001.log    # lines containing any number
+grep "MARINA\|SANTOS" report_*.txt  # lines with "MARINA" OR "SANTOS"
 ```
 
 - `^` means "start of line"
@@ -186,15 +221,15 @@ You don't need to master regex today — just know it exists and `grep` can use 
 macOS has a powerful search engine called Spotlight (the Cmd+Space thing). You can access it from Terminal with `mdfind`:
 
 ```bash
-mdfind "birthday"
+mdfind "marina santos"
 ```
 
-This searches your entire Mac — file names AND file contents — for "birthday". It uses the same index as Spotlight, so it's very fast.
+This searches your entire Mac — file names AND file contents — for "marina santos". It uses the same index as Spotlight, so it's very fast.
 
 Search in a specific folder only:
 
 ```bash
-mdfind -onlyin ~/Documents "project"
+mdfind -onlyin ~/mac-cli-for-kids/playground/mission_05 "MARINA"
 ```
 
 Find files of a specific type:
@@ -216,19 +251,25 @@ mdfind "date:yesterday"
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Find all images in your home folder.
+**Experiment 1:** Find all report files in the mission folder.
 
 ```bash
-find ~ -name "*.jpg" -o -name "*.png" -o -name "*.heic" 2>/dev/null
+find ~/mac-cli-for-kids/playground/mission_05 -name "report_*.txt"
 ```
 
-The `-o` means "or". The `2>/dev/null` hides permission error messages (we'll explain this later).
-
-**Experiment 2:** Find the 5 biggest files in your Downloads.
+How many are there? Now use `wc -l` to count them without counting manually:
 
 ```bash
-find ~/Downloads -type f -size +1M 2>/dev/null
+find ~/mac-cli-for-kids/playground/mission_05 -name "report_*.txt" | wc -l
 ```
+
+**Experiment 2:** Search for keywords across all evidence logs.
+
+```bash
+grep -i "suspect" ~/mac-cli-for-kids/playground/mission_05/evidence_*.log
+```
+
+What do the evidence logs say about suspects?
 
 **Experiment 3:** Count words in the dictionary.
 
@@ -238,15 +279,15 @@ grep -c "." /usr/share/dict/words
 
 `.` in regex matches "any character" — so this counts every non-empty line, which is the number of words.
 
-**Experiment 4:** Find words that contain "moon" in the dictionary.
+**Experiment 4:** Find words that contain "detect" in the dictionary.
 
 ```bash
-grep "moon" /usr/share/dict/words
+grep "detect" /usr/share/dict/words
 ```
 
-How many moon-words are there?
+How many detective-related words are there?
 ```bash
-grep -c "moon" /usr/share/dict/words
+grep -c "detect" /usr/share/dict/words
 ```
 
 ---
@@ -271,91 +312,124 @@ find ~ -name "*.txt" 2>/dev/null
 
 ## Your Mission — Build a File Finder Toolkit
 
-Create a file called `~/finder.sh` that contains your personal search shortcuts:
+Create a personal search reference file you can use on future cases:
 
 ```bash
-touch ~/finder.sh
+touch ~/detective_toolkit.sh
 ```
 
-Now add these lines with `>>`:
+Add these comments showing your most useful search commands:
 
 ```bash
-echo '#!/bin/bash' > ~/finder.sh
-echo '# My personal file finder toolkit' >> ~/finder.sh
-echo '' >> ~/finder.sh
-echo '# Usage: bash ~/finder.sh [search-type] [term]' >> ~/finder.sh
-echo '# Examples:' >> ~/finder.sh
-echo '#   bash ~/finder.sh name myfile.txt' >> ~/finder.sh
-echo '#   bash ~/finder.sh text "birthday party"' >> ~/finder.sh
-echo '#   bash ~/finder.sh big' >> ~/finder.sh
+echo '#!/bin/bash' > ~/detective_toolkit.sh
+echo '# Detective File Finder Toolkit' >> ~/detective_toolkit.sh
+echo '# ==============================' >> ~/detective_toolkit.sh
+echo '' >> ~/detective_toolkit.sh
+echo '# Find files by name pattern:' >> ~/detective_toolkit.sh
+echo '# find [folder] -name "*.txt" 2>/dev/null' >> ~/detective_toolkit.sh
+echo '' >> ~/detective_toolkit.sh
+echo '# Search inside files for text:' >> ~/detective_toolkit.sh
+echo '# grep -r "search term" [folder]' >> ~/detective_toolkit.sh
+echo '' >> ~/detective_toolkit.sh
+echo '# Find files bigger than 100MB:' >> ~/detective_toolkit.sh
+echo '# find ~ -type f -size +100M 2>/dev/null' >> ~/detective_toolkit.sh
+echo '' >> ~/detective_toolkit.sh
+echo '# Spotlight search:' >> ~/detective_toolkit.sh
+echo '# mdfind "something you are looking for"' >> ~/detective_toolkit.sh
 ```
 
 Read it back:
 ```bash
-cat ~/finder.sh
+cat ~/detective_toolkit.sh
 ```
 
-Then try each of these detective searches:
+Then run the key detective searches on your mission files:
 
-**Find a file by name anywhere:**
 ```bash
-find ~ -name "*.txt" 2>/dev/null
+# Find which report contains MARINA SANTOS
+grep "MARINA SANTOS" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
+
+# Check what the data files contain
+head -3 ~/mac-cli-for-kids/playground/mission_05/data_001.csv
+
+# Search across ALL file types in the mission folder
+grep -r "MARINA" ~/mac-cli-for-kids/playground/mission_05/
+
+# Count total files
+find ~/mac-cli-for-kids/playground/mission_05 -type f | wc -l
 ```
 
-**Find a file containing specific text:**
+---
+
+## 🔍 Secret Code Hunt
+
+There's a hidden file in the `mission_05` folder containing your fifth secret code word.
+
 ```bash
-grep -r "your search term" ~ 2>/dev/null
+cd ~/mac-cli-for-kids/playground/mission_05
+ls -la
 ```
 
-**Find your biggest files:**
+Spot `.secret_code.txt`? Read it:
+
 ```bash
-find ~ -type f -size +50M 2>/dev/null
+cat .secret_code.txt
 ```
 
-**Spotlight search:**
+Write down word #5. Five down, seven to go — you're almost halfway through the master code!
+
+**Bonus:** Can you use `grep` to find any hidden patterns inside `keyword_hints.txt`? Try:
 ```bash
-mdfind "something you're looking for"
+grep "secret\|hidden\|code" keyword_hints.txt
 ```
-
-**Count all files in your home folder:**
-```bash
-find ~ -type f 2>/dev/null | wc -l
-```
-
-Save each of these as a comment in your `finder.sh` file for future reference!
 
 ---
 
 ## Challenges
 
-### Challenge 1 — Find Your Photos
+### Case #0501 — Find the Witness
 
-Find all files with `.jpg`, `.png`, or `.heic` extensions in your home folder. How many are there? Use `find` and `wc -l`.
-
-### Challenge 2 — Dictionary Detective
-
-Using `grep` on `/usr/share/dict/words`:
-1. Find all words that start with "cat"
-2. Find all words that end with "tion"
-3. Find all words that contain "xyz" (if any exist!)
-4. How many 5-letter words are in the dictionary? (Hint: `grep "^.....$"` — the `.` matches any character)
-
-### Challenge 3 — Recent Activity
-
-Find all files in your home folder that were modified in the last 24 hours:
+Use `grep` to find which file in the `mission_05` playground contains the name **MARINA SANTOS**. When you find the right file, use `cat` to read the whole thing.
 
 ```bash
-find ~ -mtime -1 2>/dev/null
+grep "MARINA SANTOS" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
 ```
 
-What was the most recently changed file?
+Which report number was it? What does the full file say?
 
-### Challenge 4 — Search Your Diary
+**Bonus:** Use `grep -n` to find the exact line number where the name appears.
 
-If you've written at least 2 diary entries:
-1. `grep` for all your entry headers (lines starting with `===`)
-2. `grep -i` for a word that you know appears in one of your entries
-3. Count how many times you used the word "today" in your diary
+### Case #0502 — Evidence Log Analysis
+
+Search through all 10 evidence log files for any keyword from `keyword_hints.txt`. Use `grep` with at least 3 different keywords.
+
+```bash
+grep -i "KEYWORD" ~/mac-cli-for-kids/playground/mission_05/evidence_*.log
+```
+
+Then count how many total lines across all evidence logs contain numbers:
+
+```bash
+grep -c "[0-9]" ~/mac-cli-for-kids/playground/mission_05/evidence_*.log
+```
+
+### Case #0503 — Dictionary Detective
+
+Using `grep` on `/usr/share/dict/words`:
+1. Find all words that start with "detect"
+2. Find all words that end with "tion"
+3. Find all words that contain "clue" (if any!)
+4. How many 5-letter words are in the dictionary? (Hint: `grep "^.....$"` — each `.` matches exactly one character)
+
+### Case #0504 — Full Folder Sweep
+
+Using a single `grep -r` command, search the entire `mission_05` folder for any occurrence of the word "MARINA" (case-insensitive). How many files mention it? Is it only in the reports, or does it appear in other file types too?
+
+Then find the most recently modified file in the `mission_05` folder:
+
+```bash
+find ~/mac-cli-for-kids/playground/mission_05 -type f -mtime -7 2>/dev/null
+```
 
 ---
 
@@ -393,6 +467,6 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 ---
 
-*You are now a file detective. No file on your Mac can hide from you.*
+*You are now a file detective. No file on your Mac can hide from you. MARINA SANTOS was found. Case closed.*
 
 *Ready for Mission 6?*

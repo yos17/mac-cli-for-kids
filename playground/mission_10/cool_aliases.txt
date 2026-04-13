@@ -1,0 +1,123 @@
+================================================================
+         DETECTIVE ACADEMY — ULTIMATE ALIAS COLLECTION
+         "Work Smarter, Not Harder"
+================================================================
+
+An alias is a shortcut you define yourself. Instead of typing a long,
+complicated command, you type a short nickname. This list has 20 of
+the most useful ones — feel free to steal them all!
+
+To add an alias, put it in your ~/.zshrc file:
+  alias shortname='the long command'
+
+Then run: source ~/.zshrc   (to activate it in your current window)
+
+----------------------------------------------------------------
+
+NAVIGATION SHORTCUTS:
+---------------------
+
+1.  alias ..='cd ..'
+    What it does: Go up one folder level instead of typing 'cd ..'
+    Use case: You're deep inside folders and want to back up quickly.
+
+2.  alias ...='cd ../..'
+    What it does: Go up TWO folder levels at once.
+    Use case: Even quicker escape from deep directory nesting.
+
+3.  alias home='cd ~'
+    What it does: Jump straight to your home folder from anywhere.
+    Use case: You're lost and want to start fresh.
+
+4.  alias desk='cd ~/Desktop'
+    What it does: Jump to your Desktop folder instantly.
+    Use case: Quick access to files you put on the Desktop.
+
+FILE LISTING SHORTCUTS:
+------------------------
+
+5.  alias ll='ls -lh'
+    What it does: List files in LONG format with human-readable sizes.
+    Use case: See file sizes (KB, MB) and modification dates at a glance.
+
+6.  alias la='ls -la'
+    What it does: List ALL files (including hidden dotfiles), long format.
+    Use case: Finding hidden files like .secret_code.txt !
+
+7.  alias lf='ls -F'
+    What it does: List files with type indicators (/ for folders, * for executables).
+    Use case: Quickly tell apart folders from files.
+
+NETWORK & SYSTEM:
+------------------
+
+8.  alias myip='curl -s https://api.ipify.org && echo'
+    What it does: Shows your current public IP address.
+    Use case: Network troubleshooting, or just satisfying curiosity.
+
+9.  alias weather='curl -s "https://wttr.in/?format=3"'
+    What it does: Shows today's weather in one line.
+    Use case: Check weather without leaving the Terminal. Total nerd move.
+
+10. alias ping3='ping -c 3'
+    What it does: Pings a host exactly 3 times (instead of forever).
+    Use case: alias ping3 google.com — quick network check.
+
+11. alias ports='lsof -i -P -n | grep LISTEN'
+    What it does: Lists all open network ports on your computer.
+    Use case: Security check — see if any suspicious ports are open.
+
+PRODUCTIVITY:
+--------------
+
+12. alias reload='source ~/.zshrc && echo "Config reloaded!"'
+    What it does: Reloads your .zshrc config without restarting Terminal.
+    Use case: After adding new aliases, activate them instantly.
+
+13. alias recent='ls -lt | head -10'
+    What it does: Shows the 10 most recently modified files.
+    Use case: "What did I work on last?" — answered instantly.
+
+14. alias biggest='du -sh * | sort -rh | head -10'
+    What it does: Shows the 10 biggest files/folders in current directory.
+    Use case: Finding what's taking up disk space.
+
+15. alias usage='df -h'
+    What it does: Shows disk usage in a human-readable format.
+    Use case: Quick check if your hard drive is getting full.
+
+SAFETY SHORTCUTS:
+------------------
+
+16. alias rm='rm -i'
+    What it does: Makes 'rm' ask "are you sure?" before deleting.
+    Use case: EXTREMELY recommended. Prevents accidental file deletion.
+    Note: This is one you should DEFINITELY add to your .zshrc.
+
+17. alias cp='cp -i'
+    What it does: Makes 'cp' ask before overwriting existing files.
+    Use case: Prevents accidentally overwriting important files.
+
+18. alias mv='mv -i'
+    What it does: Makes 'mv' ask before overwriting.
+    Use case: Safety net when moving files around.
+
+FUN & USEFUL:
+--------------
+
+19. alias timer='echo "Timer started" && date && read -p "Press Enter to stop..." && date'
+    What it does: A simple stopwatch — press Enter to stop and see elapsed time.
+    Use case: Timing how fast you can complete a Terminal challenge!
+
+20. alias detective='echo "Detective $(whoami) — Badge #$(date +%Y%m%d) — On duty."'
+    What it does: Prints a fun "detective ID" with your username and today's date.
+    Use case: Starting every Terminal session in style.
+
+    Try it right now: just copy that line to your Terminal and hit Enter!
+
+================================================================
+BONUS TIP: You can see all your current aliases by typing:
+  alias
+
+No arguments — it just prints all defined aliases. Try it!
+================================================================

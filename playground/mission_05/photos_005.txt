@@ -1,0 +1,4 @@
+Photo log — Keycard cloning device analysis, 2026-04-05
+Photos taken: 15 (EVD-0501-A through EVD-0501-O)
+Camera: Lab forensics camera (high resolution)
+Notes: Device was hand-built. No serial number. Components sourced from 3 different countries.

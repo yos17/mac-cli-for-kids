@@ -1,0 +1,99 @@
+================================================================
+         DETECTIVE ACADEMY — OFFICIAL INCIDENT REPORT
+         Form DA-7 (Revised 2026)
+================================================================
+
+CASE INFORMATION
+----------------
+Case Number:        {{CASE_NUMBER}}
+Date of Report:     {{DATE}}
+Classification:     [ ] PUBLIC  [ ] RESTRICTED  [X] CONFIDENTIAL
+
+DETECTIVE INFORMATION
+---------------------
+Lead Detective:     {{DETECTIVE_NAME}}
+Badge Number:       DA-{{BADGE_NUMBER}}
+Division:           {{DIVISION}}
+Supervisor:         Commander Chen (all reports route through Chen)
+
+SUBJECT OF INVESTIGATION
+-------------------------
+Primary Suspect:    {{SUSPECT_NAME}}
+Known Aliases:      {{ALIAS_1}}, {{ALIAS_2}}
+Last Known Location: {{LOCATION}}
+Risk Level:         [ ] LOW  [ ] MEDIUM  [ ] HIGH  [ ] EXTREME
+
+INCIDENT SUMMARY
+----------------
+Date of Incident:   {{DATE}}
+Time of Incident:   {{TIME}}
+Location:           {{LOCATION}}
+
+Description:
+{{INCIDENT_DESCRIPTION}}
+
+EVIDENCE COLLECTED
+------------------
+Item 1: {{EVIDENCE}}
+Item 2: {{EVIDENCE_2}}
+Item 3: {{EVIDENCE_3}}
+
+Chain of Custody:
+  Collected by: {{DETECTIVE_NAME}}
+  Transferred to: Academy Evidence Room, Locker {{LOCKER_NUMBER}}
+  Date/Time of Transfer: {{TRANSFER_DATE}}
+
+WITNESS STATEMENTS
+------------------
+Witness 1: {{WITNESS_1_NAME}}
+  Statement: "{{WITNESS_1_STATEMENT}}"
+
+Witness 2: {{WITNESS_2_NAME}}
+  Statement: "{{WITNESS_2_STATEMENT}}"
+
+ANALYSIS AND FINDINGS
+----------------------
+{{FINDINGS}}
+
+RECOMMENDED NEXT STEPS
+-----------------------
+1. {{ACTION_1}}
+2. {{ACTION_2}}
+3. {{ACTION_3}}
+
+CONCLUSION
+----------
+Based on the evidence collected and witness statements obtained,
+it is my professional assessment that {{SUSPECT_NAME}} is:
+
+  [ ] NOT a suspect — release and apologize for the inconvenience
+  [ ] A PERSON OF INTEREST — continue surveillance
+  [ ] A PRIME SUSPECT — recommend formal charges
+  [ ] DEFINITELY GUILTY but we need more proof (work in progress)
+
+Submitted by: {{DETECTIVE_NAME}}
+Date: {{DATE}}
+Signature: ____________________________
+
+================================================================
+ACADEMY USE ONLY — DO NOT REMOVE FROM PREMISES
+Form DA-7 | Incident Report | Version 3.1
+================================================================
+
+--- YOUR MISSION (sed practice!) ---
+
+Use `sed` to replace the placeholders with real values!
+
+EXAMPLE: Replace {{DETECTIVE_NAME}} with your own name:
+  sed 's/{{DETECTIVE_NAME}}/Your Name Here/g' template.txt
+
+Replace {{CASE_NUMBER}} with a made-up case number:
+  sed 's/{{CASE_NUMBER}}/CASE-2026-9999/g' template.txt
+
+Chain multiple replacements:
+  sed 's/{{DETECTIVE_NAME}}/Agent Z/g; s/{{DATE}}/2026-04-13/g' template.txt
+
+Save the result to a new file:
+  sed 's/{{DETECTIVE_NAME}}/Agent Z/g' template.txt > my_report.txt
+
+Try filling in ALL the placeholders to create a complete report!

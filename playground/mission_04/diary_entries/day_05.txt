@@ -1,0 +1,37 @@
+================================================================
+DETECTIVE'S PERSONAL DIARY — STRICTLY CONFIDENTIAL
+Day 5 of the Missing USB Drive Case
+================================================================
+
+Day 5: Cross-referencing complete. My suspect list just got shorter.
+
+Network logs show only two people were logged into the Academy
+network between 13:15 and 13:30 from terminals near Room 4B:
+  1. Dr. Felix Okafor (Suspect #1) — but he was logged in from
+     his OFFICE, which is on the complete opposite side of the
+     building from Room 4B. Cleared.
+  2. Agent Reyna Vasquez (Suspect #2) — her terminal session
+     shows she was logged in from Room 4B, Station 6.
+
+Station 6 is right next to Station 7, where I found the USB cap.
+
+I brought Vasquez back in for a second interview. She seemed
+nervous this time — not calm like before. She kept touching her
+lanyard. I asked her directly: "Were you in Room 4B on the day
+the USB went missing?"
+
+She paused. Three full seconds. Then: "I might have been. I use
+those computers sometimes."
+
+That pause. That hesitation. That's the tell.
+
+But here's the thing — I still haven't found the actual USB drive.
+Accessing it isn't the same as stealing it. Maybe she used it and
+put it back... and it went missing after that?
+
+Technician Bob is still on my list, just for that comment about
+the blue cap. Something is off about him.
+
+Also — I keep forgetting to bring my coat to work. It's been cold.
+
+— Detective J.

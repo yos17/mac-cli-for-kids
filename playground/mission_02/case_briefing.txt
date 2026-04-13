@@ -1,0 +1,67 @@
+================================================================
+         DETECTIVE ACADEMY — CASE BRIEFING
+         Case #4471: The Missing Treasure Map
+         Classification: RECRUIT TRAINING
+================================================================
+
+TO: New Recruit
+FROM: Agent Compass, Field Operations Division
+DATE: Current Mission Cycle
+
+SITUATION REPORT:
+-----------------
+A treasure map has gone missing from the Academy archives. Our last
+confirmed sighting placed it somewhere inside the building at this
+location. The map is not dangerous, but it IS important — it's part
+of your training, and you need to find it.
+
+LAST KNOWN LOCATION:
+--------------------
+The treasure map was last seen in the office basement. Specifically,
+sources indicate it ended up in the vault. The vault has a locked
+compartment. That's where we believe it currently sits.
+
+YOUR MISSION:
+-------------
+Navigate through this building's directory structure to find the map.
+
+The building layout:
+  office/
+    hallway/
+      room1/        ← Dead end. Check it anyway for practice.
+    basement/
+      vault/
+        locked/     ← TARGET LOCATION
+
+COMMANDS YOU'LL NEED:
+---------------------
+
+  ls              — See what's in the current folder
+  cd <folder>     — Move into a folder
+  cd ..           — Go back up one level (like leaving a room)
+  pwd             — Show your current location
+  cat <file>      — Read a file's contents
+
+INVESTIGATOR NOTES:
+-------------------
+- The `hallway/room1/` path is a dead end — but detectives check
+  EVERYWHERE. Visit it anyway and read the desk.txt file.
+
+- Use `pwd` frequently so you always know where you are.
+
+- When you find the treasure map, read it carefully. It contains
+  a message about something more valuable than gold.
+
+- Don't forget to look for hidden files! Use `ls -a` not just `ls`
+
+MISSION OBJECTIVE:
+------------------
+Find and read the treasure_map.txt inside the locked vault.
+Then find and read the hidden .secret_code.txt in this folder.
+
+Good luck, Detective.
+
+— Agent Compass
+  Field Operations, Detective Academy
+
+================================================================

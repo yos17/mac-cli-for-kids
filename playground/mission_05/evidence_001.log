@@ -1,0 +1,5 @@
+[2026-04-01 08:14:55] INFO: System boot complete. All sensors nominal.
+[2026-04-01 09:22:11] ALERT: Suspicious activity detected at grid B-7. Motion sensor triggered.
+[2026-04-01 09:22:14] INFO: Camera B-7 activated. Recording in progress.
+[2026-04-01 09:24:00] INFO: Motion sensor B-7 reset. No subject identified.
+[2026-04-01 11:45:33] INFO: Routine patrol log entry. All clear.

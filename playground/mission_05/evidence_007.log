@@ -1,0 +1,5 @@
+[2026-04-07 22:00:00] INFO: Frequency monitoring session started. Range: 140-150 MHz.
+[2026-04-07 22:47:03] ALERT: Transmission detected on 147.320 MHz. Duration: 12 seconds.
+[2026-04-07 22:47:03] INFO: Recording initiated — full capture successful.
+[2026-04-07 22:47:15] INFO: Transmission ended.
+[2026-04-07 22:50:00] INFO: Coordinates extracted from transmission. Logged as EVD-0701.

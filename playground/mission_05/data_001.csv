@@ -1,0 +1,6 @@
+date,agent_id,location,action,result
+2026-04-01,A-001,grid_B7,patrol,clear
+2026-04-01,A-003,server_room,access_check,denied_unauthorized
+2026-04-02,A-007,wing_c,keycard_scan,valid
+2026-04-02,A-011,warehouse_c,inspection,anomaly_found
+2026-04-03,A-001,perimeter,night_patrol,vehicle_logged

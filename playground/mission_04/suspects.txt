@@ -1,0 +1,60 @@
+================================================================
+         CASE #USB-2026-MISSING — SUSPECT DOSSIERS
+         Classification: ACTIVE INVESTIGATION
+================================================================
+
+SUSPECT #1: DR. FELIX OKAFOR
+-----------------------------
+Role: Lead Technology Instructor, Detective Academy
+Last Seen: Wing C corridor, 13:00 on the day in question
+Alibi: In a faculty meeting 11:00–12:30, then office hours 14:00–17:00
+Suspicious Behavior: Coffee mug found on victim's desk. 45-minute
+  gap in alibi between meeting and office hours unaccounted for.
+Status: PERSON OF INTEREST
+
+SUSPECT #2: AGENT REYNA VASQUEZ
+---------------------------------
+Role: Communications Specialist, Intelligence Division
+Last Seen: Cafeteria, approximately 12:47 (receipt confirms)
+Alibi: Paid cash at cafeteria (unverifiable duration), claims to
+  have gone straight back to workstation after lunch.
+Suspicious Behavior: Network logs show terminal activity from Room
+  4B at 13:22 — same room, same time as USB cap discovery.
+  Hesitated three full seconds when asked about Room 4B directly.
+Status: PRIME SUSPECT (circumstantial evidence only)
+
+SUSPECT #3: TECHNICIAN BOB
+----------------------------
+Role: IT Support and Hardware Maintenance
+Last Seen: "Around, you know, doing stuff" (his words)
+Alibi: "I was fixing a printer" — printer repair log confirms a
+  work order, but timestamp was not recorded precisely.
+Suspicious Behavior: Mentioned the USB's "blue cap" — a detail
+  not included in the official missing item report.
+Status: SUSPICIOUS (needs further questioning)
+
+SUSPECT #4: UNKNOWN PARTY
+---------------------------
+Role: Unknown
+Last Seen: Unknown
+Alibi: Unknown
+Suspicious Behavior: The corridor camera was pointed at the
+  ceiling due to "maintenance." Coincidence? Or planning?
+Status: THEORETICAL — no evidence this person exists
+
+SUSPECT #5: DR. AMARI (VICTIM / DESK OWNER)
+---------------------------------------------
+Role: Senior Research Scientist, Technology Division
+Last Seen: Departed for conference on Day 0 of the investigation.
+  Has been out of town the entire duration.
+Alibi: Conference in another city. Confirmed by registration,
+  hotel records, and seven colleagues who saw her there.
+Suspicious Behavior: None. She IS the victim.
+Special Note: Has a navy coat in the break room she keeps
+  forgetting to pick up. Mentioned it in passing interview.
+Status: NOT A SUSPECT — also please give her coat back.
+
+================================================================
+UPDATE (Day 7): ALL SUSPECTS CLEARED. Case closed.
+The USB was in Dr. Amari's coat pocket. It was never stolen.
+================================================================

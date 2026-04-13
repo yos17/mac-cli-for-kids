@@ -1,19 +1,60 @@
 # Mission 2 — Exploring Your World
 
-## Mission Briefing
+## Mission Briefing — Commander Chen Speaks
 
-Every video game has a map. In Minecraft, you explore a world made of blocks. In Zelda, you explore dungeons and overworld. Your Mac's file system is exactly like that — a world full of folders (dungeons) and files (treasure chests).
+*Incoming transmission...*
 
-The difference is that in Finder, you can only see what's in front of you. In Terminal, you can see *everything* — where you are, what's around you, and jump to any location instantly with a single command.
+> "Agent, your first mission proved you can open the portal. Now you need to learn to move around inside it. A detective who can't navigate a crime scene is useless. Your Mac's file system is a maze of folders within folders — think of it as a building with rooms, hallways, and hidden basement vaults. Today you learn to explore it all without getting lost. Three commands: know where you are, see what's around you, move to a new location. Simple. Essential. Master them."
 
-Today you learn to navigate your Mac like a pro explorer.
+Every video game has a map. In Minecraft, you explore a world made of blocks. In Zelda, you explore dungeons and overworld. Your Mac's file system is exactly like that — a world full of folders (rooms) and files (evidence). The difference is that in Finder, you can only see what's right in front of you. In Terminal, you can see *everything* — where you are, what's around you, and jump to any location instantly with a single command.
+
+Today you learn to navigate your Mac like a pro detective casing a building.
 
 ### What You'll Learn
 - `pwd` — where am I right now?
 - `ls` — what's here?
 - `cd` — move to a different place
 - How Mac's file system is organized
-- How to draw a map of your home folder
+- How to explore a multi-level folder maze
+
+---
+
+## Your Case Files
+
+Commander Chen has set up a training maze for you to navigate. Head there now:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_02
+ls
+```
+
+You should see:
+
+```
+case_briefing.txt   clue1.txt   clue2.txt   clue3.txt   office/
+```
+
+The `office/` folder is a full building with rooms, a hallway, and a locked basement vault. Your clue files are scattered throughout. Here's the full layout of what's hidden inside:
+
+```
+mission_02/
+├── case_briefing.txt
+├── clue1.txt
+├── clue2.txt
+├── clue3.txt
+├── office/
+│   ├── hallway/
+│   │   └── room1/
+│   │       └── desk.txt
+│   └── basement/
+│       └── vault/
+│           └── locked/
+│               ├── treasure_map.txt
+│               └── access_denied.txt
+└── .secret_code.txt   (hidden!)
+```
+
+Your mission: navigate every level of this maze using the three commands you're about to learn.
 
 ---
 
@@ -22,9 +63,9 @@ Today you learn to navigate your Mac like a pro explorer.
 Your Mac's files are organized like a tree. Everything starts from the **root** — written as `/` (a single forward slash). From there, branches go out:
 
 ```
-/                          ← root (the trunk of the tree)
+/                          <- root (the trunk of the tree)
 ├── Users/
-│   └── sophia/            ← YOUR home folder (~)
+│   └── sophia/            <- YOUR home folder (~)
 │       ├── Desktop/
 │       ├── Documents/
 │       ├── Downloads/
@@ -55,7 +96,7 @@ Output:
 /Users/sophia
 ```
 
-This is your **current directory** (directory = folder). The terminal is always "inside" some folder, just like how Finder always has a window open somewhere.
+This is your **current directory** (directory = folder). The terminal is always "inside" some folder, just like how Finder always has a window open somewhere. A detective always knows their current location.
 
 ---
 
@@ -172,7 +213,7 @@ cd Doc[TAB]
 
 It auto-completes to `Documents`! If there are multiple matches, press Tab twice to see them all.
 
-Tab completion works for file names too. Use it constantly — it saves time and prevents typos.
+Tab completion works for file names too. Use it constantly — it saves time and prevents typos. Real detectives use every shortcut available.
 
 ### Paths — Absolute vs Relative
 
@@ -190,7 +231,7 @@ cd Documents
 ```
 This only works if you're already in your home folder.
 
-Think of it like directions: "Go to 123 Main Street" (absolute) vs "Turn left at the corner" (relative — only makes sense if you know where you're standing).
+Think of it like giving directions: "Go to 123 Main Street" (absolute — works no matter where you're standing) vs "Turn left at the corner" (relative — only makes sense if you know where you're starting from).
 
 ---
 
@@ -219,7 +260,7 @@ pwd
 
 `../..` means "go up one level, then up again." Where did you end up?
 
-**Experiment 3:** List your Desktop contents.
+**Experiment 3:** List a folder's contents without being inside it.
 
 ```bash
 ls ~/Desktop
@@ -227,7 +268,7 @@ ls ~/Desktop
 
 You can `ls` a folder without being inside it by putting the path after `ls`.
 
-**Experiment 4:** Use `ls` on the whole system.
+**Experiment 4:** Use `ls` on the whole system root.
 
 ```bash
 ls /
@@ -238,7 +279,7 @@ Output:
 Applications  Library  System  Users  Volumes  bin  etc  home  opt  private  sbin  tmp  usr  var
 ```
 
-These are ALL the top-level folders on your Mac. Most of them are system stuff — don't worry about them for now.
+These are ALL the top-level folders on your Mac. Most of them are system stuff — don't worry about them for now. Just notice that the whole Mac is one big tree.
 
 ---
 
@@ -254,99 +295,131 @@ The `-G` flag turns on color output. In Mission 10 you'll set this as the perman
 
 ---
 
-## Your Mission — Draw a Map of Your Home Folder
+## Your Mission — Navigate the Detective Building
 
-You're going to explore your home folder and its contents, then "draw" a map using `echo` commands.
-
-First, gather information:
+Time to put your skills to work on the mission playground. Navigate through the `office/` maze and read every file you find.
 
 ```bash
-cd ~
+cd ~/mac-cli-for-kids/playground/mission_02
+cat case_briefing.txt
+```
+
+Read the briefing, then start exploring:
+
+```bash
+# Read the clue files in the main folder
+cat clue1.txt
+cat clue2.txt
+cat clue3.txt
+
+# Move into the office building
+cd office
 ls
+
+# Explore the hallway
+cd hallway
+ls
+cd room1
+ls
+cat desk.txt
+
+# Navigate back and find the basement
+cd ../..
+ls
+cd basement
+cd vault
+cd locked
+ls
+cat access_denied.txt
+cat treasure_map.txt
 ```
 
-Now look inside a few key folders:
-
-```bash
-ls Documents
-ls Downloads
-ls Desktop
-ls Pictures
-```
-
-Now create your map! Replace what you see with your actual folder contents:
+Then draw your map using `echo` commands — replace with what you actually found:
 
 ```bash
 echo "============================================"
-echo "        MAP OF SOPHIA'S COMPUTER            "
+echo "     MAP OF THE DETECTIVE BUILDING          "
 echo "============================================"
 echo ""
-echo "~ (Home Folder: /Users/sophia)"
+echo "mission_02/"
 echo "|"
-echo "+-- Desktop/"
-echo "|"
-echo "+-- Documents/"
-echo "|   +-- (your documents here)"
-echo "|"
-echo "+-- Downloads/"
-echo "|   +-- (your downloads here)"
-echo "|"
-echo "+-- Pictures/"
-echo "|   +-- (your photos here)"
-echo "|"
-echo "+-- Music/"
-echo "|"
-echo "+-- Movies/"
-echo "|"
-echo "+-- Public/"
+echo "+-- case_briefing.txt"
+echo "+-- clue1.txt / clue2.txt / clue3.txt"
+echo "+-- office/"
+echo "    +-- hallway/"
+echo "    |   +-- room1/"
+echo "    |       +-- desk.txt"
+echo "    +-- basement/"
+echo "        +-- vault/"
+echo "            +-- locked/"
+echo "                +-- treasure_map.txt"
+echo "                +-- access_denied.txt"
 echo ""
-echo "Total folders found:"
-ls ~ | wc -l
+echo "Navigation complete."
 ```
 
-The last line uses `wc -l` to count lines (we'll learn more about that in Mission 6). It tells you how many items are in your home folder.
+---
+
+## 🔍 Secret Code Hunt
+
+There's a hidden file somewhere in the `mission_02` folder. You can't see it with a plain `ls` — you need the flag that reveals hidden files.
+
+Navigate to the mission folder:
+```bash
+cd ~/mac-cli-for-kids/playground/mission_02
+```
+
+Use `ls -la` to show hidden files. Do you see a file starting with `.`? Once you spot `.secret_code.txt`, read it:
+
+```bash
+cat .secret_code.txt
+```
+
+Write down the word. That's word #2 in your 12-word master code!
+
+**Bonus hunt:** There might be more hidden files deeper in the maze. Can you use `ls -la` inside the `office/` subfolders to check?
 
 ---
 
 ## Challenges
 
-### Challenge 1 — The Deep Dive
+### Case #0201 — The Deep Dive
 
-Navigate into your Documents folder, then into the deepest subfolder you can find (keep using `cd foldername` to go deeper). Then use `pwd` to show where you ended up. Then come back home in one command.
+Navigate into the `office/basement/vault/locked/` directory using a single `cd` command with the full relative path (no intermediate steps). Then use `pwd` to confirm where you are. Then come back to the `mission_02` folder in one command.
 
-**Hint:** Remember `cd ~` takes you home from anywhere.
+**Hint:** `cd office/basement/vault/locked` takes you all the way down in one step. And `cd ~/mac-cli-for-kids/playground/mission_02` takes you back.
 
-### Challenge 2 — The Speed Tour
+### Case #0202 — The Speed Tour
 
-Without leaving the home folder (no `cd`), use `ls` to peek inside each of these folders:
-- Desktop
-- Documents  
-- Downloads
-- Pictures
+Without leaving the `mission_02` folder (no `cd`), use `ls` to peek inside each of these locations:
+- `office/`
+- `office/hallway/`
+- `office/hallway/room1/`
+- `office/basement/vault/locked/`
 
-**Hint:** `ls ~/Desktop` works without you having to move there first.
+**Hint:** `ls office/hallway/room1/` works without you needing to move there first.
 
-### Challenge 3 — Count the Files
+### Case #0203 — Count the Clues
 
-How many items are in your Downloads folder?
+How many clue files are directly in the `mission_02` folder? Use `ls` and `wc -l` together:
 
 ```bash
-ls ~/Downloads | wc -l
+ls ~/mac-cli-for-kids/playground/mission_02 | wc -l
 ```
 
-That `|` (pipe) and `wc -l` is a sneak peek at Mission 6. `wc -l` counts lines. So this counts how many things `ls` printed.
+That `|` (pipe) and `wc -l` is a sneak peek at Mission 6. `wc -l` counts lines, so this counts how many items `ls` printed.
 
-Can you find which folder in your home directory has the MOST items in it?
+Now count how many items are inside `office/basement/vault/locked/`. Which folder has more items?
 
-### Challenge 4 — The Hidden World
+### Case #0204 — The Hidden World
 
-Show all hidden files in your home folder:
+Show all hidden files in your own home folder:
 
 ```bash
 ls -la ~ | grep "^\."
 ```
 
-Write down (or remember) at least 3 hidden files you find. What do you think `.zshrc` might be for? (We'll open it in Mission 10!)
+Write down at least 3 hidden files you find. What do you think `.zshrc` might be for? (You'll open it in Mission 10!) Then compare: does the `mission_02` playground have any hidden files beyond `.secret_code.txt`?
 
 ---
 
@@ -382,6 +455,6 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 ---
 
-*The map is in your head now. You know how to find anything, go anywhere, and always find your way home.*
+*The map is in your head now. You know how to find anything, go anywhere, and always find your way home. A detective who can navigate always has the advantage.*
 
 *Ready for Mission 3?*

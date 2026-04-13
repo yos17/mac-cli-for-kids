@@ -1,0 +1,80 @@
+================================================================
+         DETECTIVE ACADEMY — OFFICIAL WELCOME LETTER
+================================================================
+
+To: [YOUR NAME HERE], New Recruit
+From: Commander Chen, Director of Training Operations
+Date: [TODAY'S DATE]
+Re: Your Acceptance into Detective Academy
+
+================================================================
+
+Congratulations, Recruit.
+
+You've been selected. Out of thousands of applicants, YOUR profile
+stood out. The Academy doesn't accept just anyone — we look for
+curiosity, persistence, and the willingness to explore the unknown.
+You have all three.
+
+What you're holding (or reading) right now is your first mission
+briefing. Welcome to Detective Academy.
+
+--- ABOUT THE TERMINAL ---
+
+Every great detective has a superpower. Sherlock Holmes had his
+deductive reasoning. Batman had his gadgets. James Bond had his
+gadgets AND his charm.
+
+YOUR superpower? The Terminal.
+
+The Terminal is a direct line to your computer's brain. No clicking
+around menus. No waiting for windows to load. You type a command,
+the computer obeys instantly. It's like having a secret language
+that most people don't know — and now you're learning it.
+
+Here's the truth: professional hackers, cybersecurity experts,
+NASA engineers, and software developers all use the Terminal every
+single day. When you master it, you join their ranks.
+
+--- YOUR FIRST COMMANDS ---
+
+Right now, in this folder, you have access to:
+
+  ls          — List all files (look around the room)
+  ls -a       — List ALL files, including hidden ones
+  cat <file>  — Read a file (open it and read the contents)
+  cd <folder> — Move into a folder (like walking through a door)
+
+Try this right now:
+
+  cat agents.txt
+
+That file has information about your fellow agents at the Academy.
+You'll want to know your teammates.
+
+Then try:
+
+  ls -a
+
+See that file starting with a dot? That's a hidden file. Only
+detectives who know the `-a` flag can find it.
+
+--- YOUR MISSION ---
+
+This is Mission 01. It's your orientation. Explore this folder,
+read the files, and find the hidden `.secret_code.txt`
+
+Write down what's inside it. You'll need it later.
+
+Welcome to the Academy, Recruit. The real work starts now.
+
+Stay sharp,
+
+Commander Chen
+Director of Training Operations
+Detective Academy, Class of 2026
+
+================================================================
+"The Terminal is not a tool. It is a way of thinking."
+                                        — Commander Chen
+================================================================

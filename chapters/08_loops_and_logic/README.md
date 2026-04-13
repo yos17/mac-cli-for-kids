@@ -2,18 +2,59 @@
 
 ## Mission Briefing
 
-What if you had 500 photos to rename? Or 100 files to organize? Doing it one at a time would take forever — and that's exactly the kind of boring, repetitive task that computers are *perfect* at.
+*Incoming transmission from Commander Chen...*
 
-You already know variables. Now you learn two more programming superpowers: **loops** (do something many times) and **logic** (do different things based on conditions).
+> "Detective, the evidence room has a problem. We have 500 case photos dumped in one folder with inconsistent names — some say `IMG_0042`, some say `DSC00891`, some say `vacation pic` with a space in the middle. Finding anything is impossible.
+>
+> A junior detective would rename them one by one. That would take hours. YOU are going to write a program that renames them all in seconds.
+>
+> To do that, you need two new superpowers: **loops** (do something many times) and **logic** (do different things based on conditions). Together, these are the engine of all programming.
+>
+> Get to work."
 
-With these two tools, you can write programs that would take a human days to do manually — and your computer does them in seconds.
+With loops and logic you can write programs that would take a human days to do manually — and your computer finishes them in seconds. These are not just shell script concepts. They are the heart of Python, JavaScript, Ruby, and every other language you will ever learn.
 
 ### What You'll Learn
 - `for` loops — repeat a command for each item in a list
 - `while` loops — repeat as long as something is true
 - `if/else` — make decisions
 - `test` / `[ ]` — check conditions
-- How to batch rename files and auto-organize them
+- How to batch rename files automatically
+
+---
+
+## Your Case Files
+
+The evidence room is waiting. Navigate to your playground folder:
+
+```bash
+cd ~/mac-cli-for-kids/mission_08
+ls
+```
+
+You should see:
+
+```
+photos/              ← 20 inconsistently named .txt files (your evidence photos)
+renaming_rules.txt   ← the naming standard you must enforce
+.secret_code.txt     ← hidden! (find it at the end of the mission)
+```
+
+Look inside the `photos/` folder:
+
+```bash
+ls photos/
+```
+
+You will see a chaotic mix: `IMG_0042.txt`, `DSC00891.txt`, `vacation pic.txt`, `img001.txt`, and more. Some are uppercase, some lowercase, some have spaces. This is the mess you are going to fix.
+
+Read the renaming rules:
+
+```bash
+cat renaming_rules.txt
+```
+
+That file describes the naming standard the Detective Academy uses. Your job is to write a script that enforces those rules automatically using loops and logic.
 
 ---
 
@@ -25,22 +66,22 @@ Basic form:
 
 ```bash
 for item in apple banana cherry; do
-    echo "I like $item"
+    echo "Evidence item: $item"
 done
 ```
 
 Output:
 ```
-I like apple
-I like banana
-I like cherry
+Evidence item: apple
+Evidence item: banana
+Evidence item: cherry
 ```
 
 The loop:
-1. Sets `item` to "apple", runs the commands
+1. Sets `item` to "apple", runs the commands inside
 2. Sets `item` to "banana", runs again
 3. Sets `item` to "cherry", runs again
-4. Stops
+4. Stops when the list is exhausted
 
 ---
 
@@ -48,15 +89,15 @@ The loop:
 
 ```bash
 for i in 1 2 3 4 5; do
-    echo "Count: $i"
+    echo "Case #: $i"
 done
 ```
 
-Or use a range (much easier!):
+Or use a range (much cleaner!):
 
 ```bash
 for i in {1..10}; do
-    echo "Number $i"
+    echo "File $i processed"
 done
 ```
 
@@ -64,7 +105,7 @@ Or count by 2s:
 
 ```bash
 for i in {0..20..2}; do
-    echo "Even: $i"
+    echo "Even number: $i"
 done
 ```
 
@@ -72,39 +113,41 @@ done
 
 ### Loop Over Files
 
-This is where it gets powerful. Loop over files matching a pattern:
+This is where things get powerful. Loop over every file matching a pattern:
 
 ```bash
-for file in ~/Pictures/*.jpg; do
-    echo "Found photo: $file"
+for file in ~/mac-cli-for-kids/mission_08/photos/*.txt; do
+    echo "Found evidence: $file"
 done
 ```
 
 Or loop over all files in a folder:
 
 ```bash
-for file in ~/Downloads/*; do
-    echo "Item: $file"
+for file in ~/mac-cli-for-kids/mission_08/photos/*; do
+    echo "Processing: $(basename "$file")"
 done
 ```
+
+`basename` strips the folder path and gives you just the filename. Very useful.
 
 ---
 
 ## `if/else` — Making Decisions
 
-An `if` statement checks a condition and runs different code based on whether it's true or false.
+An `if` statement checks a condition and runs different code based on whether it is true or false.
 
 ```bash
-age=12
+case_count=12
 
-if [ $age -ge 13 ]; then
-    echo "You're a teenager!"
+if [ $case_count -ge 10 ]; then
+    echo "Heavy caseload this week!"
 else
-    echo "You're a kid — enjoy it!"
+    echo "Manageable number of cases."
 fi
 ```
 
-The `[ ]` is a test. `-ge` means "greater than or equal to."
+The `[ ]` is a **test**. `-ge` means "greater than or equal to." Note the spaces inside `[ ]` — they are required.
 
 ### Comparison Operators
 
@@ -138,20 +181,20 @@ Files:
 ### `if/elif/else`
 
 ```bash
-score=85
+suspect_count=4
 
-if [ $score -ge 90 ]; then
-    echo "Grade: A"
-elif [ $score -ge 80 ]; then
-    echo "Grade: B"
-elif [ $score -ge 70 ]; then
-    echo "Grade: C"
+if [ $suspect_count -eq 0 ]; then
+    echo "No suspects — case is cold."
+elif [ $suspect_count -eq 1 ]; then
+    echo "One suspect — focus your investigation."
+elif [ $suspect_count -le 5 ]; then
+    echo "A manageable number of suspects."
 else
-    echo "Grade: needs improvement"
+    echo "Too many suspects — narrow it down first."
 fi
 ```
 
-`elif` = "else if" — checks another condition when the first was false.
+`elif` = "else if" — checks another condition when the first was false. You can chain as many as you need.
 
 ---
 
@@ -160,50 +203,54 @@ fi
 `while` loops keep going *as long as* a condition is true.
 
 ```bash
-count=1
+files_processed=0
 
-while [ $count -le 5 ]; do
-    echo "Count: $count"
-    count=$((count + 1))
+while [ $files_processed -lt 5 ]; do
+    echo "Processing file $files_processed..."
+    files_processed=$((files_processed + 1))
 done
+echo "All done!"
 ```
 
 Output:
 ```
-Count: 1
-Count: 2
-Count: 3
-Count: 4
-Count: 5
+Processing file 0...
+Processing file 1...
+Processing file 2...
+Processing file 3...
+Processing file 4...
+All done!
 ```
 
-Be careful: if the condition never becomes false, the loop runs forever! Press `Ctrl+C` to stop a runaway loop.
+Be careful: if the condition never becomes false, the loop runs forever. Press `Ctrl+C` to stop a runaway loop.
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Count from 10 down to 1.
+**Experiment 1:** Count down from 10.
 
 ```bash
 for i in {10..1}; do
     echo "Countdown: $i"
 done
-echo "Blastoff!"
+echo "Evidence room unlocked!"
 ```
 
-**Experiment 2:** Check if a file exists.
+**Experiment 2:** Check if a file exists before reading it.
 
 ```bash
-if [ -f ~/diary/journal.txt ]; then
-    echo "Your diary exists!"
-    wc -l ~/diary/journal.txt
+report="~/mac-cli-for-kids/mission_08/renaming_rules.txt"
+
+if [ -f $report ]; then
+    echo "Rules file found!"
+    wc -l $report
 else
-    echo "No diary found. Run Mission 4 first!"
+    echo "No rules file — check your path!"
 fi
 ```
 
-**Experiment 3:** Multiplication table.
+**Experiment 3:** Multiplication table — quick detective math.
 
 ```bash
 num=7
@@ -217,168 +264,132 @@ done
 ```bash
 for i in {1..10}; do
     if [ $((i % 2)) -eq 0 ]; then
-        echo "$i is even"
+        echo "Case $i: solved (even)"
     else
-        echo "$i is odd"
+        echo "Case $i: still open (odd)"
     fi
 done
 ```
 
-`%` is the modulo operator — it gives the remainder of division. `$((i % 2))` equals 0 for even numbers, 1 for odd.
+`%` is the **modulo operator** — it gives the remainder after division. `7 % 2 = 1`, `8 % 2 = 0`. If the remainder when divided by 2 is 0, the number is even.
 
 ---
 
 ## Pro Tip — `break` and `continue`
 
 - `break` — exit the loop immediately
-- `continue` — skip the rest of this iteration and go to the next
+- `continue` — skip the rest of this iteration and jump to the next one
 
 ```bash
 for i in {1..10}; do
     if [ $i -eq 5 ]; then
-        echo "Skipping 5!"
+        echo "Skipping suspect $i (alibi confirmed)"
         continue
     fi
     if [ $i -eq 8 ]; then
-        echo "Stopping at 8!"
+        echo "Stopping at $i — all other suspects cleared"
         break
     fi
-    echo "Number: $i"
+    echo "Investigating suspect $i"
 done
 ```
 
 Output:
 ```
-Number: 1
-Number: 2
-Number: 3
-Number: 4
-Skipping 5!
-Number: 6
-Number: 7
-Stopping at 8!
+Investigating suspect 1
+Investigating suspect 2
+Investigating suspect 3
+Investigating suspect 4
+Skipping suspect 5 (alibi confirmed)
+Investigating suspect 6
+Investigating suspect 7
+Stopping at 8 — all other suspects cleared
 ```
 
 ---
 
-## Your Mission — Batch File Organizer
+## Your Mission — Evidence Photo Renamer
 
-Write a script that takes a messy folder and organizes photos by type.
+Write a script that automatically fixes all the inconsistently named photos in the `mission_08/photos/` folder.
 
-First, create a test folder with messy fake files:
-
-```bash
-mkdir ~/test_photos
-cd ~/test_photos
-
-# Create fake photo files with different extensions
-touch vacation_01.jpg vacation_02.jpg vacation_03.jpg
-touch birthday_01.png birthday_02.png
-touch video_summer.mp4 video_birthday.mp4
-touch notes.txt shopping_list.txt
-touch drawing.png art_project.heic
-```
-
-Now create the organizer script:
+The goal: every file should end up named `evidence_NNN.txt` where NNN is a three-digit number with leading zeros (001, 002, 003...). No spaces, no mixed case, just clean consistent names.
 
 ```bash
-nano ~/test_photos/organize.sh
+nano ~/rename_evidence.sh
 ```
 
 ```bash
 #!/bin/bash
-# organize.sh — Sort files by type into subfolders
-# Usage: bash organize.sh [folder]
+# rename_evidence.sh — Standardize evidence photo names
+# Renames all files in a folder to evidence_001.txt, evidence_002.txt, etc.
 
-TARGET="${1:-.}"    # Use argument, or current folder if none given
+PHOTO_DIR="$HOME/mac-cli-for-kids/mission_08/photos"
 
-echo "Organizing files in: $TARGET"
+echo ""
+echo "╔══════════════════════════════════════════╗"
+echo "║       EVIDENCE PHOTO RENAMER             ║"
+echo "╚══════════════════════════════════════════╝"
+echo ""
+echo "Target folder: $PHOTO_DIR"
 echo ""
 
-# Create destination folders
-mkdir -p "$TARGET/Photos"
-mkdir -p "$TARGET/Videos"
-mkdir -p "$TARGET/Documents"
-mkdir -p "$TARGET/Other"
+# Count how many files we will process
+total=$(ls "$PHOTO_DIR"/*.txt 2>/dev/null | wc -l | tr -d ' ')
+echo "Files to rename: $total"
+echo ""
 
-moved=0
-skipped=0
+counter=1
 
-for file in "$TARGET"/*; do
-    # Skip if it's a directory
-    if [ -d "$file" ]; then
-        continue
+for file in "$PHOTO_DIR"/*.txt; do
+    # Skip if no .txt files exist
+    [ -e "$file" ] || continue
+
+    # Get the old filename (without the path)
+    old_name=$(basename "$file")
+
+    # Build the new name with leading zeros: 001, 002, ...
+    new_name=$(printf "evidence_%03d.txt" "$counter")
+
+    # Only rename if the name is actually changing
+    if [ "$old_name" != "$new_name" ]; then
+        mv "$PHOTO_DIR/$old_name" "$PHOTO_DIR/$new_name"
+        echo "  Renamed: $old_name  →  $new_name"
+    else
+        echo "  Already correct: $old_name"
     fi
 
-    # Skip this script itself
-    if [ "$file" = "$TARGET/organize.sh" ]; then
-        continue
-    fi
-
-    # Get the filename and extension
-    filename=$(basename "$file")
-    ext="${filename##*.}"   # everything after the last dot
-    ext_lower=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
-
-    # Decide where it goes based on extension
-    case "$ext_lower" in
-        jpg|jpeg|png|gif|heic|webp)
-            dest="$TARGET/Photos"
-            ;;
-        mp4|mov|avi|mkv|m4v)
-            dest="$TARGET/Videos"
-            ;;
-        txt|doc|docx|pdf|pages|md)
-            dest="$TARGET/Documents"
-            ;;
-        *)
-            dest="$TARGET/Other"
-            ;;
-    esac
-
-    # Move the file
-    mv "$file" "$dest/"
-    echo "  Moved: $filename → $(basename $dest)/"
-    moved=$((moved + 1))
+    counter=$((counter + 1))
 done
 
 echo ""
-echo "Done! Moved $moved files."
+echo "Done! All $total files renamed."
 echo ""
-echo "Summary:"
-echo "  Photos:    $(ls "$TARGET/Photos/" | wc -l | tr -d ' ') files"
-echo "  Videos:    $(ls "$TARGET/Videos/" | wc -l | tr -d ' ') files"
-echo "  Documents: $(ls "$TARGET/Documents/" | wc -l | tr -d ' ') files"
-echo "  Other:     $(ls "$TARGET/Other/" | wc -l | tr -d ' ') files"
+echo "New file list:"
+ls "$PHOTO_DIR"
 ```
 
-Save, exit, and run it:
+Save, exit, make executable, and run:
 
 ```bash
-chmod +x ~/test_photos/organize.sh
-bash ~/test_photos/organize.sh ~/test_photos
+chmod +x ~/rename_evidence.sh
+bash ~/rename_evidence.sh
 ```
 
-Watch it sort everything! Then check:
+Watch it blast through all 20 files in a second. Then look at the photos folder:
 
 ```bash
-ls ~/test_photos/Photos/
-ls ~/test_photos/Videos/
-ls ~/test_photos/Documents/
+ls ~/mac-cli-for-kids/mission_08/photos/
 ```
 
-Clean it up when done:
-```bash
-rm -r ~/test_photos
-```
+Clean, consistent, numbered. Commander Chen approves.
 
 ---
 
 ## Challenges
 
-### Challenge 1 — The Times Tables
+### Case #0801 — The Times Tables
 
-Write a script that prints the complete times tables from 1 to 12 (all 12 tables). Use a nested loop (a loop inside a loop):
+Write a script that prints the complete times tables from 1 to 12 using a **nested loop** (a loop inside a loop):
 
 ```bash
 for table in {1..12}; do
@@ -389,32 +400,69 @@ for table in {1..12}; do
 done
 ```
 
-Run it and check your work!
+Run it and verify the answers. This is a nested loop: the outer loop sets `table`, the inner loop runs 12 times for each value of `table`.
 
-### Challenge 2 — The FizzBuzz Classic
+### Case #0802 — FizzBuzz: The Classic Detective Test
 
-FizzBuzz is a famous programming challenge. Print numbers 1 to 30, but:
+FizzBuzz is a famous programming challenge used in real job interviews. Print numbers 1 to 30, but:
 - If the number is divisible by 3, print "Fizz" instead
 - If divisible by 5, print "Buzz" instead
 - If divisible by both 3 and 5, print "FizzBuzz" instead
-- Otherwise, print the number
+- Otherwise, print the number itself
 
-**Hint:** Use `$((n % 3))` to check divisibility.
+**Hint:** Use `$((n % 3))` to check divisibility. You need to check the "both" condition first — why?
 
-### Challenge 3 — The File Renamer
+### Case #0803 — Sort the Evidence by Source
 
-Create a folder with 5 files named `old_file_1.txt` through `old_file_5.txt`. Write a loop that renames them to `new_file_1.txt` through `new_file_5.txt`.
+Look at the filenames in `photos/` before you run your renamer. Some start with `IMG_`, some with `DSC`, some with `img`, some with `vacation`. Write a loop that **counts** how many files came from each source prefix:
 
-**Hint:** Loop over `{1..5}` and use `mv` inside the loop.
+```bash
+cd ~/mac-cli-for-kids/mission_08/photos
+img_count=0
+dsc_count=0
+other_count=0
 
-### Challenge 4 — Countdown Timer
+for file in *.txt; do
+    filename=$(basename "$file")
+    if [[ "$filename" == IMG_* ]] || [[ "$filename" == img* ]]; then
+        img_count=$((img_count + 1))
+    elif [[ "$filename" == DSC* ]]; then
+        dsc_count=$((dsc_count + 1))
+    else
+        other_count=$((other_count + 1))
+    fi
+done
+
+echo "IMG files: $img_count"
+echo "DSC files: $dsc_count"
+echo "Other:     $other_count"
+```
+
+(Run this before running the renamer, so the original names are still there.)
+
+### Case #0804 — Countdown Timer
 
 Write a script that:
-1. Asks the user to enter a number of seconds
-2. Counts down from that number to 0
-3. Says "Time's up!" (with `say`) when it reaches 0
+1. Asks the user to enter a number of seconds for an investigation timer
+2. Counts down from that number to 0, printing each second
+3. Says "Time's up! Submit your findings!" (with `say`) when it reaches 0
 
-**Hint:** Use `sleep 1` to pause for 1 second between counts.
+**Hint:** Use `sleep 1` to pause for one second between counts.
+
+---
+
+## Secret Code Hunt
+
+You know how to loop over files in a folder and how to use `ls -a` to reveal hidden files. The `mission_08` playground contains a hidden file.
+
+Navigate to the playground folder and list all files including hidden ones:
+
+```bash
+cd ~/mac-cli-for-kids/mission_08
+ls -a
+```
+
+Find the file starting with `.` and read it. That is your second secret code word. Write it down on your certificate sheet.
 
 ---
 
@@ -430,7 +478,7 @@ Solutions are in the [solutions folder](solutions/README.md).
 |---------|--------|
 | For loop over list | `for item in a b c; do ... done` |
 | For loop over range | `for i in {1..10}; do ... done` |
-| For loop over files | `for f in folder/*; do ... done` |
+| For loop over files | `for f in folder/*.txt; do ... done` |
 | While loop | `while [ condition ]; do ... done` |
 | If statement | `if [ condition ]; then ... fi` |
 | If/else | `if [...]; then ... else ... fi` |
@@ -439,19 +487,22 @@ Solutions are in the [solutions folder](solutions/README.md).
 | String comparison | `= != -z -n` |
 | File test | `-f file`, `-d dir`, `-e path` |
 | Arithmetic | `$((expression))` |
+| Formatted numbers | `printf "%03d" $n` (zero-padded to 3 digits) |
 | Skip iteration | `continue` |
 | Exit loop | `break` |
+| Basename | `basename "/path/to/file.txt"` → `file.txt` |
 
 ### Vocabulary
 
 - **Loop** — a structure that repeats commands
 - **Iteration** — one pass through a loop
 - **Condition** — something that evaluates to true or false
-- **Modulo** — `%` gives the remainder of division (`7 % 3 = 1`)
-- **Case statement** — a cleaner way to write many if/elif checks
+- **Modulo** — `%` gives the remainder after division (`7 % 3 = 1`)
+- **Nested loop** — a loop inside another loop
+- **`printf`** — like `echo` but with formatting (e.g. `%03d` = 3-digit zero-padded number)
 
 ---
 
-*Loops and logic. These are the heart of all programming — not just shell scripts, but Python, Ruby, Java, everything. You've got them now.*
+*Loops and logic. These are the heart of all programming — not just shell scripts, but Python, Ruby, Java, Swift, everything. Commander Chen says you are officially dangerous now.*
 
 *Ready for Mission 9?*

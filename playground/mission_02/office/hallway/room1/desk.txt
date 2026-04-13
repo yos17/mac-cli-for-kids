@@ -1,0 +1,22 @@
+FIELD OBSERVATION NOTE
+======================
+
+A dusty desk. Nothing interesting here.
+
+You open the drawers — empty, except for a dried-up pen and a sticky note
+that reads: "Meeting moved to basement. — G"
+
+Whoever used this desk packed up in a hurry. The chair is pushed back at
+an odd angle. A coffee mug with an old Academy logo sits on the corner,
+long since cold and abandoned.
+
+You note the details (a good detective always notes details), but there's
+no evidence here. The real action is elsewhere.
+
+Try the basement.
+
+DETECTIVE TIP: To go back up one level, type: cd ..
+To go up TWO levels at once, type: cd ../..
+
+The basement is accessed from the office level, not from here.
+Navigate back and try: cd ../basement/

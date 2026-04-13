@@ -1,0 +1,6 @@
+evidence_id,date_collected,location,type,status
+EVD-0101,2026-04-01,grid_B7,motion_sensor_log,processed
+EVD-0201,2026-04-02,server_room,access_log,processed
+EVD-0301,2026-04-03,warehouse_c,device,sent_to_lab
+EVD-0401,2026-04-04,wing_b,cloning_device,analyzed
+EVD-0501,2026-04-05,forensics_lab,keycard_profile,flagged

@@ -1,0 +1,22 @@
+CLUE #1 — EVIDENCE TAG: M02-C01
+================================
+
+The evidence is not here.
+
+You're standing at the entrance of the building. Look around — nothing
+suspicious on the surface. Just a lobby with a front desk and some dusty
+potted plants.
+
+The treasure map we're looking for was last reported inside this building.
+But where exactly?
+
+HINT: Try going deeper. Use `ls` to see what's inside the `office/` folder.
+Then use `cd` to walk through the door.
+
+  cd office/
+
+Then look around again with `ls`
+
+Detective Tip: Think of each folder like a room in a building.
+`cd` = open a door and walk in.
+`ls` = turn on the lights and look around.

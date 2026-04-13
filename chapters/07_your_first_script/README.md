@@ -2,23 +2,57 @@
 
 ## Mission Briefing
 
-Everything you've been doing — all those commands — you've been typing them one at a time. But what if you could save a whole *sequence* of commands in a file and run them all at once with a single word?
+*Incoming transmission from Commander Chen...*
 
-That's a **script**. A script is a program. And today you write your first real one.
+> "Detective, you have been typing commands one at a time. That is fine for quick lookups. But real detectives don't repeat themselves. We write **procedures** — step-by-step instructions our equipment follows automatically.
+>
+> Today you will write your first **script**: a real program that runs a whole sequence of commands with a single word. By the time you finish, your computer will greet you by name, announce the date, share a random fact, and read the whole briefing out loud — all from one command.
+>
+> The Detective Academy is watching. Make us proud."
 
-By the end of this mission, you'll have a morning briefing script that:
-- Greets you by name
-- Tells you today's date and day of the week
-- Shows you the weather (sort of!)
-- Tells you a random fun fact
-- Says everything out loud in your favorite voice
+A script is exactly what Commander Chen described: a text file full of commands, saved so you can run them again and again. You have been typing commands live; now you package them. That is how real software works.
+
+By the end of this mission your morning briefing script will:
+- Greet you by name
+- Tell you today's date and day of the week
+- Recite a random fun fact from your personal fact database
+- Say everything out loud in your favorite voice
 
 ### What You'll Learn
 - The shebang line (`#!/bin/bash`)
 - Variables — storing values with names
 - `chmod +x` — making a file executable
-- Running your script
+- Running your script two different ways
 - How to make your script speak
+- Arrays and random selection
+
+---
+
+## Your Case Files
+
+Before writing anything new, let's check in at HQ. Your playground folder for this mission is already on your computer.
+
+```bash
+cd ~/mac-cli-for-kids/mission_07
+ls -la
+```
+
+You should see:
+
+```
+template.txt        ← a detective report template with {{PLACEHOLDER}} fields
+names.txt           ← 10 detective names (suspects? partners? you decide)
+case_numbers.txt    ← 10 case numbers in CASE-2026-XXXX format
+.secret_code.txt    ← hidden! (you'll find it at the end of the mission)
+```
+
+Take a look at the template:
+
+```bash
+cat template.txt
+```
+
+Notice those `{{PLACEHOLDER}}` fields? By the end of this mission you will know how to fill them in automatically using variables in a script. That is exactly what big software does when it generates a form or a report.
 
 ---
 
@@ -40,14 +74,14 @@ Every script starts with a special first line called the **shebang**:
 #!/bin/bash
 ```
 
-This tells your Mac: "Use the program at `/bin/bash` to run this file." The `#!` is read as "hash-bang" → shebang. It's always the very first line.
+This tells your Mac: "Use the program at `/bin/bash` to run this file." The `#!` is read as "hash-bang" — shebang. It must be the very first line of every script.
 
-On modern Macs, you might also see:
+On modern Macs you might also see:
 ```bash
 #!/bin/zsh
 ```
 
-Either works for this book. We'll use `#!/bin/bash` because it's universal.
+Either works for this book. We'll use `#!/bin/bash` because it runs on any Unix-style system.
 
 ---
 
@@ -56,50 +90,50 @@ Either works for this book. We'll use `#!/bin/bash` because it's universal.
 Variables store values that you can use and reuse.
 
 ```bash
-name="Sophia"
-age=12
-greeting="Hello there"
+detective_name="Sophia"
+badge_number=7
+greeting="Good morning, Detective"
 ```
 
 **Rules:**
 - No spaces around the `=`
 - Variable names are CASE_SENSITIVE
-- Use `$` to read the value
+- Use `$` to read the value back
 
 ```bash
-echo "My name is $name"
-echo "I am $age years old"
-echo "$greeting, $name!"
+echo "My name is $detective_name"
+echo "Badge: $badge_number"
+echo "$greeting, $detective_name!"
 ```
 
 Output:
 ```
 My name is Sophia
-I am 12 years old
-Hello there, Sophia!
+Badge: 7
+Good morning, Detective Sophia!
 ```
 
 **Quotes matter:**
 
 ```bash
-name="Sophia"
-echo "Hello $name"     # → Hello Sophia  (variable expanded)
-echo 'Hello $name'     # → Hello $name   (no expansion in single quotes)
+detective_name="Sophia"
+echo "Hello $detective_name"    # → Hello Sophia  (variable expanded)
+echo 'Hello $detective_name'    # → Hello $detective_name  (no expansion!)
 ```
 
-Double quotes expand variables. Single quotes do not. Remember this!
+Double quotes expand variables. Single quotes do not. Remember this — it catches everyone at first.
 
 **Command substitution in variables:**
 
 ```bash
 today=$(date +"%A")
-files=$(ls ~ | wc -l)
+file_count=$(ls ~ | wc -l)
 
 echo "Today is $today"
-echo "You have $files items in your home folder"
+echo "You have $file_count items in your home folder"
 ```
 
-The `$(...)` runs a command and saves its output into the variable.
+The `$(...)` syntax runs a command and saves its output into the variable. This is called **command substitution** and it is incredibly powerful.
 
 ---
 
@@ -111,7 +145,7 @@ Create a new script file:
 touch ~/hello.sh
 ```
 
-Open it with nano (a simple text editor in Terminal):
+Open it with nano (a simple text editor that lives right inside Terminal):
 
 ```bash
 nano ~/hello.sh
@@ -122,9 +156,9 @@ You'll see an empty editor. Type this:
 ```
 #!/bin/bash
 
-name="Sophia"
-echo "Hello, $name! Welcome to your terminal."
-say "Hello $name, your terminal is ready"
+detective_name="Sophia"
+echo "Detective $detective_name reporting for duty."
+say "Hello Detective $detective_name, your terminal is ready"
 ```
 
 Save: press `Ctrl+O`, then Enter.
@@ -136,35 +170,30 @@ Now make it executable:
 chmod +x ~/hello.sh
 ```
 
-Run it:
+Run it two ways:
 
 ```bash
-bash ~/hello.sh
+bash ~/hello.sh    # run with bash directly
+~/hello.sh         # run as an executable program
 ```
 
-Or, if you made it executable:
-
-```bash
-~/hello.sh
-```
-
-Your Mac greets you!
+Your Mac greets you by name!
 
 ---
 
 ## Understanding `chmod +x`
 
-`chmod` changes a file's **permissions** — who can read, write, or execute it.
+`chmod` changes a file's **permissions** — who can read it, who can change it, and who can run it.
 
-`+x` adds the "execute" permission. Without it, your file is just text. With it, your Mac knows it's a runnable program.
+`+x` adds the "execute" permission. Without it, your file is just a text document. With it, your Mac treats it as a runnable program.
 
-We'll learn more about permissions in Mission 11. For now, just remember: `chmod +x yourscript.sh` is required once before running a script.
+We'll go much deeper on permissions in Mission 11. For now: `chmod +x yourscript.sh` is the magic step you do once before running any new script.
 
 ---
 
 ## The `nano` Text Editor
 
-`nano` is the friendliest text editor in Terminal. Commands appear at the bottom:
+`nano` is the friendliest text editor in Terminal. Shortcut commands appear at the bottom of the screen:
 
 ```
 ^G = Get Help     ^O = Write Out (save)    ^W = Where Is (search)
@@ -173,72 +202,72 @@ We'll learn more about permissions in Mission 11. For now, just remember: `chmod
 
 The `^` means `Ctrl`. So `^O` = `Ctrl+O`.
 
-You can also use other editors: `vim` (powerful but tricky) or VS Code (`code filename`) if you have it installed. But `nano` is great for starting out.
+You can also use `vim` (powerful but steep learning curve) or VS Code (`code filename`) if you have it installed. nano is perfect for starting out.
 
 ---
 
 ## Try It! — Quick Experiments
 
-**Experiment 1:** Variable math.
+**Experiment 1:** Variable arithmetic.
 
 ```bash
-x=5
-y=3
-result=$((x + y))
-echo "$x + $y = $result"
+suspects=5
+arrested=2
+still_loose=$((suspects - arrested))
+echo "$suspects suspects. $arrested arrested. $still_loose still at large."
 ```
 
-`$(( ))` does arithmetic. Try `-`, `*`, `/`.
+`$(( ))` does arithmetic. Try `+`, `-`, `*`, `/`.
 
-**Experiment 2:** Ask the user a question.
+**Experiment 2:** Ask the detective their name.
 
 ```bash
-echo "What is your name?"
-read username
-echo "Hello, $username!"
+echo "What is your detective code name?"
+read codename
+echo "Welcome to HQ, Detective $codename."
 ```
 
-`read` captures what you type into a variable.
+`read` captures what you type into a variable. It pauses the script and waits.
 
 **Experiment 3:** Variables from commands.
 
 ```bash
-my_location=$(pwd)
-item_count=$(ls | wc -l)
-echo "I am in: $my_location"
-echo "There are $item_count things here"
+current_dir=$(pwd)
+file_count=$(ls | wc -l)
+echo "Investigating: $current_dir"
+echo "Evidence items found: $file_count"
 ```
 
-**Experiment 4:** Edit and re-run your script.
+**Experiment 4:** Edit and re-run your hello script.
 
 ```bash
 nano ~/hello.sh
 ```
 
-Change `name="Sophia"` to your actual name (if it wasn't already). Save, exit, run again.
+Change `detective_name="Sophia"` to your actual name. Save, exit, run again. Your Mac greets the right detective.
 
 ---
 
 ## Pro Tip — Comments
 
-In scripts, lines starting with `#` are **comments** — they're ignored by the computer but help humans understand the code.
+In scripts, lines starting with `#` are **comments** — they are ignored by the computer but help humans understand the code. (The shebang `#!` on line 1 is the only exception — it IS read by the OS.)
 
 ```bash
 #!/bin/bash
-# This script greets the user
-# Written by Sophia on April 13, 2026
+# detective_briefing.sh — Daily briefing script
+# Written by Sophia Chen on April 13, 2026
 
-name="Sophia"     # change this to your name
-echo "Hello, $name!"
+detective_name="Sophia"    # change this to your name
+echo "Briefing for Detective $detective_name"
 ```
 
-Good comments explain *why*, not *what*. The code already shows *what*; the comment explains *why it's done this way*.
+Good comments explain *why*, not *what*. The code already shows *what*; the comment explains *why it is done this way*.
 
 ---
 
 ## Your Mission — Morning Briefing Script
 
-This is the big one. Build a script that gives you a complete morning briefing every day.
+This is the main assignment. Build a script that gives you a complete detective's morning briefing every day.
 
 Open nano and create the script:
 
@@ -246,18 +275,18 @@ Open nano and create the script:
 nano ~/morning.sh
 ```
 
-Type this entire script (customizing the name and voice to yours!):
+Type this entire script (customize the name and voice!):
 
 ```bash
 #!/bin/bash
-# morning.sh — Daily morning briefing
-# Personalized for Sophia by Dad
+# morning.sh — Daily detective briefing
+# Personalized for Sophia by Commander Chen
 
 # === SETTINGS (change these!) ===
 MY_NAME="Sophia"
 MY_VOICE="Samantha"      # your favorite voice from Mission 1
 
-# === GATHER INFORMATION ===
+# === GATHER INTELLIGENCE ===
 DATE_FULL=$(date +"%A, %B %d, %Y")
 DATE_DAY=$(date +"%A")
 DATE_SHORT=$(date +"%B %d")
@@ -272,16 +301,18 @@ else
     GREETING="Good evening"
 fi
 
-# === FUN FACTS (one is picked randomly) ===
+# === DETECTIVE FACTS (one is picked randomly) ===
 FACTS=(
-    "A group of flamingos is called a flamboyance."
-    "Honey never expires. Archaeologists found 3000-year-old honey in Egyptian tombs."
-    "Octopuses have three hearts and blue blood."
-    "A day on Venus is longer than a year on Venus."
-    "Bananas are technically berries. Strawberries are not."
+    "Fingerprints were first used as evidence in 1892."
+    "The word detective comes from the Latin 'detegere' meaning to uncover."
+    "Sherlock Holmes was inspired by a real doctor named Joseph Bell."
+    "The FBI was founded in 1908 with just 34 agents."
+    "A bloodhound can follow a scent trail that is over 300 hours old."
     "The unicorn is the national animal of Scotland."
-    "There are more possible chess games than atoms in the observable universe."
-    "Crows can recognize human faces and hold grudges."
+    "Crows can recognize human faces and hold grudges for years."
+    "Bananas are technically berries. Strawberries are not."
+    "A day on Venus is longer than a year on Venus."
+    "Honey never expires. Archaeologists found 3000-year-old honey in Egyptian tombs."
 )
 # Pick a random fact
 RANDOM_INDEX=$((RANDOM % ${#FACTS[@]}))
@@ -290,22 +321,22 @@ FUN_FACT="${FACTS[$RANDOM_INDEX]}"
 # === PRINT THE BRIEFING ===
 echo ""
 echo "╔══════════════════════════════════════════╗"
-echo "║       MORNING BRIEFING FOR $MY_NAME          ║"
+echo "║     DETECTIVE ACADEMY MORNING BRIEFING   ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
-echo "  $GREETING, $MY_NAME!"
+echo "  $GREETING, Detective $MY_NAME!"
 echo "  Today is $DATE_FULL"
 echo ""
-echo "  Fun Fact:"
+echo "  Intelligence Report:"
 echo "  $FUN_FACT"
 echo ""
 echo "──────────────────────────────────────────"
 echo ""
 
 # === SPEAK THE BRIEFING ===
-say -v "$MY_VOICE" "$GREETING $MY_NAME! Today is $DATE_DAY, $DATE_SHORT."
-say -v "$MY_VOICE" "Fun fact: $FUN_FACT"
-say -v "$MY_VOICE" "Have an amazing day!"
+say -v "$MY_VOICE" "$GREETING Detective $MY_NAME! Today is $DATE_DAY, $DATE_SHORT."
+say -v "$MY_VOICE" "Intelligence report: $FUN_FACT"
+say -v "$MY_VOICE" "Stay sharp out there."
 ```
 
 Save (`Ctrl+O`, Enter) and exit (`Ctrl+X`).
@@ -317,41 +348,93 @@ chmod +x ~/morning.sh
 ~/morning.sh
 ```
 
-Your Mac reads you a morning briefing! Add more facts to the list, change the voice, customize the greeting — it's YOUR script.
+Your Mac reads you a detective briefing! Add more facts to the list, change the voice, swap in your own case briefings — it is YOUR script.
+
+---
+
+## Using the Playground Files in Your Script
+
+Now let's connect your new scripting skills to the case files in `mission_07/`. Try this exercise — use the `names.txt` file to pick a random detective name:
+
+```bash
+cd ~/mac-cli-for-kids/mission_07
+
+# Count how many names there are
+name_count=$(wc -l < names.txt)
+echo "There are $name_count detectives on file."
+
+# Pick one at random
+random_line=$((RANDOM % name_count + 1))
+chosen_name=$(sed -n "${random_line}p" names.txt)
+echo "Today's lead detective: $chosen_name"
+```
+
+And pick a random case number from `case_numbers.txt`:
+
+```bash
+case_count=$(wc -l < case_numbers.txt)
+random_case=$((RANDOM % case_count + 1))
+chosen_case=$(sed -n "${random_case}p" case_numbers.txt)
+echo "Assigned case: $chosen_case"
+```
+
+Now look at `template.txt` again. Can you write a short script that fills in the `{{DETECTIVE_NAME}}` and `{{CASE_NUMBER}}` placeholders with the random values you just pulled? (Hint: look up the `sed` command from Mission 6 — `sed 's/{{PLACEHOLDER}}/value/'`.)
 
 ---
 
 ## Challenges
 
-### Challenge 1 — Personalize the Script
+### Case #0701 — Personalize the Briefing Script
 
-Add at least 3 more fun facts to the `FACTS` array. Make at least one of them funny or silly. Run the script 5+ times to see different facts appear randomly.
+Add at least 3 more facts to the `FACTS` array in `morning.sh`. Make at least one of them about real detective history. Run the script 5+ times to see different facts appear. Because the selection is truly random (`$RANDOM`), you might see the same fact twice in a row — that is normal!
 
-### Challenge 2 — Add Your Name to the Banner
+### Case #0702 — Report Generator
 
-Right now the banner says "MORNING BRIEFING FOR Sophia" with hardcoded alignment. Make it use the `$MY_NAME` variable AND keep it centered. (Hint: the `╔═══╗` box may need adjusting for different name lengths — just adjust the number of `═` characters.)
+Write a new script called `~/make_report.sh` that:
+1. Reads a detective name from `~/mac-cli-for-kids/mission_07/names.txt` (random line)
+2. Reads a case number from `~/mac-cli-for-kids/mission_07/case_numbers.txt` (random line)
+3. Fills those values into `template.txt` using `sed`
+4. Saves the completed report to `~/completed_report.txt`
+5. Prints "Report filed!" when done
 
-### Challenge 3 — Time Trivia
+Run it several times. Each run should produce a different detective/case combination.
 
-Add a section to the script that tells you how many days until a special date (like your birthday, a holiday, or summer break). You'll need:
+### Case #0703 — Time Trivia
+
+Add a section to your morning script that tells you how many days until a special date. Pick any upcoming date that matters to you — a holiday, a birthday, summer break:
 
 ```bash
 # Days until December 25th:
 TODAY=$(date +%s)
 HOLIDAY=$(date -j -f "%Y-%m-%d" "2026-12-25" +%s)
 DAYS_LEFT=$(( (HOLIDAY - TODAY) / 86400 ))
-echo "Days until Christmas: $DAYS_LEFT"
+echo "  Days until Christmas: $DAYS_LEFT"
 ```
 
-Add this to your morning script!
+Add this after the fun fact section.
 
-### Challenge 4 — The Welcome Script
+### Case #0704 — The Welcome Script
 
-Create a *new* script called `~/welcome.sh` that:
-1. Asks for your name using `read`
-2. Asks for your favorite color
-3. Prints a personalized message using both answers
-4. Makes your Mac say the message out loud
+Create a new script called `~/welcome.sh` that:
+1. Asks for your detective code name using `read`
+2. Asks for your specialty (explosives? forensics? cyber?)
+3. Prints a personalized welcome to the Detective Academy using both answers
+4. Makes your Mac say the welcome message out loud
+
+---
+
+## Secret Code Hunt
+
+You have been learning how scripts work — including how to read variables from files and how to find hidden files.
+
+The `mission_07` playground folder contains a hidden file. Use the commands you just learned to find it and read what is inside:
+
+```bash
+cd ~/mac-cli-for-kids/mission_07
+ls -a
+```
+
+See a file starting with a `.`? That is your target. Read it using the command you know for displaying file contents. Write down the word you find — it is the first piece of your Detective Academy graduation certificate.
 
 ---
 
@@ -387,9 +470,10 @@ Solutions are in the [solutions folder](solutions/README.md).
 - **Variable** — a named container for a value
 - **Execute permission** — the right to run a file as a program
 - **Array** — a variable that holds a list of values
+- **Command substitution** — using `$(...)` to capture the output of a command
 
 ---
 
-*You wrote a real program. Not a command — a program. It has variables, logic, and it speaks. That's a script. That's software.*
+*You wrote a real program. Not a command — a program. It has variables, logic, and it speaks. Commander Chen would approve.*
 
 *Ready for Mission 8?*

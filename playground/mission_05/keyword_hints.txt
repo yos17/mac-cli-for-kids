@@ -1,0 +1,70 @@
+================================================================
+         MISSION 05 — GREP TRAINING DOSSIER
+         "Finding Needles in Haystacks"
+================================================================
+
+Welcome to your grep training, Detective.
+
+You have 30+ files in this folder. Inside one of them is a critical
+witness statement. Your job: find it using the `grep` command.
+
+--- WHAT IS GREP? ---
+
+`grep` is short for "Global Regular Expression Print." That sounds
+fancy, but all it really means is: SEARCH FOR A WORD IN FILES.
+
+Instead of opening every file and reading it manually (which would
+take forever with 30 files), you can search ALL of them at once.
+
+--- HOW TO USE GREP ---
+
+Basic usage:
+  grep "search term" filename.txt
+
+Search ALL .txt files at once:
+  grep "search term" *.txt
+
+Search ALL files in the folder:
+  grep "search term" *
+
+Show the filename too (great for many files):
+  grep -l "search term" *
+
+Case-insensitive search (find "WORD", "word", "Word", etc.):
+  grep -i "search term" *
+
+Show the line number where it was found:
+  grep -n "search term" filename.txt
+
+--- YOUR MISSION ---
+
+A witness was spotted at the harbor. Her last name is a common
+Spanish surname. She appears somewhere in the report files.
+
+Use grep to find her. Try:
+  grep -i "witness" report_*.txt
+
+Or search for a Spanish-sounding last name:
+  grep -i "santos" *
+
+Or search more broadly:
+  grep -i "harbor" *
+
+When you find the witness's full name and the report she appears in,
+you've completed the main challenge.
+
+BONUS: How many times does the word "alert" appear across ALL log
+files? Try:
+  grep -i "alert" *.log | wc -l
+
+The `wc -l` part counts the lines. Powerful combo!
+
+--- REMEMBER ---
+
+`grep` is one of the most important detective tools in the Terminal.
+Professional cybersecurity analysts use grep hundreds of times per day
+to search through logs, find security threats, and track down clues.
+
+Now go find that witness!
+
+================================================================

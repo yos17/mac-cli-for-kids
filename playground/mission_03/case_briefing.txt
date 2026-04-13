@@ -1,0 +1,71 @@
+================================================================
+         DETECTIVE ACADEMY — CASE BRIEFING
+         Case #5502: The Messy Evidence Room
+         Classification: RECRUIT TRAINING
+================================================================
+
+TO: New Recruit
+FROM: Agent Quill, Documentation Division
+DATE: Current Mission Cycle
+
+SITUATION REPORT:
+-----------------
+Disaster has struck the Evidence Room.
+
+Last night, someone (we suspect Agent Vortex, who "reorganizes"
+things for fun) completely scrambled the filing system. Photos,
+field notes, and incident reports are all mixed together in a
+single folder with no organization whatsoever.
+
+The lead detective on Case #5502 needs these files sorted NOW.
+Without proper organization, the case will fall apart.
+
+YOUR MISSION:
+-------------
+Create three new folders inside this mission directory:
+  - Photos/
+  - Notes/
+  - Reports/
+
+Then move every file into its correct folder:
+  - photo_001.txt through photo_010.txt  →  Photos/
+  - note_a.txt through note_e.txt        →  Notes/
+  - report_01.txt and report_02.txt      →  Reports/
+
+Leave the junk files (junk_file.txt, temp.txt, old_backup.txt) here.
+A real detective doesn't move garbage into the archive.
+
+COMMANDS YOU'LL NEED:
+---------------------
+
+  mkdir <folder>         — Create a new folder
+  mv <file> <folder>/    — Move a file into a folder
+  ls                     — Check your work!
+
+EXAMPLE:
+--------
+  mkdir Photos
+  mv photo_001.txt Photos/
+  mv photo_002.txt Photos/
+
+ADVANCED CHALLENGE:
+-------------------
+Once you've done the moves one by one, research how to move
+multiple files at once. Hint: wildcards!
+
+  mv photo_*.txt Photos/
+
+That `*` matches ANYTHING — so `photo_*.txt` matches every file
+that starts with "photo_" and ends with ".txt". Powerful!
+
+MISSION OBJECTIVE:
+------------------
+Organize all evidence files into the correct folders.
+Then find and read the hidden .secret_code.txt
+
+Good luck, Detective.
+
+— Agent Quill
+  Documentation Division, Detective Academy
+
+================================================================

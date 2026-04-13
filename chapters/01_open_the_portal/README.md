@@ -1,6 +1,10 @@
 # Mission 1 — Open the Portal
 
-## Mission Briefing
+## Mission Briefing — Commander Chen Speaks
+
+*Incoming transmission...*
+
+> "Agent, welcome to Detective Academy. I'm Commander Chen, and I'll be guiding you through your training. The world's best detectives don't just use magnifying glasses — they use the most powerful tool on their Mac: the **Terminal**. It looks like a plain black screen with blinking text, but in the right hands it is a supercomputer command center. Today you open that portal for the first time. Your mission: learn the five commands that every detective needs on Day One. Stand by."
 
 You know how in movies, hackers type really fast into a black screen and suddenly take over entire computer systems? That black screen is called a **terminal** (or command line, or shell — people use these words interchangeably).
 
@@ -13,6 +17,25 @@ Your Mac has been hiding this from you. Today you find it.
 - What the prompt means
 - Your first 5 commands: `whoami`, `date`, `echo`, `say`, `clear`
 - How to make your Mac talk out loud
+
+---
+
+## Your Case Files
+
+Every detective needs case files to work with. Yours are waiting in the mission playground folder.
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_01
+ls
+```
+
+You should see:
+
+```
+agents.txt    welcome.txt
+```
+
+Two files are visible — and one is hidden. (You'll find the hidden one during the Secret Code Hunt below.) These files contain messages from Commander Chen himself. You'll use them throughout this mission's challenges.
 
 ---
 
@@ -60,7 +83,7 @@ Your Mac will print your username:
 sophia
 ```
 
-Not very exciting — but you just gave your computer a command and it obeyed. That's how all of this works. You type, it responds.
+A detective always knows their own identity. You just confirmed yours. That's how all of this works — you type, your computer responds.
 
 ---
 
@@ -75,7 +98,7 @@ Output:
 Sun Apr 13 10:24:17 PDT 2026
 ```
 
-Your computer knows exactly what time it is, down to the second. You can ask it anytime.
+Every good detective logs the time. Your computer knows exactly what time it is, down to the second. You can ask it anytime.
 
 ---
 
@@ -95,7 +118,7 @@ Hello there!
 Try it with your own name:
 
 ```bash
-echo My name is Sophia and I am learning Terminal!
+echo My name is Sophia and I am a detective in training!
 ```
 
 `echo` is more useful than it looks. Later you'll use it to write things into files, print messages from scripts, and much more.
@@ -110,13 +133,13 @@ This is the fun one. Your Mac has a built-in voice, and you can control it from 
 say "Hello, I am your computer"
 ```
 
-Your Mac will speak those words out loud. 🔊
+Your Mac will speak those words out loud.
 
-Try some more:
+Try some detective-themed lines:
 
 ```bash
 say "Mission one is underway"
-say "I am a very smart computer"
+say "The suspect has been identified"
 say -v Victoria "Hello, my name is Victoria"
 say -v Fred "Hello, my name is Fred"
 ```
@@ -150,7 +173,7 @@ clear
 
 Or use the keyboard shortcut: `Ctrl + L`
 
-The screen goes blank. All your old commands are still in history (press the Up arrow to go back through them), but now you have a clean workspace.
+The screen goes blank. All your old commands are still in history (press the Up arrow to go back through them), but now you have a clean workspace. A tidy detective desk is a productive detective desk.
 
 ---
 
@@ -162,11 +185,11 @@ echo
 ```
 (It prints an empty line. `echo` always prints *something* — even if that something is nothing.)
 
-**Experiment 2:** What does your computer say when you ask it to say something in a silly voice?
+**Experiment 2:** What does your computer say when you ask it to speak in a silly voice?
 ```bash
-say -v Cellos "I am a robot"
-say -v Trinoids "Greetings human"
-say -v Zarvox "Take me to your leader"
+say -v Cellos "I am a robot detective"
+say -v Trinoids "Greetings, suspect"
+say -v Zarvox "Take me to your evidence locker"
 ```
 
 **Experiment 3:** Make `echo` and `say` work together:
@@ -189,26 +212,26 @@ The `+"%..."` part is a *format string* — you're telling `date` exactly how yo
 
 You don't have to retype commands. Press the **Up arrow** key to go back through your command history. Press it again to go further back. Press **Down** to come forward. Press **Enter** to run that command again.
 
-Try it: press Up a few times and you'll see your earlier commands come back.
+Try it: press Up a few times and you'll see your earlier commands come back. Professional detectives use every shortcut available — so should you.
 
 ---
 
 ## Your Mission — A Talking Mac Greeter
 
-Now you're going to write your first real program. It will greet you every morning with your name, the date, and a spoken welcome message.
+Now you're going to write your first real program. It will greet you every morning with your name, the date, and a spoken welcome message — just like a detective getting a morning briefing.
 
 Type each line and press Enter after each one:
 
 ```bash
 echo "==========================="
-echo "   Good morning, Sophia!   "
+echo "   Good morning, Agent!    "
 echo "==========================="
 echo ""
 echo "Today is:"
 date +"%A, %B %d, %Y"
 echo ""
-echo "Your computer is ready."
-say "Good morning Sophia. Today is $(date +"%A, %B %d"). Have a great day!"
+echo "Detective Academy is ready."
+say "Good morning, Agent. Today is $(date +"%A, %B %d"). Stand by for your briefing."
 ```
 
 When you run the last line, your Mac will announce the actual day out loud. The `$(...)` part is called **command substitution** — it runs a command and puts the result right into your text. So `$(date +"%A, %B %d")` gets replaced with something like `Sunday, April 13`.
@@ -219,11 +242,31 @@ You don't have to type all of this every time. In Mission 7, you'll learn how to
 
 ---
 
+## 🔍 Secret Code Hunt
+
+Every mission has a secret code word hidden somewhere in the playground folder. Find it and write it down — all 12 words across all 12 missions spell a secret message!
+
+**Mission 1 hint:** The code is in a hidden file called `.secret_code.txt` inside your `mission_01` playground folder. Hidden files start with a `.` — they don't show up with a regular `ls`. Can you figure out which flag to add to `ls` to reveal hidden files?
+
+Navigate there first:
+```bash
+cd ~/mac-cli-for-kids/playground/mission_01
+```
+
+Then try listing hidden files. Once you spot `.secret_code.txt`, use `cat` to read it:
+```bash
+cat .secret_code.txt
+```
+
+Write down the word you find. You'll need all 12 to crack the final code!
+
+---
+
 ## Challenges
 
-### Challenge 1 — Your Own Voice Message
+### Case #0101 — Your Own Voice Message
 
-Make your Mac say three things about you:
+Make your Mac say three things about yourself:
 1. Your name
 2. How old you are
 3. Your favorite thing to do
@@ -232,13 +275,23 @@ Use `say` for each one. Pick a different voice for each!
 
 **Hint:** `say -v [VoiceName] "your text here"`
 
-### Challenge 2 — The Custom Date
+After each `say` command, also use `echo` so the text appears on screen too.
 
-Make `date` print *only* the current year. Then make it print only the current month name.
+### Case #0102 — Read the Case Files
 
-**Hint:** Look at the format codes from the Try It section. Each `%letter` stands for something different.
+Navigate to your playground folder and read the case files that Commander Chen left for you:
 
-### Challenge 3 — Echo Art
+```bash
+cd ~/mac-cli-for-kids/playground/mission_01
+cat welcome.txt
+cat agents.txt
+```
+
+What does Commander Chen say in each file? Use `echo` to print a one-sentence summary of what you learned from each file.
+
+**Bonus:** Can you make your Mac `say` the contents of the welcome message out loud?
+
+### Case #0103 — Echo Art
 
 Use `echo` to print a picture made of characters. Here's a small example — make your own:
 
@@ -249,13 +302,15 @@ echo "  > ^ <  "
 echo " (_____)  "
 ```
 
-Try making a rocket, a house, or anything you like.
+Try making a magnifying glass, a detective badge, or anything you like. A real detective always leaves their mark.
 
-### Challenge 4 — Explore Voices
+### Case #0104 — Custom Date Formats
 
-Find a voice that you love. Try at least 5 different voices. Write down (or remember) the name of your favorite — you'll use it in later missions.
+Make `date` print *only* the current year. Then make it print only the current month name. Then make it print the day of the week.
 
-**Hint:** Run `say -v '?' 2>&1` to see all voices.
+**Hint:** Look at the format codes from the Try It section. Each `%letter` stands for something different. Try `%Y`, `%B`, and `%A`.
+
+Finally, find a voice you love. Try at least 5 different voices and use your favorite to announce the current date out loud.
 
 ---
 
@@ -288,6 +343,6 @@ Solutions are in the [solutions folder](solutions/README.md).
 
 ---
 
-*You've opened the portal. The terminal is no longer a mystery — it's a tool. Your tool.*
+*Portal open. The Terminal is no longer a mystery — it's your detective command center. Your tool.*
 
 *Ready for Mission 2?*

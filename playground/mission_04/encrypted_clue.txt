@@ -1,0 +1,21 @@
+ENCRYPTED CLUE — EVIDENCE TAG: M04-ENC-001
+==========================================
+
+The following message has been encoded. Can you decode it?
+
+VGhlIFVTQiBkcml2ZSB3YXMgaW4gdGhlIGNvYXQgcG9ja2V0IGFsbCBhbG9uZyE=
+
+HINT: This is Base64 encoding. In Mission 11, you'll learn how to
+decode messages like this using the `base64` command.
+
+For now, try to decode it manually — or look ahead!
+
+The command to decode it would be:
+  echo "VGhlIFVTQiBkcml2ZSB3YXMgaW4gdGhlIGNvYXQgcG9ja2V0IGFsbCBhbG9uZyE=" | base64 --decode
+
+Or if the encoded text was saved in a file called "clue.enc":
+  base64 --decode clue.enc
+
+This is the exact message that solves the mystery in the diary.
+Once you can decode it, you'll know the twist ending before you
+even finish reading the diary!

@@ -1,0 +1,41 @@
+CONGRATULATIONS! You unlocked this file.
+
+The secret is: persistence.
+
+A locked file doesn't mean impossible. It just means you need the right
+tool and the right knowledge.
+
+You just used `chmod` — the "change mode" command — to change the
+permissions on this file. Here's what happened:
+
+The file started with permissions 000:
+  chmod 000 locked_file.txt
+
+That means: NO ONE can read, write, or execute this file.
+  - 0 for owner:   no permissions
+  - 0 for group:   no permissions
+  - 0 for others:  no permissions
+
+To unlock it, you needed to run:
+  chmod 644 locked_file.txt
+
+644 means:
+  - 6 for owner:   read + write (4+2=6)
+  - 4 for group:   read only
+  - 4 for others:  read only
+
+Or maybe you ran: chmod 400 (read-only for owner)
+Or: chmod 755 (read+write+execute for owner, read+execute for everyone)
+
+PERMISSIONS CHEAT SHEET:
+  4 = read (r)
+  2 = write (w)
+  1 = execute (x)
+  Add them together: 7 = rwx, 6 = rw-, 5 = r-x, 4 = r--
+
+  chmod 755 = rwxr-xr-x (executable programs)
+  chmod 644 = rw-r--r-- (regular files)
+  chmod 600 = rw------- (private files, only owner can read)
+  chmod 000 = ---------- (locked! nobody can do anything)
+
+You cracked it. Well done, Detective.

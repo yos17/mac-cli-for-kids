@@ -1,0 +1,47 @@
+================================================================
+         ACCESS DENIED
+================================================================
+
+STOP RIGHT THERE.
+
+Only those who know `pwd` may know where they stand.
+
+If you have reached this file, you have proven that you can
+navigate the directory structure. But do you know WHERE you are?
+
+Right now, type this command:
+
+  pwd
+
+The Terminal will tell you your exact location — the full path
+from the root of your computer all the way to this folder.
+
+It should end with something like:
+  .../mission_02/office/basement/vault/locked
+
+That full path? That's called an ABSOLUTE PATH. It's like a
+complete street address for a file: country, city, street,
+building number, apartment — everything.
+
+ACCESS GRANTED — to those who understand paths.
+
+================================================================
+
+BONUS CHALLENGE:
+----------------
+Now try to get back to the very top of the playground in ONE command.
+
+If you're inside:
+  .../playground/mission_02/office/basement/vault/locked
+
+How many levels up is that to get back to playground/?
+
+Count the folders: locked → vault → basement → office → mission_02 → playground
+
+That's 5 levels up. So you'd type:
+
+  cd ../../../../../
+
+Try it! Then use `pwd` again to confirm where you ended up.
+
+================================================================

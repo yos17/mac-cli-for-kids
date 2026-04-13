@@ -1,0 +1,21 @@
+This file is private (600 permissions).
+
+The permissions on this file are set to 600, which means:
+  - The OWNER can read and write (rw-)
+  - The GROUP has NO permissions (---)
+  - EVERYONE ELSE has NO permissions (---)
+
+This is the right setting for files that should be PRIVATE.
+Like your diary, your SSH keys, or your secret plans.
+
+A real-world example: your ~/.ssh/id_rsa file (your SSH private key)
+MUST be set to 600, or SSH will refuse to use it. It's that serious
+about keeping private keys private.
+
+To set a file to owner-only:
+  chmod 600 owner_only.txt
+
+To check: ls -l owner_only.txt
+
+MISSION: Try changing this file to 644 and back to 600.
+Watch how the permissions string changes in `ls -l`.

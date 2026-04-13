@@ -1,0 +1,26 @@
+CLUE #3 — EVIDENCE TAG: M02-C03
+================================
+
+You're getting warmer...
+
+The basement holds secrets. But not just any part of the basement —
+look for the vault. And inside the vault? Something locked.
+
+Most people stop at a locked door. Detectives don't.
+
+HINT: The full path to the treasure is:
+
+  office/ → basement/ → vault/ → locked/
+
+Navigate there step by step:
+
+  cd office/basement/vault/locked/
+
+Or do it all at once! (Advanced move):
+
+  cd office/basement/vault/locked
+
+Once you're inside the locked folder, use `ls` to see what's there.
+Then use `cat` to read the files.
+
+You're so close now. The treasure map awaits.

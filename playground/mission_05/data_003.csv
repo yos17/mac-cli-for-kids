@@ -1,0 +1,6 @@
+suspect_id,name,interviewed,cleared,notes
+S001,Dr. Felix Okafor,yes,yes,alibi confirmed
+S002,Agent Reyna Vasquez,yes,yes,unrelated computer use
+S003,Technician Bob,yes,yes,innocent knowledge of details
+S004,Unknown Vehicle Driver,no,no,plate trace pending
+S005,Anonymous Caller,no,no,untraceable

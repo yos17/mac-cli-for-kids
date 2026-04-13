@@ -1,0 +1,83 @@
+# ============================================================
+# DETECTIVE ACADEMY — SAMPLE .zshrc CONFIGURATION
+# Your terminal's "home base" setup file
+# Copy ideas from here into your real ~/.zshrc !
+# ============================================================
+
+# --- PROMPT ---
+# This is what you see at the start of every line in Terminal.
+# \u = your username, \W = current folder name
+# The > at the end is where you type your command.
+PROMPT='🕵️  %n @ %1~ > '
+
+# --- PATH SETUP ---
+# This tells your terminal WHERE to find commands.
+# Add new tools here when you install them.
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
+
+# --- USEFUL ALIASES ---
+# An alias is a shortcut! Instead of typing a long command,
+# you type a short nickname you made up.
+
+# List files in long format with human-readable sizes
+alias ll='ls -lh'
+
+# List ALL files including hidden ones
+alias la='ls -la'
+
+# Go up one folder level
+alias ..='cd ..'
+
+# Go directly to your home folder
+alias home='cd ~'
+
+# Show your public IP address (requires internet)
+alias myip='curl -s https://api.ipify.org && echo'
+
+# Show today's weather (requires internet)
+alias weather='curl -s "https://wttr.in/?format=3"'
+
+# Reload your .zshrc without restarting Terminal
+alias reload='source ~/.zshrc && echo "Config reloaded!"'
+
+# Show disk usage in a readable format
+alias usage='df -h'
+
+# Show the 10 most recently changed files
+alias recent='ls -lt | head -10'
+
+# Create a quick backup of a file (add .bak extension)
+alias bak='function _bak(){ cp "$1" "$1.bak"; echo "Backup created: $1.bak"; }; _bak'
+
+# --- USEFUL FUNCTIONS ---
+# Functions are like aliases but can do more complex things.
+
+# greet: Displays a personalized greeting with the time of day
+greet() {
+    hour=$(date +%H)
+    if [ "$hour" -lt 12 ]; then
+        echo "Good morning, Detective! Ready to solve cases?"
+    elif [ "$hour" -lt 17 ]; then
+        echo "Good afternoon, Detective! The investigation continues."
+    else
+        echo "Good evening, Detective. Working late again?"
+    fi
+}
+
+# mkcd: Create a folder AND immediately cd into it (saves a step!)
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+    echo "Created and moved into: $1"
+}
+
+# note: Quickly jot a note to a file called ~/notes.txt
+note() {
+    echo "[$(date '+%Y-%m-%d %H:%M')] $*" >> ~/notes.txt
+    echo "Note saved to ~/notes.txt"
+}
+
+# ============================================================
+# END OF SAMPLE CONFIGURATION
+# To use this file for real: copy it to ~/.zshrc
+# Then run: source ~/.zshrc
+# ============================================================

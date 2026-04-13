@@ -1,0 +1,8 @@
+location,camera_id,status,last_checked,footage_available
+wing_a_corridor,CAM-001,operational,2026-04-10,yes
+wing_b_corridor,CAM-002,operational,2026-04-10,yes
+server_room,CAM-003,operational,2026-04-10,yes
+main_entrance,CAM-004,operational,2026-04-10,yes
+evidence_room,CAM-005,OFFLINE,2026-04-08,no
+basement_level,CAM-006,operational,2026-04-10,yes
+room_4b,CAM-007,NOT_INSTALLED,n/a,no

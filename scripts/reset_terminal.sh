@@ -1,12 +1,12 @@
 #!/bin/bash
 # =============================================================
-# reset_terminal.sh — Restore .zshrc to pre-academy state
+# reset_terminal.sh — Restore .zshrc to pre-setup state
 #
 # Usage: bash scripts/reset_terminal.sh
 # =============================================================
 
 ZSHRC="$HOME/.zshrc"
-BACKUP="$HOME/.zshrc.before_detective_academy"
+BACKUP="$HOME/.zshrc.before_mac_cli_for_kids"
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -16,7 +16,7 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 echo ""
-echo -e "${CYAN}${BOLD}Terminal Detective Academy — Reset${NC}"
+echo -e "${CYAN}${BOLD}Terminal Setup — Reset${NC}"
 echo ""
 
 if [ ! -f "$BACKUP" ]; then
@@ -26,9 +26,9 @@ if [ ! -f "$BACKUP" ]; then
     echo "  1. The setup script was never run — nothing to restore."
     echo "  2. You already restored once and the backup was cleaned up."
     echo ""
-    echo "If you still want to remove the detective config manually:"
+    echo "If you still want to remove the config manually:"
     echo "  open -a TextEdit ~/.zshrc"
-    echo "  Delete everything between the two TERMINAL DETECTIVE ACADEMY markers."
+    echo "  Delete everything between the two MAC CLI FOR KIDS markers."
     exit 0
 fi
 

@@ -80,16 +80,16 @@ cd mac-cli-for-kids
 
 Press **⌘ + Space**, type `Terminal`, press Enter. You'll see a blinking cursor. That's your portal.
 
-### Step 3b — (Optional) Set up the detective Terminal
+### Step 3b — (Optional) Set up a colourful Terminal
 
-Run the setup script to get a detective-themed prompt and shortcut commands:
+Run the setup script to get a nice prompt and handy shortcut commands:
 
 ```bash
 bash scripts/setup_terminal.sh
 source ~/.zshrc
 ```
 
-This adds a custom prompt (`🔍 Detective Joanna ~/path $`) and these commands:
+This adds a custom prompt (`Joanna ~/path $`) and these commands:
 
 | Command | What it does |
 |---------|-------------|

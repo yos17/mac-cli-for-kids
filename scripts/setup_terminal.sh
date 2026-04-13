@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================
-# setup_terminal.sh — Terminal Detective Academy Setup
-# Sets up a detective-themed Terminal for Joanna
+# setup_terminal.sh — Terminal Setup for Joanna
+# Sets up a clean, colourful Terminal with handy shortcuts
 #
 # Usage: bash scripts/setup_terminal.sh
 # Undo:  bash scripts/reset_terminal.sh
@@ -24,7 +24,7 @@ NC='\033[0m'
 
 echo ""
 echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}${BOLD}║   Terminal Detective Academy — Setup     ║${NC}"
+echo -e "${CYAN}${BOLD}║        Terminal Setup for Joanna         ║${NC}"
 echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -42,23 +42,23 @@ if [ -f "$ZSHRC" ]; then
         fi
     fi
     cp "$ZSHRC" "$BACKUP"
-    echo -e "${GREEN}✓ Backed up existing .zshrc → .zshrc.before_detective_academy${NC}"
+    echo -e "${GREEN}✓ Backed up existing .zshrc → .zshrc.before_mac_cli_for_kids${NC}"
 else
     echo -e "${GREEN}✓ No existing .zshrc — creating fresh one${NC}"
     touch "$ZSHRC"
 fi
 
-# --- Step 2: Write the detective config block ---
+# --- Step 2: Write the config block ---
 cat >> "$ZSHRC" << ZSHRC_BLOCK
 
 # =======================================================
-# TERMINAL DETECTIVE ACADEMY
+# MAC CLI FOR KIDS — JOANNA'S TERMINAL SETUP
 # Added by setup_terminal.sh — remove with reset_terminal.sh
 # =======================================================
 
-# --- Prompt: 🔍 Detective Joanna ~/current/path $ ---
+# --- Prompt: Joanna ~/current/path $ ---
 autoload -U colors && colors
-PROMPT='%F{cyan}🔍 Detective Joanna%f %F{yellow}%~%f %F{green}\$%f '
+PROMPT='%F{green}Joanna%f %F{blue}%~%f %F{cyan}\$%f '
 
 # --- Colorful ls ---
 alias ls='ls -G'
@@ -69,24 +69,24 @@ alias la='ls -lahG'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-# --- Detective Academy shortcuts ---
-DETECTIVE_REPO="$REPO_DIR"
-DETECTIVE_PLAYGROUND="$PLAYGROUND"
+# --- Shortcuts ---
+MAC_CLI_REPO="$REPO_DIR"
+MAC_CLI_PLAYGROUND="$PLAYGROUND"
 
 # Go to the playground
 missions() {
-    cd "\$DETECTIVE_PLAYGROUND"
-    echo "📂 Playground loaded. Missions available:"
-    ls "\$DETECTIVE_PLAYGROUND"
+    cd "\$MAC_CLI_PLAYGROUND"
+    echo "📂 Missions available:"
+    ls "\$MAC_CLI_PLAYGROUND"
 }
 
-# Read the case briefing for the current mission folder
+# Read the briefing file for the current mission folder
 briefing() {
     if [ -f "./case_briefing.txt" ]; then
         cat ./case_briefing.txt
     else
         echo "No case_briefing.txt found here."
-        echo "Try: cd \$DETECTIVE_PLAYGROUND/mission_01"
+        echo "Try: cd \$MAC_CLI_PLAYGROUND/mission_01"
     fi
 }
 
@@ -123,16 +123,15 @@ secret() {
         echo "   Word: \$(cat ./.secret_code.txt)"
         echo ""
     else
-        # Search upward one level too
-        local parent_secret="\$(find . -maxdepth 2 -name '.secret_code.txt' 2>/dev/null | head -1)"
-        if [ -n "\$parent_secret" ]; then
+        local found_secret="\$(find . -maxdepth 2 -name '.secret_code.txt' 2>/dev/null | head -1)"
+        if [ -n "\$found_secret" ]; then
             echo ""
-            echo "🔐 Secret code found at \$parent_secret:"
-            echo "   Word: \$(cat \$parent_secret)"
+            echo "🔐 Secret code found at \$found_secret:"
+            echo "   Word: \$(cat \$found_secret)"
             echo ""
         else
             echo "No .secret_code.txt here. Navigate into a mission folder first."
-            echo "Try: cd \$DETECTIVE_PLAYGROUND/mission_01"
+            echo "Try: cd \$MAC_CLI_PLAYGROUND/mission_01"
         fi
     fi
 }
@@ -141,7 +140,7 @@ secret() {
 codes() {
     echo ""
     echo -e "\033[1;36m╔══════════════════════════════════════╗\033[0m"
-    echo -e "\033[1;36m║     SECRET CODE COLLECTION           ║\033[0m"
+    echo -e "\033[1;36m║       SECRET CODE COLLECTION         ║\033[0m"
     echo -e "\033[1;36m╚══════════════════════════════════════╝\033[0m"
     echo ""
     local total=0
@@ -149,7 +148,7 @@ codes() {
     local phrase=""
     for i in \$(seq -w 1 12); do
         local num=\$((10#\$i))
-        local folder="\$DETECTIVE_PLAYGROUND/mission_\$(printf '%02d' \$num)"
+        local folder="\$MAC_CLI_PLAYGROUND/mission_\$(printf '%02d' \$num)"
         total=\$((total + 1))
         if [ -f "\$folder/.secret_code.txt" ]; then
             local word="\$(cat \$folder/.secret_code.txt)"
@@ -196,25 +195,22 @@ clue() {
 
 # --- Welcome message on every new Terminal window ---
 echo ""
-echo -e "\033[1;36m🔍 Detective Academy Terminal — Ready\033[0m"
-echo -e "   Repo:      \$DETECTIVE_REPO"
-echo -e "   Playground: \033[33mmissions\033[0m command to go there"
-echo -e "   Commands:  \033[33mbriefing  hint  secret  codes  map  clue\033[0m"
+echo -e "Hi Joanna! Type \033[1;33mmissions\033[0m to get started."
 echo ""
 
 # =======================================================
-# END TERMINAL DETECTIVE ACADEMY
+# END MAC CLI FOR KIDS — JOANNA'S TERMINAL SETUP
 # =======================================================
 ZSHRC_BLOCK
 
-echo -e "${GREEN}✓ Detective config written to .zshrc${NC}"
+echo -e "${GREEN}✓ Config written to .zshrc${NC}"
 echo ""
 
 # --- Step 3: Summary ---
 echo -e "${BOLD}${CYAN}Setup complete! New commands available:${NC}"
 echo ""
 echo -e "  ${YELLOW}missions${NC}    — jump to the playground folder"
-echo -e "  ${YELLOW}briefing${NC}    — read the case briefing for this mission"
+echo -e "  ${YELLOW}briefing${NC}    — read the briefing for this mission"
 echo -e "  ${YELLOW}hint${NC}        — show a random CLI tip"
 echo -e "  ${YELLOW}secret${NC}      — reveal this mission's secret code"
 echo -e "  ${YELLOW}codes${NC}       — show all codes collected so far"
@@ -222,7 +218,7 @@ echo -e "  ${YELLOW}map${NC}         — display a folder tree"
 echo -e "  ${YELLOW}clue 'word'${NC} — colorized search through files"
 echo ""
 echo -e "${BOLD}Prompt will look like:${NC}"
-echo -e "  ${CYAN}🔍 Detective Joanna${NC} ${YELLOW}~/mac-cli-for-kids${NC} ${GREEN}\$${NC}"
+echo -e "  ${GREEN}Joanna${NC} ${BLUE}~/mac-cli-for-kids${NC} ${CYAN}\$${NC}"
 echo ""
 echo -e "To activate now (or just open a new Terminal window):"
 echo -e "  ${BOLD}source ~/.zshrc${NC}"

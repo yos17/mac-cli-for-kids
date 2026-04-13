@@ -118,7 +118,7 @@ Hello there!
 Try it with your own name:
 
 ```bash
-echo My name is Sophia and I am a detective in training!
+echo My name is Joanna and I am a detective in training!
 ```
 
 `echo` is more useful than it looks. Later you'll use it to write things into files, print messages from scripts, and much more.

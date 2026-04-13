@@ -3,7 +3,7 @@
 ## Challenge 1 — Your Own Voice Message
 
 ```bash
-say -v Samantha "Hi, my name is Sophia"
+say -v Samantha "Hi, my name is Joanna"
 say -v Fred "I am twelve years old"
 say -v Victoria "My favorite thing to do is draw"
 ```

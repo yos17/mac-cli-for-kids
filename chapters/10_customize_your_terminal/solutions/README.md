@@ -6,13 +6,13 @@ An example prompt with name, time, folder, and emoji:
 
 ```bash
 # In ~/.zshrc:
-export PS1="⭐ Sophia [\[\e[36m\]\t\[\e[0m\]] \[\e[33m\]\W\[\e[0m\] % "
+export PS1="⭐ Joanna [\[\e[36m\]\t\[\e[0m\]] \[\e[33m\]\W\[\e[0m\] % "
 ```
 
-This shows: `⭐ Sophia [10:30:15] Documents %`
+This shows: `⭐ Joanna [10:30:15] Documents %`
 
 - `⭐` — emoji
-- `Sophia` — hardcoded name
+- `Joanna` — hardcoded name
 - `\t` in cyan — current time
 - `\W` in yellow — current folder name
 

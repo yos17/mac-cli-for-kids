@@ -90,7 +90,7 @@ Either works for this book. We'll use `#!/bin/bash` because it runs on any Unix-
 Variables store values that you can use and reuse.
 
 ```bash
-detective_name="Sophia"
+detective_name="Joanna"
 badge_number=7
 greeting="Good morning, Detective"
 ```
@@ -108,16 +108,16 @@ echo "$greeting, $detective_name!"
 
 Output:
 ```
-My name is Sophia
+My name is Joanna
 Badge: 7
-Good morning, Detective Sophia!
+Good morning, Detective Joanna!
 ```
 
 **Quotes matter:**
 
 ```bash
-detective_name="Sophia"
-echo "Hello $detective_name"    # → Hello Sophia  (variable expanded)
+detective_name="Joanna"
+echo "Hello $detective_name"    # → Hello Joanna  (variable expanded)
 echo 'Hello $detective_name'    # → Hello $detective_name  (no expansion!)
 ```
 
@@ -156,7 +156,7 @@ You'll see an empty editor. Type this:
 ```
 #!/bin/bash
 
-detective_name="Sophia"
+detective_name="Joanna"
 echo "Detective $detective_name reporting for duty."
 say "Hello Detective $detective_name, your terminal is ready"
 ```
@@ -244,7 +244,7 @@ echo "Evidence items found: $file_count"
 nano ~/hello.sh
 ```
 
-Change `detective_name="Sophia"` to your actual name. Save, exit, run again. Your Mac greets the right detective.
+Change `detective_name="Joanna"` to your actual name. Save, exit, run again. Your Mac greets the right detective.
 
 ---
 
@@ -255,9 +255,9 @@ In scripts, lines starting with `#` are **comments** — they are ignored by the
 ```bash
 #!/bin/bash
 # detective_briefing.sh — Daily briefing script
-# Written by Sophia Chen on April 13, 2026
+# Written by Joanna Chen on April 13, 2026
 
-detective_name="Sophia"    # change this to your name
+detective_name="Joanna"    # change this to your name
 echo "Briefing for Detective $detective_name"
 ```
 
@@ -280,10 +280,10 @@ Type this entire script (customize the name and voice!):
 ```bash
 #!/bin/bash
 # morning.sh — Daily detective briefing
-# Personalized for Sophia by Commander Chen
+# Personalized for Joanna by Commander Chen
 
 # === SETTINGS (change these!) ===
-MY_NAME="Sophia"
+MY_NAME="Joanna"
 MY_VOICE="Samantha"      # your favorite voice from Mission 1
 
 # === GATHER INTELLIGENCE ===

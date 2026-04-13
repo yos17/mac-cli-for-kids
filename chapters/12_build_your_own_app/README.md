@@ -100,7 +100,7 @@ nano ~/mybot/config.sh
 # config.sh — MyBot settings
 # Edit these values to personalize your bot!
 
-MY_NAME="Sophia"             # your name here
+MY_NAME="Joanna"             # your name here
 MY_VOICE="Samantha"          # your favorite voice from Mission 1
 DIARY_FILE="$HOME/diary/journal.txt"
 BOT_NAME="MyBot"

@@ -152,6 +152,25 @@ You're in. Your first case file is open. Let's go.
 
 ---
 
+## Getting Help from Claude
+
+Claude can look at your Terminal screen and help guide you through the missions — like a tutor sitting next to you.
+
+**How to use it:**
+
+1. Open Terminal and start working on your mission
+2. Open the **Claude** app on your Mac
+3. When you get stuck, just ask! Try saying things like:
+   - *"I'm stuck on Mission 3, can you look at my Terminal?"*
+   - *"What did I do wrong?"*
+   - *"How do I find a hidden file?"*
+4. Claude will take a screenshot of your Terminal to see exactly what you typed and what happened — then give you a hint
+5. Try to figure things out yourself first! Claude will ask you questions and give hints before giving you the answer. That's how you actually learn it.
+
+> **Tip:** If you're really stuck after trying a few times, it's totally fine to ask Claude to just show you. You can always go back and try it again on your own.
+
+---
+
 ## Missions
 
 | # | Mission | Chapter |

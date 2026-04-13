@@ -4,6 +4,36 @@
 
 ---
 
+## Quick Setup
+
+Get your detective Terminal ready in 4 steps:
+
+**1. Clone the repo**
+```bash
+git clone https://github.com/yos17/mac-cli-for-kids.git
+cd mac-cli-for-kids
+```
+
+**2. Run the setup script**
+```bash
+bash scripts/setup_terminal.sh
+```
+
+**3. Open a new Terminal window**
+
+The detective theme takes effect in new windows.
+
+**4. Type `missions` to start**
+```bash
+missions
+```
+
+You'll see all 12 mission folders. Pick one and start investigating.
+
+> To undo the setup and restore your original Terminal: `bash scripts/reset_terminal.sh`
+
+---
+
 *This book is for anyone who is already braver than they know. Every time you open a Terminal window, you're doing something most adults are afraid to try. That makes you a detective.*
 
 *— Yosia*
@@ -62,35 +92,6 @@ The 12 words together form your graduation message. You'll know you've got them 
 - **🔍 Secret Code Hunt** — find the hidden `.secret_code.txt`
 - **Solutions** — answers in the `solutions/` folder
 - **Powers Unlocked** — your command cheat sheet
-
-## Getting Started
-
-### Step 1 — You need a Mac
-
-Any Mac made after 2015 works perfectly.
-
-### Step 2 — Clone this repo
-
-```bash
-git clone https://github.com/yos17/mac-cli-for-kids.git
-cd mac-cli-for-kids
-```
-
-### Step 3 — Open Terminal
-
-Press **⌘ + Space**, type `Terminal`, press Enter. You'll see a blinking cursor. That's your portal.
-
-### Step 4 — Go to Mission 1
-
-```bash
-cd playground/mission_01
-ls
-cat welcome.txt
-```
-
-You're in. Your first case file is open. Let's go.
-
----
 
 ## Missions
 

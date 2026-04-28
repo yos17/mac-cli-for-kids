@@ -71,7 +71,9 @@ Running this script adds a block to `~/.zshrc`, which is the configuration file 
 
 When Joanna uses `secret`, the setup also records collected code words in `~/.terminal_quest_codes` so `codes` only shows words she has actually found.
 
-To undo everything: `bash scripts/reset_terminal.sh` restores your original `.zshrc` from a backup taken before setup ran and removes the local code collection.
+The setup also adds a `coach` command. `coach start` opens a special zsh session where the coach watches each command after Enter, records the command/path/exit status in `~/.terminal_quest/coach_events.log`, and sends a small coaching prompt to Claude or Codex if one is installed. The hook does **not** capture full command output by default. Do not type passwords, API keys, or private family information in a coach session.
+
+To undo everything: `bash scripts/reset_terminal.sh` restores your original `.zshrc` from a backup taken before setup ran and removes the local code collection and coach event logs.
 
 **`playground/` — fully self-contained**
 The mission folders, case files, and puzzle files all live inside this project directory. Nothing is installed system-wide. Deleting the repo removes them completely.
@@ -220,8 +222,43 @@ This adds a custom prompt (`Joanna ~/path $`) and these commands:
 | `codes` | Show secret codes you have collected with `secret` |
 | `map` | Display a folder tree |
 | `clue 'word'` | Colorized search through files |
+| `coach start` | Start an AI Terminal coach session |
 
 To undo it later: `bash scripts/reset_terminal.sh`
+
+### Step 3c — (Optional) Start the AI Terminal Coach
+
+If you have Claude Code or Codex CLI installed and logged in, Joanna can start a watched learning session:
+
+```bash
+coach doctor
+coach start --provider claude
+```
+
+Or use Codex:
+
+```bash
+coach start --provider codex
+```
+
+If you did not run setup, use the repo-local command instead:
+
+```bash
+./coach start --provider claude
+```
+
+Inside a coach session, type commands normally. After each command, the coach gives short feedback. Useful controls:
+
+| Command | What it does |
+|---------|-------------|
+| `coach off` | Pause feedback |
+| `coach on` | Resume feedback |
+| `coach status` | Show coach settings |
+| `coach provider codex` | Switch to Codex |
+| `coach provider claude` | Switch to Claude |
+| `exit` | Leave coach mode |
+
+The coach also adds safety prompts around commands such as `rm -rf`, `sudo`, recursive permission changes, and deletes outside the playground.
 
 ### Step 4 — Go to Mission 1
 
@@ -235,9 +272,27 @@ You're in. Your first case file is open.
 
 ---
 
-## Getting Help from Claude
+## Getting Help from Claude or Codex
 
-Claude can look at your Terminal screen and help guide you through the missions — like a tutor sitting next to you.
+There are two ways to get help.
+
+**Option 1: Use the built-in Terminal coach**
+
+```bash
+coach start --provider claude
+```
+
+or:
+
+```bash
+coach start --provider codex
+```
+
+This is the closest version to a friend watching over your shoulder. It sees the command Joanna typed, the folder she was in, and whether the command worked. It gives brief feedback without solving the whole challenge.
+
+**Option 2: Ask Claude manually**
+
+Claude can also look at your Terminal screen and help guide you through the missions — like a tutor sitting next to you.
 
 **How to use it:**
 

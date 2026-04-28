@@ -14,6 +14,7 @@ BACKUP="$HOME/.zshrc.before_mac_cli_for_kids"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 PLAYGROUND="$REPO_DIR/playground"
 CODE_LOG="$HOME/.terminal_quest_codes"
+COACH_STATE="$HOME/.terminal_quest"
 
 # --- Colors for the installer output ---
 RED='\033[0;31m'
@@ -74,6 +75,7 @@ alias ...='cd ../..'
 MAC_CLI_REPO="$REPO_DIR"
 MAC_CLI_PLAYGROUND="$PLAYGROUND"
 MAC_CLI_CODES="$CODE_LOG"
+MAC_CLI_COACH_STATE="$COACH_STATE"
 
 # Go to the playground
 missions() {
@@ -206,6 +208,11 @@ clue() {
     grep -r --color=always -n "\$term" "\$location" 2>/dev/null || echo "No matches found for '\$term'"
 }
 
+# Start Joanna's interactive AI coach
+coach() {
+    "\$MAC_CLI_REPO/coach" "\$@"
+}
+
 # --- Welcome message on every new Terminal window ---
 echo ""
 echo -e "Hi Joanna! Type \033[1;33mmissions\033[0m to get started."
@@ -227,6 +234,7 @@ echo -e "  ${YELLOW}secret${NC}      — reveal this mission's secret code"
 echo -e "  ${YELLOW}codes${NC}       — show all codes collected so far"
 echo -e "  ${YELLOW}map${NC}         — display a folder tree"
 echo -e "  ${YELLOW}clue 'word'${NC} — colorized search through files"
+echo -e "  ${YELLOW}coach start${NC} — start the AI Terminal coach"
 echo ""
 echo -e "${BOLD}Prompt will look like:${NC}"
 echo -e "  ${GREEN}Joanna${NC} ${BLUE}~/mac-cli-for-kids${NC} ${CYAN}\$${NC}"

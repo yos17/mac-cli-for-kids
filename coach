@@ -1,0 +1,464 @@
+#!/bin/bash
+# Terminal Quest Coach
+#
+# Portable command for starting an AI-assisted zsh learning session.
+# Works from any clone location because paths are resolved from this file.
+
+set -u
+
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+HOOKS_FILE="$ROOT_DIR/scripts/coach_hooks.zsh"
+STATE_DIR="${TERMINAL_QUEST_STATE_DIR:-$HOME/.terminal_quest}"
+
+usage() {
+    cat <<'EOF'
+Terminal Quest Coach
+
+Usage:
+  ./coach start [--provider auto|claude|codex|none] [--mode always|errors]
+  ./coach once --command CMD --status N --cwd PATH [--provider auto|claude|codex|none]
+  ./coach doctor
+
+After setup_terminal.sh, you can use "coach" from anywhere:
+  coach start --provider claude
+  coach start --provider codex
+
+Inside a coach session:
+  coach off          pause feedback
+  coach on           resume feedback
+  coach status       show current settings
+  coach provider codex
+
+Provider notes:
+  claude uses: claude -p --tools ""
+  codex  uses: codex exec in read-only, ephemeral mode
+  none   uses the built-in local fallback feedback only
+EOF
+}
+
+shell_quote() {
+    # Single-quote a string for a generated zshrc.
+    printf "'%s'" "$(printf "%s" "$1" | sed "s/'/'\\\\''/g")"
+}
+
+provider_available() {
+    case "$1" in
+        claude) command -v claude >/dev/null 2>&1 ;;
+        codex) command -v codex >/dev/null 2>&1 ;;
+        none) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+choose_provider() {
+    local requested="${1:-auto}"
+    case "$requested" in
+        claude|codex|none)
+            echo "$requested"
+            ;;
+        auto|"")
+            if provider_available claude; then
+                echo "claude"
+            elif provider_available codex; then
+                echo "codex"
+            else
+                echo "none"
+            fi
+            ;;
+        *)
+            echo "none"
+            ;;
+    esac
+}
+
+mission_from_cwd() {
+    local cwd="$1"
+    case "$cwd" in
+        *playground/mission_[0-9][0-9]*)
+            printf "%s" "$cwd" | sed -n 's#.*playground/mission_\([0-9][0-9]\).*#mission_\1#p'
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+chapter_title_for_mission() {
+    local mission="$1"
+    local num=""
+    num="$(printf "%s" "$mission" | sed -n 's/mission_\([0-9][0-9]\)/\1/p')"
+    if [ -n "$num" ]; then
+        local chapter
+        chapter="$(find "$ROOT_DIR/chapters" -maxdepth 1 -type d -name "${num}_*" 2>/dev/null | head -1)"
+        if [ -n "$chapter" ] && [ -f "$chapter/README.md" ]; then
+            sed -n '1s/^# //p' "$chapter/README.md"
+            return
+        fi
+    fi
+    echo "Unknown mission"
+}
+
+is_risky_command() {
+    local cmd="$1"
+    case "$cmd" in
+        *"rm -rf"*|*"rm -fr"*|sudo\ *|*" sudo "*|*"chmod -R"*|*"chown -R"*|*" > /dev/"*|*" /System/"*|*" /Library/"*)
+            return 0
+            ;;
+    esac
+    if printf "%s" "$cmd" | grep -Eq 'curl .*\| *(sh|bash)'; then
+        return 0
+    fi
+    return 1
+}
+
+local_feedback() {
+    local cmd="$1"
+    local status="$2"
+    local cwd="$3"
+    local mission="$4"
+
+    if is_risky_command "$cmd"; then
+        echo "Safety check: that command can change a lot. First run pwd and make sure you are inside the playground before continuing."
+        return
+    fi
+
+    if [ "$status" -eq 127 ]; then
+        echo "That command name was not found. Check the spelling, then try Tab completion after the first few letters."
+        return
+    fi
+
+    case "$cmd" in
+        grep\ *txt\ *|grep\ */*.*\ *)
+            if [ "$status" -ne 0 ]; then
+                echo "Almost. With grep, put the search text first and the file name second: grep \"word\" file.txt."
+                return
+            fi
+            ;;
+        cd\ *)
+            if [ "$status" -ne 0 ]; then
+                echo "That folder move did not work. Try pwd to see where you are, then ls to see which folders are available."
+                return
+            fi
+            ;;
+        ls*|pwd|cat\ *|open\ .)
+            if [ "$status" -eq 0 ]; then
+                echo "Good. You used a navigation command. Pause and connect what Terminal showed you with the same folder in Finder."
+                return
+            fi
+            ;;
+    esac
+
+    if [ "$status" -eq 0 ]; then
+        if [ "$mission" = "unknown" ]; then
+            echo "Nice. The command ran successfully. If you feel lost, use pwd and then open . to connect Terminal with Finder."
+        else
+            echo "Nice. The command ran successfully. Say what changed in the folder before you move to the next step."
+        fi
+    else
+        echo "Something did not work yet. Read the first error line, then check spelling, spaces, and whether you are in the right folder."
+    fi
+}
+
+build_prompt() {
+    local cmd="$1"
+    local status="$2"
+    local cwd="$3"
+    local mission="$4"
+    local title="$5"
+    local output_text="$6"
+    local risk="no"
+
+    if is_risky_command "$cmd"; then
+        risk="yes"
+    fi
+
+    cat <<EOF
+Student: Joanna, age 12
+Project: Terminal Quest / Detective Academy
+Mission: $mission
+Mission title: $title
+Current folder: $cwd
+Command typed after pressing Enter:
+$cmd
+
+Exit status: $status
+Risky command pattern detected: $risk
+
+Recent output, if available:
+$output_text
+
+Give Joanna one short coaching message.
+EOF
+}
+
+system_prompt() {
+    cat <<'EOF'
+You are Joanna's Terminal learning partner.
+Joanna is 12. Be warm, concrete, and brief.
+Return only one coaching message, maximum 35 words.
+Do not run tools or commands.
+Do not give the full challenge solution unless she explicitly asks for the solution.
+If she is close, give a tiny hint.
+If a command failed, explain the likely pattern and one next step.
+If a command succeeded, name the skill she just used and suggest what to observe.
+If a command is risky, put safety first and tell her to check pwd before continuing.
+Remind her that Terminal and Finder show the same folders when that helps.
+EOF
+}
+
+call_claude() {
+    local prompt="$1"
+    local sys
+    sys="$(system_prompt)"
+    printf "%s" "$prompt" | claude -p \
+        --system-prompt "$sys" \
+        --tools "" \
+        --no-session-persistence \
+        --max-budget-usd 0.03 2>/dev/null
+}
+
+call_codex() {
+    local prompt="$1"
+    local tmp
+    tmp="$(mktemp)"
+    {
+        echo "System:"
+        system_prompt
+        echo ""
+        echo "User:"
+        printf "%s\n" "$prompt"
+    } | codex exec \
+        --skip-git-repo-check \
+        --sandbox read-only \
+        --ask-for-approval never \
+        --ephemeral \
+        --color never \
+        --output-last-message "$tmp" \
+        - >/dev/null 2>/dev/null
+    cat "$tmp" 2>/dev/null
+    rm -f "$tmp"
+}
+
+clean_reply() {
+    tr '\n' ' ' | sed 's/[[:space:]][[:space:]]*/ /g' | cut -c1-500
+}
+
+cmd_once() {
+    local provider="auto"
+    local cmd=""
+    local status="0"
+    local cwd="$PWD"
+    local output_file=""
+
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --provider)
+                provider="${2:-auto}"
+                shift 2
+                ;;
+            --command)
+                cmd="${2:-}"
+                shift 2
+                ;;
+            --status)
+                status="${2:-0}"
+                shift 2
+                ;;
+            --cwd)
+                cwd="${2:-$PWD}"
+                shift 2
+                ;;
+            --output-file)
+                output_file="${2:-}"
+                shift 2
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+
+    if [ -z "$cmd" ]; then
+        exit 0
+    fi
+
+    case "$cmd" in
+        coach|coach\ *|exit|exit\ *|clear|history|history\ *)
+            exit 0
+            ;;
+    esac
+
+    local mission title output_text chosen reply fallback
+    mission="$(mission_from_cwd "$cwd")"
+    title="$(chapter_title_for_mission "$mission")"
+    output_text="(not captured by this hook)"
+    if [ -n "$output_file" ] && [ -f "$output_file" ]; then
+        output_text="$(tail -40 "$output_file" 2>/dev/null)"
+    fi
+
+    fallback="$(local_feedback "$cmd" "$status" "$cwd" "$mission")"
+    chosen="$(choose_provider "$provider")"
+
+    if [ "$chosen" = "none" ] || ! provider_available "$chosen"; then
+        printf "%s\n" "$fallback"
+        return
+    fi
+
+    local prompt
+    prompt="$(build_prompt "$cmd" "$status" "$cwd" "$mission" "$title" "$output_text")"
+
+    case "$chosen" in
+        claude)
+            reply="$(call_claude "$prompt" 2>/dev/null || true)"
+            ;;
+        codex)
+            reply="$(call_codex "$prompt" 2>/dev/null || true)"
+            ;;
+        *)
+            reply=""
+            ;;
+    esac
+
+    reply="$(printf "%s" "$reply" | clean_reply)"
+    if [ -n "$reply" ]; then
+        printf "%s\n" "$reply"
+    else
+        printf "%s\n" "$fallback"
+    fi
+}
+
+cmd_doctor() {
+    echo "Terminal Quest Coach doctor"
+    echo ""
+    echo "Repo root: $ROOT_DIR"
+    echo "Hooks:     $HOOKS_FILE"
+    echo ""
+
+    if command -v zsh >/dev/null 2>&1; then
+        echo "zsh:      found ($(command -v zsh))"
+    else
+        echo "zsh:      missing"
+    fi
+
+    if provider_available claude; then
+        echo "claude:   found ($(command -v claude))"
+    else
+        echo "claude:   not found"
+    fi
+
+    if provider_available codex; then
+        echo "codex:    found ($(command -v codex))"
+    else
+        echo "codex:    not found"
+    fi
+
+    echo ""
+    echo "Try:"
+    echo "  ./coach start --provider claude"
+    echo "  ./coach start --provider codex"
+    echo "  ./coach start --provider none"
+}
+
+cmd_start() {
+    local provider="auto"
+    local mode="always"
+    local safety="1"
+
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --provider)
+                provider="${2:-auto}"
+                shift 2
+                ;;
+            --mode)
+                mode="${2:-always}"
+                shift 2
+                ;;
+            --no-safety)
+                safety="0"
+                shift
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+
+    if ! mkdir -p "$STATE_DIR" 2>/dev/null; then
+        STATE_DIR="${TMPDIR:-/tmp}/terminal_quest_${USER:-user}"
+        mkdir -p "$STATE_DIR"
+        echo "Could not write to ~/.terminal_quest, using $STATE_DIR for this session."
+        echo ""
+    fi
+    if [ ! -f "$HOOKS_FILE" ]; then
+        echo "Coach hooks not found: $HOOKS_FILE" >&2
+        exit 1
+    fi
+
+    local chosen
+    chosen="$(choose_provider "$provider")"
+    if [ "$chosen" = "none" ] && [ "$provider" != "none" ]; then
+        echo "No Claude or Codex CLI found. Starting with local fallback feedback."
+        echo "Run ./coach doctor to check your setup."
+        echo ""
+    fi
+
+    local tmpdir
+    tmpdir="$(mktemp -d "${TMPDIR:-/tmp}/terminal-quest-coach.XXXXXX")"
+
+    {
+        printf 'export TERMINAL_QUEST_ROOT=%s\n' "$(shell_quote "$ROOT_DIR")"
+        printf 'export TERMINAL_QUEST_PROVIDER=%s\n' "$(shell_quote "$chosen")"
+        printf 'export TERMINAL_QUEST_COACH_MODE=%s\n' "$(shell_quote "$mode")"
+        printf 'export TERMINAL_QUEST_COACH_SAFETY=%s\n' "$(shell_quote "$safety")"
+        printf 'export TERMINAL_QUEST_STATE_DIR=%s\n' "$(shell_quote "$STATE_DIR")"
+        printf 'export TERMINAL_QUEST_COACH_ACTIVE=1\n'
+        printf 'if [ -f "$HOME/.zshrc" ]; then source "$HOME/.zshrc"; fi\n'
+        printf 'source %s\n' "$(shell_quote "$HOOKS_FILE")"
+    } > "$tmpdir/.zshrc"
+
+    echo "Starting Terminal Quest Coach"
+    echo "Provider: $chosen"
+    echo "Mode:     $mode"
+    echo ""
+    echo "Inside this session: coach off, coach on, coach status, exit"
+    echo ""
+
+    ZDOTDIR="$tmpdir" zsh -i
+    local rc=$?
+    rm -rf "$tmpdir"
+    exit "$rc"
+}
+
+main() {
+    local sub="${1:-start}"
+    case "$sub" in
+        start)
+            shift
+            cmd_start "$@"
+            ;;
+        once)
+            shift
+            cmd_once "$@"
+            ;;
+        doctor)
+            shift
+            cmd_doctor "$@"
+            ;;
+        help|-h|--help)
+            usage
+            ;;
+        *)
+            echo "Unknown coach command: $sub" >&2
+            echo "" >&2
+            usage >&2
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

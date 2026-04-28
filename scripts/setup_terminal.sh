@@ -10,13 +10,15 @@
 set -e
 
 ZSHRC="$HOME/.zshrc"
-BACKUP="$HOME/.zshrc.before_detective_academy"
+BACKUP="$HOME/.zshrc.before_mac_cli_for_kids"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 PLAYGROUND="$REPO_DIR/playground"
+CODE_LOG="$HOME/.terminal_quest_codes"
 
 # --- Colors for the installer output ---
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 BOLD='\033[1m'
@@ -29,32 +31,31 @@ echo -e "${CYAN}${BOLD}╚══════════════════
 echo ""
 
 # --- Step 1: Backup existing .zshrc ---
-if [ -f "$ZSHRC" ]; then
-    if [ -f "$BACKUP" ]; then
-        echo -e "${YELLOW}⚠ A backup already exists at $BACKUP${NC}"
-        echo -n "  Overwrite the old backup? (y/n): "
-        read confirm
-        if [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; then
-            echo ""
-            echo -e "${YELLOW}Setup cancelled. Your files are unchanged.${NC}"
-            echo "  To restore a previous backup: bash scripts/reset_terminal.sh"
-            exit 0
-        fi
-    fi
-    cp "$ZSHRC" "$BACKUP"
-    echo -e "${GREEN}✓ Backed up existing .zshrc → .zshrc.before_mac_cli_for_kids${NC}"
-else
+if [ ! -f "$ZSHRC" ]; then
     echo -e "${GREEN}✓ No existing .zshrc — creating fresh one${NC}"
     touch "$ZSHRC"
 fi
 
-# --- Step 2: Write the config block ---
+if [ -f "$BACKUP" ]; then
+    echo -e "${YELLOW}• Keeping existing backup at $BACKUP${NC}"
+else
+    cp "$ZSHRC" "$BACKUP"
+    echo -e "${GREEN}✓ Backed up existing .zshrc → .zshrc.before_mac_cli_for_kids${NC}"
+fi
+
+# --- Step 2: Remove any previous setup block, then write the fresh config block ---
+TMP_ZSHRC="$(mktemp)"
+awk '
+    /^# END MAC CLI FOR KIDS — JOANNA'\''S TERMINAL SETUP/ { skip=0; next }
+    /^# .*MAC CLI FOR KIDS — JOANNA'\''S TERMINAL SETUP/ { skip=1; next }
+    !skip { print }
+' "$ZSHRC" > "$TMP_ZSHRC"
+mv "$TMP_ZSHRC" "$ZSHRC"
+
 cat >> "$ZSHRC" << ZSHRC_BLOCK
 
-# =======================================================
-# MAC CLI FOR KIDS — JOANNA'S TERMINAL SETUP
+# BEGIN MAC CLI FOR KIDS — JOANNA'S TERMINAL SETUP
 # Added by setup_terminal.sh — remove with reset_terminal.sh
-# =======================================================
 
 # --- Prompt: Joanna ~/current/path $ ---
 autoload -U colors && colors
@@ -72,6 +73,7 @@ alias ...='cd ../..'
 # --- Shortcuts ---
 MAC_CLI_REPO="$REPO_DIR"
 MAC_CLI_PLAYGROUND="$PLAYGROUND"
+MAC_CLI_CODES="$CODE_LOG"
 
 # Go to the playground
 missions() {
@@ -117,22 +119,32 @@ hint() {
 
 # Find and show the secret code for the current mission folder
 secret() {
+    local code_file=""
     if [ -f "./.secret_code.txt" ]; then
+        code_file="./.secret_code.txt"
+    else
+        code_file="\$(find . -maxdepth 2 -name '.secret_code.txt' 2>/dev/null | head -1)"
+    fi
+
+    if [ -n "\$code_file" ]; then
+        local word="\$(cat "\$code_file")"
+        local mission_num="\$(pwd | sed -n 's#.*/mission_\\([0-9][0-9]\\).*#\\1#p')"
         echo ""
         echo "🔐 Secret code found!"
-        echo "   Word: \$(cat ./.secret_code.txt)"
+        echo "   Word: \$word"
         echo ""
-    else
-        local found_secret="\$(find . -maxdepth 2 -name '.secret_code.txt' 2>/dev/null | head -1)"
-        if [ -n "\$found_secret" ]; then
-            echo ""
-            echo "🔐 Secret code found at \$found_secret:"
-            echo "   Word: \$(cat \$found_secret)"
-            echo ""
-        else
-            echo "No .secret_code.txt here. Navigate into a mission folder first."
-            echo "Try: cd \$MAC_CLI_PLAYGROUND/mission_01"
+
+        if [ -n "\$mission_num" ]; then
+            local tmp_codes="\${MAC_CLI_CODES}.tmp"
+            grep -v "^\$mission_num:" "\$MAC_CLI_CODES" 2>/dev/null > "\$tmp_codes" || true
+            printf "%s:%s\n" "\$mission_num" "\$word" >> "\$tmp_codes"
+            sort "\$tmp_codes" > "\$MAC_CLI_CODES"
+            rm -f "\$tmp_codes"
+            echo "   Saved to your code collection."
         fi
+    else
+        echo "No .secret_code.txt here. Navigate into a mission folder first."
+        echo "Try: cd \$MAC_CLI_PLAYGROUND/mission_01"
     fi
 }
 
@@ -150,8 +162,8 @@ codes() {
         local num=\$((10#\$i))
         local folder="\$MAC_CLI_PLAYGROUND/mission_\$(printf '%02d' \$num)"
         total=\$((total + 1))
-        if [ -f "\$folder/.secret_code.txt" ]; then
-            local word="\$(cat \$folder/.secret_code.txt)"
+        local word="\$(grep "^\$(printf '%02d' \$num):" "\$MAC_CLI_CODES" 2>/dev/null | tail -1 | cut -d: -f2-)"
+        if [ -n "\$word" ]; then
             printf "  Mission %2d: \033[1;32m%-20s\033[0m ✓\n" "\$num" "\$word"
             phrase="\$phrase \$word"
             found=\$((found + 1))
@@ -198,9 +210,7 @@ echo ""
 echo -e "Hi Joanna! Type \033[1;33mmissions\033[0m to get started."
 echo ""
 
-# =======================================================
 # END MAC CLI FOR KIDS — JOANNA'S TERMINAL SETUP
-# =======================================================
 ZSHRC_BLOCK
 
 echo -e "${GREEN}✓ Config written to .zshrc${NC}"

@@ -31,10 +31,10 @@ ls
 You should see:
 
 ```
-diary_entries/   encrypted_clue.txt   suspects.txt
+diary_entries/   encrypted_clue.txt   suspects.txt   secret_diary_starter.sh
 ```
 
-Inside `diary_entries/` you'll find seven days of diary entries: `day_01.txt` through `day_07.txt`. The `suspects.txt` file has a list of persons of interest. And `encrypted_clue.txt` contains something encoded — you'll need a special command to decode it.
+Inside `diary_entries/` you'll find seven days of diary entries: `day_01.txt` through `day_07.txt`. The `suspects.txt` file has a list of persons of interest. `secret_diary_starter.sh` is a small scaffold you can run later with `bash secret_diary_starter.sh`. And `encrypted_clue.txt` contains something encoded — you'll need a special command to decode it.
 
 ```bash
 ls diary_entries/

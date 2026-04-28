@@ -480,7 +480,7 @@ This is an advanced command — it uses one command's output as the search terms
 
 ## 🔍 Secret Code Hunt
 
-This is the final secret code word in your playground collection! Find it:
+This is the sixth secret code word in your playground collection. Find it:
 
 ```bash
 cd ~/mac-cli-for-kids/playground/mission_06

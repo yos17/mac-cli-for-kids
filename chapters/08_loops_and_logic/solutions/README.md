@@ -38,19 +38,30 @@ Important: check for divisibility by 15 (both 3 AND 5) FIRST, before checking 3 
 
 ---
 
-## Challenge 3 — The File Renamer
+## Challenge 3 — Sort the Evidence by Source
 
 ```bash
-mkdir ~/rename_test
-touch ~/rename_test/old_file_{1..5}.txt
-ls ~/rename_test/
+cd ~/mac-cli-for-kids/playground/mission_08/photos
 
-for i in {1..5}; do
-    mv ~/rename_test/old_file_$i.txt ~/rename_test/new_file_$i.txt
+img_count=0
+dsc_count=0
+other_count=0
+
+for file in *.txt; do
+    filename=$(basename "$file")
+
+    if [[ "$filename" == IMG_* ]] || [[ "$filename" == img* ]]; then
+        img_count=$((img_count + 1))
+    elif [[ "$filename" == DSC* ]]; then
+        dsc_count=$((dsc_count + 1))
+    else
+        other_count=$((other_count + 1))
+    fi
 done
 
-ls ~/rename_test/
-rm -r ~/rename_test
+echo "IMG files: $img_count"
+echo "DSC files: $dsc_count"
+echo "Other:     $other_count"
 ```
 
 ---
@@ -81,3 +92,28 @@ say "Time's up!"
 Save as `~/countdown.sh`, run with `bash ~/countdown.sh`.
 
 `seq $seconds -1 1` counts from `$seconds` down to 1, decrementing by 1. The `sleep 1` pauses for one second between each number.
+
+---
+
+## Challenge 5 — Rename 100 Files Instantly
+
+Use the starter lab:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_08/bulk_rename_lab
+bash create_100_files_starter.sh
+bash rename_100_files_starter.sh
+ls ~/rename_100_lab | head
+```
+
+To customize the output names, edit `rename_100_files_starter.sh` and change this line:
+
+```bash
+new_name=$(printf "evidence_%03d.txt" "$counter")
+```
+
+For example:
+
+```bash
+new_name=$(printf "case_photo_%03d.txt" "$counter")
+```

@@ -28,7 +28,7 @@ With loops and logic you can write programs that would take a human days to do m
 The evidence room is waiting. Navigate to your playground folder:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_08
+cd ~/mac-cli-for-kids/playground/mission_08
 ls
 ```
 
@@ -37,6 +37,7 @@ You should see:
 ```
 photos/              ← 20 inconsistently named .txt files (your evidence photos)
 renaming_rules.txt   ← the naming standard you must enforce
+bulk_rename_lab/     ← starter scripts for renaming 100 practice files
 .secret_code.txt     ← hidden! (find it at the end of the mission)
 ```
 
@@ -116,7 +117,7 @@ done
 This is where things get powerful. Loop over every file matching a pattern:
 
 ```bash
-for file in ~/mac-cli-for-kids/mission_08/photos/*.txt; do
+for file in ~/mac-cli-for-kids/playground/mission_08/photos/*.txt; do
     echo "Found evidence: $file"
 done
 ```
@@ -124,7 +125,7 @@ done
 Or loop over all files in a folder:
 
 ```bash
-for file in ~/mac-cli-for-kids/mission_08/photos/*; do
+for file in ~/mac-cli-for-kids/playground/mission_08/photos/*; do
     echo "Processing: $(basename "$file")"
 done
 ```
@@ -240,11 +241,11 @@ echo "Evidence room unlocked!"
 **Experiment 2:** Check if a file exists before reading it.
 
 ```bash
-report="~/mac-cli-for-kids/mission_08/renaming_rules.txt"
+report="$HOME/mac-cli-for-kids/playground/mission_08/renaming_rules.txt"
 
-if [ -f $report ]; then
+if [ -f "$report" ]; then
     echo "Rules file found!"
-    wc -l $report
+    wc -l "$report"
 else
     echo "No rules file — check your path!"
 fi
@@ -323,7 +324,7 @@ nano ~/rename_evidence.sh
 # rename_evidence.sh — Standardize evidence photo names
 # Renames all files in a folder to evidence_001.txt, evidence_002.txt, etc.
 
-PHOTO_DIR="$HOME/mac-cli-for-kids/mission_08/photos"
+PHOTO_DIR="$HOME/mac-cli-for-kids/playground/mission_08/photos"
 
 echo ""
 echo "╔══════════════════════════════════════════╗"
@@ -378,7 +379,7 @@ bash ~/rename_evidence.sh
 Watch it blast through all 20 files in a second. Then look at the photos folder:
 
 ```bash
-ls ~/mac-cli-for-kids/mission_08/photos/
+ls ~/mac-cli-for-kids/playground/mission_08/photos/
 ```
 
 Clean, consistent, numbered. Commander Chen approves.
@@ -417,7 +418,7 @@ FizzBuzz is a famous programming challenge used in real job interviews. Print nu
 Look at the filenames in `photos/` before you run your renamer. Some start with `IMG_`, some with `DSC`, some with `img`, some with `vacation`. Write a loop that **counts** how many files came from each source prefix:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_08/photos
+cd ~/mac-cli-for-kids/playground/mission_08/photos
 img_count=0
 dsc_count=0
 other_count=0
@@ -449,6 +450,19 @@ Write a script that:
 
 **Hint:** Use `sleep 1` to pause for one second between counts.
 
+### Case #0805 — Rename 100 Files Instantly
+
+Use the bulk rename lab:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_08/bulk_rename_lab
+bash create_100_files_starter.sh
+bash rename_100_files_starter.sh
+ls ~/rename_100_lab | head
+```
+
+Then open the starter scripts and change the naming format from `evidence_001.txt` to your own detective style.
+
 ---
 
 ## Secret Code Hunt
@@ -458,11 +472,11 @@ You know how to loop over files in a folder and how to use `ls -a` to reveal hid
 Navigate to the playground folder and list all files including hidden ones:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_08
+cd ~/mac-cli-for-kids/playground/mission_08
 ls -a
 ```
 
-Find the file starting with `.` and read it. That is your second secret code word. Write it down on your certificate sheet.
+Find the file starting with `.` and read it. That is your eighth secret code word. Write it down on your certificate sheet.
 
 ---
 

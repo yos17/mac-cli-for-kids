@@ -29,7 +29,7 @@
 Report to the graduation lab:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_12
+cd ~/mac-cli-for-kids/playground/mission_12
 ls -la
 ```
 
@@ -520,10 +520,10 @@ Now `mybot` is a real command on your computer.
 
 ## Using `mybot_starter.sh`
 
-Your case files include `~/mac-cli-for-kids/mission_12/mybot_starter.sh`. Open it and compare it to what you just built:
+Your case files include `~/mac-cli-for-kids/playground/mission_12/mybot_starter.sh`. Open it and compare it to what you just built:
 
 ```bash
-cat ~/mac-cli-for-kids/mission_12/mybot_starter.sh
+cat ~/mac-cli-for-kids/playground/mission_12/mybot_starter.sh
 ```
 
 The starter file has `# TODO` comments in the places you would normally fill in. It is a template showing the structure of a real application — the same pattern professional developers use when starting a new project.
@@ -589,7 +589,7 @@ Add one feature that YOU would actually use every day. Some ideas:
 - A to-do list (add tasks to a file, view them, mark them done)
 - A random word from the dictionary: `grep "." /usr/share/dict/words | shuf -n 1`
 - A music player: `afplay ~/Music/somesong.mp3`
-- A random quote from `~/mac-cli-for-kids/mission_07/names.txt` to pick a detective partner for the day
+- A random quote from `~/mac-cli-for-kids/playground/mission_07/names.txt` to pick a detective partner for the day
 
 The only rule: it has to be something that makes you want to open MyBot.
 
@@ -600,7 +600,7 @@ The only rule: it has to be something that makes you want to open MyBot.
 Open your certificate file:
 
 ```bash
-cat ~/mac-cli-for-kids/mission_12/all_code_pieces.txt
+cat ~/mac-cli-for-kids/playground/mission_12/all_code_pieces.txt
 ```
 
 There are 12 slots — one for each mission's secret code word. Fill them all in. If you collected the codes as you went, you already have all of them except the last one.
@@ -608,7 +608,7 @@ There are 12 slots — one for each mission's secret code word. Fill them all in
 Now find the final code:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_12
+cd ~/mac-cli-for-kids/playground/mission_12
 ls -a
 ```
 
@@ -617,7 +617,7 @@ Find `.secret_code.txt` and read it. That is your twelfth and final word.
 Once you have all 12 words written down in order, read `congratulations.txt`:
 
 ```bash
-cat ~/mac-cli-for-kids/mission_12/congratulations.txt
+cat ~/mac-cli-for-kids/playground/mission_12/congratulations.txt
 ```
 
 The twelve words together form a sentence. If you have been collecting them in order from Mission 1 through Mission 12, that sentence is your graduation message from the Detective Academy.

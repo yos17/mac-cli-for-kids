@@ -30,7 +30,9 @@ This file tells Claude how to help Joanna when she asks questions. It only appli
 **`scripts/setup_terminal.sh` — modifies your global Terminal config**
 Running this script adds a block to `~/.zshrc`, which is the configuration file loaded every time you open a Terminal window. This means the prompt, aliases, and shortcut commands (`missions`, `hint`, `secret`, etc.) will appear in **all** Terminal windows — not just inside this project. This is intentional: Joanna should be able to type `missions` from anywhere and jump straight to the playground.
 
-To undo everything: `bash scripts/reset_terminal.sh` restores your original `.zshrc` from a backup taken before setup ran.
+When Joanna uses `secret`, the setup also records collected code words in `~/.terminal_quest_codes` so `codes` only shows words she has actually found.
+
+To undo everything: `bash scripts/reset_terminal.sh` restores your original `.zshrc` from a backup taken before setup ran and removes the local code collection.
 
 **`playground/` — fully self-contained**
 The mission folders, case files, and puzzle files all live inside this project directory. Nothing is installed system-wide. Deleting the repo removes them completely.
@@ -87,12 +89,26 @@ The 12 words together form your graduation message. You'll know you've got them 
 | 11 | Secret Agent Tools | An encrypted message vault |
 | 12 | Build Your Own App | MyBot — your personal CLI assistant |
 
+## Hands-On Starter Code
+
+Some missions include starter files in `playground/` so you can begin with a working scaffold instead of a blank page.
+
+| Mini Mission | Starter File |
+|--------------|--------------|
+| Make folders and move files | `playground/mission_03/organize_evidence_starter.sh` |
+| Create a secret text diary | `playground/mission_04/secret_diary_starter.sh` |
+| Search files faster than Finder | `playground/mission_05/search_toolkit_starter.sh` |
+| Make a simple shell script game | `playground/mission_07/shell_game_starter.sh` |
+| Rename 100 files instantly | `playground/mission_08/bulk_rename_lab/` |
+| Customize prompt colors | `playground/mission_10/prompt_colors_starter.zsh` |
+
 ## How Each Mission Works
 
 - **Mission Briefing** — Commander Chen gives you your assignment
 - **Your Case Files** — the real playground files you'll investigate
 - **New Commands** — the tools issued for this mission
 - **Step by Step** — every command shown with its exact output
+- **Starter Code** — small scaffold files for bigger projects
 - **Try It!** — quick experiments to run right now
 - **Your Mission** — the main program to build
 - **Challenges** — 3–4 real cases to crack using playground files
@@ -134,7 +150,7 @@ This adds a custom prompt (`Joanna ~/path $`) and these commands:
 | `briefing` | Read the case briefing for the current mission |
 | `hint` | Show a random CLI tip |
 | `secret` | Reveal this mission's secret code word |
-| `codes` | Show all secret codes collected so far |
+| `codes` | Show secret codes you have collected with `secret` |
 | `map` | Display a folder tree |
 | `clue 'word'` | Colorized search through files |
 

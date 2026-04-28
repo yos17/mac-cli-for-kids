@@ -35,9 +35,10 @@ evidence_001.log  evidence_002.log  ...  evidence_010.log
 keyword_hints.txt
 photos_001.txt  photos_002.txt  ...  photos_005.txt
 report_001.txt  report_002.txt  ...  report_010.txt
+search_toolkit_starter.sh
 ```
 
-That's 30+ files. Somewhere in the `report_*.txt` files, the name **MARINA SANTOS** appears. You need to find it without opening every file. And there's also a `keyword_hints.txt` — read that first:
+That's 30+ files. Somewhere in the `report_*.txt` files, the name **MARINA SANTOS** appears. You need to find it without opening every file. `search_toolkit_starter.sh` gives you a starter script for turning these searches into a reusable tool. And there's also a `keyword_hints.txt` — read that first:
 
 ```bash
 cat keyword_hints.txt

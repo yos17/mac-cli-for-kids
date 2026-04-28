@@ -65,12 +65,29 @@ Write your findings here as you go:
 | 04      | mission_04  | cat, head, tail — reading files                |
 | 05      | mission_05  | grep — searching inside files                  |
 | 06      | mission_06  | sort, uniq, awk — data investigation           |
-| 07      | mission_07  | sed — find and replace in files                |
+| 07      | mission_07  | bash scripts, variables, random numbers        |
 | 08      | mission_08  | for loops — batch renaming                     |
 | 09      | mission_09  | curl — fetching data from the internet         |
 | 10      | mission_10  | aliases, .zshrc — customizing your terminal    |
 | 11      | mission_11  | chmod, base64 — permissions and encoding       |
 | 12      | mission_12  | scripting — building your own tools            |
+
+---
+
+## Starter Code
+
+These files are safe practice scaffolds for the bigger hands-on projects:
+
+| Skill | Starter |
+|-------|---------|
+| Organize files into folders | `mission_03/organize_evidence_starter.sh` |
+| Write a secret text diary | `mission_04/secret_diary_starter.sh` |
+| Search files quickly | `mission_05/search_toolkit_starter.sh` |
+| Build a shell game | `mission_07/shell_game_starter.sh` |
+| Rename 100 files | `mission_08/bulk_rename_lab/` |
+| Customize prompt colors | `mission_10/prompt_colors_starter.zsh` |
+
+Run `.sh` starter files with `bash filename.sh`.
 
 ---
 

@@ -36,21 +36,43 @@ Run multiple times to see different facts:
 
 ---
 
-## Challenge 2 — Add Your Name to the Banner
+## Challenge 2 — Report Generator
 
-The banner width needs adjusting. Count characters to center. Here's one approach:
+Create `~/make_report.sh`:
 
 ```bash
-echo "╔════════════════════════════════════════════════╗"
-echo "║       MORNING BRIEFING FOR $MY_NAME              ║"
-echo "╚════════════════════════════════════════════════╝"
+nano ~/make_report.sh
 ```
 
-Or for a simpler banner that always works:
 ```bash
-echo "=========================================="
-echo "   MORNING BRIEFING FOR $MY_NAME"
-echo "=========================================="
+#!/bin/bash
+# make_report.sh — Fill a detective report template
+
+MISSION_DIR="$HOME/mac-cli-for-kids/playground/mission_07"
+
+name_count=$(wc -l < "$MISSION_DIR/names.txt")
+case_count=$(wc -l < "$MISSION_DIR/case_numbers.txt")
+
+random_name=$((RANDOM % name_count + 1))
+random_case=$((RANDOM % case_count + 1))
+
+chosen_name=$(sed -n "${random_name}p" "$MISSION_DIR/names.txt")
+chosen_case=$(sed -n "${random_case}p" "$MISSION_DIR/case_numbers.txt")
+
+sed \
+    -e "s|{{DETECTIVE_NAME}}|$chosen_name|g" \
+    -e "s|{{CASE_NUMBER}}|$chosen_case|g" \
+    "$MISSION_DIR/template.txt" > "$HOME/completed_report.txt"
+
+echo "Report filed!"
+echo "Saved to: $HOME/completed_report.txt"
+```
+
+Run it:
+
+```bash
+bash ~/make_report.sh
+cat ~/completed_report.txt
 ```
 
 ---
@@ -103,4 +125,33 @@ say "$MESSAGE"
 ```bash
 chmod +x ~/welcome.sh
 ~/welcome.sh
+```
+
+---
+
+## Challenge 5 — Customize the Number Lock Game
+
+Start by running the scaffold:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_07
+bash shell_game_starter.sh
+```
+
+Then copy it and edit your own version:
+
+```bash
+cp shell_game_starter.sh ~/number_lock.sh
+nano ~/number_lock.sh
+bash ~/number_lock.sh
+```
+
+Ideas to add:
+
+```bash
+if [ "$guess" -lt "$secret_number" ]; then
+    echo "Too low."
+else
+    echo "Too high."
+fi
 ```

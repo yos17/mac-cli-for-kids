@@ -39,9 +39,10 @@ note_d.txt          note_e.txt      old_backup.txt   photo_001.txt
 photo_002.txt       photo_003.txt   photo_004.txt    photo_005.txt
 photo_006.txt       photo_007.txt   photo_008.txt    photo_009.txt
 photo_010.txt       report_01.txt   report_02.txt    temp.txt
+organize_evidence_starter.sh
 ```
 
-That's a lot of unsorted files! A real evidence room needs proper organization. Your mission (in the Challenges section) is to sort this chaos into a proper filing system. But first, learn the tools.
+That's a lot of unsorted files! A real evidence room needs proper organization. Your mission (in the Challenges section) is to sort this chaos into a proper filing system. If you want a scaffold, run `bash organize_evidence_starter.sh`. But first, learn the tools.
 
 ---
 

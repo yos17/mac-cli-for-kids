@@ -29,7 +29,7 @@ Professional developers spend real time customizing their terminals. A well-tune
 Before you start customizing, let's look at some examples. Navigate to the playground:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_10
+cd ~/mac-cli-for-kids/playground/mission_10
 ls
 ```
 
@@ -38,6 +38,7 @@ You should see:
 ```
 sample_zshrc       ← an example .zshrc with 10 aliases, 3 functions, custom prompt
 cool_aliases.txt   ← 20 useful aliases with explanations
+prompt_colors_starter.zsh ← a small prompt-color scaffold
 .secret_code.txt   ← hidden! (find it at the end of the mission)
 ```
 
@@ -264,7 +265,7 @@ hqstatus
 **Experiment 4:** Create a quick alias to open your alias file from the case files.
 
 ```bash
-alias aliases="cat ~/mac-cli-for-kids/mission_10/cool_aliases.txt"
+alias aliases="cat ~/mac-cli-for-kids/playground/mission_10/cool_aliases.txt"
 aliases
 ```
 
@@ -412,11 +413,11 @@ countfiles ~/Documents
 
 ### Case #1001 — Browse the Cool Aliases File
 
-Read through `~/mac-cli-for-kids/mission_10/cool_aliases.txt` and pick at least **5 aliases** you do not already have that you would actually use. Add them to your `.zshrc`. Run `source ~/.zshrc` and test each one.
+Read through `~/mac-cli-for-kids/playground/mission_10/cool_aliases.txt` and pick at least **5 aliases** you do not already have that you would actually use. Add them to your `.zshrc`. Run `source ~/.zshrc` and test each one.
 
 ### Case #1002 — Design Your Perfect Detective Prompt
 
-Look at the `sample_zshrc` in the playground (`cat ~/mac-cli-for-kids/mission_10/sample_zshrc`) and find its `PS1` line. Use it as inspiration to design a prompt that includes all of these:
+Look at the `sample_zshrc` in the playground (`cat ~/mac-cli-for-kids/playground/mission_10/sample_zshrc`) and find its `PS1` line. Use it as inspiration to design a prompt that includes all of these:
 - Your first name hardcoded (not `\u` — type your actual name)
 - The current time
 - The current folder name
@@ -443,11 +444,11 @@ Add a `say` command to the welcome message section in `.zshrc` so your Mac greet
 You now know exactly how to find hidden files. The `mission_10` playground has one.
 
 ```bash
-cd ~/mac-cli-for-kids/mission_10
+cd ~/mac-cli-for-kids/playground/mission_10
 ls -a
 ```
 
-Spot the hidden file and read it. That is your fourth secret code word. Write it down.
+Spot the hidden file and read it. That is your tenth secret code word. Write it down.
 
 ---
 

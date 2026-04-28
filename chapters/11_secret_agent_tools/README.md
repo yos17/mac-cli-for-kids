@@ -31,7 +31,7 @@ You have already used `chmod +x` to make scripts executable. That was just the b
 Report to the secure evidence vault:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_11
+cd ~/mac-cli-for-kids/playground/mission_11
 ls -la
 ```
 
@@ -192,13 +192,13 @@ Output: `The suspect was seen at the dock.`
 The messages in `classified/` use base64 encoding. That means you have the tool right here to decode them. Go ahead and look at one:
 
 ```bash
-cat ~/mac-cli-for-kids/mission_11/classified/message_alpha.enc
+cat ~/mac-cli-for-kids/playground/mission_11/classified/message_alpha.enc
 ```
 
 See the scrambled-looking text ending in `==`? That is base64. Pipe it through `base64 -d` to decode it:
 
 ```bash
-cat ~/mac-cli-for-kids/mission_11/classified/message_alpha.enc | base64 -d
+cat ~/mac-cli-for-kids/playground/mission_11/classified/message_alpha.enc | base64 -d
 ```
 
 What does the decoded message say? Write it down. Now do the same for `message_beta.enc` and `message_gamma.enc`.
@@ -251,7 +251,7 @@ A strong password is:
 **Experiment 1:** Test the permissions puzzle in your case files.
 
 ```bash
-cd ~/mac-cli-for-kids/mission_11/permissions_puzzle
+cd ~/mac-cli-for-kids/playground/mission_11/permissions_puzzle
 
 # Check current permissions on all files
 ls -l
@@ -426,19 +426,19 @@ Your messages are stored encrypted in `~/.secret_vault/inbox/`. Anyone who looks
 
 ### Case #1101 — Decode All Three Messages
 
-Decode all three intercepted messages from `~/mac-cli-for-kids/mission_11/classified/`:
+Decode all three intercepted messages from `~/mac-cli-for-kids/playground/mission_11/classified/`:
 
 ```bash
-cat ~/mac-cli-for-kids/mission_11/classified/message_alpha.enc | base64 -d
-cat ~/mac-cli-for-kids/mission_11/classified/message_beta.enc | base64 -d
-cat ~/mac-cli-for-kids/mission_11/classified/message_gamma.enc | base64 -d
+cat ~/mac-cli-for-kids/playground/mission_11/classified/message_alpha.enc | base64 -d
+cat ~/mac-cli-for-kids/playground/mission_11/classified/message_beta.enc | base64 -d
+cat ~/mac-cli-for-kids/playground/mission_11/classified/message_gamma.enc | base64 -d
 ```
 
 What do the three messages say? Do they form a larger message when read together? Check the `classified/README.txt` file for hints.
 
 ### Case #1102 — Fix the Permissions Puzzle
 
-In `~/mac-cli-for-kids/mission_11/permissions_puzzle/` there are three files with different permission levels:
+In `~/mac-cli-for-kids/playground/mission_11/permissions_puzzle/` there are three files with different permission levels:
 - `locked_file.txt` — permission `000` (nobody can read it)
 - `readable.txt` — probably `644` (you can read it)
 - `owner_only.txt` — probably `600` (only owner can read/write)
@@ -485,11 +485,11 @@ Create a hidden private folder and demonstrate good security practice:
 You know how to list hidden files with `ls -a` and how to read file contents. The `mission_11` playground has its own hidden file — a little harder to spot since there is already a lot of interesting content in this folder.
 
 ```bash
-cd ~/mac-cli-for-kids/mission_11
+cd ~/mac-cli-for-kids/playground/mission_11
 ls -a
 ```
 
-Find the `.secret_code.txt` file and read it. That is your fifth secret code word. Add it to your collection.
+Find the `.secret_code.txt` file and read it. That is your eleventh secret code word. Add it to your collection.
 
 ---
 

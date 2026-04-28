@@ -33,7 +33,7 @@ By the end of this mission your morning briefing script will:
 Before writing anything new, let's check in at HQ. Your playground folder for this mission is already on your computer.
 
 ```bash
-cd ~/mac-cli-for-kids/mission_07
+cd ~/mac-cli-for-kids/playground/mission_07
 ls -la
 ```
 
@@ -43,6 +43,7 @@ You should see:
 template.txt        ← a detective report template with {{PLACEHOLDER}} fields
 names.txt           ← 10 detective names (suspects? partners? you decide)
 case_numbers.txt    ← 10 case numbers in CASE-2026-XXXX format
+shell_game_starter.sh ← a tiny number-lock game to customize
 .secret_code.txt    ← hidden! (you'll find it at the end of the mission)
 ```
 
@@ -357,7 +358,7 @@ Your Mac reads you a detective briefing! Add more facts to the list, change the 
 Now let's connect your new scripting skills to the case files in `mission_07/`. Try this exercise — use the `names.txt` file to pick a random detective name:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_07
+cd ~/mac-cli-for-kids/playground/mission_07
 
 # Count how many names there are
 name_count=$(wc -l < names.txt)
@@ -391,8 +392,8 @@ Add at least 3 more facts to the `FACTS` array in `morning.sh`. Make at least on
 ### Case #0702 — Report Generator
 
 Write a new script called `~/make_report.sh` that:
-1. Reads a detective name from `~/mac-cli-for-kids/mission_07/names.txt` (random line)
-2. Reads a case number from `~/mac-cli-for-kids/mission_07/case_numbers.txt` (random line)
+1. Reads a detective name from `~/mac-cli-for-kids/playground/mission_07/names.txt` (random line)
+2. Reads a case number from `~/mac-cli-for-kids/playground/mission_07/case_numbers.txt` (random line)
 3. Fills those values into `template.txt` using `sed`
 4. Saves the completed report to `~/completed_report.txt`
 5. Prints "Report filed!" when done
@@ -421,6 +422,17 @@ Create a new script called `~/welcome.sh` that:
 3. Prints a personalized welcome to the Detective Academy using both answers
 4. Makes your Mac say the welcome message out loud
 
+### Case #0705 — Customize the Number Lock Game
+
+Run the starter game:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_07
+bash shell_game_starter.sh
+```
+
+Then copy it to your home folder and change it. Add warmer/colder hints, give the player 5 tries, or reveal a secret message when the case unlocks.
+
 ---
 
 ## Secret Code Hunt
@@ -430,11 +442,11 @@ You have been learning how scripts work — including how to read variables from
 The `mission_07` playground folder contains a hidden file. Use the commands you just learned to find it and read what is inside:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_07
+cd ~/mac-cli-for-kids/playground/mission_07
 ls -a
 ```
 
-See a file starting with a `.`? That is your target. Read it using the command you know for displaying file contents. Write down the word you find — it is the first piece of your Detective Academy graduation certificate.
+See a file starting with a `.`? That is your target. Read it using the command you know for displaying file contents. Write down the word you find — it is the seventh piece of your Detective Academy graduation certificate.
 
 ---
 

@@ -29,7 +29,7 @@ You use the internet every day with a browser, but that browser is hiding a lot.
 Report to the network investigation lab:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_09
+cd ~/mac-cli-for-kids/playground/mission_09
 ls
 ```
 
@@ -235,7 +235,7 @@ Open with a specific app:
 
 ```bash
 open -a "Safari" https://nasa.gov
-open -a "TextEdit" ~/mac-cli-for-kids/mission_09/network_log.txt
+open -a "TextEdit" ~/mac-cli-for-kids/playground/mission_09/network_log.txt
 ```
 
 This is useful at the end of scripts — you can automatically open a report in TextEdit when your script finishes.
@@ -337,7 +337,7 @@ nano ~/investigate_network.sh
 #!/bin/bash
 # investigate_network.sh — Analyze a network log for suspicious activity
 
-LOG_FILE="$HOME/mac-cli-for-kids/mission_09/network_log.txt"
+LOG_FILE="$HOME/mac-cli-for-kids/playground/mission_09/network_log.txt"
 
 echo ""
 echo "╔══════════════════════════════════════════╗"
@@ -413,14 +413,14 @@ Look at the output carefully. What looks suspicious? Report your findings to Com
 
 ### Case #0901 — API Investigation
 
-Use `curl` on every URL in `~/mac-cli-for-kids/mission_09/urls.txt`. Write a `for` loop that reads the file line by line and curls each URL:
+Use `curl` on every URL in `~/mac-cli-for-kids/playground/mission_09/urls.txt`. Write a `for` loop that reads the file line by line and curls each URL:
 
 ```bash
 while IFS= read -r url; do
     echo "--- Contacting: $url ---"
-    curl -s "https://$url" | head -3
+    curl -s "$url" | head -3
     echo ""
-done < ~/mac-cli-for-kids/mission_09/urls.txt
+done < ~/mac-cli-for-kids/playground/mission_09/urls.txt
 ```
 
 Record what each one returns. Which one is most useful? Which one is most interesting?
@@ -462,11 +462,11 @@ You now know how to use `curl` to contact remote servers and how to read files i
 The `mission_09` playground has a hidden file too. Use what you have learned:
 
 ```bash
-cd ~/mac-cli-for-kids/mission_09
+cd ~/mac-cli-for-kids/playground/mission_09
 ls -a
 ```
 
-Find the file starting with `.` and read it. That is your third secret code word. Write it down next to the first two.
+Find the file starting with `.` and read it. That is your ninth secret code word. Write it down on your certificate sheet.
 
 ---
 

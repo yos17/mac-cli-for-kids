@@ -245,10 +245,10 @@ cat encrypted_clue.txt
 You'll see something that looks like scrambled nonsense. That's **Base64 encoding** — a way of encoding text so it can't be read without decoding it. Use this command to decode it:
 
 ```bash
-cat encrypted_clue.txt | base64 --decode
+cat encrypted_clue.txt | base64 -d
 ```
 
-The `|` (pipe) sends the output of `cat` into the `base64 --decode` command, which translates it back into readable text. You'll learn all about pipes in Mission 6 — for now, just run it and see what secret message is revealed!
+The `|` (pipe) sends the output of `cat` into the `base64 -d` command, which translates it back into readable text. You'll learn all about pipes in Mission 6 — for now, just run it and see what secret message is revealed!
 
 ---
 
@@ -467,7 +467,7 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `tail -f file` | Follows a file (shows new lines as added) |
 | `echo "text" > file` | Writes text to a file (overwrites!) |
 | `echo "text" >> file` | Appends text to a file (adds to end) |
-| `base64 --decode` | Decodes base64-encoded text |
+| `base64 -d` | Decodes base64-encoded text |
 
 ### Vocabulary
 

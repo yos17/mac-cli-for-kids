@@ -1,79 +1,118 @@
 # Mission 5 — Solutions
 
-## Challenge 1 — Find Your Photos
+## Challenge 1 — Find the Witness
 
 ```bash
-find ~ \( -name "*.jpg" -o -name "*.png" -o -name "*.heic" \) 2>/dev/null | wc -l
+grep "MARINA SANTOS" ~/mac-cli-for-kids/playground/mission_05/report_*.txt
 ```
 
-The `\(` and `\)` group the `-o` (or) conditions together. The count will vary depending on your Mac.
+The match is in:
+
+```text
+report_008.txt
+```
+
+Read the full report:
+
+```bash
+cat ~/mac-cli-for-kids/playground/mission_05/report_008.txt
+```
+
+Find the exact line number:
+
+```bash
+grep -n "MARINA SANTOS" ~/mac-cli-for-kids/playground/mission_05/report_008.txt
+```
 
 ---
 
-## Challenge 2 — Dictionary Detective
+## Challenge 2 — Evidence Log Analysis
 
-Words starting with "cat":
+Use at least three keywords from `keyword_hints.txt`. Examples:
+
 ```bash
-grep "^cat" /usr/share/dict/words
-grep -c "^cat" /usr/share/dict/words
+cd ~/mac-cli-for-kids/playground/mission_05
+
+grep -i "alert" evidence_*.log
+grep -i "harbor" evidence_*.log
+grep -i "decryption" evidence_*.log
 ```
 
-Words ending with "tion":
+Count lines containing numbers in each log:
+
+```bash
+grep -c "[0-9]" evidence_*.log
+```
+
+In these training files, each evidence log has timestamped lines, so each file reports numbered matches.
+
+Bonus count for alerts:
+
+```bash
+grep -i "alert" evidence_*.log | wc -l
+```
+
+Expected alert count: `13`.
+
+---
+
+## Challenge 3 — Dictionary Detective
+
+Words starting with `detect`:
+
+```bash
+grep "^detect" /usr/share/dict/words
+grep -c "^detect" /usr/share/dict/words
+```
+
+Words ending with `tion`:
+
 ```bash
 grep "tion$" /usr/share/dict/words
 grep -c "tion$" /usr/share/dict/words
 ```
 
-Words containing "xyz":
-```bash
-grep "xyz" /usr/share/dict/words
-```
-(Probably none, or very few!)
+Words containing `clue`:
 
-5-letter words:
+```bash
+grep "clue" /usr/share/dict/words
+grep -i "clue" /usr/share/dict/words
+```
+
+Five-letter words:
+
 ```bash
 grep "^.....$" /usr/share/dict/words | wc -l
 ```
-Each `.` matches exactly one character. So `^.....$` matches "start, any char, any char, any char, any char, any char, end" = exactly 5 characters.
+
+Each `.` matches exactly one character. So `^.....$` means start, five characters, end.
 
 ---
 
-## Challenge 3 — Recent Activity
+## Challenge 4 — Full Folder Sweep
+
+Search the whole mission folder:
 
 ```bash
-find ~ -mtime -1 2>/dev/null
+grep -Rli "MARINA" ~/mac-cli-for-kids/playground/mission_05
 ```
 
-To find the MOST recently changed file, sort by modification time:
+You should see `report_008.txt`. You may also see `search_toolkit_starter.sh`, because that starter script uses `MARINA` as its default search term.
+
+Search only content matches with line numbers:
+
 ```bash
-find ~ -mtime -1 2>/dev/null -exec ls -lt {} \; 2>/dev/null | head -5
+grep -Rni "MARINA" ~/mac-cli-for-kids/playground/mission_05
 ```
 
-Or more simply:
+Find files modified in the last 7 days:
+
 ```bash
-ls -lt ~ | head -10
+find ~/mac-cli-for-kids/playground/mission_05 -type f -mtime -7 2>/dev/null
 ```
 
----
+To show the newest files first:
 
-## Challenge 4 — Search Your Diary
-
-Entry headers:
 ```bash
-grep "^===" ~/diary/journal.txt
-```
-
-Search for a specific word (case-insensitive):
-```bash
-grep -i "learned" ~/diary/journal.txt
-```
-
-Count "today":
-```bash
-grep -c "today" ~/diary/journal.txt
-```
-
-Or for case-insensitive count:
-```bash
-grep -ic "today" ~/diary/journal.txt
+find ~/mac-cli-for-kids/playground/mission_05 -type f -exec ls -lt {} \; 2>/dev/null | head
 ```

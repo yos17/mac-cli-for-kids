@@ -1,62 +1,84 @@
 # Mission 3 — Solutions
 
-## Challenge 1 — Build a Project Folder
+## Challenge 1 — Build a Case Folder Structure
 
 ```bash
-mkdir -p ~/my_project/src
-mkdir ~/my_project/docs
-mkdir ~/my_project/tests
-touch ~/my_project/notes.txt
-ls ~/my_project/
+mkdir -p ~/my_detective_case/evidence
+mkdir -p ~/my_detective_case/suspects
+mkdir -p ~/my_detective_case/timeline
+touch ~/my_detective_case/case_notes.txt
+ls ~/my_detective_case
 ```
 
-Output:
+Or in fewer commands:
+
+```bash
+mkdir -p ~/my_detective_case/{evidence,suspects,timeline}
+touch ~/my_detective_case/case_notes.txt
 ```
-docs/  notes.txt  src/  tests/
+
+Expected folders:
+
+```text
+case_notes.txt  evidence  suspects  timeline
 ```
 
 ---
 
-## Challenge 2 — The Backup
+## Challenge 2 — The Evidence Backup
 
 ```bash
-cp -r ~/my_project ~/my_project_backup
+cp -r ~/my_detective_case ~/my_detective_case_backup
 ls ~
 ```
 
-You should see both `my_project` and `my_project_backup` in your home folder.
+You should see both `my_detective_case` and `my_detective_case_backup`.
 
 ---
 
-## Challenge 3 — Rename Your Files
+## Challenge 3 — Rename and Refile
+
+Create and rename the suspect files:
 
 ```bash
-cd ~/my_project/src
+cd ~/my_detective_case
+touch suspects/person1.txt suspects/person2.txt suspects/person3.txt
 
-touch program1.txt program2.txt program3.txt
-ls
-
-mv program1.txt script1.sh
-mv program2.txt script2.sh
-mv program3.txt script3.sh
-
-ls
+mv suspects/person1.txt suspects/suspect_alpha.txt
+mv suspects/person2.txt suspects/suspect_beta.txt
+mv suspects/person3.txt suspects/suspect_gamma.txt
 ```
 
-Output:
-```
-script1.sh  script2.sh  script3.sh
+Move them into `evidence/` and rename them at the same time:
+
+```bash
+mv suspects/suspect_alpha.txt evidence/exhibit_a.txt
+mv suspects/suspect_beta.txt evidence/exhibit_b.txt
+mv suspects/suspect_gamma.txt evidence/exhibit_c.txt
+ls evidence
 ```
 
-**Bonus:** You could also create them with `.sh` extension from the start using `touch script1.sh script2.sh script3.sh` — but renaming is good practice!
+Expected:
+
+```text
+exhibit_a.txt  exhibit_b.txt  exhibit_c.txt
+```
 
 ---
 
-## Challenge 4 — Cleanup
+## Challenge 4 — Cleanup Crew
+
+Check before deleting:
 
 ```bash
-rm -r ~/my_project_backup
+ls ~/my_detective_case_backup
+```
+
+Delete the backup:
+
+```bash
+rm -r ~/my_detective_case_backup
 ls ~
 ```
 
-`my_project_backup` should be gone. `my_project` should still be there (we only deleted the backup).
+`my_detective_case_backup` should be gone. `my_detective_case` should still exist.

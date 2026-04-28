@@ -2,41 +2,36 @@
 
 ## Challenge 1 — The Leaderboard
 
+Create the file:
+
 ```bash
-cat > scores.txt << 'EOF'
-Alice 95
-Bob 72
-Charlie 88
-Diana 95
-Ella 63
-Frank 88
-Grace 100
-Hannah 72
+cat > agent_scores.txt << 'EOF'
+Agent Phoenix 95
+Agent Shadow 72
+Agent Cipher 88
+Agent Storm 95
+Agent Echo 63
+Agent Frost 88
+Agent Nova 100
+Agent Blaze 72
 EOF
-
-# Sort by score, highest first:
-sort -k2 -rn scores.txt
 ```
 
-Output:
-```
-Grace 100
-Alice 95
-Diana 95
-Charlie 88
-Frank 88
-Bob 72
-Hannah 72
-Ella 63
-```
+Sort highest first:
 
-Unique scores only:
 ```bash
-sort -k2 -rn scores.txt | cut -d' ' -f2 | uniq
+sort -k3 -rn agent_scores.txt
 ```
 
-Output:
+Show only unique scores, highest first:
+
+```bash
+sort -k3 -rn agent_scores.txt | cut -d' ' -f3 | uniq
 ```
+
+Expected unique scores:
+
+```text
 100
 95
 88
@@ -46,48 +41,87 @@ Output:
 
 ---
 
-## Challenge 2 — Word Count Race
+## Challenge 2 — Access Log Deep Dive
+
+Go to the mission folder:
 
 ```bash
-wc -w ~/diary/journal.txt
-wc -w ~/Documents/somefile.txt   # replace with your actual file
-wc -w /usr/share/dict/words
+cd ~/mac-cli-for-kids/playground/mission_06
 ```
 
-`/usr/share/dict/words` almost certainly wins — it has 235,886 words!
+Unique IP addresses:
+
+```bash
+cut -d',' -f2 access_log.csv | tail -n +2 | sort | uniq | wc -l
+```
+
+Expected answer: `68`.
+
+Most common URL:
+
+```bash
+cut -d',' -f4 access_log.csv | tail -n +2 | sort | uniq -c | sort -rn | head -1
+```
+
+Expected top URL: `/index.html`.
+
+IP address with the most requests:
+
+```bash
+cut -d',' -f2 access_log.csv | tail -n +2 | sort | uniq -c | sort -rn | head -1
+```
+
+Expected top IP: `10.0.0.99`.
 
 ---
 
 ## Challenge 3 — The Pipeline Challenge
 
 ```bash
-find ~ -name "*.txt" 2>/dev/null | sort | wc -l
+cd ~/mac-cli-for-kids/playground/mission_06
+grep ',at_large' suspects_database.csv | cut -d',' -f2 | sort
 ```
 
-One line, three commands, all piped together. The result is a single number: how many `.txt` files are in your home folder.
+Active suspect names:
+
+```text
+Celeste Moreau
+Dmitri Volkov
+Vera Blackstone
+Victor "The Ghost" Malenko
+Yuki Tanaka
+```
+
+Count them:
+
+```bash
+grep ',at_large' suspects_database.csv | cut -d',' -f2 | sort | wc -l
+```
+
+Expected count: `5`.
 
 ---
 
-## Challenge 4 — Top 10 Extensions
+## Challenge 4 — Crack the Word Scramble
 
 ```bash
-find ~ -type f 2>/dev/null | grep -o "\.[a-zA-Z0-9]*$" | sort | uniq -c | sort -rn | head -10
+cd ~/mac-cli-for-kids/playground/mission_06
+cat word_scramble.txt | tr ' ' '\n' | tr '[:upper:]' '[:lower:]' | grep -v "^$" | sort | uniq -c | sort -rn | head -5
 ```
 
-Translation:
-1. `find ~ -type f` — list all files
-2. `grep -o "\.[a-zA-Z0-9]*$"` — extract just the extension (the last `.something`)
-3. `sort` — sort alphabetically (needed for `uniq`)
-4. `uniq -c` — count each unique extension
-5. `sort -rn` — sort by count, highest first
-6. `head -10` — keep only the top 10
+This file includes punctuation and lesson text, so the raw top results include symbols such as `_`, `.`, and `—`. That is useful to notice: real text data is messy.
 
-Your output will look something like:
+To count cleaner word-like tokens only:
+
+```bash
+cat word_scramble.txt \
+  | tr '[:upper:]' '[:lower:]' \
+  | tr -cs '[:alpha:]' '\n' \
+  | grep -v "^$" \
+  | sort \
+  | uniq -c \
+  | sort -rn \
+  | head -5
 ```
- 1423 .jpg
-  892 .png
-  445 .txt
-  312 .pdf
-  201 .mp3
-  ...
-```
+
+The important skill is understanding the pipeline: split text into words, normalize case, remove blanks, sort, count, sort by count, then show the top results.

@@ -1,34 +1,61 @@
 # Mission 10 — Solutions
 
-## Challenge 1 — Design Your Perfect Prompt
+## Challenge 1 — Browse the Cool Aliases File
 
-An example prompt with name, time, folder, and emoji:
+Open the alias list:
 
 ```bash
-# In ~/.zshrc:
-export PS1="⭐ Joanna [\[\e[36m\]\t\[\e[0m\]] \[\e[33m\]\W\[\e[0m\] % "
+cat ~/mac-cli-for-kids/playground/mission_10/cool_aliases.txt
 ```
 
-This shows: `⭐ Joanna [10:30:15] Documents %`
-
-- `⭐` — emoji
-- `Joanna` — hardcoded name
-- `\t` in cyan — current time
-- `\W` in yellow — current folder name
-
----
-
-## Challenge 2 — Five Useful Aliases
+Pick five you would actually use. Example set:
 
 ```bash
 alias week="cal"
-alias myip="curl -s ifconfig.me && echo"
 alias reload="source ~/.zshrc && echo 'Config reloaded!'"
-alias scripts="ls ~/*.sh"
+alias recent="ls -lt | head -10"
 alias trash="rm -ri"
+alias finder="open ."
 ```
 
-Add all five to `~/.zshrc`, then run `source ~/.zshrc` to apply them.
+Add them to `~/.zshrc`:
+
+```bash
+nano ~/.zshrc
+source ~/.zshrc
+```
+
+Then test each alias by typing its name.
+
+---
+
+## Challenge 2 — Design Your Perfect Detective Prompt
+
+An example prompt with a hardcoded name, current time, current folder, and colors:
+
+```bash
+# In ~/.zshrc:
+export PS1="\[\e[35m\]Joanna\[\e[0m\] [\[\e[36m\]\t\[\e[0m\]] \[\e[33m\]\W\[\e[0m\] % "
+```
+
+This shows something like:
+
+```text
+Joanna [10:30:15] Documents %
+```
+
+- `Joanna` — hardcoded first name
+- `\t` — current time
+- `\W` — current folder name
+- `\[\e[35m\]` and similar codes — colors
+
+Test before saving:
+
+```bash
+export PS1="\[\e[35m\]Joanna\[\e[0m\] [\[\e[36m\]\t\[\e[0m\]] \[\e[33m\]\W\[\e[0m\] % "
+```
+
+If you like it, add it to `~/.zshrc`.
 
 ---
 
@@ -42,7 +69,8 @@ log() {
     else
         diary_entry="$*"
     fi
-    
+
+    mkdir -p ~/diary
     echo "=== $(date +'%A, %B %d, %Y') ===" >> ~/diary/journal.txt
     echo "" >> ~/diary/journal.txt
     echo "$diary_entry" >> ~/diary/journal.txt
@@ -52,22 +80,24 @@ log() {
 }
 ```
 
-Now:
-- `log "I learned about aliases today!"` — saves immediately
-- `log` — prompts you to type your entry
+Now both forms work:
+
+```bash
+log "I learned about aliases today."
+log
+```
 
 ---
 
-## Challenge 4 — Add Greeting Voice
+## Challenge 4 — Add a Welcome Voice
 
 In `~/.zshrc`, inside the welcome message section:
 
 ```bash
-# --- WELCOME MESSAGE ---
 echo ""
-echo "Welcome back, $(whoami)! Today is $(date +'%A, %B %d')."
+echo "Welcome back, Joanna. Today is $(date +'%A')."
 echo ""
-say -v Samantha "Welcome back! Today is $(date +'%A, %B %d')" &
+say -v Samantha "Welcome back Joanna. Today is $(date +'%A')." &
 ```
 
-The `&` at the end runs the `say` command in the *background* — so Terminal is ready immediately without waiting for the voice to finish speaking. Remove `&` if you want Terminal to wait.
+The `&` at the end runs `say` in the background so Terminal is ready immediately. Remove `&` if you want Terminal to wait until the voice finishes.

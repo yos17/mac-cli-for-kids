@@ -2,90 +2,104 @@
 
 ## Challenge 1 — Your Own Voice Message
 
+Example:
+
 ```bash
+echo "Hi, my name is Joanna"
 say -v Samantha "Hi, my name is Joanna"
+
+echo "I am twelve years old"
 say -v Fred "I am twelve years old"
+
+echo "My favorite thing to do is draw"
 say -v Victoria "My favorite thing to do is draw"
 ```
 
-Pick any three voices you like! Run `say -v '?' 2>&1` to see all available voices.
+Pick any three voices you like. Run `say -v '?' 2>&1 | head -20` to see available voices in smaller chunks.
 
 ---
 
-## Challenge 2 — The Custom Date
+## Challenge 2 — Read the Case Files
 
-Print only the current year:
 ```bash
-date +"%Y"
+cd ~/mac-cli-for-kids/playground/mission_01
+cat welcome.txt
+cat agents.txt
 ```
-Output: `2026`
 
-Print only the current month name:
-```bash
-date +"%B"
-```
-Output: `April`
+Example summaries:
 
-**Bonus:** Print just the day of the week:
 ```bash
-date +"%A"
+echo "welcome.txt explains that Terminal is a direct way to control my Mac."
+echo "agents.txt lists Academy agents and their specialties."
 ```
-Output: `Sunday`
+
+Bonus:
+
+```bash
+say "$(cat welcome.txt)"
+```
+
+If that speaks too much at once, try just the first few lines:
+
+```bash
+head -5 welcome.txt
+say "$(head -5 welcome.txt)"
+```
 
 ---
 
 ## Challenge 3 — Echo Art
 
 Here's a simple cat:
+
 ```bash
-echo "  /\_/\  "
+echo "  /\\_/\\  "
 echo " ( o.o ) "
 echo "  > ^ <  "
-echo " (_____)  "
+echo " (_____) "
 ```
 
-A rocket:
+A small badge:
+
 ```bash
-echo "   /\ "
-echo "  /  \ "
-echo " | ** | "
-echo " |    | "
-echo "  \  / "
-echo "  /  \ "
-echo " / /\ \ "
-echo "/_/  \_\\"
+echo "  _______  "
+echo " /       \\ "
+echo "|  DA-1   |"
+echo "| DETECT  |"
+echo " \\_______/ "
 ```
 
-A house:
-```bash
-echo "    /\ "
-echo "   /  \ "
-echo "  /    \ "
-echo " /______\ "
-echo " |      | "
-echo " |  []  | "
-echo " |______| "
-```
-
-There's no single right answer here — have fun with it!
+There is no single right answer. If `echo` prints the shape you intended, it worked.
 
 ---
 
-## Challenge 4 — Explore Voices
+## Challenge 4 — Custom Date Formats
 
-To see all voices:
+Print only the current year:
+
 ```bash
-say -v '?' 2>&1
+date +"%Y"
 ```
 
-Some fun ones to try:
+Print only the current month name:
+
 ```bash
-say -v Zarvox "Take me to your leader"
-say -v Cellos "I am speaking in a very deep voice"
-say -v Trinoids "I am a tiny alien"
-say -v Pipe Organ "La la la la la"
-say -v Whisper "Can you hear me?"
-say -v Bahh "I am a sheep. Baa."
+date +"%B"
 ```
 
-Keep a mental note of your favorite — you'll get to use it in Mission 7 when you build your morning briefing script!
+Print only the day of the week:
+
+```bash
+date +"%A"
+```
+
+Try voices:
+
+```bash
+say -v Samantha "Today is $(date +"%A")"
+say -v Fred "Today is $(date +"%A")"
+say -v Victoria "Today is $(date +"%A")"
+say -v Alex "Today is $(date +"%A")"
+say -v Zarvox "Today is $(date +"%A")"
+```

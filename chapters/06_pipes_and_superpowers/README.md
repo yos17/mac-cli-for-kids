@@ -22,7 +22,7 @@ Today you learn to chain commands into combos more powerful than any single comm
 
 > **Typing the pipe character `|`:**
 > - **US keyboard:** Shift + `\` (the key above Enter or to the left of Enter)
-> - **German keyboard:** Option + 7
+> - **German keyboard:** Option + `/`
 >
 > You'll type `|` constantly in this mission. Find the key now before you start.
 
@@ -75,7 +75,7 @@ The suspects database has 20 rows. Your mission will use pipes to analyze both f
 
 ## The Pipe `|`
 
-The pipe symbol `|` (on your keyboard: hold Shift and press `\`) connects two commands. It sends the output of the command on the left as the input to the command on the right.
+The pipe symbol `|` connects two commands. On a US keyboard, type it with Shift + `\`. On a German keyboard, type it with Option + `/`. It sends the output of the command on the left as the input to the command on the right.
 
 Without pipe:
 ```bash

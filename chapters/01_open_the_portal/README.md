@@ -228,11 +228,32 @@ The `+"%..."` part is a *format string* — you're telling `date` exactly how yo
 
 ---
 
-## Pro Tip — The Up Arrow is Your Best Friend
+## Pro Tip — Keyboard Superpowers
 
-You don't have to retype commands. Press the **Up arrow** key to go back through your command history. Press it again to go further back. Press **Down** to come forward. Press **Enter** to run that command again.
+You do not have to retype commands or fight with the cursor. Terminal remembers what you typed, and your keyboard can edit the current line quickly.
 
-Try it: press Up a few times and you'll see your earlier commands come back. Professional detectives use every shortcut available — so should you.
+| Shortcut | What it does |
+|----------|-------------|
+| Up arrow | Bring back the previous command |
+| Down arrow | Move forward through newer commands |
+| Enter | Run the command currently on the line |
+| Ctrl + A | Jump to the start of the line |
+| Ctrl + E | Jump to the end of the line |
+| Ctrl + U | Delete everything before the cursor |
+| Ctrl + K | Delete everything after the cursor |
+| Ctrl + L | Clear the screen |
+| Ctrl + C | Stop a command that is running |
+| Cmd + C | Copy selected text |
+| Cmd + V | Paste text |
+
+Try it now:
+
+1. Press Up until you see an earlier `say` command.
+2. Press Ctrl + A to jump to the start.
+3. Use the arrow keys to change part of the sentence.
+4. Press Enter to run the edited command.
+
+Important Mac detail: `Ctrl + C` is **not** copy inside Terminal. It means "stop this command." Copy and paste are `Cmd + C` and `Cmd + V`.
 
 ---
 
@@ -374,6 +395,10 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `say -v Name "text"` | Uses a specific voice |
 | `clear` | Clears the screen |
 | `$(command)` | Runs a command and uses its output |
+| Up / Down arrows | Reuse commands from your history |
+| Ctrl + A / Ctrl + E | Jump to the start or end of the line |
+| Ctrl + C | Stop a running command |
+| Ctrl + L | Clear the screen without losing history |
 
 ### Vocabulary
 
@@ -381,6 +406,7 @@ Solutions are in the [solutions folder](solutions/README.md).
 - **Command** — a word that tells your computer to do something
 - **Prompt** — the `%` (or `$`) symbol that means "ready for your command"
 - **Flag** — extra instructions to a command, starting with `-`
+- **History** — the list of commands Terminal remembers from earlier
 - **Command substitution** — `$(...)` runs a command inside another command
 
 ---

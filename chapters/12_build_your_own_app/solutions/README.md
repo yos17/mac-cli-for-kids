@@ -1,85 +1,97 @@
 # Mission 12 — Solutions
 
-## Challenge 1 — Add a Calculator
+## Challenge 1 — Add a Quick Calculator
 
-Add to `mybot.sh` inside the main `case` block:
+Add a function:
 
 ```bash
-8)
+do_calculator() {
     echo ""
-    echo "  Enter a math expression (e.g., 5 * 7 or 100 / 4):"
-    read math_expr
-    result=$(echo "$((math_expr))" 2>/dev/null)
+    echo "Enter a math expression (e.g. 5 * 7 or 100 / 4):"
+    read expr
+    result=$(echo "$((expr))" 2>/dev/null)
+
     if [ $? -eq 0 ]; then
         echo -e "  ${GREEN}Result: $result${NC}"
     else
         echo -e "  ${RED}Could not calculate that. Try something like: 5 + 3${NC}"
     fi
-    ;;
+    echo ""
+}
 ```
 
-And add to the menu:
+Add to the menu:
+
 ```bash
-echo -e "  ${YELLOW}8.${NC} Quick Calculator"
+echo -e "  ${YELLOW}9.${NC} Quick Calculator"
 ```
+
+Add to the main `case` block:
+
+```bash
+9) do_calculator ;;
+```
+
+If option `9` is already used in your version, use the next free number. The important part is that the menu number and the `case` number match.
 
 ---
 
 ## Challenge 2 — Weather Widget
 
-In `modules/internet.sh`, add after `check_internet()`:
+Improve `get_weather` so it asks about the full forecast:
 
 ```bash
 get_weather() {
-    echo "Which city?"
+    echo "Which city do you want the weather for?"
     read city
     echo ""
-    curl -s "wttr.in/${city}?format=3" 2>/dev/null || echo "  Could not get weather. Check your internet."
+
+    echo -e "${CYAN}Weather for $city:${NC}"
+    curl -s "wttr.in/${city}?format=3" 2>/dev/null || echo "  Could not fetch weather."
+    echo ""
+
+    echo "Show full 3-day forecast? (y/n)"
+    read full
+    if [ "$full" = "y" ] || [ "$full" = "Y" ]; then
+        curl -s "wttr.in/${city}"
+    fi
+
     echo ""
 }
-```
-
-In `mybot.sh`, add to the menu:
-```bash
-echo -e "  ${YELLOW}9.${NC} Weather"
-```
-
-And in the case statement:
-```bash
-9) get_weather ;;
 ```
 
 ---
 
 ## Challenge 3 — Quote of the Day
 
-Add to `mybot.sh` or a new module:
+Add a function using the GitHub Zen endpoint from Mission 9:
 
 ```bash
 do_quote() {
     echo ""
-    echo -e "  ${PURPLE}Quote of the moment:${NC}"
-    RESULT=$(curl -s --max-time 5 "https://api.quotable.io/random" 2>/dev/null)
-    if [ -n "$RESULT" ]; then
-        echo "$RESULT" | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    print('  \"' + data['content'] + '\"')
-    print('  — ' + data['author'])
-except:
-    print('  Could not parse quote.')
-" 2>/dev/null
-    else
-        echo "  Could not fetch quote (check your internet connection)"
-    fi
+    echo -e "  ${PURPLE}Quote of the day:${NC}"
+    curl -s --max-time 5 https://api.github.com/zen 2>/dev/null || echo "  Could not fetch a quote."
     echo ""
 }
 ```
 
+Add to the menu:
+
+```bash
+echo -e "  ${YELLOW}10.${NC} Quote of the Day"
+```
+
+Add to the main `case` block:
+
+```bash
+10) do_quote ;;
+```
+
+Use a different number if `10` is already taken.
+
 ---
 
-## Challenge 4 — Make It Your Own
+## Challenge 4 — Make It Yours
 
 ### Example: Random Dictionary Word
 
@@ -87,7 +99,7 @@ except:
 do_random_word() {
     WORD=$(grep "." /usr/share/dict/words | sort -R | head -1)
     echo ""
-    echo -e "  ${CYAN}Random word of the moment: ${BOLD}$WORD${NC}"
+    echo -e "  ${CYAN}Random word: ${BOLD}$WORD${NC}"
     say -v "$MY_VOICE" "Your random word is $WORD" &
     echo ""
 }
@@ -103,7 +115,7 @@ todo_menu() {
     echo -e "${PURPLE}=== TO-DO LIST ===${NC}"
     echo "  1. Add item"
     echo "  2. View all items"
-    echo "  3. Clear completed (delete file)"
+    echo "  3. Clear list"
     echo "  b. Back"
     echo ""
     read todo_choice
@@ -131,4 +143,4 @@ todo_menu() {
 }
 ```
 
-The best solution is whatever makes you open MyBot every day. Make it yours!
+The best solution is whatever makes you open MyBot again.

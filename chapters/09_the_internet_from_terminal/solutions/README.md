@@ -1,76 +1,106 @@
 # Mission 9 — Solutions
 
-## Challenge 1 — Ping Race
+## Challenge 1 — API Investigation
 
 ```bash
-ping -c 5 google.com
-ping -c 5 amazon.com
-ping -c 5 bbc.co.uk
-ping -c 5 abc.net.au
-ping -c 5 1.1.1.1
+while IFS= read -r url; do
+    echo "--- Contacting: $url ---"
+    curl -s "$url" | head -3
+    echo ""
+done < ~/mac-cli-for-kids/playground/mission_09/urls.txt
 ```
 
-Look at the "avg" number in the last statistics line. For example:
-```
-round-trip min/avg/max/stddev = 10.2/12.4/15.1/1.8 ms
-```
+What you see depends on the live services, but typical results:
 
-The `12.4` is the average ping time. Rankings will vary by your location, but 1.1.1.1 (Cloudflare) is typically very fast, and Australian servers tend to have high latency from North America.
+- `https://api.ipify.org` returns your public IP address.
+- `https://wttr.in/?format=3` returns a one-line weather summary.
+- `https://icanhazip.com` returns your public IP address.
+- `https://httpbin.org/get` returns JSON about your request.
+- `https://api.github.com/zen` returns a short programming quote.
 
 ---
 
 ## Challenge 2 — The HTTP Codes Explorer
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" https://google.com
-curl -s -o /dev/null -w "%{http_code}\n" https://google.com/this-page-does-not-exist
-curl -s -o /dev/null -w "%{http_code}\n" https://httpstat.us/200
+while IFS= read -r url; do
+    code=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+    if [ "$code" = "200" ]; then
+        echo "$url -> $code OK"
+    else
+        echo "$url -> $code check this"
+    fi
+done < ~/mac-cli-for-kids/playground/mission_09/urls.txt
+```
+
+Bonus:
+
+```bash
 curl -s -o /dev/null -w "%{http_code}\n" https://httpstat.us/404
+curl -s -o /dev/null -w "%{http_code}\n" https://httpstat.us/500
 ```
 
-Expected results:
-- `google.com` → `200` (OK) or `301` (redirects to www)
-- `google.com/nonexistent` → `404` (Not Found)
-- `httpstat.us/200` → `200`
-- `httpstat.us/404` → `404`
+Meanings:
+
+- `404` means Not Found.
+- `500` means Server Error.
 
 ---
 
-## Challenge 3 — Open Your Diary in TextEdit
+## Challenge 3 — Network Log Deep Dive
 
 ```bash
-open -a TextEdit ~/diary/journal.txt
+cd ~/mac-cli-for-kids/playground/mission_09
 ```
 
-This opens your journal file in TextEdit! You can read it with a nice GUI while still being able to edit it from Terminal too.
+Unique IP addresses:
 
-The alias version (for Mission 10):
 ```bash
-alias diary="open -a TextEdit ~/diary/journal.txt"
+grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' network_log.txt | sort -u | wc -l
 ```
 
-After adding this to `.zshrc`, you can just type `diary` and your journal opens!
+Expected answer: `13`.
+
+Most common IP address:
+
+```bash
+grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' network_log.txt | sort | uniq -c | sort -rn | head -3
+```
+
+Expected top IP: `10.0.0.99`.
+
+Unusual hours, around 2 AM or 3 AM:
+
+```bash
+grep -E ' 0[23]:' network_log.txt
+```
+
+This shows the expected backup/time-sync lines and the suspicious `10.0.0.99` timeout at `02:33:29`.
 
 ---
 
-## Challenge 4 — Download and Read
+## Challenge 4 — Download and Analyze
 
-Download Pride and Prejudice:
+Download the Sherlock Holmes text:
+
 ```bash
-curl -O https://www.gutenberg.org/files/1342/1342-0.txt
+curl -o mystery_novel.txt https://www.gutenberg.org/files/1661/1661-0.txt
 ```
 
-Count the words:
+Count words:
+
 ```bash
-wc -w 1342-0.txt
+wc -w mystery_novel.txt
 ```
 
-It should be around 122,000 words! For comparison:
-- Harry Potter Book 1: ~77,000 words
-- Pride and Prejudice: ~122,000 words
-- Average newspaper article: ~800 words
+Find lines mentioning Holmes:
 
-Clean up:
 ```bash
-rm 1342-0.txt
+grep -ni "holmes" mystery_novel.txt | head
+```
+
+Clean up when done:
+
+```bash
+rm mystery_novel.txt
 ```

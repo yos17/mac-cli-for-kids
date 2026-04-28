@@ -1,6 +1,6 @@
 # Mission 7 — Solutions
 
-## Challenge 1 — Personalize the Script
+## Challenge 1 — Personalize the Briefing Script
 
 Open the script and add more facts to the FACTS array:
 
@@ -20,10 +20,10 @@ FACTS=(
     "There are more possible chess games than atoms in the observable universe."
     "Crows can recognize human faces and hold grudges."
     # --- New facts ---
-    "Wombats produce cube-shaped poop. They are the only animals that do."
-    "A snail can sleep for three years."
-    "Cats have a special organ that lets them taste the air."
-    "The shortest war in history lasted 38 minutes."
+    "Eugene Francois Vidocq founded one of the first modern detective agencies in 1833."
+    "Kate Warne became the first female Pinkerton detective in 1856."
+    "Fingerprint evidence helped solve a murder case in Argentina in 1892."
+    "The FBI was founded in 1908."
 )
 ```
 
@@ -107,13 +107,13 @@ nano ~/welcome.sh
 #!/bin/bash
 # welcome.sh — Personalized greeting
 
-echo "What is your name?"
-read user_name
+echo "What is your detective code name?"
+read code_name
 
-echo "What is your favorite color?"
-read fav_color
+echo "What is your specialty?"
+read specialty
 
-MESSAGE="Welcome, $user_name! Your favorite color $fav_color is a great choice."
+MESSAGE="Welcome, Agent $code_name. Specialty confirmed: $specialty. Detective Academy is ready."
 
 echo ""
 echo "$MESSAGE"
@@ -148,10 +148,26 @@ bash ~/number_lock.sh
 
 Ideas to add:
 
+Change the success block so it reveals a message:
+
 ```bash
-if [ "$guess" -lt "$secret_number" ]; then
-    echo "Too low."
-else
-    echo "Too high."
+if [ "$guess" -eq "$secret_number" ]; then
+    echo "Case unlocked. Secret message: Trust the evidence."
+    exit 0
 fi
 ```
+
+After the existing `tries_left=$((tries_left - 1))` line, replace the "Not yet" block with warmer/colder hints:
+
+```bash
+if [ "$tries_left" -gt 0 ]; then
+    if [ "$guess" -lt "$secret_number" ]; then
+        echo "Too low. Warmer if you go higher."
+    else
+        echo "Too high. Warmer if you go lower."
+    fi
+    echo "Tries left: $tries_left"
+fi
+```
+
+To give the player 5 tries, change `tries_left=3` near the top to `tries_left=5`, and update the printed line so it says `You have 5 tries to unlock the case.`

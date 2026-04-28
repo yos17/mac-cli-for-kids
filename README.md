@@ -84,7 +84,7 @@ The Terminal uses characters that can be hard to find, especially on a German ke
 
 | Character | What it does | US Keyboard | German Keyboard |
 |-----------|-------------|-------------|-----------------|
-| `\|` (pipe) | Sends output to another command | Shift + `\` | Option + 7 |
+| `\|` (pipe) | Sends output to another command | Shift + `\` | Option + `/` |
 | `~` (tilde) | Means "your home folder" | Shift + `` ` `` | Option + N, then Space |
 | `\` (backslash) | Escape character | `\` key | Shift + Option + 7 |
 | `[` and `]` | Used in scripts | `[` and `]` keys | Option + 5 / Option + 6 |
@@ -92,7 +92,34 @@ The Terminal uses characters that can be hard to find, especially on a German ke
 | `@` | Used in email/variables | Shift + 2 | Option + L |
 | `#` | Starts a comment in scripts | Shift + 3 | Option + 3 |
 
-> **German keyboard tip:** The pipe character `|` (Option + 7) is used constantly in Mission 6. Practise finding it before you get there.
+> **German keyboard tip:** The pipe character `|` (Option + `/`) is used constantly in Mission 6. Practise finding it before you get there.
+
+---
+
+## Terminal Keyboard Tricks
+
+These habits make Terminal feel much less fussy. Learn them early and you will type less, fix mistakes faster, and avoid retyping long commands.
+
+| Shortcut | What it does |
+|----------|-------------|
+| Up arrow | Bring back the previous command |
+| Down arrow | Move forward through newer commands |
+| Tab | Complete a file or folder name |
+| Tab twice | Show possible completions when there is more than one match |
+| Ctrl + A | Move the cursor to the start of the line |
+| Ctrl + E | Move the cursor to the end of the line |
+| Ctrl + U | Delete everything before the cursor |
+| Ctrl + K | Delete everything after the cursor |
+| Ctrl + W | Delete the word before the cursor |
+| Ctrl + L | Clear the screen |
+| Ctrl + C | Stop the command that is currently running |
+| Ctrl + R | Search your command history |
+| Cmd + C | Copy selected text in Terminal |
+| Cmd + V | Paste text into Terminal |
+
+One important Mac detail: in Terminal, `Ctrl + C` means "stop this command." It does **not** mean copy. Use `Cmd + C` and `Cmd + V` for copy and paste.
+
+Finder trick: drag a file or folder from Finder into Terminal. macOS pastes the full path for you, which is especially helpful when names have spaces.
 
 ---
 

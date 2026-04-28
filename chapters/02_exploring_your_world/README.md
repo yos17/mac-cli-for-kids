@@ -241,7 +241,40 @@ cd Doc[TAB]
 
 It auto-completes to `Documents`! If there are multiple matches, press Tab twice to see them all.
 
-Tab completion works for file names too. Use it constantly — it saves time and prevents typos. Real detectives use every shortcut available.
+Tab completion works for file names too. Use it constantly — it saves time and prevents typos.
+
+If a name has spaces, Tab completion also adds the escaping for you:
+
+```bash
+cd My[TAB]
+```
+
+If the folder is called `My Case Files`, Terminal can complete it as:
+
+```bash
+cd My\ Case\ Files
+```
+
+The backslashes tell Terminal that the spaces are part of the folder name.
+
+### Drag From Finder
+
+Finder can help when a path is long. Drag any folder from Finder into Terminal and macOS pastes the full path.
+
+Try this:
+
+1. Open Finder.
+2. In Terminal, type `cd ` with a space after it.
+3. Drag your `mission_02` folder into Terminal.
+4. Press Enter after you understand what appeared.
+
+Terminal turns the dragged folder into a full path:
+
+```bash
+cd /Users/sophia/mac-cli-for-kids/playground/mission_02
+```
+
+Use your own path, not Sophia's.
 
 ### Paths — Absolute vs Relative
 
@@ -483,6 +516,8 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `cd ~` | Go to your home folder |
 | `cd /absolute/path` | Go to an exact location anywhere on your Mac |
 | `open .` | Open your current Terminal folder in Finder |
+| Tab | Complete a file or folder name |
+| Tab twice | Show matching file or folder names |
 
 ### Vocabulary
 

@@ -11,10 +11,10 @@ decode messages like this using the `base64` command.
 For now, try to decode it manually — or look ahead!
 
 The command to decode it would be:
-  echo "VGhlIFVTQiBkcml2ZSB3YXMgaW4gdGhlIGNvYXQgcG9ja2V0IGFsbCBhbG9uZyE=" | base64 --decode
+  echo "VGhlIFVTQiBkcml2ZSB3YXMgaW4gdGhlIGNvYXQgcG9ja2V0IGFsbCBhbG9uZyE=" | base64 -d
 
 Or if the encoded text was saved in a file called "clue.enc":
-  base64 --decode clue.enc
+  base64 -d -i clue.enc
 
 This is the exact message that solves the mystery in the diary.
 Once you can decode it, you'll know the twist ending before you

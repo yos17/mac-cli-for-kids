@@ -17,7 +17,7 @@ Save as `~/tables.sh`, run with `bash ~/tables.sh`.
 
 ---
 
-## Challenge 2 — FizzBuzz
+## Challenge 2 — FizzBuzz: The Classic Detective Test
 
 ```bash
 #!/bin/bash
@@ -80,18 +80,20 @@ if ! [[ "$seconds" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 
-for i in $(seq $seconds -1 1); do
+for i in $(seq $seconds -1 0); do
     echo "⏱ $i..."
-    sleep 1
+    if [ "$i" -gt 0 ]; then
+        sleep 1
+    fi
 done
 
-echo "Time's up!"
-say "Time's up!"
+echo "Time's up! Submit your findings!"
+say "Time's up! Submit your findings!"
 ```
 
 Save as `~/countdown.sh`, run with `bash ~/countdown.sh`.
 
-`seq $seconds -1 1` counts from `$seconds` down to 1, decrementing by 1. The `sleep 1` pauses for one second between each number.
+`seq $seconds -1 0` counts from `$seconds` down to 0, decrementing by 1. The `sleep 1` pauses for one second between each number, but the script skips that pause after it prints 0.
 
 ---
 

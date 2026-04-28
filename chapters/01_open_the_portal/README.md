@@ -1,22 +1,38 @@
 # Mission 1 — Open the Portal
 
-## Mission Briefing — Commander Chen Speaks
+## Mission Briefing
 
-*Incoming transmission...*
+_Briefing note_
 
-> "Agent, welcome to Detective Academy. I'm Commander Chen, and I'll be guiding you through your training. The world's best detectives don't just use magnifying glasses — they use the most powerful tool on their Mac: the **Terminal**. It looks like a plain black screen with blinking text, but in the right hands it is a supercomputer command center. Today you open that portal for the first time. Your mission: learn the five commands that every detective needs on Day One. Stand by."
+> "Agent, welcome to Detective Academy. Today you open the Terminal for the first time and learn five commands you can actually use right away. Small commands first. Real control later."
 
-You know how in movies, hackers type really fast into a black screen and suddenly take over entire computer systems? That black screen is called a **terminal** (or command line, or shell — people use these words interchangeably).
+The Terminal is the plain text window where you can talk to your Mac by typing commands. It is also called the command line or shell. Those words mean almost the same thing for now.
 
-Here's the truth: it's not magic. It's just a different way to talk to your computer. Instead of clicking on pictures (icons), you *type words*. And once you learn the words, you can do things that are completely impossible with clicking alone.
+It is not magic. It is a different kind of remote control. Instead of clicking icons, you type words. Once you learn the words, you can do things that are slow or impossible with clicking alone.
 
-Your Mac has been hiding this from you. Today you find it.
+Today is just the doorway.
 
 ### What You'll Learn
 - How to open Terminal
 - What the prompt means
 - Your first 5 commands: `whoami`, `date`, `echo`, `say`, `clear`
 - How to make your Mac talk out loud
+
+### First Win
+
+By the end of this mission, your Mac will print your words, speak out loud, and tell you exactly who and where you are.
+
+### Finder Bridge
+
+Terminal and Finder are looking at the same Mac. Finder shows folders with icons. Terminal shows folders with text.
+
+In Mission 2, you will use `pwd` to see where Terminal is standing. For now, remember this bridge command:
+
+```bash
+open .
+```
+
+The dot means "this folder".
 
 > **German keyboard?** The Terminal uses characters that are in different places on German keyboards — especially `|`, `~`, and `\`. Check the **Special Keys on Mac** table in the main README before you start, so you know where to find them when you need them.
 
@@ -268,7 +284,7 @@ You don't have to type all of this every time. In Mission 7, you'll learn how to
 
 ---
 
-## 🔍 Secret Code Hunt
+## Secret Code Hunt
 
 Every mission has a secret code word hidden somewhere in the playground folder. Find it and write it down — all 12 words across all 12 missions spell a secret message!
 

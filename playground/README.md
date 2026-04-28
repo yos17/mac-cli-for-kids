@@ -10,14 +10,29 @@
          A C A D E M Y   P L A Y G R O U N D
 ```
 
-## Your Mission, Should You Choose to Accept It...
+## What This Place Is
 
-You've been accepted into Detective Academy — an elite training program for
-terminal operatives. This playground is your training ground.
+This playground is the safe zone. The files in here are meant to be explored,
+renamed, searched, decoded, and occasionally messed up while you learn.
 
 Each folder (mission_01 through mission_12) contains real files to practice
 with. You'll use Terminal commands to navigate, search, read, organize, and
 decode your way through 12 missions.
+
+If you get lost, come back here:
+
+```bash
+cd ~/mac-cli-for-kids/playground
+ls
+```
+
+To see this same folder in Finder:
+
+```bash
+open .
+```
+
+Anything you create here from Terminal is a normal Finder file too.
 
 ---
 
@@ -101,6 +116,4 @@ ls -a
 cat .secret_code.txt
 ```
 
-Good luck, Detective. The Academy is counting on you.
-
-— Commander Chen, Director of Training Operations
+Start with one folder. One command. One tiny win.

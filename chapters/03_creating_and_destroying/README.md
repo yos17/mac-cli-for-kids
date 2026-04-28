@@ -1,8 +1,8 @@
 # Mission 3 — Creating & Destroying
 
-## Mission Briefing — Commander Chen Speaks
+## Mission Briefing
 
-*Incoming transmission...*
+_Briefing note_
 
 > "Agent, knowing how to navigate a crime scene is only half the job. A great detective also keeps meticulous records — creating evidence folders, organizing case files, archiving documents, and sometimes shredding files that are no longer needed. Today you learn to build and destroy. You'll create folders, make new files, copy evidence, move it to the right place, and permanently delete what needs to go. One warning: deleting in Terminal is not like deleting in Finder. There is no Trash can. No Undo. When I say gone, I mean gone. Understood? Then let's proceed."
 

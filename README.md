@@ -1,26 +1,65 @@
 # Terminal Quest: Detective Academy
 
-### A mission-based Terminal adventure for curious kids
+### A hands-on Terminal adventure for curious teens
 
 ---
 
-*This book is for anyone who is already braver than they know. Every time you open a Terminal window, you're doing something most adults are afraid to try. That makes you a detective.*
-
-*— Yosia*
+*Open the Terminal. Type one clear command. Watch the computer answer you directly. That little moment is the whole point of this book.*
 
 ---
 
 ## Welcome to Detective Academy
 
-Your Mac has a secret. Hidden inside it is a completely different way to control your computer — no clicking, no dragging, just you and a blinking cursor. It's called the **Terminal**, and it's where programmers, hackers, scientists, and engineers do their real work.
+Your Mac has a second language. Most people only use the clicking-and-dragging part. The Terminal lets you talk to the computer directly: make folders, search files, rename things in seconds, fetch data from the internet, and build tiny tools that are actually yours.
 
-This book teaches you how to use it. Not the boring way. The *mission* way.
+This is not a book you are supposed to sit and read like homework. It is a set of missions. Type the commands. Change them. Break something harmless. Fix it. Keep going.
 
 You are a recruit at the **Terminal Detective Academy**. Each chapter is a **Mission** — briefed by Commander Chen, equipped with new tools, and sent into a real folder full of case files, clues, and puzzles. At the end of all 12 missions, you'll unlock the final secret message.
 
 ---
 
-## How Setup Works
+## How to Use This Book
+
+- Do one mission at a time. A good session is 20-40 minutes.
+- Type the commands yourself. Copy-paste only when a script gets long.
+- Stay inside the `playground/` folders while learning.
+- Use Finder alongside Terminal. They show the same files, just in different ways.
+- If a command fails, read the error before trying again. The error is usually a clue.
+- Use starter code when the blank screen feels annoying.
+- Customize everything with your own names, colors, jokes, and ideas.
+
+The goal is not to memorize commands. The goal is to feel: "I can make my computer do things."
+
+---
+
+## Finder and Terminal Are the Same World
+
+Terminal does not have a separate file system. When Terminal says:
+
+```bash
+pwd
+```
+
+it prints the folder you are standing in. Finder can open that exact same folder:
+
+```bash
+open .
+```
+
+The `.` means "right here". So `open .` means "open this Terminal folder in Finder."
+
+Try using both views together:
+
+1. In Terminal, go to a mission folder.
+2. Run `pwd` to see the path.
+3. Run `open .` to see that same folder in Finder.
+4. Create or rename a file in Terminal, then watch it appear or change in Finder.
+
+You can also drag a Finder folder into Terminal. macOS will paste the folder's full path for you.
+
+---
+
+## Parent / Setup Safety Notes
 
 There are three parts to this project. Here's what each one does — and what it touches on your computer.
 
@@ -102,19 +141,20 @@ Some missions include starter files in `playground/` so you can begin with a wor
 | Rename 100 files instantly | `playground/mission_08/bulk_rename_lab/` |
 | Customize prompt colors | `playground/mission_10/prompt_colors_starter.zsh` |
 
-## How Each Mission Works
+## The Rhythm
 
-- **Mission Briefing** — Commander Chen gives you your assignment
-- **Your Case Files** — the real playground files you'll investigate
-- **New Commands** — the tools issued for this mission
-- **Step by Step** — every command shown with its exact output
-- **Starter Code** — small scaffold files for bigger projects
-- **Try It!** — quick experiments to run right now
-- **Your Mission** — the main program to build
-- **Challenges** — 3–4 real cases to crack using playground files
-- **🔍 Secret Code Hunt** — find the hidden `.secret_code.txt`
-- **Solutions** — answers in the `solutions/` folder
-- **Powers Unlocked** — your command cheat sheet
+Each mission follows the same rhythm, so you always know where you are:
+
+- **Briefing** — the story and the goal
+- **Case Files** — the real files you will touch
+- **New Commands** — the tools for this mission
+- **Step by Step** — examples with expected output
+- **Starter Code** — scaffolds for bigger builds
+- **Try It** — quick experiments that make the command feel real
+- **Challenges** — small cases to solve on your own
+- **Secret Code Hunt** — one hidden word per mission
+- **Solutions** — there when you need them
+- **Powers Unlocked** — the cheat sheet you can come back to later
 
 ## Getting Started
 
@@ -164,7 +204,7 @@ ls
 cat welcome.txt
 ```
 
-You're in. Your first case file is open. Let's go.
+You're in. Your first case file is open.
 
 ---
 
@@ -206,4 +246,4 @@ Claude can look at your Terminal screen and help guide you through the missions 
 
 ---
 
-*Written with love by Yosia, for his favorite person.*
+*Built for curious learners who like making computers do useful things.*

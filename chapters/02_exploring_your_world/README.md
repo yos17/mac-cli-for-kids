@@ -1,10 +1,10 @@
 # Mission 2 — Exploring Your World
 
-## Mission Briefing — Commander Chen Speaks
+## Mission Briefing
 
-*Incoming transmission...*
+_Briefing note_
 
-> "Agent, your first mission proved you can open the portal. Now you need to learn to move around inside it. A detective who can't navigate a crime scene is useless. Your Mac's file system is a maze of folders within folders — think of it as a building with rooms, hallways, and hidden basement vaults. Today you learn to explore it all without getting lost. Three commands: know where you are, see what's around you, move to a new location. Simple. Essential. Master them."
+> "Agent, your first mission opened the portal. Now you learn how to move around without getting lost. Your Mac's file system is a maze of folders within folders — like a building with rooms, hallways, and hidden basement vaults. Three commands will be your map: know where you are, see what's around you, and move to a new place."
 
 Every video game has a map. In Minecraft, you explore a world made of blocks. In Zelda, you explore dungeons and overworld. Your Mac's file system is exactly like that — a world full of folders (rooms) and files (evidence). The difference is that in Finder, you can only see what's right in front of you. In Terminal, you can see *everything* — where you are, what's around you, and jump to any location instantly with a single command.
 
@@ -14,8 +14,36 @@ Today you learn to navigate your Mac like a pro detective casing a building.
 - `pwd` — where am I right now?
 - `ls` — what's here?
 - `cd` — move to a different place
+- `open .` — show the current Terminal folder in Finder
 - How Mac's file system is organized
 - How to explore a multi-level folder maze
+
+---
+
+## Finder and Terminal: Same Folders, Two Views
+
+Before you go deeper, connect Terminal to what you already know.
+
+Finder is the visual map. Terminal is the typed map. They are not two different worlds.
+
+Try this:
+
+```bash
+pwd
+open .
+```
+
+`pwd` prints your current folder path. `open .` opens that same folder in Finder.
+
+Now make Finder show paths too:
+
+1. Open Finder.
+2. Choose **View > Show Path Bar**.
+3. Click through folders and watch the path at the bottom.
+
+That Finder path is the same kind of path Terminal uses with `cd`.
+
+One more useful trick: drag any Finder folder into Terminal. macOS pastes the full folder path automatically. This is great when a folder name has spaces.
 
 ---
 
@@ -421,6 +449,18 @@ ls -la ~ | grep "^\."
 
 Write down at least 3 hidden files you find. What do you think `.zshrc` might be for? (You'll open it in Mission 10!) Then compare: does the `mission_02` playground have any hidden files beyond `.secret_code.txt`?
 
+### Case #0205 — Finder Bridge
+
+Go to the locked vault in Terminal:
+
+```bash
+cd ~/mac-cli-for-kids/playground/mission_02/office/basement/vault/locked
+pwd
+open .
+```
+
+Finder should open the same folder. Read `treasure_map.txt` in Finder, then read it in Terminal with `cat treasure_map.txt`. Same file, two views.
+
 ---
 
 ## Solutions
@@ -442,6 +482,7 @@ Solutions are in the [solutions folder](solutions/README.md).
 | `cd ..` | Go up one level |
 | `cd ~` | Go to your home folder |
 | `cd /absolute/path` | Go to an exact location anywhere on your Mac |
+| `open .` | Open your current Terminal folder in Finder |
 
 ### Vocabulary
 

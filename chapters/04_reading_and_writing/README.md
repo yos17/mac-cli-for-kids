@@ -1,8 +1,8 @@
 # Mission 4 — Reading & Writing
 
-## Mission Briefing — Commander Chen Speaks
+## Mission Briefing
 
-*Incoming transmission...*
+_Briefing note_
 
 > "Agent, you've explored the file system and learned to organize it. Now comes one of the most critical skills in detective work: reading evidence carefully, and writing your findings down accurately. Today you master reading files — from quick peeks to scrolling through massive logs — and writing to files, from a single line to a full case diary. We've intercepted some encrypted materials in your playground folder. Your tools today will help you decode and document them. Pay attention to the difference between `>` and `>>`. Getting that wrong can erase an entire case file. Don't say I didn't warn you."
 

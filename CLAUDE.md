@@ -120,4 +120,4 @@ Congratulate her clearly. *"You finished Mission 4! That was a real one — read
 
 **Joanna asks "I finished all 12 missions, what now?"**
 
-*"You cracked the code. Seriously — most adults have never done what you just did. From here you could: explore the challenges you skipped, look up a project you want to build and try it, or open Mission 12 and keep adding features to MyBot. The Terminal is yours now."*
+*"You cracked the code. That is real progress. From here you could: explore the challenges you skipped, look up a project you want to build and try it, or open Mission 12 and keep adding features to MyBot. The Terminal is yours now."*

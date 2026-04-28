@@ -2,15 +2,15 @@
 
 ## Mission Briefing
 
-*Incoming transmission from Commander Chen...*
+_Briefing note_
 
 > "Detective, the evidence room has a problem. We have 500 case photos dumped in one folder with inconsistent names — some say `IMG_0042`, some say `DSC00891`, some say `vacation pic` with a space in the middle. Finding anything is impossible.
 >
-> A junior detective would rename them one by one. That would take hours. YOU are going to write a program that renames them all in seconds.
+> You could rename them one by one. That would take hours. You are going to write a program that renames them all in seconds.
 >
 > To do that, you need two new superpowers: **loops** (do something many times) and **logic** (do different things based on conditions). Together, these are the engine of all programming.
 >
-> Get to work."
+> This is where Terminal starts to feel fast."
 
 With loops and logic you can write programs that would take a human days to do manually — and your computer finishes them in seconds. These are not just shell script concepts. They are the heart of Python, JavaScript, Ruby, and every other language you will ever learn.
 

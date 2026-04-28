@@ -1,8 +1,8 @@
 # Mission 6 — Pipes & Superpowers
 
-## Mission Briefing — Commander Chen Speaks
+## Mission Briefing
 
-*Incoming transmission...*
+_Briefing note_
 
 > "Agent, you've made it to the final foundational mission. This is where everything comes together. We have two real case files waiting for you: `access_log.csv` — a 100-line server access log from a hacked building system — and `suspects_database.csv` — 20 suspected individuals. A single command won't crack either of these. You need to chain commands together. The pipe symbol `|` is how you build those chains. Today you learn the Unix way: each command does one thing perfectly, and you combine them into something unstoppable. Let's go."
 

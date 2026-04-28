@@ -1,8 +1,8 @@
 # Mission 5 — Finding Things
 
-## Mission Briefing — Commander Chen Speaks
+## Mission Briefing
 
-*Incoming transmission...*
+_Briefing note_
 
 > "Agent, this one's a real case. We have a folder with 35 files in it — reports, evidence logs, photos, data sheets — and we need to find a single name buried somewhere inside them: MARINA SANTOS. Without the right tools, you'd have to open every file by hand. That could take an hour. With `grep`, it takes three seconds. Today you become a file detective. You'll find any file on your entire Mac, search inside files for specific words, and combine searches for detective-level precision. One of those 35 files contains the name. Your job is to find it."
 

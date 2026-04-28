@@ -2,7 +2,7 @@
 
 ## Mission Briefing
 
-*Final transmission from Commander Chen...*
+_Final briefing_
 
 > "Detective.
 >
@@ -18,7 +18,7 @@
 >
 > When you finish, you will collect the final secret code and complete your Detective Academy graduation certificate. All twelve codes. All twelve missions.
 >
-> This is what you have been working toward.
+> This is the moment where the separate skills become one real project.
 >
 > — Commander Chen"
 
@@ -676,7 +676,7 @@ You have finished Terminal Quest: Detective Academy. But this is the beginning, 
 - *Learning Python* — Mark Lutz
 - *The Unix Programming Environment* — Kernighan and Pike (the original masters)
 
-The command line is not going anywhere. It has been the foundation of computing for fifty years and it will be for fifty more. The people who know it deeply have a superpower that most people — including most adults — do not have.
+The command line is not going anywhere. It has been part of computing for decades because it is fast, direct, and endlessly reusable. The people who know it can make their computers do work that would take forever by hand.
 
 You have it now.
 
@@ -692,8 +692,6 @@ You have it now.
 
 ---
 
-*— Yosia*
-
-*P.S. Be proud of yourself. Not because you finished the book, but because you opened Terminal in the first place. That takes courage. Most adults will not do it.*
+*P.S. Be proud of yourself. Not because you finished a tutorial, but because you learned by trying things, reading errors, and building your own tools.*
 
 *You did.*

@@ -2,13 +2,13 @@
 
 ## Mission Briefing
 
-*Incoming transmission from Commander Chen...*
+_Briefing note_
 
 > "Detective, we have intercepted suspicious network traffic. Connections from unknown IP addresses, requests at odd hours, packets going places they should not go.
 >
 > To investigate, you need to understand the internet the way it actually works — not through a browser, but through the raw protocols underneath. Today you learn to talk to the internet directly from Terminal.
 >
-> You will check if servers are reachable, fetch data from web services, and analyze a network log for suspicious activity. When you are done, you will know things about the internet that most adults do not.
+> You will check if servers are reachable, fetch data from web services, and analyze a network log for suspicious activity. When you are done, the internet will feel less like a black box and more like something you can inspect.
 >
 > The network does not lie. Neither do the logs."
 

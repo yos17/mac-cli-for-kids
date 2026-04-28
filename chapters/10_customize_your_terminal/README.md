@@ -2,7 +2,7 @@
 
 ## Mission Briefing
 
-*Incoming transmission from Commander Chen...*
+_Briefing note_
 
 > "Detective, every great investigator has a customized setup. Sherlock Holmes had his violin and his pipe. Modern detectives have their terminals.
 >

@@ -99,6 +99,7 @@ hint() {
         "Up arrow repeats your last command. Keep pressing for older ones."
         "Ctrl+C cancels a running command if it gets stuck."
         "Use 'pwd' any time you feel lost — it shows exactly where you are."
+        "open . shows your current Terminal folder in Finder."
         "Pipe commands together with | to chain them: ls | wc -l counts files."
         "The * wildcard matches anything: ls *.txt lists all text files."
         "man command shows the manual for any command. Press q to quit."

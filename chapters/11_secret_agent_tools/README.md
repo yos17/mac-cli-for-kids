@@ -2,7 +2,7 @@
 
 ## Mission Briefing
 
-*Incoming transmission from Commander Chen...*
+_Briefing note_
 
 > "Detective, this mission is classified.
 >

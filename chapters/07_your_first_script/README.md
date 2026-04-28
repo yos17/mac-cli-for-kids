@@ -2,13 +2,13 @@
 
 ## Mission Briefing
 
-*Incoming transmission from Commander Chen...*
+_Briefing note_
 
 > "Detective, you have been typing commands one at a time. That is fine for quick lookups. But real detectives don't repeat themselves. We write **procedures** — step-by-step instructions our equipment follows automatically.
 >
 > Today you will write your first **script**: a real program that runs a whole sequence of commands with a single word. By the time you finish, your computer will greet you by name, announce the date, share a random fact, and read the whole briefing out loud — all from one command.
 >
-> The Detective Academy is watching. Make us proud."
+> Build it once. Run it whenever you want."
 
 A script is exactly what Commander Chen described: a text file full of commands, saved so you can run them again and again. You have been typing commands live; now you package them. That is how real software works.
 
